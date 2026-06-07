@@ -1,0 +1,170 @@
+[
+  {
+    "id": "mv_popup",
+    "name": "Pop-Up",
+    "type": "fundamental",
+    "difficulty": "beginner",
+    "status": "practicing",
+    "description": "The explosive move from lying to standing as you catch the wave. Everything starts here.",
+    "cues": [
+      "Paddle hard, feel the wave take you",
+      "Hands flat under the chest, press up",
+      "Front foot jumps between the hands in one motion",
+      "Land low and centered, eyes down the line"
+    ],
+    "commonMistakes": [
+      "Coming up to the knees first",
+      "Looking down at the board",
+      "Standing too upright and stiff",
+      "Front foot landing too far back"
+    ],
+    "referenceUrls": {
+      "land": [
+        "https://www.youtube.com/results?search_query=surf+pop+up+drill+land+practice"
+      ],
+      "water": [
+        "https://www.youtube.com/results?search_query=surf+pop+up+technique+slow+motion"
+      ]
+    }
+  },
+  {
+    "id": "mv_bottom_turn",
+    "name": "Bottom Turn",
+    "type": "turn",
+    "difficulty": "beginner",
+    "status": "practicing",
+    "description": "The foundation of every maneuver. Sets your line and stores the energy for the next move.",
+    "cues": [
+      "Look where you want to go",
+      "Compress and load through the bottom",
+      "Drive off the back foot, weight on the rail",
+      "Project up toward the lip or section"
+    ],
+    "commonMistakes": [
+      "Turning too flat (no rail engagement)",
+      "Standing tall instead of compressing",
+      "Not looking up the line",
+      "Rushing the turn"
+    ],
+    "referenceUrls": {
+      "land": [
+        "https://www.youtube.com/results?search_query=surf+bottom+turn+land+projection+drill"
+      ],
+      "water": [
+        "https://www.youtube.com/results?search_query=surf+bottom+turn+technique"
+      ]
+    }
+  },
+  {
+    "id": "mv_cutback",
+    "name": "Cutback",
+    "type": "turn",
+    "difficulty": "intermediate",
+    "status": "learning",
+    "description": "Carving back toward the pocket and the wave's power source after racing the open face.",
+    "cues": [
+      "Spot the pocket, that's your target",
+      "Lead with the head and shoulders",
+      "Carve smoothly, weight on the rail",
+      "Come back off the foam to reconnect"
+    ],
+    "commonMistakes": [
+      "Sliding the tail instead of carving",
+      "Not rotating the upper body enough",
+      "Losing speed before the turn",
+      "Looking at the nose instead of the exit"
+    ],
+    "referenceUrls": {
+      "land": [
+        "https://www.youtube.com/results?search_query=surf+cutback+land+projection+drill"
+      ],
+      "water": [
+        "https://www.youtube.com/results?search_query=surf+cutback+tutorial"
+      ]
+    }
+  },
+  {
+    "id": "mv_top_turn",
+    "name": "Top Turn / Re-Entry",
+    "type": "turn",
+    "difficulty": "intermediate",
+    "status": "learning",
+    "description": "Redirecting off the top of the wave back down toward the base.",
+    "cues": [
+      "Use bottom-turn speed to project up",
+      "Hit the section with commitment",
+      "Pivot off the top, eyes back down",
+      "Absorb the drop with bent knees"
+    ],
+    "commonMistakes": [
+      "Hitting the lip too softly",
+      "Leaning back and stalling",
+      "Not enough speed coming in",
+      "Stiff legs on the way down"
+    ],
+    "referenceUrls": {
+      "land": [
+        "https://www.youtube.com/results?search_query=surf+top+turn+land+projection+drill"
+      ],
+      "water": [
+        "https://www.youtube.com/results?search_query=surf+top+turn+re-entry+technique"
+      ]
+    }
+  },
+  {
+    "id": "mv_snap",
+    "name": "Snap",
+    "type": "advanced",
+    "difficulty": "advanced",
+    "status": "wishlist",
+    "description": "A sharp, vertical redirection off the top of the wave with spray.",
+    "cues": [
+      "Approach vertically with speed",
+      "Quick, aggressive rotation off the top",
+      "Throw the tail with the back foot",
+      "Recover centered and ride out"
+    ],
+    "commonMistakes": [
+      "Too much speed lost beforehand",
+      "Over-rotating and falling off the back",
+      "Not committing to vertical",
+      "Weight too far forward"
+    ],
+    "referenceUrls": {
+      "land": [
+        "https://www.youtube.com/results?search_query=surf+snap+land+projection+drill"
+      ],
+      "water": [
+        "https://www.youtube.com/results?search_query=how+to+do+a+snap+surfing"
+      ]
+    }
+  },
+  {
+    "id": "mv_floater",
+    "name": "Floater",
+    "type": "advanced",
+    "difficulty": "intermediate",
+    "status": "wishlist",
+    "description": "Riding over the top of a breaking section to get past it and back down.",
+    "cues": [
+      "Approach the section with speed",
+      "Stay light, ride up and over the whitewater",
+      "Keep weight centered over the board",
+      "Spot your landing and absorb it"
+    ],
+    "commonMistakes": [
+      "Leaning back on the way up",
+      "Not enough speed to carry over",
+      "Stiff landing causing a nosedive",
+      "Hesitating at the lip"
+    ],
+    "referenceUrls": {
+      "land": [
+        "https://www.youtube.com/results?search_query=surf+floater+land+projection+drill"
+      ],
+      "water": [
+        "https://www.youtube.com/results?search_query=how+to+floater+surfing"
+      ]
+    }
+  }
+]

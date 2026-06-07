@@ -1,0 +1,50 @@
+[
+  {
+    "id": "src_stoked_fit",
+    "title": "Surf training & mobility (YouTube search)",
+    "url": "https://www.youtube.com/results?search_query=surf+training+strength+and+mobility",
+    "category": "gym",
+    "tags": ["strength", "conditioning", "video"],
+    "notes": "Broad search for surf-specific land training programs."
+  },
+  {
+    "id": "src_technique_breakdowns",
+    "title": "Surf technique breakdowns (YouTube search)",
+    "url": "https://www.youtube.com/results?search_query=surf+technique+breakdown+coaching",
+    "category": "technique",
+    "tags": ["coaching", "maneuvers", "video"],
+    "notes": "Maneuver tutorials and slow-motion technique analysis."
+  },
+  {
+    "id": "src_yoga_for_surfers",
+    "title": "Yoga & flexibility for surfers (YouTube search)",
+    "url": "https://www.youtube.com/results?search_query=yoga+for+surfers+flexibility",
+    "category": "flexibility",
+    "tags": ["yoga", "mobility", "recovery", "video"],
+    "notes": "Mobility and flexibility flows tailored to surfing."
+  },
+  {
+    "id": "src_surfskate_lessons",
+    "title": "Surfskate lessons & drills (YouTube search)",
+    "url": "https://www.youtube.com/results?search_query=surfskate+lessons+for+surfers",
+    "category": "surfskate",
+    "tags": ["carving", "drills", "video"],
+    "notes": "Surfskate drills that transfer to wave riding."
+  },
+  {
+    "id": "src_surfline",
+    "title": "Surfline - forecasts & surf science",
+    "url": "https://www.surfline.com",
+    "category": "general",
+    "tags": ["forecast", "conditions", "reading"],
+    "notes": "Forecasts and articles on waves and surf knowledge."
+  },
+  {
+    "id": "src_barefoot",
+    "title": "Barefoot Surf Training (technique tutorials)",
+    "url": "https://www.youtube.com/results?search_query=barefoot+surf+training",
+    "category": "technique",
+    "tags": ["tutorials", "fundamentals", "video"],
+    "notes": "Clear, structured tutorials on surf fundamentals and progression."
+  }
+]

@@ -1,0 +1,47 @@
+# Cursor collapse diagnostic — 2026-06-06 ~22:27–22:39
+# Log sources: ~/Library/Application Support/Cursor/logs/20260606T124705/
+
+## Symptom
+Agent chat refreshes / collapses mid-run; verification never completes; session state lost.
+
+## Root cause (confirmed, repeated 8+ times tonight)
+
+Browser MCP hydration-check workflow triggers extension-host restart:
+
+1. Agent calls browser MCP: navigate → lock → CDP Emulation → Log.enable → Runtime.enable → Page.reload
+2. Renderer floods console via WebviewBrowserManager; retention cap engages
+3. Main UI thread blocks ~15s (RendererPing threshold)
+4. Extension hosts exit; Browser Automation MCP Provider disposed
+5. In-flight browser_cdp calls canceled; agent IPC disconnects
+6. Cursor window reloads extension host; chat/agent state lost
+
+## Key log lines (verbatim)
+
+### main.log
+[RendererPing] enabled (intervalMs=5000, blockThresholdMs=15000, stacks=true)
+[RendererPing] window 7 (pid 89938) blocked for ~15003ms
+Extension host with pid 85113 exited with code: 0
+[PowerMainService] Releasing 1 orphaned wakelock(s) for owner=window:7 releaseReason=ipc-client-disconnect
+
+### renderer.log (repeats on every attempt)
+[WebviewBrowserManager] Console-log retention cap engaged; older or duplicate entries will be elided.
+OpenInBrowserWatcher: Detected URL to open - Pattern: nextjs, URL: http://localhost:3000
+
+### Cursor IDE Browser Automation.log (typical crash sequence)
+Executing tool: browser_cdp ... Log.enable
+Executing tool: browser_cdp ... Runtime.enable
+Executing tool: browser_cdp ... Page.reload ... ignoreCache:true
+Browser Automation MCP Provider disposed
+Error executing tool browser_cdp:: Canceled
+
+## Contributing factors
+- CDP Log.enable + Runtime.enable + injected console capture = high log volume
+- Multiple navigates/reloads per hydration check
+- npm run dev stdout triggers OpenInBrowserWatcher (extra browser activity)
+- Long shell Await (45s+) on dev-server startup also interrupted prior runs
+
+## Safer alternatives for verification
+- Run Playwright/puppeteer script in terminal (no Browser MCP)
+- Manual check in browser DevTools
+- Split agent steps: start dev server first, verify in separate message
+- Avoid Log.enable/Runtime.enable; use Runtime.evaluate once after load

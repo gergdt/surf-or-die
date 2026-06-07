@@ -1,0 +1,97 @@
+[
+  {
+    "id": "rt_legs_power",
+    "name": "Leg Power for Pop-Ups & Turns",
+    "category": "gym",
+    "focus": "legs",
+    "description": "Lower-body strength and explosiveness for fast pop-ups and powerful turns.",
+    "estMinutes": 45,
+    "items": [
+      { "exerciseId": "ex_back_squat", "sets": 4, "reps": 6, "restSec": 120 },
+      { "exerciseId": "ex_bulgarian_split_squat", "sets": 3, "reps": 10, "restSec": 90 },
+      { "exerciseId": "ex_single_leg_rdl", "sets": 3, "reps": 8, "restSec": 90 },
+      { "exerciseId": "ex_box_jump", "sets": 4, "reps": 5, "restSec": 90 }
+    ]
+  },
+  {
+    "id": "rt_back_paddle",
+    "name": "Paddle Power (Back)",
+    "category": "gym",
+    "focus": "back",
+    "description": "Build the pulling strength and endurance that makes paddling effortless.",
+    "estMinutes": 40,
+    "items": [
+      { "exerciseId": "ex_pull_up", "sets": 4, "reps": 8, "restSec": 120 },
+      { "exerciseId": "ex_bent_over_row", "sets": 4, "reps": 10, "restSec": 90 },
+      { "exerciseId": "ex_kettlebell_swing", "sets": 4, "reps": 15, "restSec": 75 }
+    ]
+  },
+  {
+    "id": "rt_chest_popup",
+    "name": "Pop-Up Press (Chest)",
+    "category": "gym",
+    "focus": "chest",
+    "description": "Pressing strength so you snap off the deck and onto your feet.",
+    "estMinutes": 35,
+    "items": [
+      { "exerciseId": "ex_db_bench_press", "sets": 4, "reps": 10, "restSec": 90 },
+      { "exerciseId": "ex_push_up", "sets": 3, "reps": 15, "restSec": 60 },
+      { "exerciseId": "ex_pop_up_drill", "sets": 4, "reps": 8, "restSec": 60 }
+    ]
+  },
+  {
+    "id": "rt_core_rotation",
+    "name": "Core & Rotational Control",
+    "category": "gym",
+    "focus": "rotational",
+    "description": "Anti-rotation stability plus explosive rotation for turns and snaps.",
+    "estMinutes": 30,
+    "items": [
+      { "exerciseId": "ex_plank", "sets": 3, "durationSec": 45, "restSec": 45 },
+      { "exerciseId": "ex_pallof_press", "sets": 3, "reps": 12, "restSec": 45 },
+      { "exerciseId": "ex_cable_woodchopper", "sets": 3, "reps": 12, "restSec": 60 },
+      { "exerciseId": "ex_russian_twist", "sets": 3, "reps": 20, "restSec": 45 }
+    ]
+  },
+  {
+    "id": "rt_mobility_daily",
+    "name": "Daily Surf Mobility",
+    "category": "flexibility",
+    "focus": "fullbody",
+    "description": "A 15-minute flow to stay loose, mobile and surf-ready.",
+    "estMinutes": 15,
+    "items": [
+      { "exerciseId": "fl_cat_cow", "sets": 1, "reps": 10, "restSec": 15 },
+      { "exerciseId": "fl_worlds_greatest_stretch", "sets": 2, "reps": 6, "restSec": 20 },
+      { "exerciseId": "fl_thoracic_rotation", "sets": 2, "reps": 10, "restSec": 20 },
+      { "exerciseId": "fl_shoulder_dislocates", "sets": 2, "reps": 10, "restSec": 20 }
+    ]
+  },
+  {
+    "id": "rt_hip_opener",
+    "name": "Hip & Ankle Opener",
+    "category": "flexibility",
+    "focus": "hips",
+    "description": "Deeper crouch and smoother rail work through better hips and ankles.",
+    "estMinutes": 18,
+    "items": [
+      { "exerciseId": "fl_90_90_hip", "sets": 2, "durationSec": 60, "restSec": 15 },
+      { "exerciseId": "fl_couch_stretch", "sets": 2, "durationSec": 90, "restSec": 20 },
+      { "exerciseId": "fl_ankle_dorsiflexion", "sets": 2, "reps": 12, "restSec": 15 }
+    ]
+  },
+  {
+    "id": "rt_surfskate_flow",
+    "name": "Surfskate Flow Session",
+    "category": "surfskate",
+    "focus": "carving",
+    "description": "Build the carving rhythm and balance that transfers straight to the water.",
+    "estMinutes": 25,
+    "items": [
+      { "exerciseId": "sk_pumping", "sets": 4, "durationSec": 60, "restSec": 30 },
+      { "exerciseId": "sk_carving_figure8", "sets": 4, "durationSec": 90, "restSec": 30 },
+      { "exerciseId": "sk_tic_tac", "sets": 3, "durationSec": 45, "restSec": 30 },
+      { "exerciseId": "sk_cutback", "sets": 4, "reps": 8, "restSec": 45 }
+    ]
+  }
+]

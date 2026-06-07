@@ -1,0 +1,114 @@
+import type { Category, Session } from "./types";
+import { CATEGORY_LIST } from "./categories";
+import { localDateKey } from "./utils";
+
+export function sessionDateKey(s: Session): string {
+  return s.date.slice(0, 10);
+}
+
+/** Consecutive-day streak ending today or yesterday. */
+export function computeStreak(sessions: Session[]): number {
+  if (sessions.length === 0) return 0;
+  const days = new Set(sessions.map(sessionDateKey));
+  let streak = 0;
+  const cursor = new Date();
+  cursor.setHours(0, 0, 0, 0);
+
+  // Allow the streak to count if today has no session yet but yesterday does.
+  const todayKey = localDateKey(cursor);
+  if (!days.has(todayKey)) {
+    cursor.setDate(cursor.getDate() - 1);
+  }
+
+  while (days.has(localDateKey(cursor))) {
+    streak += 1;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return streak;
+}
+
+export function sessionsThisWeek(sessions: Session[]): number {
+  const now = new Date();
+  const start = new Date(now);
+  const day = (now.getDay() + 6) % 7; // Monday = 0
+  start.setDate(now.getDate() - day);
+  start.setHours(0, 0, 0, 0);
+  return sessions.filter((s) => new Date(`${sessionDateKey(s)}T00:00:00`) >= start)
+    .length;
+}
+
+export function countByCategory(
+  sessions: Session[],
+): { category: Category; label: string; count: number; color: string }[] {
+  return CATEGORY_LIST.map((c) => ({
+    category: c.id,
+    label: c.short,
+    count: sessions.filter((s) => s.category === c.id).length,
+    color: `var(--${c.id})`,
+  }));
+}
+
+export interface WeekBucket {
+  label: string;
+  start: Date;
+  count: number;
+}
+
+export function weeklyActivity(sessions: Session[], weeks = 8): WeekBucket[] {
+  const buckets: WeekBucket[] = [];
+  const now = new Date();
+  const monday = new Date(now);
+  const day = (now.getDay() + 6) % 7;
+  monday.setDate(now.getDate() - day);
+  monday.setHours(0, 0, 0, 0);
+
+  for (let i = weeks - 1; i >= 0; i--) {
+    const start = new Date(monday);
+    start.setDate(monday.getDate() - i * 7);
+    const end = new Date(start);
+    end.setDate(start.getDate() + 7);
+    const count = sessions.filter((s) => {
+      const d = new Date(`${sessionDateKey(s)}T00:00:00`);
+      return d >= start && d < end;
+    }).length;
+    buckets.push({
+      label: start.toLocaleDateString(undefined, {
+        day: "numeric",
+        month: "short",
+      }),
+      start,
+      count,
+    });
+  }
+  return buckets;
+}
+
+/** Best (max) weight logged per session date for a given exercise. */
+export function exerciseWeightTrend(
+  sessions: Session[],
+  exerciseId: string,
+): { date: string; best: number }[] {
+  const points: { date: string; best: number }[] = [];
+  for (const s of sessions) {
+    const entry = s.entries.find((e) => e.exerciseId === exerciseId);
+    if (!entry) continue;
+    const best = Math.max(
+      0,
+      ...entry.setLogs.map((set) => set.weightKg ?? 0),
+    );
+    if (best > 0) points.push({ date: sessionDateKey(s), best });
+  }
+  return points.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+export function totalVolume(session: Session): number {
+  return session.entries.reduce(
+    (sum, e) =>
+      sum +
+      e.setLogs.reduce(
+        (s, set) => s + (set.weightKg ?? 0) * (set.reps ?? 0),
+        0,
+      ),
+    0,
+  );
+}
