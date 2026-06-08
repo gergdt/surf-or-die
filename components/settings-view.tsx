@@ -5,11 +5,12 @@ import {
   Ruler,
   SunMoon,
   Sparkles,
-  Cloud,
   Download,
   Trash2,
   Info,
 } from "lucide-react";
+import { CloudSyncIcon, CloudSyncPanel } from "@/components/cloud-sync-panel";
+import { HevySyncIcon, HevySyncPanel } from "@/components/hevy-sync-panel";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -103,15 +104,21 @@ export function SettingsView() {
         />
       </SettingRow>
 
-      <SettingRow
-        icon={<Cloud className="size-4" />}
-        title="Cloud sync"
-        description="Sync across devices. Coming soon - your data stays on this device for now."
-      >
-        <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-          Coming soon
-        </span>
-      </SettingRow>
+      <Card className="p-4">
+        <div className="flex items-center gap-2">
+          <HevySyncIcon />
+          <span className="font-medium">Hevy exercises</span>
+        </div>
+        <HevySyncPanel />
+      </Card>
+
+      <Card className="p-4">
+        <div className="flex items-center gap-2">
+          <CloudSyncIcon />
+          <span className="font-medium">Cloud sync</span>
+        </div>
+        <CloudSyncPanel />
+      </Card>
 
       <section className="space-y-2">
         <h2 className="text-sm font-semibold text-muted-foreground">Data</h2>

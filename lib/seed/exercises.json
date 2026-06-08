@@ -37,7 +37,16 @@
       "With the other leg, bend the hip and knee to 90 degrees. You may brace your leg with your hands if necessary. This will be your starting position.",
       "Extend your leg straight into the air, pausing briefly at the top. Return the leg to the starting position.",
       "Repeat for 10-20 repetitions, and then switch to the other leg."
-    ]
+    ],
+    "surfTransfer": {
+      "baseScore": 84,
+      "demands": {
+        "mobility": 5,
+        "stanceBalance": 3
+      },
+      "tier": "high",
+      "rationale": "Hip internal/external rotation for deeper squats and rail work."
+    }
   },
   {
     "id": "fl_ankle_dorsiflexion",
@@ -76,7 +85,16 @@
       "Stand facing a wall from a couple feet away.",
       "Lean against the wall, placing your weight on your forearms.",
       "Attempt to keep your heels on the ground. Hold for 10-20 seconds. You may move further or closer the wall, making it more or less difficult, respectively."
-    ]
+    ],
+    "surfTransfer": {
+      "baseScore": 85,
+      "demands": {
+        "mobility": 5,
+        "stanceBalance": 3
+      },
+      "tier": "high",
+      "rationale": "Ankle range enables a deeper crouch and smoother rail engagement."
+    }
   },
   {
     "id": "fl_cat_cow",
@@ -115,7 +133,15 @@
       "Position yourself on the floor on your hands and knees.",
       "Pull your belly in and round your spine, lower back, shoulders, and neck, letting your head drop.",
       "Hold for 15 seconds."
-    ]
+    ],
+    "surfTransfer": {
+      "baseScore": 72,
+      "demands": {
+        "mobility": 4
+      },
+      "tier": "medium",
+      "rationale": "Spine mobility warm-up for paddling and rotation."
+    }
   },
   {
     "id": "fl_couch_stretch",
@@ -155,7 +181,15 @@
       "Start off on your hands and knees, then lift your leg off the floor and hold the foot with your hand.",
       "Use your hand to hold the foot or ankle, keeping the knee fully flexed, stretching the quadriceps and hip flexors.",
       "Focus on extending your hips, thrusting them towards the floor. Hold for 10-20 seconds and then switch sides."
-    ]
+    ],
+    "surfTransfer": {
+      "baseScore": 78,
+      "demands": {
+        "mobility": 5
+      },
+      "tier": "high",
+      "rationale": "Hip flexor length for a lower, more stable surf stance."
+    }
   },
   {
     "id": "fl_shoulder_dislocates",
@@ -198,7 +232,16 @@
       "Stand up straight with your legs together, holding a bodybar or broomstick.",
       "Hold the pole behind your hips with a wider than shoulder width grip. Your palms should be down and your thumbs facing out.",
       "Slowly lift your arms up behind your head. Don't force it if it gets hard to lift further."
-    ]
+    ],
+    "surfTransfer": {
+      "baseScore": 76,
+      "demands": {
+        "mobility": 4,
+        "paddlePower": 2
+      },
+      "tier": "high",
+      "rationale": "Shoulder mobility supports overhead paddle recovery and arm rotation."
+    }
   },
   {
     "id": "fl_thoracic_rotation",
@@ -243,7 +286,16 @@
       "Interlace your fingers behind your head, elbows out and your chin down.",
       "Twist your upper body to one side about 3 times as far as you can. Then lean forward and twist your torso to reach your elbow to the floor on the inside of your knee.",
       "Return to upright position and then repeat for your other side."
-    ]
+    ],
+    "surfTransfer": {
+      "baseScore": 86,
+      "demands": {
+        "mobility": 4,
+        "rotation": 4
+      },
+      "tier": "high",
+      "rationale": "Thoracic mobility unlocks shoulder rotation for turns and paddling posture."
+    }
   },
   {
     "id": "fl_worlds_greatest_stretch",
@@ -285,7 +337,16 @@
       "This is a three-part stretch. Begin by lunging forward, with your front foot flat on the ground and on the toes of your back foot. With your knees bent, squat down until your knee is almost touching the ground. Keep your torso erect, and hold this position for 10-20 seconds.",
       "Now, place the arm on the same side as your front leg on the ground, with the elbow next to the foot. Your other hand should be placed on the ground, parallel to your lead leg, to help support you during this portion of the stretch.",
       "After 10-20 seconds, place your hands on either side of your front foot. Raise the toes of the front foot off of the ground, and straighten your leg. You may need to reposition your rear leg to do so. Hold for 10-20 seconds, and then repeat the entire sequence for the other side."
-    ]
+    ],
+    "surfTransfer": {
+      "baseScore": 82,
+      "demands": {
+        "mobility": 5,
+        "rotation": 2
+      },
+      "tier": "high",
+      "rationale": "Full-body mobility flow targeting hips, thoracic spine, and hamstrings."
+    }
   },
   {
     "id": "ex_hevy_3bc06ad3",
@@ -327,7 +388,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00311201-Barbell-Curl_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00311201-Barbell-Curl_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00311201-Barbell-Curl_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_43573bb8",
@@ -370,7 +437,16 @@
     "defaultDurationSec": 45,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/38931101-Assault-Bike-Run_Cardio_small.jpg",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/38931101-Assault-Bike-Run_Cardio_small_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/38931101-Assault-Bike-Run_Cardio_small_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_d4a2fe7e",
@@ -411,7 +487,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02881201-Dumbbell-Around-Pullover_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02881201-Dumbbell-Around-Pullover_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02881201-Dumbbell-Around-Pullover_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_a05c064d",
@@ -452,7 +536,16 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05731201-Lever-Back-Extension_Waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05731201-Lever-Back-Extension_Waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05731201-Lever-Back-Extension_Waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 10,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_back_squat",
@@ -502,7 +595,16 @@
     ],
     "hevyTemplateId": "4F5866F8",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/18601201-Hyperextension-(VERSION-2)_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/18601201-Hyperextension-(VERSION-2)_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/18601201-Hyperextension-(VERSION-2)_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 75,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 3
+      },
+      "tier": "high",
+      "rationale": "Foundational leg strength for explosive pop-ups and bottom turns."
+    }
   },
   {
     "id": "ex_hevy_084a67ca",
@@ -546,7 +648,16 @@
     "defaultDurationSec": 45,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01281201-Battling-Ropes.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01281201-Battling-Ropes_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01281201-Battling-Ropes_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_ddb29047",
@@ -588,7 +699,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/63651201-EZ-Barbell-Standing-Back-Wrist-Curl_Forearms_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/63651201-EZ-Barbell-Standing-Back-Wrist-Curl_Forearms_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/63651201-EZ-Barbell-Standing-Back-Wrist-Curl_Forearms_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_2dbca395",
@@ -632,7 +749,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/48381201-Cable-Unilateral-Bicep-Curl_Upper-Arms_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/48381201-Cable-Unilateral-Bicep-Curl_Upper-Arms_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/48381201-Cable-Unilateral-Bicep-Curl_Upper-Arms_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_3d1cdc75",
@@ -678,7 +803,18 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/29501201-Lever-Belt-Squat_Thighs_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/29501201-Lever-Belt-Squat_Thighs_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/29501201-Lever-Belt-Squat_Thighs_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 53,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 5,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds stance & balance and paddle power for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_cd6dc8e5",
@@ -724,7 +860,15 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/13991201-Bench-dip-on-floor_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/13991201-Bench-dip-on-floor_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/13991201-Bench-dip-on-floor_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 39,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_35b51b87",
@@ -770,7 +914,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00301201-Barbell-Close-Grip-Bench-Press_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00301201-Barbell-Close-Grip-Bench-Press_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00301201-Barbell-Close-Grip-Bench-Press_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_e644f828",
@@ -815,7 +967,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01221201-Barbell-Wide-Bench-Press_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01221201-Barbell-Wide-Bench-Press_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01221201-Barbell-Wide-Bench-Press_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_99c1f2ad",
@@ -863,7 +1023,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00251201-Barbell-Bench-Press_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00251201-Barbell-Bench-Press_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00251201-Barbell-Bench-Press_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 32,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_bent_over_row",
@@ -911,7 +1080,15 @@
     ],
     "hevyTemplateId": "EA820646",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/38991201-Band-bent-over-row-(male)_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/38991201-Band-bent-over-row-(male)_Back_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/38991201-Band-bent-over-row-(male)_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 86,
+      "demands": {
+        "paddlePower": 5
+      },
+      "tier": "high",
+      "rationale": "Horizontal pulling strength supports paddling endurance and power."
+    }
   },
   {
     "id": "ex_hevy_a5ac6449",
@@ -953,7 +1130,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00311201-Barbell-Curl_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00311201-Barbell-Curl_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00311201-Barbell-Curl_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_box_jump",
@@ -999,7 +1182,16 @@
     ],
     "hevyTemplateId": "56092DD1",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/71591201-Jump-Box-(female)_Plyometrics_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/71591201-Jump-Box-(female)_Plyometrics_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/71591201-Jump-Box-(female)_Plyometrics_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 90,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 3
+      },
+      "tier": "high",
+      "rationale": "Explosive leg power for fast pop-ups and committed turns."
+    }
   },
   {
     "id": "ex_hevy_38fc1ab9",
@@ -1046,7 +1238,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/49621201-Barbell-Box-Squat_Hips_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/49621201-Barbell-Box-Squat_Hips_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/49621201-Barbell-Box-Squat_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 49,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 5,
+        "stanceBalance": 4
+      },
+      "tier": "medium",
+      "rationale": "Builds pop-up and paddle power for better wave performance."
+    }
   },
   {
     "id": "ex_bulgarian_split_squat",
@@ -1091,7 +1293,16 @@
     ],
     "hevyTemplateId": "B5D3A742",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/22901201-Dumbbell-Bulgarian-Split-Squat-(female)_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22901101-Dumbbell-Bulgarian-Split-Squat-(female)_Thighs_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22901101-Dumbbell-Bulgarian-Split-Squat-(female)_Thighs_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 88,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 3
+      },
+      "tier": "high",
+      "rationale": "Single-leg strength and balance translate directly to a stable surf stance."
+    }
   },
   {
     "id": "ex_hevy_9dce2d64",
@@ -1132,7 +1343,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/10301201-Lever-Pec-Deck-Fly_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/10301201-Lever-Pec-Deck-Fly_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/10301201-Lever-Pec-Deck-Fly_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_cc55119b",
@@ -1175,7 +1394,17 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12021201-Cable-horizontal-Pallof-Press_waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12021201-Cable-horizontal-Pallof-Press_waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12021201-Cable-horizontal-Pallof-Press_waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "popUp": 3,
+        "rotation": 5,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_651f844c",
@@ -1214,7 +1443,15 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12691201-Cable-Standing-Up-Straight-Crossovers_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12691201-Cable-Standing-Up-Straight-Crossovers_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12691201-Cable-Standing-Up-Straight-Crossovers_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 7,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_8c331cd8",
@@ -1254,7 +1491,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12061201-Cable-pull-through_hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12061201-Cable-pull-through_hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12061201-Cable-pull-through_hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 32,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_92d858ea",
@@ -1297,7 +1544,19 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12071201-Cable-twist-(down-up)_waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12071201-Cable-twist-(down-up)_waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12071201-Cable-twist-(down-up)_waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 33,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3,
+        "rotation": 5,
+        "mobility": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_cable_woodchopper",
@@ -1347,7 +1606,16 @@
     ],
     "hevyTemplateId": "23A48484",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01751201-Cable-Kneeling-Crunch_Waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01751201-Cable-Kneeling-Crunch_Waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01751201-Cable-Kneeling-Crunch_Waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 88,
+      "demands": {
+        "rotation": 5,
+        "stanceBalance": 2
+      },
+      "tier": "high",
+      "rationale": "Explosive rotation for cutbacks, snaps, and re-entries."
+    }
   },
   {
     "id": "ex_hevy_47b9df13",
@@ -1385,7 +1653,16 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/23151201-Lever-Rotary-Calf_Calves.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/23151201-Lever-Rotary-Calf_Calves_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/23151201-Lever-Rotary-Calf_Calves_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 9,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_91237bdd",
@@ -1425,7 +1702,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/07381201-Sled-45-Calf-Press_Calves.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/07381201-Sled-45-Calf-Press_Calves_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/07381201-Sled-45-Calf-Press_Calves_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 9,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_6fcd7755",
@@ -1470,7 +1756,18 @@
     "defaultReps": 12,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02511201-Chest-Dip_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02511201-Chest-Dip_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02511201-Chest-Dip_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 34,
+      "demands": {
+        "popUp": 3,
+        "mobility": 4,
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_78683336",
@@ -1515,7 +1812,18 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05961201-Lever-Seated-Fly_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05961201-Lever-Seated-Fly_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05961201-Lever-Seated-Fly_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 34,
+      "demands": {
+        "popUp": 3,
+        "mobility": 4,
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_eac7d9c5",
@@ -1560,7 +1868,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/09201201-Band-Standing-Chest-Press-(female)_Chest_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/09201201-Band-Standing-Chest-Press-(female)_Chest_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/09201201-Band-Standing-Chest-Press-(female)_Chest_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_29083183",
@@ -1606,7 +1922,15 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/13261201-Chin-Up_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/13261201-Chin-Up_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/13261201-Chin-Up_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_10d76e8f",
@@ -1650,7 +1974,15 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12731201-Clap-Push-Up_Plyometrics_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12731101-Clap-Push-Up_Plyometrics_Chest_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12731101-Clap-Push-Up_Plyometrics_Chest_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_abb00838",
@@ -1703,7 +2035,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/15211101-Barbell-Hang-Clean-Below-the-Knees_Weightlifts_small.jpg",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15211101-Barbell-Hang-Clean-Below-the-Knees_Weightlifts_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15211101-Barbell-Hang-Clean-Below-the-Knees_Weightlifts_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 36,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_9e09cec3",
@@ -1759,7 +2101,18 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00281201-Barbell-Clean-and-Press_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00281201-Barbell-Clean-and-Press_Shoulders_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00281201-Barbell-Clean-and-Press_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 41,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 4,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_d3095577",
@@ -1816,7 +2169,19 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00281201-Barbell-Clean-and-Press_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00281201-Barbell-Clean-and-Press_Shoulders_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00281201-Barbell-Clean-and-Press_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 49,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 4,
+        "carvingTransfer": 3,
+        "rotation": 1
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and pop-up for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_652fea39",
@@ -1862,7 +2227,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/15171201-Barbell-Clean-Pull_Weightlifts_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15171101-Barbell-Clean-Pull_Weightlifts_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15171101-Barbell-Clean-Pull_Weightlifts_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 32,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_724cde60",
@@ -1904,7 +2279,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02971201-Dumbbell-Concentration-Curl_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02971201-Dumbbell-Concentration-Curl_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02971201-Dumbbell-Concentration-Curl_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_32c4d4a2",
@@ -1946,7 +2327,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/16571201-Dumbbell-Cross-Body-Hammer-Curl-(Version-2)_Upper-Arms-FIX.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02981101-Dumbbell-Cross-Body-Hammer-Curl_Forearms_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02981101-Dumbbell-Cross-Body-Hammer-Curl_Forearms_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_eb43add4",
@@ -1986,7 +2373,17 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05951201-Lever-Seated-Crunch-(chest-pad).mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05951201-Lever-Seated-Crunch-(chest-pad)_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05951201-Lever-Seated-Crunch-(chest-pad)_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 9,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_d8911fc4",
@@ -2029,7 +2426,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/78391201-Dead-Bug-(VERSION-3)-(female)_Waist_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/78391201-Dead-Bug-(VERSION-3)-(female)_Waist_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/78391201-Dead-Bug-(VERSION-3)-(female)_Waist_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "stanceBalance": 5,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_20870ed5",
@@ -2075,7 +2481,17 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/07521201-Smith-Deadlift_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/07521201-Smith-Deadlift_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/07521201-Smith-Deadlift_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 36,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_da0f0470",
@@ -2122,7 +2538,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00331201-Barbell-Decline-Bench-Press_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00331201-Barbell-Decline-Bench-Press_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00331201-Barbell-Decline-Bench-Press_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_bc10a922",
@@ -2164,7 +2588,17 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02771201-Decline-Crunch_Waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02771201-Decline-Crunch_Waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02771201-Decline-Crunch_Waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 9,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_c43825ea",
@@ -2209,7 +2643,15 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02791201-Decline-Push-Up_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02791201-Decline-Push-Up_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02791201-Decline-Push-Up_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_6575f52d",
@@ -2256,7 +2698,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02831201-Diamond-Push-up_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02831101-Diamond-Push-up_Upper-Arms_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02831101-Diamond-Push-up_Upper-Arms_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_d950429e",
@@ -2298,7 +2749,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00381201-Barbell-Drag-Curl_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00381201-Barbell-Drag-Curl_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00381201-Barbell-Drag-Curl_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 1,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_db_bench_press",
@@ -2346,7 +2803,15 @@
     ],
     "hevyTemplateId": "79D0BB3A",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00251201-Barbell-Bench-Press_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00251201-Barbell-Bench-Press_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00251201-Barbell-Bench-Press_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 78,
+      "demands": {
+        "popUp": 4
+      },
+      "tier": "high",
+      "rationale": "Upper-body pressing strength to power off the deck."
+    }
   },
   {
     "id": "ex_hevy_f1e57334",
@@ -2393,7 +2858,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02921201-Dumbbell-Bent-over-Row_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02921201-Dumbbell-Bent-over-Row_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02921201-Dumbbell-Bent-over-Row_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 40,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_db_shoulder_press",
@@ -2436,7 +2910,16 @@
     ],
     "hevyTemplateId": "F72FA239",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/36811201-Dumbbell-Squeeze-Bench-Press_Chest-FIX_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/36811201-Dumbbell-Squeeze-Bench-Press_Chest-FIX__thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/36811201-Dumbbell-Squeeze-Bench-Press_Chest-FIX__thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 70,
+      "demands": {
+        "paddlePower": 2,
+        "popUp": 2
+      },
+      "tier": "medium",
+      "rationale": "Overhead strength supports paddle posture and pop-up drive."
+    }
   },
   {
     "id": "ex_hevy_bf6ece89",
@@ -2480,7 +2963,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/58261201-Dumbbell-Step-up-(VERSION-2)-(male)_Thighs_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04311101-Dumbbell-Step-up_Hips_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04311101-Dumbbell-Step-up_Hips_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_a01be509",
@@ -2518,7 +3010,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/23121201-Lying-Elbow-to-Knee_Waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/23121201-Lying-Elbow-to-Knee_Waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/23121201-Lying-Elbow-to-Knee_Waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_3303376c",
@@ -2559,7 +3060,16 @@
     "defaultDurationSec": 45,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/21921201-Elliptical-Machine-Walk_Cardio.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/21921201-Elliptical-Machine-Walk_Cardio_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/21921201-Elliptical-Machine-Walk_Cardio_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 17,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_pop_up_drill",
@@ -2583,7 +3093,17 @@
     "difficulty": "beginner",
     "demoUrl": "https://www.youtube.com/results?search_query=surf+pop+up+drill+land",
     "defaultSets": 4,
-    "defaultReps": 8
+    "defaultReps": 8,
+    "surfTransfer": {
+      "baseScore": 98,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 4,
+        "paddlePower": 2
+      },
+      "tier": "high",
+      "rationale": "Direct pop-up rehearsal — the highest-transfer gym drill for surfing."
+    }
   },
   {
     "id": "ex_hevy_01a35bf9",
@@ -2624,7 +3144,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/04471201-EZ-Barbell-Curl_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04471201-EZ-Barbell-Curl_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04471201-EZ-Barbell-Curl_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_be640ba0",
@@ -2661,7 +3187,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/77441201-Cable-Standing-Supinated-Face-Pull-(with-rope)_Sho.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/77441201-Cable-Standing-Supinated-Face-Pull-(with-rope)_Sho_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/77441201-Cable-Standing-Supinated-Face-Pull-(with-rope)_Sho_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_d53f2886",
@@ -2704,7 +3238,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/37241201-Barbell-Floor-Chest-Press_Chest_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/37241201-Barbell-Floor-Chest-Press_Chest_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/37241201-Barbell-Floor-Chest-Press_Chest_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 32,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_2fa77b28",
@@ -2747,7 +3290,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12441201-Flutter-Kicks-(version-3)_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12441201-Flutter-Kicks-(version-3)_Hips_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12441201-Flutter-Kicks-(version-3)_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_30f03bf0",
@@ -2788,7 +3340,13 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/72511201-Hanging-Front-Lever-Raise-(male)_Waist_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/72511201-Hanging-Front-Lever-Raise-(male)_Waist_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/72511201-Hanging-Front-Lever-Raise-(male)_Waist_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_47b036ef",
@@ -2829,7 +3387,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/09781201-Band-front-raise_Shoulders_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/09781201-Band-front-raise_Shoulders_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/09781201-Band-front-raise_Shoulders_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_5046d0a9",
@@ -2874,7 +3438,18 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00421201-Barbell-Front-Squat_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00421201-Barbell-Front-Squat_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00421201-Barbell-Front-Squat_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 50,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 4,
+        "carvingTransfer": 3,
+        "rotation": 1
+      },
+      "tier": "medium",
+      "rationale": "Builds pop-up and stance & balance for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_1283bba6",
@@ -2922,7 +3497,18 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00431201-Barbell-Full-Squat_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00431201-Barbell-Full-Squat_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00431201-Barbell-Full-Squat_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 48,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and carving transfer for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_cda23948",
@@ -2963,7 +3549,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/101801201-Hamstring-Bridge-(VERSION-2)-(female)_Hips_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/101801201-Hamstring-Bridge-(VERSION-2)-(female)_Hips_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/101801201-Hamstring-Bridge-(VERSION-2)-(female)_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_68b83ee0",
@@ -3004,7 +3599,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/57771201-Glute-Ham-Raise-(VERSION-2)-(female)_Thighs_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/57771201-Glute-Ham-Raise-(VERSION-2)-(female)_Thighs_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/57771201-Glute-Ham-Raise-(VERSION-2)-(female)_Thighs_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_cba02382",
@@ -3046,7 +3650,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/10371201-Lever-Standing-Rear-Kick_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/10371201-Lever-Standing-Rear-Kick_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/10371201-Lever-Standing-Rear-Kick_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_3d0c7c75",
@@ -3090,7 +3703,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/22811201-Dumbbell-Goblet-Squat-(female)_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22811201-Dumbbell-Goblet-Squat-(female)_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22811201-Dumbbell-Goblet-Squat-(female)_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 35,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_4180c405",
@@ -3134,7 +3756,18 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00441201-Barbell-Good-Morning_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00441201-Barbell-Good-Morning_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00441201-Barbell-Good-Morning_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 38,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 4,
+        "popUp": 1,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_ac5a4c58",
@@ -3181,7 +3814,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00461201-Barbell-Hack-Squat_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00461201-Barbell-Hack-Squat_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00461201-Barbell-Hack-Squat_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 45,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds carving transfer and stance & balance for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_1d4b3d6b",
@@ -3225,7 +3868,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/46191201-Band-Standing-Hammer-Curl_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/46191201-Band-Standing-Hammer-Curl_Upper-Arms_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/46191201-Band-Standing-Hammer-Curl_Upper-Arms_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_90b04f96",
@@ -3272,7 +3921,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/04711201-Handstand-Push-Up_Shoulders_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04711201-Handstand-Push-Up_Shoulders_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04711201-Handstand-Push-Up_Shoulders_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_bd4e7e53",
@@ -3321,7 +3979,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/15201201-Barbell-Hang-Clean_Weightlifts-FIX_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15201201-Barbell-Hang-Clean_Weightlifts-FIX_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15201201-Barbell-Hang-Clean_Weightlifts-FIX_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 32,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_f4e77594",
@@ -3374,7 +4042,18 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/15231201-Barbell-Hang-Snatch-Below-the-Knees_Weightlifts_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15221101-Barbell-Hang-Snatch_Weightlifts_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15221101-Barbell-Hang-Snatch_Weightlifts_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 34,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 4,
+        "popUp": 1,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_08590920",
@@ -3414,7 +4093,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/98191201-Hanging-Knee-Raise-(male)_Waist_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/98191201-Hanging-Knee-Raise-(male)_Waist_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/98191201-Hanging-Knee-Raise-(male)_Waist_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 7,
+      "demands": {
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_f8356514",
@@ -3454,7 +4142,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/17641201-Hanging-Leg-Hip-Raise_Waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/17641201-Hanging-Leg-Hip-Raise_Waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/17641201-Hanging-Leg-Hip-Raise_Waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 7,
+      "demands": {
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_f4b4c6ee",
@@ -3494,7 +4191,16 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05971201-Lever-Seated-Hip-Abduction_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05971201-Lever-Seated-Hip-Abduction_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05971201-Lever-Seated-Hip-Abduction_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 17,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_8bebfed6",
@@ -3537,7 +4243,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05981201-Lever-Seated-Hip-Adduction_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05981201-Lever-Seated-Hip-Adduction_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05981201-Lever-Seated-Hip-Adduction_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 22,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 1,
+        "carvingTransfer": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_92b8c7e1",
@@ -3578,7 +4294,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/80151201-Glute-Bridge-from-Bench-(male)_Hips_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/80151201-Glute-Bridge-from-Bench-(male)_Hips_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/80151201-Glute-Bridge-from-Bench-(male)_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_50dfdfab",
@@ -3626,7 +4351,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00471201-Barbell-Incline-Bench-Press_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00471201-Barbell-Incline-Bench-Press_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00471201-Barbell-Incline-Bench-Press_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 32,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_fbf92739",
@@ -3669,7 +4403,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/14791201-Lever-Incline-Chest-Press_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/14791201-Lever-Incline-Chest-Press_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/14791201-Lever-Incline-Chest-Press_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_39c99849",
@@ -3713,7 +4455,15 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/37851201-Incline-Push-Up-(on-box).mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/37851201-Incline-Push-Up-(on-box)_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/37851201-Incline-Push-Up-(on-box)_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_425805f4",
@@ -3756,7 +4506,15 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/04991201-Inverted-Row_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04991201-Inverted-Row_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04991201-Inverted-Row_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_24706dcd",
@@ -3799,7 +4557,15 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05761201-Lever-Chest-Press-(plate-loaded)_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05761201-Lever-Chest-Press-(plate-loaded)_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05761201-Lever-Chest-Press-(plate-loaded)_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_bc3492da",
@@ -3840,7 +4606,15 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/43781201-Lever-Reverse-Grip-High-Row-(plate-loaded)_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05811101-Lever-High-Row-(plate-loaded)_Back_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05811101-Lever-High-Row-(plate-loaded)_Back_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_91fafba3",
@@ -3881,7 +4655,15 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/42141201-Lever-Low-Row-(plate-loaded)_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/42141201-Lever-Low-Row-(plate-loaded)_Back__thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/42141201-Lever-Low-Row-(plate-loaded)_Back__thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_aa1eb7d8",
@@ -3923,7 +4705,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05881201-Lever-Neutral-Grip-Seated-Row-(plate-loaded)_Back-.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05881201-Lever-Neutral-Grip-Seated-Row-(plate-loaded)_Back-_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05881201-Lever-Neutral-Grip-Seated-Row-(plate-loaded)_Back-_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_32b0b590",
@@ -3963,7 +4753,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/38841201-Jack-knife-Sit-up-(female)_Waist_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/38841201-Jack-knife-Sit-up-(female)_Waist_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/38841201-Jack-knife-Sit-up-(female)_Waist_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_74103f24",
@@ -4009,7 +4808,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00521201-Barbell-JM-Bench-Press_Upper-Arms-FIX_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00521201-Barbell-JM-Bench-Press_Upper-Arms-FIX_-2_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00521201-Barbell-JM-Bench-Press_Upper-Arms-FIX_-2_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 14,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_70d4ebbf",
@@ -4055,7 +4862,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05141201-Jump-Squat_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05141201-Jump-Squat_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05141201-Jump-Squat_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 46,
+      "demands": {
+        "stanceBalance": 4,
+        "popUp": 5
+      },
+      "tier": "medium",
+      "rationale": "Builds pop-up and stance & balance for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_f99c211d",
@@ -4100,7 +4916,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/45301201-Kettlebell-Single-Arm-Clean-(female)_Weightlifts_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/45301201-Kettlebell-Single-Arm-Clean-(female)_Weightlifts_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/45301201-Kettlebell-Single-Arm-Clean-(female)_Weightlifts_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 34,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_a127da73",
@@ -4144,7 +4970,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/23561201-Kettlebell-Goblet-Squat-(female)_Thighs_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/23561201-Kettlebell-Goblet-Squat-(female)_Thighs_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/23561201-Kettlebell-Goblet-Squat-(female)_Thighs_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 35,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_9b13ba4b",
@@ -4188,7 +5023,18 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05481201-Kettlebell-Sumo-High-Pull_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05481101-Kettlebell-Sumo-High-Pull_back_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05481101-Kettlebell-Sumo-High-Pull_back_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1,
+        "carvingTransfer": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_6433cd93",
@@ -4229,7 +5075,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/99571201-Kettlebell-Single-Arm-Shoulder-Press-(male)_Should.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/99571201-Kettlebell-Single-Arm-Shoulder-Press-(male)_Should_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/99571201-Kettlebell-Single-Arm-Shoulder-Press-(male)_Should_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 32,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_89304423",
@@ -4272,7 +5127,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05421201-Kettlebell-One-Arm-Snatch_Shoulders_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05421101-Kettlebell-One-Arm-Snatch_Shoulders_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05421101-Kettlebell-One-Arm-Snatch_Shoulders_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 33,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_kettlebell_swing",
@@ -4317,7 +5181,17 @@
     "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05491201-Kettlebell-Swing_Hips-FIX_thumbnail_@3x.jpg",
     "instructions": [
       "1. Grab a kettlebell by its handle with your wrists neutral (palms facing one another).\n2. Stand tall and have the weight in front of your hips. Your feet should be shoulder-width apart or slightly wider.\n3. Bring your shoulders back, engage your abs, and take a breath.\n4. Hinge at the hip, bringing your buttocks back. The kettlebell should end up between your thighs.\n5. Extend your hips forcefully, thrusting the kettlebell in front of your body until it ends up at shoulder height, and exhale.\n6. Lower the kettlebell and immediately hinge at the hips again for the weight to end up between your thighs."
-    ]
+    ],
+    "surfTransfer": {
+      "baseScore": 82,
+      "demands": {
+        "paddlePower": 3,
+        "rotation": 3,
+        "popUp": 2
+      },
+      "tier": "high",
+      "rationale": "Hip hinge power drives paddling, pop-ups, and turn projection."
+    }
   },
   {
     "id": "ex_hevy_a91838c0",
@@ -4367,7 +5241,18 @@
     "hevyTemplateId": "A91838C0",
     "defaultSets": 3,
     "defaultReps": 12,
-    "thumbnailUrl": "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Kipping_Muscle_Up/0.jpg"
+    "thumbnailUrl": "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Kipping_Muscle_Up/0.jpg",
+    "surfTransfer": {
+      "baseScore": 42,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3,
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_98237ba2",
@@ -4408,7 +5293,17 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/21261201-Captains-chair-leg-raise_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/21261201-Captains-chair-leg-raise_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/21261201-Captains-chair-leg-raise_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 9,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_d82ea543",
@@ -4452,7 +5347,18 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/43581201-Band-Knelling-Lat-Pulldown_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/43581201-Band-Knelling-Lat-Pulldown_Back_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/43581201-Band-Knelling-Lat-Pulldown_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 4,
+        "popUp": 1,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_b74a95bb",
@@ -4499,7 +5405,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/32111201-Kneeling-Push-up-(male)_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/32111101-Kneeling-Push-up-(male)_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/32111101-Kneeling-Push-up-(male)_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_923874ca",
@@ -4547,7 +5462,19 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05621201-Landmine-180_waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05621201-Landmine-180_waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05621201-Landmine-180_waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 51,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 4,
+        "popUp": 1,
+        "carvingTransfer": 3,
+        "rotation": 1
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and stance & balance for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_4e5257de",
@@ -4595,7 +5522,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/63921201-Cable-Lateral-Pulldown-with-Mag-Grip_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/63921201-Cable-Lateral-Pulldown-with-Mag-Grip_Back_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/63921201-Cable-Lateral-Pulldown-with-Mag-Grip_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 39,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_6a6c31a5",
@@ -4637,7 +5572,15 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01501201-Cable-Bar-Lateral-Pulldown_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01501201-Cable-Bar-Lateral-Pulldown_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01501201-Cable-Bar-Lateral-Pulldown_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_07ebc4dc",
@@ -4684,7 +5627,17 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05641201-Lateral-Box-Jump-(female)_Plyometrics-FIX_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05641201-Lateral-Box-Jump-(female)_Plyometrics-FIX_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05641201-Lateral-Box-Jump-(female)_Plyometrics-FIX_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 49,
+      "demands": {
+        "stanceBalance": 4,
+        "popUp": 5,
+        "mobility": 4
+      },
+      "tier": "medium",
+      "rationale": "Builds pop-up and stance & balance for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_dc59d143",
@@ -4720,7 +5673,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/86421201-Standing-Single-Side-Leg-Raise-Chair-Supported-(fe.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/86421201-Standing-Single-Side-Leg-Raise-Chair-Supported-(fe_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/86421201-Standing-Single-Side-Leg-Raise-Chair-Supported-(fe_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 15,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_df200976",
@@ -4760,7 +5722,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/09071201-Band-Lateral-Raise-(female)_Shoulders_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/09071101-Band-lateral-raise_Shoulders_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/09071101-Band-lateral-raise_Shoulders_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_75a4f6c4",
@@ -4800,7 +5768,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05851201-Lever-Leg-Extension_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05851201-Lever-Leg-Extension_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05851201-Lever-Leg-Extension_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_c7973e0e",
@@ -4845,7 +5822,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/07391201-Sled-45-Leg-Press_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/07391201-Sled-45-Leg-Press_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/07391201-Sled-45-Leg-Press_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2,
+        "carvingTransfer": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_0eb695c9",
@@ -4890,7 +5877,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/22671201-Lever-Seated-Leg-Press_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22671201-Lever-Seated-Leg-Press_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22671201-Lever-Seated-Leg-Press_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2,
+        "carvingTransfer": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_0482da98",
@@ -4928,7 +5925,16 @@
     "defaultReps": 12,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/29631201-Captains-Chair-Straight-Leg-Raise_Waist-FIX_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/29631101-Captains-Chair-Straight-Leg-Raise_Waist_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/29631101-Captains-Chair-Straight-Leg-Raise_Waist_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 7,
+      "demands": {
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_293483ad",
@@ -4967,7 +5973,16 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01791201-Cable-Low-Fly_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01791201-Cable-Low-Fly_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01791201-Cable-Low-Fly_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 19,
+      "demands": {
+        "popUp": 3,
+        "carvingTransfer": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_b8127ad1",
@@ -5011,7 +6026,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05861201-Lever-Lying-Leg-Curl_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05861201-Lever-Lying-Leg-Curl_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05861201-Lever-Lying-Leg-Curl_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_09c9f635",
@@ -5051,7 +6075,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/11631201-Lying-Leg-Raise_Waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/11631201-Lying-Leg-Raise_Waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/11631201-Lying-Leg-Raise_Waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 7,
+      "demands": {
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_22fedca4",
@@ -5091,7 +6124,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/101661201-Lying-Neck-Flexion_Neck_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/101661201-Lying-Neck-Flexion_Neck_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/101661201-Lying-Neck-Flexion_Neck_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_9f9c164b",
@@ -5141,7 +6183,18 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/51941201-Bodyweight-Muscle-Up-(VERSION-2)_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/51941201-Bodyweight-Muscle-Up-(VERSION-2)_Back_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/51941201-Bodyweight-Muscle-Up-(VERSION-2)_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 42,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3,
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_f60bddf8",
@@ -5182,7 +6235,15 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/47741201-Pull-up-(negative)-(female)_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/47741201-Pull-up-(negative)-(female)_Back__thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/47741201-Pull-up-(negative)-(female)_Back__thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 19,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_dbe341aa",
@@ -5224,7 +6285,17 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/06351201-Oblique-Crunches-Floor_Waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06351201-Oblique-Crunches-Floor_Waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06351201-Oblique-Crunches-Floor_Waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_b140095e",
@@ -5272,7 +6343,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/07251201-Single-Arm-Push-up_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/07251201-Single-Arm-Push-up_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/07251201-Single-Arm-Push-up_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 32,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_582ada23",
@@ -5314,7 +6394,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/16361201-Cable-Overhead-Curl_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/16361201-Cable-Overhead-Curl_Upper-Arms_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/16361201-Cable-Overhead-Curl_Upper-Arms_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_4c6721b9",
@@ -5358,7 +6444,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/50761201-Dumbbell-Overhead-Lunge_Thighs_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/50761201-Dumbbell-Overhead-Lunge_Thighs_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/50761201-Dumbbell-Overhead-Lunge_Thighs_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 38,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 5
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_54e60954",
@@ -5398,7 +6493,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/101141201-Weighted-Plate-LU-Raise-(male)_Shoulders_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/101141201-Weighted-Plate-LU-Raise-(male)_Shoulders_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/101141201-Weighted-Plate-LU-Raise-(male)_Shoulders_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 2,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_b09a1304",
@@ -5446,7 +6547,18 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12241201-Smith-Standing-Shoulder-Press_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12241201-Smith-Standing-Shoulder-Press_Shoulders_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12241201-Smith-Standing-Shoulder-Press_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 4,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_2cfed196",
@@ -5500,7 +6612,18 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00691201-Barbell-Overhead-Squat_Thighs-FIX_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00691201-Barbell-Overhead-Squat_Thighs-FIX_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00691201-Barbell-Overhead-Squat_Thighs-FIX_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 41,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 4,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_b5efbf9c",
@@ -5540,7 +6663,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01941201-Cable-Overhead-Triceps-Extension-(rope-attachment)_Upper-Arms-FIX_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01941201-Cable-Overhead-Triceps-Extension-(rope-attachment)_Upper-Arms-FIX_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01941201-Cable-Overhead-Triceps-Extension-(rope-attachment)_Upper-Arms-FIX_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_pallof_press",
@@ -5592,7 +6723,16 @@
     ],
     "hevyTemplateId": "A69FF221",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02871201-Dumbbell-Arnold-Press-II_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02871201-Dumbbell-Arnold-Press-II_Shoulders_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02871201-Dumbbell-Arnold-Press-II_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 85,
+      "demands": {
+        "rotation": 4,
+        "stanceBalance": 4
+      },
+      "tier": "high",
+      "rationale": "Anti-rotation core stability for a connected, powerful surf posture."
+    }
   },
   {
     "id": "ex_hevy_fbee8279",
@@ -5633,7 +6773,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/54511201-Barbell-KAS-Glute-Bridge-(female)_Hips_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/54511201-Barbell-KAS-Glute-Bridge-(female)_Hips_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/54511201-Barbell-KAS-Glute-Bridge-(female)_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_30e293e3",
@@ -5679,7 +6828,18 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/49511201-Lever-Pendulum-Squat-(plate-loaded)_Thighs_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/49511201-Lever-Pendulum-Squat-(plate-loaded)_Thighs__thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/49511201-Lever-Pendulum-Squat-(plate-loaded)_Thighs__thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 51,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 2,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and pop-up for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_3ff6a22e",
@@ -5725,7 +6885,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/17591201-Single-Leg-Squat-(pistol)-(male)_Thighs-FIX2_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/17591101-Single-Leg-Squat-(pistol)-male_Thighs_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/17591101-Single-Leg-Squat-(pistol)-male_Thighs_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 35,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_plank",
@@ -5764,7 +6933,16 @@
     ],
     "hevyTemplateId": "C6C9B8A0",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/04631201-Front-Plank-m_waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04631201-Front-Plank-m_waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04631201-Front-Plank-m_waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 72,
+      "demands": {
+        "stanceBalance": 4,
+        "rotation": 2
+      },
+      "tier": "medium",
+      "rationale": "Core stability for a strong, connected surf posture."
+    }
   },
   {
     "id": "ex_hevy_dbf9273a",
@@ -5804,7 +6982,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/08341201-Weighted-Front-Raise_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08341201-Weighted-Front-Raise_Shoulders_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08341201-Weighted-Front-Raise_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 2,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_c628d768",
@@ -5876,7 +7060,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/06481201-Power-Clean_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06481201-Power-Clean_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06481201-Power-Clean_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 49,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 5,
+        "stanceBalance": 4
+      },
+      "tier": "medium",
+      "rationale": "Builds pop-up and paddle power for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_e22f9358",
@@ -5928,7 +7122,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/15301201-Barbell-Power-Snatch_Weightlifts_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15301101-Barbell-Power-Snatch_Weightlifts_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15301101-Barbell-Power-Snatch_Weightlifts_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 38,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_4f942934",
@@ -5969,7 +7173,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00701201-Barbell-Preacher-Curl_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00701201-Barbell-Preacher-Curl_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00701201-Barbell-Preacher-Curl_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_pull_up",
@@ -6015,7 +7227,15 @@
     ],
     "hevyTemplateId": "1B2B1E7C",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/06521201-Pull-up_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06521201-Pull-up_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06521201-Pull-up_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 88,
+      "demands": {
+        "paddlePower": 5
+      },
+      "tier": "high",
+      "rationale": "Pulling strength is the foundation of paddle power and wave count."
+    }
   },
   {
     "id": "ex_hevy_b123dd01",
@@ -6055,7 +7275,16 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/22851201-Lever-Pullover-(plate-loaded)_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22851201-Lever-Pullover-(plate-loaded)_Back__thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22851201-Lever-Pullover-(plate-loaded)_Back__thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 32,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_542f3cd5",
@@ -6094,7 +7323,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12001201-Push-Press_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12001201-Push-Press_Shoulders_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12001201-Push-Press_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_947dac23",
@@ -6140,7 +7378,15 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02591201-Close-Grip-Push-up_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02591201-Close-Grip-Push-up_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02591201-Close-Grip-Push-up_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_push_up",
@@ -6186,7 +7432,16 @@
     ],
     "hevyTemplateId": "392887AA",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/06621201-Push-up-m_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06621201-Push-up-m_Chest_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06621201-Push-up-m_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 80,
+      "demands": {
+        "popUp": 4,
+        "paddlePower": 2
+      },
+      "tier": "high",
+      "rationale": "Pressing pattern mirrors the push phase of every pop-up."
+    }
   },
   {
     "id": "ex_hevy_c315dc2a",
@@ -6226,7 +7481,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02251201-Cable-Standing-Cross-over-High-Reverse-Fly_Shoulders_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02251201-Cable-Standing-Cross-over-High-Reverse-Fly_Shoulders_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02251201-Cable-Standing-Cross-over-High-Reverse-Fly_Shoulders_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_1adf8723",
@@ -6266,7 +7527,17 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/99041201-Lever-Pure-Rear-Kick-(female)_Hips_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/99041201-Lever-Pure-Rear-Kick-(female)_Hips_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/99041201-Lever-Pure-Rear-Kick-(female)_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 12,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 4,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_1b89ca1b",
@@ -6313,7 +7584,18 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/29811201-Dumbbell-Renegade-Row-(female)_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/29811201-Dumbbell-Renegade-Row-(female)_Back_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/29811201-Dumbbell-Renegade-Row-(female)_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 42,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3,
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_7952b5cd",
@@ -6354,7 +7636,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/08721201-Reverse-Crunch-m_waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08721201-Reverse-Crunch-m_waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08721201-Reverse-Crunch-m_waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 7,
+      "demands": {
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_112fc6b7",
@@ -6396,7 +7687,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00801201-Barbell-Reverse-Curl_Forearm.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00801201-Barbell-Reverse-Curl_Forearm_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00801201-Barbell-Reverse-Curl_Forearm_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_9264ada1",
@@ -6437,7 +7734,17 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/98681201-Cable-45-degrees-Single-Arm-Reverse-Fly-(male)_Sho.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/98681201-Cable-45-degrees-Single-Arm-Reverse-Fly-(male)_Sho_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/98681201-Cable-45-degrees-Single-Arm-Reverse-Fly-(male)_Sho_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 13,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3,
+        "stanceBalance": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_046e25a2",
@@ -6485,7 +7792,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02081201-Cable-Reverse-grip-Straight-Back-Seated-High-Row_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02081201-Cable-Reverse-grip-Straight-Back-Seated-High-Row_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02081201-Cable-Reverse-grip-Straight-Back-Seated-High-Row_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 39,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_7c0028c3",
@@ -6529,7 +7844,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05931201-Lever-Reverse-Hyperextension-(plate-loaded)_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05931201-Lever-Reverse-Hyperextension-(plate-loaded)_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05931201-Lever-Reverse-Hyperextension-(plate-loaded)_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_c284d923",
@@ -6575,7 +7899,18 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/63881201-Bodyweight-Reverse-Lunge-(female)_Thighs_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/63881201-Bodyweight-Reverse-Lunge-(female)_Thighs_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/63881201-Bodyweight-Reverse-Lunge-(female)_Thighs_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 39,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 5,
+        "popUp": 1,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_51a0edaa",
@@ -6620,7 +7955,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/06771201-Ring-Dip_Upper-Arms_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06771201-Ring-Dip_Upper-Arms_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06771201-Ring-Dip_Upper-Arms_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_5f09f0fc",
@@ -6661,7 +8005,15 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/55221201-Ring-Pull-Up_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/55221201-Ring-Pull-Up_Back_1_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/55221201-Ring-Pull-Up_Back_1_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 19,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_aea56bdc",
@@ -6708,7 +8060,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/08061201-Suspended-Push-Up_Chest_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08061201-Suspended-Push-Up_Chest_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08061201-Suspended-Push-Up_Chest_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_2b4b7310",
@@ -6754,7 +8115,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00851201-Barbell-Romanian-Deadlift_Hips-FIX_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00851201-Barbell-Romanian-Deadlift_Hips-FIX_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00851201-Barbell-Romanian-Deadlift_Hips-FIX_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 36,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_234897ab",
@@ -6799,7 +8170,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01651201-Cable-Hammer-Curl-(with-rope)-(male)_Forearms_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01651201-Cable-Hammer-Curl-(with-rope)-(male)_Forearms_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01651201-Cable-Hammer-Curl-(with-rope)-(male)_Forearms_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_9273ba17",
@@ -6839,7 +8218,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02371201-Cable-Straight-Arm-Pulldown-(with-rope)_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02371201-Cable-Straight-Arm-Pulldown-(with-rope)_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02371201-Cable-Straight-Arm-Pulldown-(with-rope)_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 7,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_0222db42",
@@ -6884,7 +8271,17 @@
     "defaultDurationSec": 45,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/22701201-Rowing-Straight-Back-(with-rowing-machine)-(female)_Cardio.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22701201-Rowing-Straight-Back-(with-rowing-machine)-(female)_Cardio_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22701201-Rowing-Straight-Back-(with-rowing-machine)-(female)_Cardio_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 52,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and pop-up for better wave performance."
+    }
   },
   {
     "id": "ex_russian_twist",
@@ -6931,7 +8328,15 @@
     ],
     "hevyTemplateId": "BB83BDDE",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/06871201-Russian-Twist_waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06871201-Russian-Twist_waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06871201-Russian-Twist_waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 78,
+      "demands": {
+        "rotation": 4
+      },
+      "tier": "high",
+      "rationale": "Rotational core work for committed turns off the top."
+    }
   },
   {
     "id": "ex_hevy_c7ae420a",
@@ -6972,7 +8377,15 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/06881201-Scapular-Pull-Up_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06881201-Scapular-Pull-Up_Back_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06881201-Scapular-Pull-Up_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 19,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_f1d60854",
@@ -7011,7 +8424,15 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01801201-Cable-Low-Seated-Row_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01801201-Cable-Low-Seated-Row_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01801201-Cable-Low-Seated-Row_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_c3bcabb3",
@@ -7050,7 +8471,15 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02181201-Cable-Seated-Wide-grip-Row_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02181201-Cable-Seated-Wide-grip-Row_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02181201-Cable-Seated-Wide-grip-Row_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_0393f233",
@@ -7089,7 +8518,15 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/26611201-Cable-Seated-Row-with-V-bar_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/26611201-Cable-Seated-Row-with-V-bar_Back_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/26611201-Cable-Seated-Row-with-V-bar_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_062ab91a",
@@ -7131,7 +8568,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05941201-Lever-Seated-Calf-Raise-(plate-loaded).mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05941201-Lever-Seated-Calf-Raise-(plate-loaded)_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05941201-Lever-Seated-Calf-Raise-(plate-loaded)_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_6b4c797e",
@@ -7165,7 +8611,16 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/38691201-Cable-Seated-Chest-Fly_Chest_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/38691101-Cable-Seated-Chest-Fly_Chest_small_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/38691101-Cable-Seated-Chest-Fly_Chest_small_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 10,
+      "demands": {
+        "popUp": 3,
+        "mobility": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_5122e7d9",
@@ -7211,7 +8666,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/14511201-Lever-Seated-Dip_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/14511201-Lever-Seated-Dip_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/14511201-Lever-Seated-Dip_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_8bab2735",
@@ -7251,7 +8714,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/03151201-Dumbbell-Incline-Biceps-Curl_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03151201-Dumbbell-Incline-Biceps-Curl_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03151201-Dumbbell-Incline-Biceps-Curl_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_9372ffaa",
@@ -7297,7 +8768,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/03961201-Dumbbell-Seated-Lateral-Raise_shoulder.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03961201-Dumbbell-Seated-Lateral-Raise_shoulder_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03961201-Dumbbell-Seated-Lateral-Raise_shoulder_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 10,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_11a123f3",
@@ -7338,7 +8818,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05991201-Lever-Seated-Leg-Curl_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05991201-Lever-Seated-Leg-Curl_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05991201-Lever-Seated-Leg-Curl_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 20,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_91af29e0",
@@ -7379,7 +8869,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/68771201-Barbell-Incline-Shoulders-Press-(inside-squat-cage.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/68771201-Barbell-Incline-Shoulders-Press-(inside-squat-cage_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/68771201-Barbell-Incline-Shoulders-Press-(inside-squat-cage_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_1006df48",
@@ -7422,7 +8920,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/26331201-Dumbbell-Seated-Palms-Up-Wrist-Curl-(female)_Forea.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/26331201-Dumbbell-Seated-Palms-Up-Wrist-Curl-(female)_Forea_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/26331201-Dumbbell-Seated-Palms-Up-Wrist-Curl-(female)_Forea_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_1df4a847",
@@ -7464,7 +8970,15 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/22651201-Lever-Seated-Row-(version-2)_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22651201-Lever-Seated-Row-(version-2)_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22651201-Lever-Seated-Row-(version-2)_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_9237bad1",
@@ -7507,7 +9021,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/14541201-Lever-Seated-Shoulder-Press_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/14541201-Lever-Seated-Shoulder-Press_Shoulders_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/14541201-Lever-Seated-Shoulder-Press_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_234bc743",
@@ -7547,7 +9069,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/18711201-Lever-Triceps-Dip-(plate-loaded)_Upper-Arms-FIX_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/18711201-Lever-Triceps-Dip-(plate-loaded)_Upper-Arms-FIX_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/18711201-Lever-Triceps-Dip-(plate-loaded)_Upper-Arms-FIX_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 5,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_878cd1d0",
@@ -7593,7 +9123,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/04051201-Dumbbell-Seated-Shoulder-Press_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04051201-Dumbbell-Seated-Shoulder-Press_Shoulders_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04051201-Dumbbell-Seated-Shoulder-Press_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 33,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_ffabc123",
@@ -7632,7 +9170,15 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02201201-Cable-Shrug_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02201201-Cable-Shrug_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02201201-Cable-Shrug_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 17,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_37f9eda7",
@@ -7675,7 +9221,17 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00021201-45-Side-Bend_Waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00021201-45-Side-Bend_Waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00021201-45-Side-Bend_Waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 10,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_8372bbcc",
@@ -7716,7 +9272,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/62191201-Cable-Standing-Single-Arm-Fly_Chest_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/62191201-Cable-Standing-Single-Arm-Fly_Chest_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/62191201-Cable-Standing-Single-Arm-Fly_Chest_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 20,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_d0c4a899",
@@ -7757,7 +9322,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/75641201-Cable-Split-Stance-Single-Arm-Row-(male)_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/75641201-Cable-Split-Stance-Single-Arm-Row-(male)_Back_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/75641201-Cable-Split-Stance-Single-Arm-Row-(male)_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 35,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3,
+        "stanceBalance": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_b33b526e",
@@ -7797,7 +9372,16 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01901201-Cable-One-Arm-Curl_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01901201-Cable-One-Arm-Curl_Upper-Arms_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01901201-Cable-One-Arm-Curl_Upper-Arms_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_2ee45f81",
@@ -7841,7 +9425,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12041201-Cable-one-arm-lat-pulldown_back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12041101-Cable-one-arm-lat-pulldown_back_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12041101-Cable-one-arm-lat-pulldown_back_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 33,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_de68c825",
@@ -7882,7 +9475,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01921201-Cable-One-Arm-Lateral-Raise_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01921201-Cable-One-Arm-Lateral-Raise_Shoulders-3_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01921201-Cable-One-Arm-Lateral-Raise_Shoulders-3_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 10,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_8347dfd1",
@@ -7924,7 +9526,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/03621201-Dumbbell-One-Arm-Triceps-Extension-(on-bench)_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03621201-Dumbbell-One-Arm-Triceps-Extension-(on-bench)_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03621201-Dumbbell-One-Arm-Triceps-Extension-(on-bench)_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 1,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3,
+        "stanceBalance": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_552ab030",
@@ -7963,7 +9575,16 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/50331201-Cable-Single-Arm-Triceps-Pushdown-(rope-attachment.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/50331201-Cable-Single-Arm-Triceps-Pushdown-(rope-attachment_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/50331201-Cable-Single-Arm-Triceps-Pushdown-(rope-attachment_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_629ae73d",
@@ -8003,7 +9624,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/71081201-Lever-Seated-Leg-Extension-(VERSION-2)_Thighs_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/71081201-Lever-Seated-Leg-Extension-(VERSION-2)_Thighs_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/71081201-Lever-Seated-Leg-Extension-(VERSION-2)_Thighs_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 17,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_cbc0d834",
@@ -8045,7 +9675,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/60001201-Single-Leg-Bridge-with-Outstretched-Leg-(left)-(ma.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/60001201-Single-Leg-Bridge-with-Outstretched-Leg-(left)-(ma_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/60001201-Single-Leg-Bridge-with-Outstretched-Leg-(left)-(ma_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 27,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_3fd83744",
@@ -8090,7 +9729,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/08831201-Lever-Horizontal-One-leg-Press_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08831201-Lever-Horizontal-One-leg-Press_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08831201-Lever-Horizontal-One-leg-Press_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 60,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 5,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds stance & balance and pop-up for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_238ba231",
@@ -8134,7 +9783,17 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/50521201-Single-Leg-Calf-Raise-Off-Step_Calves_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/50521201-Single-Leg-Calf-Raise-Off-Step_Calves_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/50521201-Single-Leg-Calf-Raise-Off-Step_Calves_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 30,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 1,
+        "carvingTransfer": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_single_leg_rdl",
@@ -8182,7 +9841,16 @@
     ],
     "hevyTemplateId": "93472AC1",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/17561201-Barbell-Single-Leg-Deadlift_Hips_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/17561201-Barbell-Single-Leg-Deadlift_Hips_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/17561201-Barbell-Single-Leg-Deadlift_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 86,
+      "demands": {
+        "stanceBalance": 5,
+        "rotation": 2
+      },
+      "tier": "high",
+      "rationale": "Unilateral posterior-chain control for balance on uneven wave faces."
+    }
   },
   {
     "id": "ex_hevy_f5def1eb",
@@ -8226,7 +9894,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/08511201-Weighted-Sissy-Squat_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08511201-Weighted-Sissy-Squat_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08511201-Weighted-Sissy-Squat_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 36,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1,
+        "mobility": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_022df610",
@@ -8267,7 +9945,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00011201-3-4-Sit-up_Waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00011201-3-4-Sit-up_Waist_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00011201-3-4-Sit-up_Waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 7,
+      "demands": {
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_24a809ef",
@@ -8309,7 +9996,16 @@
     "defaultSets": 3,
     "defaultDurationSec": 45,
     "origin": "seed",
-    "thumbnailUrl": "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Skating/0.jpg"
+    "thumbnailUrl": "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Skating/0.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_7757171f",
@@ -8353,7 +10049,16 @@
     "defaultSets": 3,
     "defaultDurationSec": 45,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/25241201-Power-Sled-Push-(female)_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/25241201-Power-Sled-Push-(female)_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/25241201-Power-Sled-Push-(female)_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_fb09c938",
@@ -8407,7 +10112,18 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/15331201-Barbell-Snatch_Weightlifts_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15331101-Barbell-Snatch_Weightlifts_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15331101-Barbell-Snatch_Weightlifts_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 61,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 5,
+        "stanceBalance": 4,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds pop-up and paddle power for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_2348ab72",
@@ -8450,7 +10166,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00721201-Barbell-Prone-Incline-Curl_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00721201-Barbell-Prone-Incline-Curl_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00721201-Barbell-Prone-Incline-Curl_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_213ab238",
@@ -8484,7 +10208,16 @@
     "defaultDurationSec": 45,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/22791201-Stationary-Bike-Run-(version-4)_Cardio.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22791201-Stationary-Bike-Run-(version-4)_Cardio_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/22791201-Stationary-Bike-Run-(version-4)_Cardio_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_e764b907",
@@ -8531,7 +10264,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/15381201-Barbell-Split-Jerk_Weightlifts_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15381101-Barbell-Split-Jerk_Weightlifts_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15381101-Barbell-Split-Jerk_Weightlifts_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2,
+        "carvingTransfer": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_20c1a3cb",
@@ -8577,7 +10320,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/29601201-Dumbbell-Split-Squat_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/29601201-Dumbbell-Split-Squat_Thighs_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/29601201-Dumbbell-Split-Squat_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 45,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 1
+      },
+      "tier": "medium",
+      "rationale": "Builds stance & balance and pop-up for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_cc35a01f",
@@ -8623,7 +10375,18 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/57881201-Lever-Squat-(plate-loaded)-(female)_Thighs_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/57881201-Lever-Squat-(plate-loaded)-(female)_Thighs_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/57881201-Lever-Squat-(plate-loaded)-(female)_Thighs_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 51,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 2,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and pop-up for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_a8814c06",
@@ -8670,7 +10433,18 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/17171201-Cable-Squat-Row-(with-rope-attachment)_Back_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/17171201-Cable-Squat-Row-(with-rope-attachment)_Back_Thighs_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/17171201-Cable-Squat-Row-(with-rope-attachment)_Back_Thighs_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 55,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 2,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and pop-up for better wave performance."
+    }
   },
   {
     "id": "ex_hevy_4377a52b",
@@ -8715,7 +10489,16 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/23111201-Walking-on-Stepmill_Cardio.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/23111201-Walking-on-Stepmill_Cardio_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/23111201-Walking-on-Stepmill_Cardio_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_acb2751d",
@@ -8754,7 +10537,16 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/60401201-Cable-Donkey-Kickback-(male)_Hips_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/60401201-Cable-Donkey-Kickback-(male)_Hips_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/60401201-Cable-Donkey-Kickback-(male)_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_06745e58",
@@ -8798,7 +10590,17 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/13731101-Bodyweight-Standing-Calf-Raise_Calves_small.jpg",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/13731101-Bodyweight-Standing-Calf-Raise_Calves_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/13731101-Bodyweight-Standing-Calf-Raise_Calves_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 20,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 1,
+        "carvingTransfer": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_6120caab",
@@ -8838,7 +10640,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/51811201-Lever-Standing-Single-Leg-Curl-(plate-loaded)_Thig.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/51811201-Lever-Standing-Single-Leg-Curl-(plate-loaded)_Thig_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/51811201-Lever-Standing-Single-Leg-Curl-(plate-loaded)_Thig_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_073032bb",
@@ -8883,7 +10694,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/11651201-Barbell-Standing-Military-Press-(without-rack)_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/11651201-Barbell-Standing-Military-Press-(without-rack)_Shoulders_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/11651201-Barbell-Standing-Military-Press-(without-rack)_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 33,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_ee2938d1",
@@ -8924,7 +10743,15 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/04661201-Sternum-Pull-up-(Gironda)_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04661201-Sternum-Pull-up-(Gironda)_Back_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04661201-Sternum-Pull-up-(Gironda)_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 19,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_d2387ab1",
@@ -8968,7 +10795,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02381201-Cable-Straight-Arm-Pulldown_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02381201-Cable-Straight-Arm-Pulldown_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02381201-Cable-Straight-Arm-Pulldown_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_d20d7bbe",
@@ -9017,7 +10852,17 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01171201-Barbell-Sumo-Deadlift_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01171201-Barbell-Sumo-Deadlift_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01171201-Barbell-Sumo-Deadlift_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 36,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_218da87c",
@@ -9061,7 +10906,17 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/68861201-Superman-Hold-(male)_Hips_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/68861201-Superman-Hold-(male)_Hips_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/68861201-Superman-Hold-(male)_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 32,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_08a2974e",
@@ -9107,7 +10962,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/06061201-Lever-T-bar-Row-(plate-loaded)_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06061201-Lever-T-bar-Row-(plate-loaded)_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06061201-Lever-T-bar-Row-(plate-loaded)_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_fbb62888",
@@ -9143,7 +11006,16 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/100651201-Lever-Torso-Rotation-(male)_Waist_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/100651201-Lever-Torso-Rotation-(male)_Waist_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/100651201-Lever-Torso-Rotation-(male)_Waist_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 7,
+      "demands": {
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_243710de",
@@ -9182,7 +11054,16 @@
     "defaultDurationSec": 45,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/21971201-Run-on-Treadmill-(female)_Cardio.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/21971201-Run-on-Treadmill-(female)_Cardio_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/21971201-Run-on-Treadmill-(female)_Cardio_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_28bb4a95",
@@ -9226,7 +11107,15 @@
     "defaultReps": 12,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/08141201-Triceps-Dip_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08141201-Triceps-Dip_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08141201-Triceps-Dip_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_2f8d3067",
@@ -9266,7 +11155,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00921201-Barbell-Seated-Overhead-Triceps-Extension_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00921201-Barbell-Seated-Overhead-Triceps-Extension_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00921201-Barbell-Seated-Overhead-Triceps-Extension_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_ec3b69a3",
@@ -9307,7 +11204,16 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/45661201-Cable-Neutral-Grip-Kickback_Upper-arms_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/45661101-Cable-Neutral-Grip-Kickback_Upper-arms_small_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/45661101-Cable-Neutral-Grip-Kickback_Upper-arms_small_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_cdc472b1",
@@ -9347,7 +11253,17 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/16051201-Cable-Triceps-Pushdown-(SZ-bar)_Upper-arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/16051201-Cable-Triceps-Pushdown-(SZ-bar)_Upper-arms_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/16051201-Cable-Triceps-Pushdown-(SZ-bar)_Upper-arms_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 1,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3,
+        "mobility": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_93a552c6",
@@ -9388,7 +11304,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02011201-Cable-Pushdown_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02011201-Cable-Pushdown_Upper-Arms_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02011201-Cable-Pushdown_Upper-Arms_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_94b7239b",
@@ -9429,7 +11353,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/24381201-Cable-Pushdown-(with-rope-attachment)-(female)_Upper-Arms.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/24381201-Cable-Pushdown-(with-rope-attachment)-(female)_Upper-Arms_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/24381201-Cable-Pushdown-(with-rope-attachment)-(female)_Upper-Arms_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_turkish_getup",
@@ -9478,7 +11410,17 @@
     ],
     "hevyTemplateId": "5F8903BF",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05511201-Kettlebell-Turkish-Get-Up-(Squat-style)_Thighs.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05511101-Kettlebell-Turkish-Get-Up-(Squat-style)_Thighs_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05511101-Kettlebell-Turkish-Get-Up-(Squat-style)_Thighs_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 76,
+      "demands": {
+        "stanceBalance": 4,
+        "mobility": 3,
+        "popUp": 2
+      },
+      "tier": "high",
+      "rationale": "Full-body stability from ground to standing — pop-up adjacent pattern."
+    }
   },
   {
     "id": "ex_hevy_7ab9a362",
@@ -9521,7 +11463,15 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01211201-Barbell-Upright-Row_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01211201-Barbell-Upright-Row_Shoulders_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01211201-Barbell-Upright-Row_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_72880c57",
@@ -9566,7 +11516,17 @@
     "defaultReps": 10,
     "origin": "seed",
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/71791201-Lever-Cross-Lat-Pulldown-(VERSION-2)-(male)_Back_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/71791201-Lever-Cross-Lat-Pulldown-(VERSION-2)-(male)_Back_thumbnail_@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/71791201-Lever-Cross-Lat-Pulldown-(VERSION-2)-(male)_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 36,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_32hkj34k",
@@ -9610,7 +11570,16 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/14601201-Walking-Lunge-Male_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/14601201-Walking-Lunge-Male_Hips_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/14601201-Walking-Lunge-Male_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 35,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_7c50f118",
@@ -9657,7 +11626,18 @@
     "defaultSets": 3,
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/14291201-Wide-Grip-Pull-Up_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/14291201-Wide-Grip-Pull-Up_Back_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/14291201-Wide-Grip-Pull-Up_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 42,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3,
+        "stanceBalance": 2,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_0e4523f4",
@@ -9701,7 +11681,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/08591201-Wrist-Roller_Forearms_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08591101-Wrist-Roller_Forearms_small_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08591101-Wrist-Roller_Forearms_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "ex_hevy_123ee239",
@@ -9747,7 +11733,13 @@
     "defaultSets": 3,
     "defaultReps": 10,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/04391201-Dumbbell-Zottman-Curl_Upper-Arms-FIX.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04391201-Dumbbell-Zottman-Curl_Upper-Arms-FIX_thumbnail@3x.jpg"
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04391201-Dumbbell-Zottman-Curl_Upper-Arms-FIX_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 0,
+      "demands": {},
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
   },
   {
     "id": "sk_carving_figure8",
@@ -9775,7 +11767,17 @@
     "imageUrls": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Carveboard_%282916982672%29.jpg/960px-Carveboard_%282916982672%29.jpg"
     ],
-    "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Carveboard_%282916982672%29.jpg/960px-Carveboard_%282916982672%29.jpg"
+    "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Carveboard_%282916982672%29.jpg/960px-Carveboard_%282916982672%29.jpg",
+    "surfTransfer": {
+      "baseScore": 93,
+      "demands": {
+        "carvingTransfer": 5,
+        "rotation": 3,
+        "stanceBalance": 4
+      },
+      "tier": "high",
+      "rationale": "Smooth rail-to-rail carving ingrains surf turn rhythm."
+    }
   },
   {
     "id": "sk_cutback",
@@ -9802,7 +11804,17 @@
     "imageUrls": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Surfskating_%284442440261%29.jpg/960px-Surfskating_%284442440261%29.jpg"
     ],
-    "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Surfskating_%284442440261%29.jpg/960px-Surfskating_%284442440261%29.jpg"
+    "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Surfskating_%284442440261%29.jpg/960px-Surfskating_%284442440261%29.jpg",
+    "surfTransfer": {
+      "baseScore": 96,
+      "demands": {
+        "carvingTransfer": 5,
+        "rotation": 5,
+        "stanceBalance": 4
+      },
+      "tier": "high",
+      "rationale": "Practices cutback carving and rotation on land with direct wave transfer."
+    }
   },
   {
     "id": "sk_pumping",
@@ -9829,7 +11841,16 @@
     "imageUrls": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/SPEED_%282916292323%29.jpg/960px-SPEED_%282916292323%29.jpg"
     ],
-    "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/SPEED_%282916292323%29.jpg/960px-SPEED_%282916292323%29.jpg"
+    "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/SPEED_%282916292323%29.jpg/960px-SPEED_%282916292323%29.jpg",
+    "surfTransfer": {
+      "baseScore": 94,
+      "demands": {
+        "carvingTransfer": 5,
+        "stanceBalance": 4
+      },
+      "tier": "high",
+      "rationale": "Builds pumping rhythm and rail engagement that carries straight to the water."
+    }
   },
   {
     "id": "sk_tic_tac",
@@ -9856,6 +11877,15 @@
     "imageUrls": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Surfskateboard.jpg/960px-Surfskateboard.jpg"
     ],
-    "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Surfskateboard.jpg/960px-Surfskateboard.jpg"
+    "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Surfskateboard.jpg/960px-Surfskateboard.jpg",
+    "surfTransfer": {
+      "baseScore": 91,
+      "demands": {
+        "stanceBalance": 5,
+        "carvingTransfer": 4
+      },
+      "tier": "high",
+      "rationale": "Dynamic balance and weight shifts mirror on-wave stance control."
+    }
   }
 ]

@@ -11,8 +11,14 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ResponsiveChart } from "@/components/charts/responsive-chart";
 import { RecentSessions } from "@/components/recent-sessions";
 import { cn } from "@/lib/utils";
-import { sessionsRepo } from "@/lib/db/repository";
+import { SurfTransferBadge } from "@/components/surf-transfer-badge";
+import { exercisesRepo, maneuversRepo, sessionsRepo } from "@/lib/db/repository";
 import { CATEGORY_LIST } from "@/lib/categories";
+import {
+  compareBySurfTransfer,
+  getSurfTransfer,
+  personalizedScore,
+} from "@/lib/surf-transfer";
 import {
   computeStreak,
   sessionsThisWeek,
@@ -21,6 +27,8 @@ import {
 
 export function Dashboard() {
   const sessions = useLiveQuery(() => sessionsRepo.all(), []);
+  const exercises = useLiveQuery(() => exercisesRepo.all(), []);
+  const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
   const loading = sessions === undefined;
 
   const streak = React.useMemo(
@@ -39,6 +47,13 @@ export function Dashboard() {
 
   const countFor = (cat: string) =>
     (sessions ?? []).filter((s) => s.category === cat).length;
+
+  const topGoalExercises = React.useMemo(() => {
+    const m = maneuvers ?? [];
+    return [...(exercises ?? [])]
+      .sort((a, b) => compareBySurfTransfer(a, b, m))
+      .slice(0, 3);
+  }, [exercises, maneuvers]);
 
   // Compute the time-based greeting after mount to avoid SSR/client mismatch.
   const [greeting, setGreeting] = React.useState("Welcome back");
@@ -78,6 +93,33 @@ export function Dashboard() {
           </>
         )}
       </div>
+
+      {topGoalExercises.length > 0 && (
+        <section>
+          <h2 className="mb-3 text-lg font-semibold">
+            Top exercises for your goals
+          </h2>
+          <div className="space-y-2">
+            {topGoalExercises.map((ex) => {
+              const transfer = getSurfTransfer(ex);
+              return (
+                <Card key={ex.id} className="flex items-center justify-between gap-3 p-3">
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{ex.name}</p>
+                    <p className="truncate text-xs text-muted-foreground">
+                      {transfer.rationale}
+                    </p>
+                  </div>
+                  <SurfTransferBadge
+                    tier={transfer.tier}
+                    score={personalizedScore(transfer, maneuvers ?? [])}
+                  />
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {!loading && total === 0 && (
         <EmptyState

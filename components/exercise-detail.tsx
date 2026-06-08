@@ -31,6 +31,8 @@ import { exercisesRepo, sessionsRepo } from "@/lib/db/repository";
 import { exerciseWeightTrend } from "@/lib/stats";
 import { displayWeightKg, weightUnitLabel } from "@/lib/units";
 import { MUSCLE_LABEL } from "@/lib/muscles";
+import { SurfTransferPanel } from "@/components/surf-transfer-panel";
+import { maneuversRepo } from "@/lib/db/repository";
 import { formatDate } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import type { Exercise, Muscle } from "@/lib/types";
@@ -75,6 +77,7 @@ function ExerciseDetailBody({
     useLiveQuery(() => exercisesRepo.get(initialExercise.id), [
       initialExercise.id,
     ]) ?? initialExercise;
+  const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
   const { settings } = useApp();
   const units = settings?.units ?? "metric";
   const [tab, setTab] = React.useState<Tab>(initialTab);
@@ -122,6 +125,11 @@ function ExerciseDetailBody({
       </div>
 
       <p className="text-sm text-muted-foreground">{exercise.description}</p>
+
+      <SurfTransferPanel
+        exercise={exercise}
+        maneuvers={maneuvers ?? []}
+      />
 
       {hasMuscles && (
         <div className="rounded-xl border border-border bg-muted/30 p-3">

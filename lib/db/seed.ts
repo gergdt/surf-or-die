@@ -11,12 +11,13 @@ import routinesSeed from "../seed/routines.json";
 import maneuversSeed from "../seed/maneuvers.json";
 import sourcesSeed from "../seed/sources.json";
 
-export const SEED_VERSION = 6;
+export const SEED_VERSION = 9;
 
 const DEFAULT_SETTINGS: Settings = {
   id: "app",
   units: "metric",
   cloudSyncEnabled: false,
+  hevySyncEnabled: true,
   aiProvider: "stub",
   seededVersion: 0,
   theme: "system",

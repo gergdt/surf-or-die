@@ -11,9 +11,31 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { DifficultyBadge } from "@/components/page-header";
 import { ExerciseDetail } from "@/components/exercise-detail";
 import { ExerciseThumb } from "@/components/exercise-thumb";
+import { SurfTransferBadge } from "@/components/surf-transfer-badge";
 import { BODY_PARTS, BODY_PART_LABEL } from "@/lib/categories";
-import { exercisesRepo } from "@/lib/db/repository";
-import type { BodyPart, Category, Difficulty, Exercise } from "@/lib/types";
+import { exercisesRepo, maneuversRepo } from "@/lib/db/repository";
+import {
+  compareBySurfTransfer,
+  getSurfTransfer,
+  personalizedScore,
+  SURF_DEMAND_LABEL,
+  SURF_DEMANDS,
+} from "@/lib/surf-transfer";
+import type {
+  BodyPart,
+  Category,
+  Difficulty,
+  Exercise,
+  SurfDemand,
+} from "@/lib/types";
+
+type SortMode = "surf" | "name" | "difficulty";
+
+const DIFFICULTY_ORDER: Record<Difficulty, number> = {
+  beginner: 0,
+  intermediate: 1,
+  advanced: 2,
+};
 
 export function ExerciseLibrary({
   category,
@@ -26,13 +48,35 @@ export function ExerciseLibrary({
     () => exercisesRepo.byCategory(category),
     [category],
   );
+  const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
   const [filter, setFilter] = React.useState<BodyPart | "all">("all");
+  const [demandFilter, setDemandFilter] = React.useState<SurfDemand | "all">(
+    "all",
+  );
+  const [sortMode, setSortMode] = React.useState<SortMode>("surf");
   const [selected, setSelected] = React.useState<Exercise | null>(null);
   const [addOpen, setAddOpen] = React.useState(false);
 
-  const list = (exercises ?? []).filter(
-    (e) => filter === "all" || e.bodyParts.includes(filter),
-  );
+  const list = React.useMemo(() => {
+    let items = (exercises ?? []).filter(
+      (e) => filter === "all" || e.bodyParts.includes(filter),
+    );
+    if (demandFilter !== "all") {
+      items = items.filter(
+        (e) => (getSurfTransfer(e).demands[demandFilter] ?? 0) >= 2,
+      );
+    }
+    const m = maneuvers ?? [];
+    return [...items].sort((a, b) => {
+      if (sortMode === "surf") {
+        return compareBySurfTransfer(a, b, m);
+      }
+      if (sortMode === "name") {
+        return a.name.localeCompare(b.name);
+      }
+      return DIFFICULTY_ORDER[a.difficulty] - DIFFICULTY_ORDER[b.difficulty];
+    });
+  }, [exercises, filter, demandFilter, sortMode, maneuvers]);
 
   const availableParts = showBodyPartFilter
     ? BODY_PARTS.filter((p) =>
@@ -47,6 +91,19 @@ export function ExerciseLibrary({
         <Button size="sm" variant="secondary" onClick={() => setAddOpen(true)}>
           <Plus /> New
         </Button>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <Select
+          value={sortMode}
+          onChange={(e) => setSortMode(e.target.value as SortMode)}
+          className="h-8 w-auto text-xs"
+          aria-label="Sort exercises"
+        >
+          <option value="surf">Surf transfer</option>
+          <option value="name">Name</option>
+          <option value="difficulty">Difficulty</option>
+        </Select>
       </div>
 
       {showBodyPartFilter && availableParts.length > 0 && (
@@ -67,6 +124,22 @@ export function ExerciseLibrary({
         </div>
       )}
 
+      <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
+        <FilterChip
+          label="All demands"
+          active={demandFilter === "all"}
+          onClick={() => setDemandFilter("all")}
+        />
+        {SURF_DEMANDS.map((d) => (
+          <FilterChip
+            key={d}
+            label={SURF_DEMAND_LABEL[d]}
+            active={demandFilter === d}
+            onClick={() => setDemandFilter(d)}
+          />
+        ))}
+      </div>
+
       {list.length === 0 ? (
         <EmptyState
           icon={Dumbbell}
@@ -75,32 +148,37 @@ export function ExerciseLibrary({
         />
       ) : (
         <div className="space-y-2">
-          {list.map((ex) => (
-            <Card
-              key={ex.id}
-              onClick={() => setSelected(ex)}
-              className="flex cursor-pointer items-center gap-3 p-3 transition-colors hover:bg-muted/50"
-            >
-              <ExerciseThumb exercise={ex} />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <p className="truncate font-medium">{ex.name}</p>
-                  {ex.origin === "user" && (
-                    <span className="rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-medium text-accent-foreground">
-                      Mine
-                    </span>
-                  )}
+          {list.map((ex) => {
+            const transfer = getSurfTransfer(ex);
+            const score = personalizedScore(transfer, maneuvers ?? []);
+            return (
+              <Card
+                key={ex.id}
+                onClick={() => setSelected(ex)}
+                className="flex cursor-pointer items-center gap-3 p-3 transition-colors hover:bg-muted/50"
+              >
+                <ExerciseThumb exercise={ex} />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <p className="truncate font-medium">{ex.name}</p>
+                    {ex.origin === "user" && (
+                      <span className="rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-medium text-accent-foreground">
+                        Mine
+                      </span>
+                    )}
+                  </div>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {ex.bodyParts.map((b) => BODY_PART_LABEL[b]).join(", ")}
+                  </p>
                 </div>
-                <p className="truncate text-xs text-muted-foreground">
-                  {ex.bodyParts.map((b) => BODY_PART_LABEL[b]).join(", ")}
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <DifficultyBadge level={ex.difficulty} />
-                <ChevronRight className="size-4 text-muted-foreground" />
-              </div>
-            </Card>
-          ))}
+                <div className="flex items-center gap-2">
+                  <SurfTransferBadge tier={transfer.tier} score={score} />
+                  <DifficultyBadge level={ex.difficulty} />
+                  <ChevronRight className="size-4 text-muted-foreground" />
+                </div>
+              </Card>
+            );
+          })}
         </div>
       )}
 

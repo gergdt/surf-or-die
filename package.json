@@ -10,9 +10,13 @@
     "icons": "node scripts/generate-icons.mjs",
     "enrich": "node scripts/enrich-exercises.mjs",
     "hevy-catalog": "node scripts/fetch-hevy-catalog.mjs",
-    "verify": "node scripts/verify-ui.mjs"
+    "verify": "node scripts/verify-ui.mjs",
+    "score-exercises": "node scripts/score-exercises.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.108.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dexie": "^4.4.3",
@@ -33,6 +37,8 @@
     "eslint-config-next": "16.2.7",
     "sharp": "^0.34.5",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "tsx": "^4.19.4",
+    "typescript": "^5",
+    "vitest": "^3.2.4"
   }
 }

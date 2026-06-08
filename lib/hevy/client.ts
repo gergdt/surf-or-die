@@ -26,6 +26,20 @@ export function getExerciseTemplates(page = 1, pageSize = 100) {
   );
 }
 
+/** Fetch every page of exercise templates for the authenticated account. */
+export async function getAllExerciseTemplates(pageSize = 100) {
+  const all: HevyPaginatedTemplates["exercise_templates"] = [];
+  let page = 1;
+  let pageCount = 1;
+  do {
+    const batch = await getExerciseTemplates(page, pageSize);
+    all.push(...batch.exercise_templates);
+    pageCount = batch.page_count;
+    page += 1;
+  } while (page <= pageCount);
+  return all;
+}
+
 export function getUserInfo() {
   return hevyGet<HevyUserInfo>("/user/info");
 }

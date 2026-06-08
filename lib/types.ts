@@ -32,6 +32,27 @@ export type Muscle =
 
 export type Difficulty = "beginner" | "intermediate" | "advanced";
 
+/** Surf-specific physical demands that land training can improve. */
+export type SurfDemand =
+  | "paddlePower"
+  | "popUp"
+  | "stanceBalance"
+  | "rotation"
+  | "mobility"
+  | "carvingTransfer";
+
+export type SurfTransferTier = "high" | "medium" | "low";
+
+export interface SurfTransferProfile {
+  /** Universal surf transfer score (0–100). */
+  baseScore: number;
+  /** Per-demand strength mapping (0–5 each). */
+  demands: Partial<Record<SurfDemand, number>>;
+  tier: SurfTransferTier;
+  /** One-line explanation of the score. */
+  rationale: string;
+}
+
 export interface Exercise {
   id: string;
   name: string;
@@ -65,6 +86,8 @@ export interface Exercise {
   defaultDurationSec?: number;
   sourceId?: string;
   origin: "seed" | "user";
+  /** Pre-computed surf transfer rating (seed data) or filled at runtime. */
+  surfTransfer?: SurfTransferProfile;
 }
 
 export interface RoutineItem {
@@ -181,6 +204,11 @@ export interface Settings {
   id: "app";
   units: "metric" | "imperial";
   cloudSyncEnabled: boolean;
+  cloudLastSyncedAt?: number;
+  /** Pull gym exercises from Hevy on app open when configured. */
+  hevySyncEnabled: boolean;
+  hevyLastSyncedAt?: number;
+  hevyUserName?: string;
   aiProvider: "stub" | "openai" | "anthropic" | "gateway";
   seededVersion: number;
   theme: "system" | "light" | "dark";

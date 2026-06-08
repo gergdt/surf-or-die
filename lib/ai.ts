@@ -1,4 +1,5 @@
-import type { Category, Exercise, RoutineItem } from "./types";
+import { compareBySurfTransfer } from "./surf-transfer";
+import type { Category, Exercise, Maneuver, RoutineItem } from "./types";
 
 /**
  * AI suggestion interface. Today this returns curated/heuristic results (a
@@ -110,6 +111,7 @@ export async function suggestRoutine(
   category: Category,
   library: Exercise[],
   focus?: string,
+  maneuvers: Maneuver[] = [],
 ): Promise<RoutineSuggestion> {
   await delay(700);
   const chosenFocus =
@@ -118,11 +120,13 @@ export async function suggestRoutine(
     ];
 
   const pool = library.filter((e) => e.category === category);
-  // Prefer exercises matching the focus body part where possible.
-  const matching = pool.filter((e) =>
-    e.bodyParts.some((b) => b === chosenFocus),
-  );
-  const ranked = [...matching, ...pool.filter((e) => !matching.includes(e))];
+  const ranked = [...pool].sort((a, b) => {
+    const bySurf = compareBySurfTransfer(a, b, maneuvers);
+    if (bySurf !== 0) return bySurf;
+    const aFocus = a.bodyParts.some((bp) => bp === chosenFocus) ? 1 : 0;
+    const bFocus = b.bodyParts.some((bp) => bp === chosenFocus) ? 1 : 0;
+    return bFocus - aFocus;
+  });
   const picks = ranked.slice(0, Math.min(5, ranked.length));
 
   const items: RoutineItem[] = picks.map((e) => ({

@@ -1,56 +1,63 @@
 [
   {
-    "id": "rt_legs_power",
-    "name": "Leg Power for Pop-Ups & Turns",
-    "category": "gym",
-    "focus": "legs",
-    "description": "Lower-body strength and explosiveness for fast pop-ups and powerful turns.",
-    "estMinutes": 45,
-    "items": [
-      { "exerciseId": "ex_back_squat", "sets": 4, "reps": 6, "restSec": 120 },
-      { "exerciseId": "ex_bulgarian_split_squat", "sets": 3, "reps": 10, "restSec": 90 },
-      { "exerciseId": "ex_single_leg_rdl", "sets": 3, "reps": 8, "restSec": 90 },
-      { "exerciseId": "ex_box_jump", "sets": 4, "reps": 5, "restSec": 90 }
-    ]
-  },
-  {
     "id": "rt_back_paddle",
-    "name": "Paddle Power (Back)",
+    "name": "Surf Back — Paddle Power (Gym)",
     "category": "gym",
     "focus": "back",
-    "description": "Build the pulling strength and endurance that makes paddling effortless.",
-    "estMinutes": 40,
+    "description": "High-transfer pulling work plus cable and machine rows to build paddle strength and endurance.",
+    "estMinutes": 45,
     "items": [
-      { "exerciseId": "ex_pull_up", "sets": 4, "reps": 8, "restSec": 120 },
-      { "exerciseId": "ex_bent_over_row", "sets": 4, "reps": 10, "restSec": 90 },
+      { "exerciseId": "ex_pull_up", "sets": 4, "reps": 8, "restSec": 120, "notes": "Swap for lat pulldown if needed" },
+      { "exerciseId": "ex_hevy_4e5257de", "sets": 4, "reps": 10, "restSec": 90 },
+      { "exerciseId": "ex_hevy_aa1eb7d8", "sets": 4, "reps": 10, "restSec": 90 },
+      { "exerciseId": "ex_bent_over_row", "sets": 3, "reps": 10, "restSec": 90 },
       { "exerciseId": "ex_kettlebell_swing", "sets": 4, "reps": 15, "restSec": 75 }
     ]
   },
   {
+    "id": "rt_legs_power",
+    "name": "Surf Legs — Pop-Up Power (Gym)",
+    "category": "gym",
+    "focus": "legs",
+    "description": "Explosive pop-up drills mixed with leg press and single-leg machine work for stance stability.",
+    "estMinutes": 45,
+    "items": [
+      { "exerciseId": "ex_box_jump", "sets": 4, "reps": 5, "restSec": 90 },
+      { "exerciseId": "ex_hevy_3fd83744", "sets": 3, "reps": 10, "restSec": 90, "notes": "Each leg" },
+      { "exerciseId": "ex_bulgarian_split_squat", "sets": 3, "reps": 10, "restSec": 90 },
+      { "exerciseId": "ex_hevy_c7973e0e", "sets": 4, "reps": 12, "restSec": 90 },
+      { "exerciseId": "ex_single_leg_rdl", "sets": 3, "reps": 8, "restSec": 90, "notes": "Each leg" }
+    ]
+  },
+  {
     "id": "rt_chest_popup",
-    "name": "Pop-Up Press (Chest)",
+    "name": "Surf Chest — Deck Press (Gym)",
     "category": "gym",
     "focus": "chest",
-    "description": "Pressing strength so you snap off the deck and onto your feet.",
-    "estMinutes": 35,
+    "description": "Pop-up rehearsal plus pressing on bench and machines — snap off the deck with control.",
+    "estMinutes": 40,
     "items": [
+      { "exerciseId": "ex_pop_up_drill", "sets": 4, "reps": 8, "restSec": 60 },
       { "exerciseId": "ex_db_bench_press", "sets": 4, "reps": 10, "restSec": 90 },
+      { "exerciseId": "ex_hevy_fbf92739", "sets": 3, "reps": 12, "restSec": 90 },
       { "exerciseId": "ex_push_up", "sets": 3, "reps": 15, "restSec": 60 },
-      { "exerciseId": "ex_pop_up_drill", "sets": 4, "reps": 8, "restSec": 60 }
+      { "exerciseId": "ex_pallof_press", "sets": 3, "reps": 12, "restSec": 45, "notes": "Cable station" }
     ]
   },
   {
     "id": "rt_core_rotation",
-    "name": "Core & Rotational Control",
+    "name": "Surf Full Body — Gym Circuit",
     "category": "gym",
-    "focus": "rotational",
-    "description": "Anti-rotation stability plus explosive rotation for turns and snaps.",
-    "estMinutes": 30,
+    "focus": "fullbody",
+    "description": "Full-body surf prep: hip power, machine compound work, rotation, and core stability in one session.",
+    "estMinutes": 50,
     "items": [
-      { "exerciseId": "ex_plank", "sets": 3, "durationSec": 45, "restSec": 45 },
-      { "exerciseId": "ex_pallof_press", "sets": 3, "reps": 12, "restSec": 45 },
-      { "exerciseId": "ex_cable_woodchopper", "sets": 3, "reps": 12, "restSec": 60 },
-      { "exerciseId": "ex_russian_twist", "sets": 3, "reps": 20, "restSec": 45 }
+      { "exerciseId": "ex_kettlebell_swing", "sets": 4, "reps": 15, "restSec": 75 },
+      { "exerciseId": "ex_hevy_a8814c06", "sets": 4, "reps": 10, "restSec": 90 },
+      { "exerciseId": "ex_cable_woodchopper", "sets": 3, "reps": 12, "restSec": 60, "notes": "Each side" },
+      { "exerciseId": "ex_turkish_getup", "sets": 3, "reps": 3, "restSec": 90, "notes": "Each side" },
+      { "exerciseId": "ex_hevy_0222db42", "sets": 3, "durationSec": 120, "restSec": 60 },
+      { "exerciseId": "ex_plank", "sets": 3, "durationSec": 45, "restSec": 45 }
     ]
   },
   {

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useLiveQuery } from "dexie-react-hooks";
 import { Search, Plus, Eye } from "lucide-react";
 import { Modal } from "@/components/ui/modal";
 import { Input } from "@/components/ui/input";
@@ -8,7 +9,14 @@ import { Button } from "@/components/ui/button";
 import { DifficultyBadge } from "@/components/page-header";
 import { ExerciseDetail } from "@/components/exercise-detail";
 import { ExerciseThumb } from "@/components/exercise-thumb";
+import { SurfTransferBadge } from "@/components/surf-transfer-badge";
 import { BODY_PART_LABEL } from "@/lib/categories";
+import { maneuversRepo } from "@/lib/db/repository";
+import {
+  compareBySurfTransfer,
+  getSurfTransfer,
+  personalizedScore,
+} from "@/lib/surf-transfer";
 import type { Exercise } from "@/lib/types";
 
 export function ExercisePicker({
@@ -29,10 +37,15 @@ export function ExercisePicker({
   const [previewExercise, setPreviewExercise] = React.useState<Exercise | null>(
     null,
   );
+  const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
 
-  const filtered = exercises.filter((e) =>
-    e.name.toLowerCase().includes(query.toLowerCase()),
-  );
+  const filtered = React.useMemo(() => {
+    const q = query.toLowerCase();
+    const m = maneuvers ?? [];
+    return exercises
+      .filter((e) => e.name.toLowerCase().includes(q))
+      .sort((a, b) => compareBySurfTransfer(a, b, m));
+  }, [exercises, query, maneuvers]);
 
   React.useEffect(() => {
     if (!open) {
@@ -85,6 +98,13 @@ export function ExercisePicker({
                   >
                     <Eye className="size-4" />
                   </Button>
+                  <SurfTransferBadge
+                    tier={getSurfTransfer(ex).tier}
+                    score={personalizedScore(
+                      getSurfTransfer(ex),
+                      maneuvers ?? [],
+                    )}
+                  />
                   <DifficultyBadge level={ex.difficulty} />
                   {!added && (
                     <Button

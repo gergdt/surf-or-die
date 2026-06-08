@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { exercisesRepo, routinesRepo } from "@/lib/db/repository";
+import { exercisesRepo, maneuversRepo, routinesRepo } from "@/lib/db/repository";
 import { suggestRoutine } from "@/lib/ai";
 import { CATEGORIES } from "@/lib/categories";
 import { cn } from "@/lib/utils";
@@ -34,9 +34,12 @@ export function RoutineList({
   const generate = async () => {
     setGenerating(true);
     try {
-      const library = await exercisesRepo.byCategory(category);
+      const [library, maneuvers] = await Promise.all([
+        exercisesRepo.byCategory(category),
+        maneuversRepo.all(),
+      ]);
       if (library.length === 0) return;
-      const s = await suggestRoutine(category, library);
+      const s = await suggestRoutine(category, library, undefined, maneuvers);
       await routinesRepo.create({
         name: s.name,
         category,
