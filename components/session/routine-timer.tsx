@@ -16,8 +16,21 @@ import { Card } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { EmptyState } from "@/components/ui/empty-state";
-import { exercisesRepo, routinesRepo, sessionsRepo } from "@/lib/db/repository";
+import { RoutineSurfScore } from "@/components/routine-surf-score";
+import { SurfTransferBadge } from "@/components/surf-transfer-badge";
+import {
+  exercisesRepo,
+  maneuversRepo,
+  routinesRepo,
+  sessionsRepo,
+} from "@/lib/db/repository";
 import { CATEGORIES } from "@/lib/categories";
+import {
+  getSurfTransfer,
+  personalizedScore,
+  routineSurfScore,
+  scoreToTier,
+} from "@/lib/surf-transfer";
 import { cn } from "@/lib/utils";
 import type { Category, Exercise, SessionEntry } from "@/lib/types";
 
@@ -39,10 +52,8 @@ export function RoutineTimer({
 }) {
   const router = useRouter();
   const routine = useLiveQuery(() => routinesRepo.get(routineId), [routineId]);
-  const exercises = useLiveQuery(
-    () => exercisesRepo.byCategory(category),
-    [category],
-  );
+  const exercises = useLiveQuery(() => exercisesRepo.all(), []);
+  const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
 
   const exMap = React.useMemo(() => {
     const m = new Map<string, Exercise>();
@@ -88,6 +99,11 @@ export function RoutineTimer({
   }, []);
 
   const step = steps[index];
+  const stepRoutineItem = routine?.items.find(
+    (i) => i.exerciseId === step?.exerciseId,
+  );
+  const isWarmupStep =
+    stepRoutineItem?.notes?.toLowerCase().startsWith("warm-up") ?? false;
 
   const finish = React.useCallback(async () => {
     if (!routine || startedSavedRef.current) return;
@@ -166,13 +182,26 @@ export function RoutineTimer({
   }
 
   const ex = exMap.get(step.exerciseId);
+  const transfer = ex ? getSurfTransfer(ex) : null;
+  const exerciseSurfScore = transfer
+    ? personalizedScore(transfer, maneuvers ?? [])
+    : null;
   const completed = index;
   const pct = (completed / steps.length) * 100;
   const isRest = step.kind === "rest";
   const meta = CATEGORIES[category];
+  const routineScore = routine
+    ? routineSurfScore(routine.items, exMap, maneuvers ?? [])
+    : 0;
 
   return (
     <div className="animate-fade-in space-y-4">
+      <div className="flex items-center justify-between gap-2">
+        <RoutineSurfScore score={routineScore} label="Routine" />
+        <p className="truncate text-sm font-medium text-muted-foreground">
+          {routine.name}
+        </p>
+      </div>
       <div>
         <div className="mb-1 flex justify-between text-xs text-muted-foreground">
           <span>
@@ -203,10 +232,23 @@ export function RoutineTimer({
           </>
         ) : (
           <>
+            {isWarmupStep && (
+              <span className="rounded-full bg-accent/20 px-2.5 py-0.5 text-xs font-medium text-accent-foreground">
+                Warm-up
+              </span>
+            )}
             <span className={cn("text-sm font-medium uppercase tracking-wide", meta.color)}>
               Set {step.setIndex + 1} of {step.totalSets}
             </span>
-            <h2 className="text-2xl font-bold tracking-tight">{ex?.name}</h2>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <h2 className="text-2xl font-bold tracking-tight">{ex?.name}</h2>
+              {exerciseSurfScore != null && transfer && (
+                <SurfTransferBadge
+                  tier={scoreToTier(exerciseSurfScore)}
+                  score={exerciseSurfScore}
+                />
+              )}
+            </div>
             {step.reps != null && step.durationSec == null && (
               <p className="text-lg text-muted-foreground">{step.reps} reps</p>
             )}
@@ -235,6 +277,12 @@ export function RoutineTimer({
           </a>
         )}
       </Card>
+
+      {stepRoutineItem?.notes && !isRest && (
+        <p className="text-center text-sm text-muted-foreground">
+          {stepRoutineItem.notes}
+        </p>
+      )}
 
       {ex && !isRest && ex.techniqueCues.length > 0 && (
         <Card className="p-4">

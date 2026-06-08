@@ -5,6 +5,7 @@ import {
   compareBySurfTransfer,
   getSurfTransfer,
   personalizedScore,
+  routineSurfScore,
   scoreExercise,
 } from "./surf-transfer";
 import type { Exercise, Maneuver } from "./types";
@@ -87,6 +88,20 @@ describe("personalizedScore", () => {
     const base = woodchopper.baseScore;
     const personal = personalizedScore(woodchopper, sampleManeuvers);
     expect(personal).toBeGreaterThan(base);
+  });
+});
+
+describe("routineSurfScore", () => {
+  it("computes a weighted average from routine items", () => {
+    const map = new Map(exercises.map((e) => [e.id, e]));
+    const score = routineSurfScore(
+      [
+        { exerciseId: "ex_pop_up_drill", sets: 4, restSec: 60 },
+        { exerciseId: "ex_pull_up", sets: 4, restSec: 90 },
+      ],
+      map,
+    );
+    expect(score).toBeGreaterThanOrEqual(85);
   });
 });
 

@@ -11,7 +11,7 @@ import routinesSeed from "../seed/routines.json";
 import maneuversSeed from "../seed/maneuvers.json";
 import sourcesSeed from "../seed/sources.json";
 
-export const SEED_VERSION = 9;
+export const SEED_VERSION = 10;
 
 const DEFAULT_SETTINGS: Settings = {
   id: "app",
@@ -52,7 +52,15 @@ export async function ensureSeeded(): Promise<void> {
     [db.exercises, db.routines, db.maneuvers, db.sources, db.settings],
     async () => {
       await db.exercises.bulkPut(exercises);
-      await db.routines.bulkPut(routines);
+      // Keep user-edited routines (including customized defaults).
+      const existingRoutines = await db.routines.toArray();
+      const userRoutineIds = new Set(
+        existingRoutines
+          .filter((r) => r.origin === "user")
+          .map((r) => r.id),
+      );
+      const routinesToPut = routines.filter((r) => !userRoutineIds.has(r.id));
+      await db.routines.bulkPut(routinesToPut);
       await db.maneuvers.bulkPut(maneuvers);
       await db.sources.bulkPut(sources);
       await db.settings.put({ ...settings, seededVersion: SEED_VERSION });

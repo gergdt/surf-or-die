@@ -3,23 +3,46 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useLiveQuery } from "dexie-react-hooks";
-import { Plus, Trash2, Clock, Check, GripVertical, Eye } from "lucide-react";
+import {
+  Plus,
+  Trash2,
+  Clock,
+  Check,
+  GripVertical,
+  Eye,
+  Pencil,
+  Save,
+} from "lucide-react";
 import { ExerciseDetail } from "@/components/exercise-detail";
+import { RoutineEditorModal } from "@/components/routine-editor";
+import { RoutineSurfScore } from "@/components/routine-surf-score";
+import { SurfTransferBadge } from "@/components/surf-transfer-badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input, Textarea, Label } from "@/components/ui/input";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ExercisePicker } from "./exercise-picker";
-import { exercisesRepo, routinesRepo, sessionsRepo } from "@/lib/db/repository";
+import {
+  exercisesRepo,
+  maneuversRepo,
+  routinesRepo,
+  sessionsRepo,
+} from "@/lib/db/repository";
 import { useApp } from "@/components/providers";
-import { todayISO, formatDuration } from "@/lib/utils";
+import {
+  getSurfTransfer,
+  personalizedScore,
+  routineSurfScore,
+  scoreToTier,
+} from "@/lib/surf-transfer";
+import { todayISO, formatDuration, cn } from "@/lib/utils";
 import {
   displayWeightKg,
   parseWeightInput,
   weightUnitLabel,
 } from "@/lib/units";
 import { CATEGORIES } from "@/lib/categories";
-import type { Category, Exercise, SetLog } from "@/lib/types";
+import type { Category, Exercise, RoutineItem, SetLog } from "@/lib/types";
 
 interface DraftEntry {
   exerciseId: string;
@@ -41,6 +64,11 @@ export function SessionLogger({
   const isStrength = category === "gym";
 
   const exercises = useLiveQuery(
+    () =>
+      routineId ? exercisesRepo.all() : exercisesRepo.byCategory(category),
+    [category, routineId],
+  );
+  const pickerExercises = useLiveQuery(
     () => exercisesRepo.byCategory(category),
     [category],
   );
@@ -48,6 +76,7 @@ export function SessionLogger({
     () => (routineId ? routinesRepo.get(routineId) : undefined),
     [routineId],
   );
+  const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
 
   const exerciseMap = React.useMemo(() => {
     const m = new Map<string, Exercise>();
@@ -65,8 +94,11 @@ export function SessionLogger({
     null,
   );
   const [saving, setSaving] = React.useState(false);
+  const [savingRoutine, setSavingRoutine] = React.useState(false);
+  const [routineEditorOpen, setRoutineEditorOpen] = React.useState(false);
   const [seconds, setSeconds] = React.useState(0);
   const seededRef = React.useRef(false);
+  const routineEditorWasOpen = React.useRef(false);
 
   // Live elapsed timer.
   React.useEffect(() => {
@@ -89,6 +121,22 @@ export function SessionLogger({
       })),
     );
   }, [routine]);
+
+  // Re-sync session when the routine is edited mid-workout.
+  React.useEffect(() => {
+    if (routineEditorWasOpen.current && !routineEditorOpen && routine) {
+      setEntries(
+        routine.items.map((item) => ({
+          exerciseId: item.exerciseId,
+          setLogs: Array.from({ length: item.sets }, () => ({
+            reps: item.reps,
+            durationSec: item.durationSec,
+          })),
+        })),
+      );
+    }
+    routineEditorWasOpen.current = routineEditorOpen;
+  }, [routineEditorOpen, routine]);
 
   const addExercise = (ex: Exercise) => {
     setEntries((prev) => [
@@ -151,6 +199,41 @@ export function SessionLogger({
   const num = (v: string): number | undefined =>
     v === "" ? undefined : Number(v);
 
+  const sessionRoutineItems = React.useMemo((): RoutineItem[] => {
+    return entries.map((entry) => {
+      const template = routine?.items.find(
+        (i) => i.exerciseId === entry.exerciseId,
+      );
+      const first = entry.setLogs[0];
+      return {
+        exerciseId: entry.exerciseId,
+        sets: entry.setLogs.length,
+        reps: first?.reps,
+        durationSec: first?.durationSec,
+        restSec: template?.restSec ?? 60,
+        notes: template?.notes,
+      };
+    });
+  }, [entries, routine]);
+
+  const sessionSurfScore = React.useMemo(
+    () => routineSurfScore(sessionRoutineItems, exerciseMap, maneuvers ?? []),
+    [sessionRoutineItems, exerciseMap, maneuvers],
+  );
+
+  const saveRoutineFromSession = async () => {
+    if (!routineId || !routine) return;
+    setSavingRoutine(true);
+    try {
+      await routinesRepo.update(routineId, {
+        items: sessionRoutineItems,
+        ...(routine.origin === "seed" ? { origin: "user" as const } : {}),
+      });
+    } finally {
+      setSavingRoutine(false);
+    }
+  };
+
   const save = async () => {
     if (entries.length === 0) return;
     setSaving(true);
@@ -196,6 +279,36 @@ export function SessionLogger({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+        {entries.length > 0 && (
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-border pt-3">
+            <RoutineSurfScore
+              score={sessionSurfScore}
+              label="Session surf transfer"
+            />
+            {routineId && routine && (
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => setRoutineEditorOpen(true)}
+                >
+                  <Pencil className="size-3.5" /> Edit routine
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  disabled={savingRoutine}
+                  onClick={saveRoutineFromSession}
+                >
+                  <Save className="size-3.5" />
+                  {savingRoutine ? "Saving…" : "Save to routine"}
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
       </Card>
 
       {entries.length === 0 ? (
@@ -213,14 +326,36 @@ export function SessionLogger({
         <div className="space-y-3">
           {entries.map((entry, idx) => {
             const ex = exerciseMap.get(entry.exerciseId);
+            const transfer = ex ? getSurfTransfer(ex) : null;
+            const surfScore = transfer
+              ? personalizedScore(transfer, maneuvers ?? [])
+              : null;
+            const warmupNote = routine?.items.find(
+              (i) => i.exerciseId === entry.exerciseId,
+            )?.notes;
+            const isWarmup = warmupNote?.toLowerCase().startsWith("warm-up");
             return (
-              <Card key={`${entry.exerciseId}-${idx}`} className="p-4">
+              <Card
+                key={`${entry.exerciseId}-${idx}`}
+                className={cn("p-4", isWarmup && "border-accent/40 bg-accent/5")}
+              >
                 <div className="mb-3 flex items-center justify-between gap-2">
                   <div className="flex min-w-0 flex-1 items-center gap-2">
                     <GripVertical className="size-4 shrink-0 text-muted-foreground" />
                     <p className="truncate font-semibold">
                       {ex?.name ?? "Exercise"}
                     </p>
+                    {isWarmup && (
+                      <span className="shrink-0 rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-medium text-accent-foreground">
+                        Warm-up
+                      </span>
+                    )}
+                    {surfScore != null && transfer && (
+                      <SurfTransferBadge
+                        tier={scoreToTier(surfScore)}
+                        score={surfScore}
+                      />
+                    )}
                   </div>
                   <div className="flex shrink-0 items-center gap-1">
                     {ex && (
@@ -245,6 +380,12 @@ export function SessionLogger({
                     </button>
                   </div>
                 </div>
+
+                {warmupNote && (
+                  <p className="mb-3 text-xs text-muted-foreground">
+                    {warmupNote}
+                  </p>
+                )}
 
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 px-1 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
@@ -416,7 +557,7 @@ export function SessionLogger({
       <ExercisePicker
         open={pickerOpen}
         onClose={() => setPickerOpen(false)}
-        exercises={exercises ?? []}
+        exercises={pickerExercises ?? []}
         selectedIds={entries.map((e) => e.exerciseId)}
         onPick={addExercise}
       />
@@ -427,6 +568,15 @@ export function SessionLogger({
         onClose={() => setPreviewExercise(null)}
         initialTab="guide"
       />
+
+      {routineId && routine && (
+        <RoutineEditorModal
+          open={routineEditorOpen}
+          onClose={() => setRoutineEditorOpen(false)}
+          routine={routine}
+          category={category}
+        />
+      )}
     </div>
   );
 }

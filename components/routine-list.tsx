@@ -3,7 +3,15 @@
 import * as React from "react";
 import Link from "next/link";
 import { useLiveQuery } from "dexie-react-hooks";
-import { Clock, Play, ListChecks, Trash2, Sparkles, Pencil } from "lucide-react";
+import {
+  Clock,
+  Play,
+  ListChecks,
+  Trash2,
+  Sparkles,
+  Pencil,
+  Plus,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -13,7 +21,9 @@ import { suggestRoutine } from "@/lib/ai";
 import { CATEGORIES } from "@/lib/categories";
 import { cn } from "@/lib/utils";
 import { RoutineEditorModal } from "@/components/routine-editor";
-import type { Category, Routine } from "@/lib/types";
+import { RoutineSurfScore } from "@/components/routine-surf-score";
+import { routineSurfScore } from "@/lib/surf-transfer";
+import type { Category, Exercise, Routine } from "@/lib/types";
 
 export function RoutineList({
   category,
@@ -26,7 +36,15 @@ export function RoutineList({
     () => routinesRepo.byCategory(category),
     [category],
   );
+  const exercises = useLiveQuery(() => exercisesRepo.all(), []);
+  const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
   const href = CATEGORIES[category].href;
+
+  const exerciseMap = React.useMemo(() => {
+    const m = new Map<string, Exercise>();
+    (exercises ?? []).forEach((e) => m.set(e.id, e));
+    return m;
+  }, [exercises]);
   const [generating, setGenerating] = React.useState(false);
   const [editing, setEditing] = React.useState<Routine | null>(null);
   const [creatingNew, setCreatingNew] = React.useState(false);
@@ -62,14 +80,19 @@ export function RoutineList({
       onClick={generate}
       disabled={generating}
     >
-      <Sparkles /> {generating ? "Generating..." : "Generate routine with AI"}
+      <Sparkles /> {generating ? "Generating..." : "AI routine"}
     </Button>
   );
 
   if (routines.length === 0) {
     return (
       <div className="space-y-3">
-        {generateButton}
+        <div className="grid grid-cols-2 gap-2">
+          {generateButton}
+          <Button variant="secondary" onClick={() => setCreatingNew(true)}>
+            <Plus /> New routine
+          </Button>
+        </div>
         <EmptyState
           icon={ListChecks}
           title="No routines yet"
@@ -86,8 +109,19 @@ export function RoutineList({
 
   return (
     <div className="space-y-3">
-      {generateButton}
-      {routines.map((r) => (
+      <div className="grid grid-cols-2 gap-2">
+        {generateButton}
+        <Button variant="secondary" onClick={() => setCreatingNew(true)}>
+          <Plus /> New routine
+        </Button>
+      </div>
+      {routines.map((r) => {
+        const surfScore = routineSurfScore(
+          r.items,
+          exerciseMap,
+          maneuvers ?? [],
+        );
+        return (
         <Card key={r.id} className="p-4">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
@@ -116,6 +150,7 @@ export function RoutineList({
             </div>
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-2">
+            <RoutineSurfScore score={surfScore} />
             <Badge variant="muted">
               <ListChecks className="size-3" /> {r.items.length} exercises
             </Badge>
@@ -125,6 +160,9 @@ export function RoutineList({
             <Badge variant="outline" className="capitalize">
               {r.focus}
             </Badge>
+            {r.origin === "user" && (
+              <Badge variant="accent">Customized</Badge>
+            )}
           </div>
           <Link
             href={`${href}/${startMode}?routine=${r.id}`}
@@ -133,7 +171,8 @@ export function RoutineList({
             <Play /> Start routine
           </Link>
         </Card>
-      ))}
+      );
+      })}
 
       <RoutineEditorModal
         open={!!editing}

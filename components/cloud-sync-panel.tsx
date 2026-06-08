@@ -34,7 +34,7 @@ export function CloudSyncPanel() {
     const supabase = createClient();
     if (!supabase) return;
 
-    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+    void supabase.auth.getUser().then((result) => setUser(result.data.user));
 
     const {
       data: { subscription },

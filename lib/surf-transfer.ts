@@ -1,6 +1,7 @@
 import type {
   Exercise,
   Maneuver,
+  RoutineItem,
   SurfDemand,
   SurfTransferProfile,
   SurfTransferTier,
@@ -567,4 +568,27 @@ export function compareBySurfTransfer(
   const scoreB = personalizedScore(getSurfTransfer(b), maneuvers);
   if (scoreB !== scoreA) return scoreB - scoreA;
   return a.name.localeCompare(b.name);
+}
+
+export function scoreToTier(score: number): SurfTransferTier {
+  return tierFromScore(score);
+}
+
+/** Weighted average surf transfer score for a routine (by set count). */
+export function routineSurfScore(
+  items: RoutineItem[],
+  exerciseMap: Map<string, Exercise>,
+  maneuvers: Maneuver[] = [],
+): number {
+  if (items.length === 0) return 0;
+  let total = 0;
+  let weight = 0;
+  for (const item of items) {
+    const ex = exerciseMap.get(item.exerciseId);
+    if (!ex) continue;
+    const score = personalizedScore(getSurfTransfer(ex), maneuvers);
+    total += score * item.sets;
+    weight += item.sets;
+  }
+  return weight > 0 ? clamp(total / weight) : 0;
 }

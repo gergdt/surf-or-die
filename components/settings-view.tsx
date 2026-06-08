@@ -136,8 +136,8 @@ export function SettingsView() {
 
       <p className="flex items-start gap-2 px-1 text-xs text-muted-foreground">
         <Info className="mt-0.5 size-3.5 shrink-0" />
-        Surf or Die stores everything locally on your device (IndexedDB),
-        including your videos. Export regularly to keep a backup.
+        Data is stored locally (IndexedDB) and can sync to Supabase when you
+        sign in. Export regularly to keep a backup.
       </p>
 
       <Modal

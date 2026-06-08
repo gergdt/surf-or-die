@@ -14,7 +14,15 @@ import { ExercisePicker } from "@/components/session/exercise-picker";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea, Select, Label } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { exercisesRepo, routinesRepo } from "@/lib/db/repository";
+import { SurfTransferBadge } from "@/components/surf-transfer-badge";
+import { RoutineSurfScore } from "@/components/routine-surf-score";
+import { exercisesRepo, maneuversRepo, routinesRepo } from "@/lib/db/repository";
+import {
+  getSurfTransfer,
+  personalizedScore,
+  routineSurfScore,
+  scoreToTier,
+} from "@/lib/surf-transfer";
 import type { Category, Exercise, Routine, RoutineItem } from "@/lib/types";
 
 // ---------------------------------------------------------------------------
@@ -63,10 +71,12 @@ function RoutineEditorForm({
   category: Category;
   onDone: () => void;
 }) {
-  const exercises = useLiveQuery(
+  const exercises = useLiveQuery(() => exercisesRepo.all(), []);
+  const pickerExercises = useLiveQuery(
     () => exercisesRepo.byCategory(category),
     [category],
   );
+  const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
 
   const [name, setName] = React.useState(routine?.name ?? "");
   const [focus, setFocus] = React.useState(routine?.focus ?? "");
@@ -133,7 +143,10 @@ function RoutineEditorForm({
         estMinutes: Math.max(1, Math.round(estMinutes)),
       };
       if (routine) {
-        await routinesRepo.update(routine.id, payload);
+        await routinesRepo.update(routine.id, {
+          ...payload,
+          ...(routine.origin === "seed" ? { origin: "user" as const } : {}),
+        });
       } else {
         await routinesRepo.create(payload);
       }
@@ -149,8 +162,22 @@ function RoutineEditorForm({
     return map;
   }, [exercises]);
 
+  const aggregateScore = React.useMemo(
+    () => routineSurfScore(items, exerciseMap, maneuvers ?? []),
+    [items, exerciseMap, maneuvers],
+  );
+
   return (
     <div className="space-y-4">
+      {routine?.origin === "seed" && (
+        <p className="rounded-lg border border-border bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
+          Saving changes will customize this default routine for you — it won&apos;t
+          reset on app updates.
+        </p>
+      )}
+      {items.length > 0 && (
+        <RoutineSurfScore score={aggregateScore} label="Routine surf transfer" />
+      )}
       {/* ---- Routine meta ---- */}
       <div className="space-y-3">
         <div>
@@ -226,7 +253,16 @@ function RoutineEditorForm({
               <RoutineItemRow
                 key={`${item.exerciseId}-${idx}`}
                 item={item}
+                exercise={ex}
                 exerciseName={ex?.name ?? item.exerciseId}
+                surfScore={
+                  ex
+                    ? personalizedScore(
+                        getSurfTransfer(ex),
+                        maneuvers ?? [],
+                      )
+                    : undefined
+                }
                 isFirst={idx === 0}
                 isLast={idx === items.length - 1}
                 onChange={(patch) => patchItem(idx, patch)}
@@ -251,7 +287,7 @@ function RoutineEditorForm({
       <ExercisePicker
         open={pickerOpen}
         onClose={() => setPickerOpen(false)}
-        exercises={exercises ?? []}
+        exercises={pickerExercises ?? []}
         selectedIds={items.map((i) => i.exerciseId)}
         onPick={addExercise}
       />
@@ -265,7 +301,9 @@ function RoutineEditorForm({
 
 function RoutineItemRow({
   item,
+  exercise,
   exerciseName,
+  surfScore,
   isFirst,
   isLast,
   onChange,
@@ -273,7 +311,9 @@ function RoutineItemRow({
   onMove,
 }: {
   item: RoutineItem;
+  exercise?: Exercise;
   exerciseName: string;
+  surfScore?: number;
   isFirst: boolean;
   isLast: boolean;
   onChange: (patch: Partial<RoutineItem>) => void;
@@ -303,6 +343,9 @@ function RoutineItemRow({
           </p>
         </button>
         <div className="flex items-center gap-1">
+          {surfScore != null && exercise && (
+            <SurfTransferBadge tier={scoreToTier(surfScore)} score={surfScore} />
+          )}
           <button
             onClick={() => onMove(-1)}
             disabled={isFirst}

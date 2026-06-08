@@ -5,8 +5,9 @@
     "category": "gym",
     "focus": "back",
     "description": "High-transfer pulling work plus cable and machine rows to build paddle strength and endurance.",
-    "estMinutes": 45,
+    "estMinutes": 48,
     "items": [
+      { "exerciseId": "ex_hevy_0222db42", "sets": 1, "durationSec": 180, "restSec": 30, "notes": "Warm-up: easy rowing pace — wake up paddle muscles" },
       { "exerciseId": "ex_pull_up", "sets": 4, "reps": 8, "restSec": 120, "notes": "Swap for lat pulldown if needed" },
       { "exerciseId": "ex_hevy_4e5257de", "sets": 4, "reps": 10, "restSec": 90 },
       { "exerciseId": "ex_hevy_aa1eb7d8", "sets": 4, "reps": 10, "restSec": 90 },
@@ -20,8 +21,9 @@
     "category": "gym",
     "focus": "legs",
     "description": "Explosive pop-up drills mixed with leg press and single-leg machine work for stance stability.",
-    "estMinutes": 45,
+    "estMinutes": 48,
     "items": [
+      { "exerciseId": "ex_hevy_32hkj34k", "sets": 2, "reps": 10, "restSec": 30, "notes": "Warm-up: bodyweight walking lunges — open hips and ankles" },
       { "exerciseId": "ex_box_jump", "sets": 4, "reps": 5, "restSec": 90 },
       { "exerciseId": "ex_hevy_3fd83744", "sets": 3, "reps": 10, "restSec": 90, "notes": "Each leg" },
       { "exerciseId": "ex_bulgarian_split_squat", "sets": 3, "reps": 10, "restSec": 90 },
@@ -35,8 +37,9 @@
     "category": "gym",
     "focus": "chest",
     "description": "Pop-up rehearsal plus pressing on bench and machines — snap off the deck with control.",
-    "estMinutes": 40,
+    "estMinutes": 43,
     "items": [
+      { "exerciseId": "ex_hevy_39c99849", "sets": 2, "reps": 12, "restSec": 30, "notes": "Warm-up: incline push-ups — prime shoulders and chest" },
       { "exerciseId": "ex_pop_up_drill", "sets": 4, "reps": 8, "restSec": 60 },
       { "exerciseId": "ex_db_bench_press", "sets": 4, "reps": 10, "restSec": 90 },
       { "exerciseId": "ex_hevy_fbf92739", "sets": 3, "reps": 12, "restSec": 90 },
@@ -50,8 +53,9 @@
     "category": "gym",
     "focus": "fullbody",
     "description": "Full-body surf prep: hip power, machine compound work, rotation, and core stability in one session.",
-    "estMinutes": 50,
+    "estMinutes": 53,
     "items": [
+      { "exerciseId": "fl_worlds_greatest_stretch", "sets": 2, "reps": 5, "restSec": 20, "notes": "Warm-up: each side — hips, thoracic spine, and hamstrings" },
       { "exerciseId": "ex_kettlebell_swing", "sets": 4, "reps": 15, "restSec": 75 },
       { "exerciseId": "ex_hevy_a8814c06", "sets": 4, "reps": 10, "restSec": 90 },
       { "exerciseId": "ex_cable_woodchopper", "sets": 3, "reps": 12, "restSec": 60, "notes": "Each side" },
