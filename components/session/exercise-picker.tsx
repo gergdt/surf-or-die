@@ -10,7 +10,7 @@ import { DifficultyBadge } from "@/components/page-header";
 import { ExerciseDetail } from "@/components/exercise-detail";
 import { ExerciseThumb } from "@/components/exercise-thumb";
 import { SurfTransferBadge } from "@/components/surf-transfer-badge";
-import { BODY_PART_LABEL } from "@/lib/categories";
+import { exerciseTargetLabel } from "@/lib/exercise-labels";
 import { maneuversRepo } from "@/lib/db/repository";
 import {
   compareBySurfTransfer,
@@ -73,21 +73,35 @@ export function ExercisePicker({
             return (
               <div
                 key={ex.id}
-                className="flex items-center gap-2 rounded-lg border border-border p-2 transition-colors hover:bg-muted/50"
+                className="rounded-lg border border-border p-2 transition-colors hover:bg-muted/50"
               >
-                <ExerciseThumb exercise={ex} size="sm" />
-                <button
-                  type="button"
-                  onClick={() => onPick(ex)}
-                  disabled={added}
-                  className="min-w-0 flex-1 text-left disabled:opacity-50"
-                >
-                  <p className="truncate text-sm font-medium">{ex.name}</p>
-                  <p className="truncate text-xs text-muted-foreground">
-                    {ex.bodyParts.map((b) => BODY_PART_LABEL[b]).join(", ")}
-                  </p>
-                </button>
-                <div className="flex shrink-0 items-center gap-1">
+                <div className="flex items-start gap-2">
+                  <ExerciseThumb exercise={ex} size="sm" />
+                  <button
+                    type="button"
+                    onClick={() => onPick(ex)}
+                    disabled={added}
+                    className="min-w-0 flex-1 text-left disabled:opacity-50"
+                  >
+                    <p className="text-sm font-medium leading-snug">{ex.name}</p>
+                    <p className="mt-0.5 text-xs leading-snug text-muted-foreground">
+                      {exerciseTargetLabel(ex)}
+                    </p>
+                  </button>
+                  {!added && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="size-8 shrink-0 text-primary"
+                      aria-label={`Add ${ex.name}`}
+                      onClick={() => onPick(ex)}
+                    >
+                      <Plus className="size-4" />
+                    </Button>
+                  )}
+                </div>
+                <div className="mt-2 flex items-center gap-1 pl-12">
                   <Button
                     type="button"
                     variant="ghost"
@@ -106,17 +120,10 @@ export function ExercisePicker({
                     )}
                   />
                   <DifficultyBadge level={ex.difficulty} />
-                  {!added && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      className="size-8 text-primary"
-                      aria-label={`Add ${ex.name}`}
-                      onClick={() => onPick(ex)}
-                    >
-                      <Plus className="size-4" />
-                    </Button>
+                  {added && (
+                    <span className="ml-auto text-xs text-muted-foreground">
+                      Added
+                    </span>
                   )}
                 </div>
               </div>

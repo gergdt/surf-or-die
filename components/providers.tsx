@@ -6,7 +6,7 @@ import { syncToCloud } from "@/lib/db/cloud-sync";
 import { ensureSeeded } from "@/lib/db/seed";
 import { settingsRepo } from "@/lib/db/repository";
 import { runHevyExerciseSync } from "@/lib/hevy/sync";
-import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { resolveSupabaseConfig } from "@/lib/supabase/runtime-config";
 import type { Settings } from "@/lib/types";
 
 const HEVY_SYNC_INTERVAL_MS = 60 * 60 * 1000;
@@ -85,16 +85,18 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, [ready, settings?.hevySyncEnabled, settings?.hevyLastSyncedAt]);
 
   React.useEffect(() => {
-    if (!ready || !isSupabaseConfigured() || !settings?.cloudSyncEnabled) {
-      return;
-    }
+    if (!ready || !settings?.cloudSyncEnabled) return;
     const last = settings.cloudLastSyncedAt ?? 0;
     if (Date.now() - last < CLOUD_SYNC_INTERVAL_MS) return;
 
     let cancelled = false;
-    syncToCloud()
+    resolveSupabaseConfig()
+      .then((config) => {
+        if (cancelled || !config) return;
+        return syncToCloud();
+      })
       .then((result) => {
-        if (cancelled) return;
+        if (cancelled || !result) return;
         return settingsRepo.update({ cloudLastSyncedAt: result.syncedAt });
       })
       .catch((err) => {

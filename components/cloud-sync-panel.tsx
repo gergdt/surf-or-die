@@ -7,8 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useApp } from "@/components/providers";
 import { settingsRepo } from "@/lib/db/repository";
 import { syncToCloud } from "@/lib/db/cloud-sync";
-import { createClient } from "@/lib/supabase/client";
-import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { useSupabase } from "@/hooks/use-supabase";
 import { cn } from "@/lib/utils";
 import type { Settings } from "@/lib/types";
 import type { User } from "@supabase/supabase-js";
@@ -19,7 +18,7 @@ export function CloudSyncIcon() {
 
 export function CloudSyncPanel() {
   const { settings } = useApp();
-  const configured = isSupabaseConfigured();
+  const { client, configured, loading } = useSupabase();
   const [user, setUser] = React.useState<User | null>(null);
   const [email, setEmail] = React.useState("");
   const [authLoading, setAuthLoading] = React.useState(false);
@@ -30,30 +29,27 @@ export function CloudSyncPanel() {
   const update = (patch: Partial<Settings>) => settingsRepo.update(patch);
 
   React.useEffect(() => {
-    if (!configured) return;
-    const supabase = createClient();
-    if (!supabase) return;
+    if (!client) return;
 
-    void supabase.auth.getUser().then((result) => setUser(result.data.user));
+    void client.auth.getUser().then((result) => setUser(result.data.user));
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = client.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
 
     return () => subscription.unsubscribe();
-  }, [configured]);
+  }, [client]);
 
   const signIn = async () => {
     setAuthLoading(true);
     setError(null);
     setMessage(null);
     try {
-      const supabase = createClient();
-      if (!supabase) throw new Error("Supabase is not configured");
+      if (!client) throw new Error("Supabase is not configured");
       const redirectTo = `${window.location.origin}/auth/callback?next=/settings`;
-      const { error: signInError } = await supabase.auth.signInWithOtp({
+      const { error: signInError } = await client.auth.signInWithOtp({
         email: email.trim(),
         options: { emailRedirectTo: redirectTo },
       });
@@ -67,9 +63,8 @@ export function CloudSyncPanel() {
   };
 
   const signOut = async () => {
-    const supabase = createClient();
-    if (!supabase) return;
-    await supabase.auth.signOut();
+    if (!client) return;
+    await client.auth.signOut();
     await update({ cloudSyncEnabled: false });
     setUser(null);
     setMessage(null);
@@ -96,6 +91,15 @@ export function CloudSyncPanel() {
     }
   };
 
+  if (loading) {
+    return (
+      <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+        <Loader2 className="size-3.5 animate-spin" />
+        Checking cloud sync…
+      </p>
+    );
+  }
+
   if (!configured) {
     return (
       <p className="mt-2 text-xs text-muted-foreground">
@@ -105,11 +109,11 @@ export function CloudSyncPanel() {
         <code className="rounded bg-muted px-1">
           NEXT_PUBLIC_SUPABASE_ANON_KEY
         </code>{" "}
-        to your environment, then run the SQL migration in{" "}
+        to your deployment environment, then run the SQL migration in{" "}
         <code className="rounded bg-muted px-1">
           supabase/migrations/0001_initial_schema.sql
         </code>
-        .
+        . Redeploy after adding env vars.
       </p>
     );
   }

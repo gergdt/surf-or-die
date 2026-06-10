@@ -23,6 +23,8 @@ import {
   routineSurfScore,
   scoreToTier,
 } from "@/lib/surf-transfer";
+import { cn } from "@/lib/utils";
+import { useDragReorder } from "@/hooks/use-drag-reorder";
 import type { Category, Exercise, Routine, RoutineItem } from "@/lib/types";
 
 // ---------------------------------------------------------------------------
@@ -91,6 +93,11 @@ function RoutineEditorForm({
   );
   const [pickerOpen, setPickerOpen] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
+
+  const { containerRef, bindHandle, draggingIndex } = useDragReorder(
+    items,
+    setItems,
+  );
 
   // ---- items helpers ----
 
@@ -246,7 +253,7 @@ function RoutineEditorForm({
           </p>
         )}
 
-        <div className="space-y-2">
+        <div ref={containerRef} className="space-y-2">
           {items.map((item, idx) => {
             const ex = exerciseMap.get(item.exerciseId);
             return (
@@ -265,6 +272,8 @@ function RoutineEditorForm({
                 }
                 isFirst={idx === 0}
                 isLast={idx === items.length - 1}
+                isDragging={draggingIndex === idx}
+                dragHandleProps={bindHandle(idx)}
                 onChange={(patch) => patchItem(idx, patch)}
                 onRemove={() => removeItem(idx)}
                 onMove={(dir) => moveItem(idx, dir)}
@@ -306,6 +315,8 @@ function RoutineItemRow({
   surfScore,
   isFirst,
   isLast,
+  isDragging,
+  dragHandleProps,
   onChange,
   onRemove,
   onMove,
@@ -316,6 +327,10 @@ function RoutineItemRow({
   surfScore?: number;
   isFirst: boolean;
   isLast: boolean;
+  isDragging: boolean;
+  dragHandleProps: ReturnType<
+    ReturnType<typeof useDragReorder<RoutineItem>>["bindHandle"]
+  >;
   onChange: (patch: Partial<RoutineItem>) => void;
   onRemove: () => void;
   onMove: (dir: -1 | 1) => void;
@@ -323,10 +338,23 @@ function RoutineItemRow({
   const [expanded, setExpanded] = React.useState(false);
 
   return (
-    <Card className="overflow-hidden">
+    <Card
+      data-sortable-item
+      className={cn(
+        "overflow-hidden",
+        isDragging && "opacity-60 ring-2 ring-primary/30",
+      )}
+    >
       {/* Header row */}
       <div className="flex items-center gap-2 p-3">
-        <GripVertical className="size-4 shrink-0 text-muted-foreground/50" />
+        <button
+          type="button"
+          aria-label="Drag to reorder"
+          className="touch-none rounded p-1 text-muted-foreground/50 hover:bg-muted hover:text-foreground"
+          {...dragHandleProps}
+        >
+          <GripVertical className="size-4 shrink-0" />
+        </button>
         <button
           className="min-w-0 flex-1 text-left"
           onClick={() => setExpanded((v) => !v)}

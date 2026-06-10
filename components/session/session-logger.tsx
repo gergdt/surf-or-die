@@ -22,6 +22,7 @@ import { Card } from "@/components/ui/card";
 import { Input, Textarea, Label } from "@/components/ui/input";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ExercisePicker } from "./exercise-picker";
+import { SessionPersonalBests } from "./session-personal-bests";
 import {
   exercisesRepo,
   maneuversRepo,
@@ -29,6 +30,12 @@ import {
   sessionsRepo,
 } from "@/lib/db/repository";
 import { useApp } from "@/components/providers";
+import { useDragReorder } from "@/hooks/use-drag-reorder";
+import {
+  clearSessionDraft,
+  loadSessionDraft,
+  saveSessionDraft,
+} from "@/lib/session-draft";
 import {
   getSurfTransfer,
   personalizedScore,
@@ -97,8 +104,16 @@ export function SessionLogger({
   const [savingRoutine, setSavingRoutine] = React.useState(false);
   const [routineEditorOpen, setRoutineEditorOpen] = React.useState(false);
   const [seconds, setSeconds] = React.useState(0);
+  const [draftRestored, setDraftRestored] = React.useState(false);
   const seededRef = React.useRef(false);
+  const draftLoadedRef = React.useRef(false);
+  const startedAtRef = React.useRef(Date.now());
   const routineEditorWasOpen = React.useRef(false);
+
+  const { containerRef, bindHandle, draggingIndex } = useDragReorder(
+    entries,
+    setEntries,
+  );
 
   // Live elapsed timer.
   React.useEffect(() => {
@@ -106,7 +121,25 @@ export function SessionLogger({
     return () => clearInterval(t);
   }, []);
 
-  // Prefill from routine once it loads.
+  // Restore in-progress session after refresh / crash.
+  React.useEffect(() => {
+    if (draftLoadedRef.current) return;
+    draftLoadedRef.current = true;
+    const draft = loadSessionDraft(category, routineId);
+    if (draft && draft.entries.length > 0) {
+      setTitle(draft.title);
+      setDate(draft.date);
+      setEntries(draft.entries);
+      setEffort(draft.effort);
+      setNotes(draft.notes);
+      setSeconds(draft.seconds);
+      startedAtRef.current = draft.startedAt;
+      seededRef.current = true;
+      setDraftRestored(true);
+    }
+  }, [category, routineId]);
+
+  // Prefill from routine once it loads (skip if draft was restored).
   React.useEffect(() => {
     if (seededRef.current || !routine) return;
     seededRef.current = true;
@@ -121,6 +154,36 @@ export function SessionLogger({
       })),
     );
   }, [routine]);
+
+  // Persist draft locally so a refresh does not lose the workout.
+  React.useEffect(() => {
+    if (!draftLoadedRef.current) return;
+    if (entries.length === 0 && !title.trim()) return;
+    const timer = setTimeout(() => {
+      saveSessionDraft({
+        category,
+        routineId,
+        title,
+        date,
+        entries,
+        effort,
+        notes,
+        seconds,
+        startedAt: startedAtRef.current,
+        updatedAt: Date.now(),
+      });
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [
+    category,
+    routineId,
+    title,
+    date,
+    entries,
+    effort,
+    notes,
+    seconds,
+  ]);
 
   // Re-sync session when the routine is edited mid-workout.
   React.useEffect(() => {
@@ -252,6 +315,7 @@ export function SessionLogger({
         durationSec: seconds,
         notes: notes.trim() || undefined,
       });
+      clearSessionDraft(category, routineId);
       router.push(`${CATEGORIES[category].href}?logged=1`);
     } finally {
       setSaving(false);
@@ -260,6 +324,21 @@ export function SessionLogger({
 
   return (
     <div className="space-y-4">
+      {draftRestored && (
+        <p className="rounded-lg border border-accent/30 bg-accent/10 px-3 py-2 text-xs text-accent-foreground">
+          Restored your in-progress workout from this device.
+        </p>
+      )}
+
+      {entries.length > 0 && (
+        <SessionPersonalBests
+          category={category}
+          exerciseIds={entries.map((e) => e.exerciseId)}
+          exerciseMap={exerciseMap}
+          units={units}
+        />
+      )}
+
       <Card className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
@@ -323,7 +402,7 @@ export function SessionLogger({
           }
         />
       ) : (
-        <div className="space-y-3">
+        <div ref={containerRef} className="space-y-3">
           {entries.map((entry, idx) => {
             const ex = exerciseMap.get(entry.exerciseId);
             const transfer = ex ? getSurfTransfer(ex) : null;
@@ -337,11 +416,23 @@ export function SessionLogger({
             return (
               <Card
                 key={`${entry.exerciseId}-${idx}`}
-                className={cn("p-4", isWarmup && "border-accent/40 bg-accent/5")}
+                data-sortable-item
+                className={cn(
+                  "p-4",
+                  isWarmup && "border-accent/40 bg-accent/5",
+                  draggingIndex === idx && "opacity-60 ring-2 ring-primary/30",
+                )}
               >
                 <div className="mb-3 flex items-center justify-between gap-2">
                   <div className="flex min-w-0 flex-1 items-center gap-2">
-                    <GripVertical className="size-4 shrink-0 text-muted-foreground" />
+                    <button
+                      type="button"
+                      aria-label="Drag to reorder"
+                      className="touch-none rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+                      {...bindHandle(idx)}
+                    >
+                      <GripVertical className="size-4 shrink-0" />
+                    </button>
                     <p className="truncate font-semibold">
                       {ex?.name ?? "Exercise"}
                     </p>

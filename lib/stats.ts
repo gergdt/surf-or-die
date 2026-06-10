@@ -83,6 +83,39 @@ export function weeklyActivity(sessions: Session[], weeks = 8): WeekBucket[] {
   return buckets;
 }
 
+export interface ExercisePersonalBest {
+  weightKg?: number;
+  reps?: number;
+  durationSec?: number;
+}
+
+/** All-time best logged for an exercise across sessions. */
+export function exercisePersonalBest(
+  sessions: Session[],
+  exerciseId: string,
+): ExercisePersonalBest | null {
+  let bestWeight = 0;
+  let bestReps = 0;
+  let bestDuration = 0;
+
+  for (const s of sessions) {
+    const entry = s.entries.find((e) => e.exerciseId === exerciseId);
+    if (!entry) continue;
+    for (const set of entry.setLogs) {
+      if ((set.weightKg ?? 0) > bestWeight) bestWeight = set.weightKg ?? 0;
+      if ((set.reps ?? 0) > bestReps) bestReps = set.reps ?? 0;
+      if ((set.durationSec ?? 0) > bestDuration) {
+        bestDuration = set.durationSec ?? 0;
+      }
+    }
+  }
+
+  if (bestWeight > 0) return { weightKg: bestWeight };
+  if (bestReps > 0) return { reps: bestReps };
+  if (bestDuration > 0) return { durationSec: bestDuration };
+  return null;
+}
+
 /** Best (max) weight logged per session date for a given exercise. */
 export function exerciseWeightTrend(
   sessions: Session[],

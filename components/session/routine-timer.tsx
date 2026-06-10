@@ -31,6 +31,11 @@ import {
   routineSurfScore,
   scoreToTier,
 } from "@/lib/surf-transfer";
+import {
+  clearTimerDraft,
+  loadTimerDraft,
+  saveTimerDraft,
+} from "@/lib/session-draft";
 import { cn } from "@/lib/utils";
 import type { Category, Exercise, SessionEntry } from "@/lib/types";
 
@@ -91,12 +96,43 @@ export function RoutineTimer({
   const [index, setIndex] = React.useState(0);
   const [running, setRunning] = React.useState(false);
   const [remaining, setRemaining] = React.useState<number | null>(null);
+  const [draftRestored, setDraftRestored] = React.useState(false);
   const startedRef = React.useRef(0);
   const startedSavedRef = React.useRef(false);
+  const timerDraftLoadedRef = React.useRef(false);
+  const skipRemainingInitRef = React.useRef(false);
 
   React.useEffect(() => {
+    if (timerDraftLoadedRef.current) return;
+    timerDraftLoadedRef.current = true;
+    const draft = loadTimerDraft(category, routineId);
+    if (draft) {
+      setIndex(draft.index);
+      setRunning(draft.running);
+      setRemaining(draft.remaining);
+      startedRef.current = draft.startedAt;
+      skipRemainingInitRef.current = true;
+      setDraftRestored(true);
+      return;
+    }
     startedRef.current = Date.now();
-  }, []);
+  }, [category, routineId]);
+
+  React.useEffect(() => {
+    if (!timerDraftLoadedRef.current || steps.length === 0) return;
+    const timer = setTimeout(() => {
+      saveTimerDraft({
+        category,
+        routineId,
+        index,
+        running,
+        remaining,
+        startedAt: startedRef.current,
+        updatedAt: Date.now(),
+      });
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [category, routineId, index, running, remaining, steps.length]);
 
   const step = steps[index];
   const stepRoutineItem = routine?.items.find(
@@ -127,6 +163,7 @@ export function RoutineTimer({
       durationSec: Math.round((Date.now() - startedRef.current) / 1000),
       perceivedEffort: 6,
     });
+    clearTimerDraft(category, routineId);
     router.push(`${CATEGORIES[category].href}?logged=1`);
   }, [routine, category, routineId, router]);
 
@@ -144,6 +181,10 @@ export function RoutineTimer({
 
   // Initialise remaining time when the step changes.
   React.useEffect(() => {
+    if (skipRemainingInitRef.current) {
+      skipRemainingInitRef.current = false;
+      return;
+    }
     setRemaining(steps[index]?.durationSec ?? null);
   }, [index, steps]);
 
@@ -196,6 +237,11 @@ export function RoutineTimer({
 
   return (
     <div className="animate-fade-in space-y-4">
+      {draftRestored && (
+        <p className="rounded-lg border border-accent/30 bg-accent/10 px-3 py-2 text-xs text-accent-foreground">
+          Restored your guided workout from this device.
+        </p>
+      )}
       <div className="flex items-center justify-between gap-2">
         <RoutineSurfScore score={routineScore} label="Routine" />
         <p className="truncate text-sm font-medium text-muted-foreground">

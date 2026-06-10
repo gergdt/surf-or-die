@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/client";
+import { getSupabaseClient } from "@/lib/supabase/client";
 import { getDB } from "./db";
 import type {
   Annotation,
@@ -41,7 +41,7 @@ async function pullMissing<T extends { id: string }>(
 
 /** Bidirectional sync between IndexedDB and Supabase for the signed-in user. */
 export async function syncToCloud(): Promise<CloudSyncResult> {
-  const supabase = createClient();
+  const supabase = await getSupabaseClient();
   if (!supabase) {
     throw new Error("Supabase is not configured");
   }
