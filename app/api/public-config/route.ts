@@ -9,6 +9,12 @@ export async function GET() {
     process.env.SUPABASE_ANON_KEY ??
     "";
 
+  const appUrl =
+    process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ??
+    (process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL.replace(/\/$/, "")}`
+      : null);
+
   if (!url || !anonKey) {
     return NextResponse.json(
       { error: "Supabase is not configured on the server" },
@@ -17,7 +23,7 @@ export async function GET() {
   }
 
   return NextResponse.json(
-    { supabaseUrl: url, supabaseAnonKey: anonKey },
+    { supabaseUrl: url, supabaseAnonKey: anonKey, appUrl },
     {
       headers: {
         "Cache-Control": "public, max-age=60, stale-while-revalidate=300",

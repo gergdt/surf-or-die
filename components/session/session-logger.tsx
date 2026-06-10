@@ -49,7 +49,24 @@ import {
   weightUnitLabel,
 } from "@/lib/units";
 import { CATEGORIES } from "@/lib/categories";
-import type { Category, Exercise, RoutineItem, SetLog } from "@/lib/types";
+import {
+  defaultSetLogsForExercise,
+  exerciseLastBestSetLog,
+  formatSetLogSummary,
+} from "@/lib/stats";
+import type { Category, Exercise, Routine, RoutineItem, Session, SetLog } from "@/lib/types";
+
+function entriesFromRoutine(routine: Routine, sessions: Session[]): DraftEntry[] {
+  return routine.items.map((item) => ({
+    exerciseId: item.exerciseId,
+    setLogs: defaultSetLogsForExercise(
+      sessions,
+      item.exerciseId,
+      item.sets,
+      { reps: item.reps, durationSec: item.durationSec },
+    ),
+  }));
+}
 
 interface DraftEntry {
   exerciseId: string;
@@ -84,6 +101,7 @@ export function SessionLogger({
     [routineId],
   );
   const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
+  const sessions = useLiveQuery(() => sessionsRepo.all(), []);
 
   const exerciseMap = React.useMemo(() => {
     const m = new Map<string, Exercise>();
@@ -141,19 +159,11 @@ export function SessionLogger({
 
   // Prefill from routine once it loads (skip if draft was restored).
   React.useEffect(() => {
-    if (seededRef.current || !routine) return;
+    if (seededRef.current || !routine || sessions === undefined) return;
     seededRef.current = true;
     setTitle(routine.name);
-    setEntries(
-      routine.items.map((item) => ({
-        exerciseId: item.exerciseId,
-        setLogs: Array.from({ length: item.sets }, () => ({
-          reps: item.reps,
-          durationSec: item.durationSec,
-        })),
-      })),
-    );
-  }, [routine]);
+    setEntries(entriesFromRoutine(routine, sessions));
+  }, [routine, sessions]);
 
   // Persist draft locally so a refresh does not lose the workout.
   React.useEffect(() => {
@@ -187,31 +197,26 @@ export function SessionLogger({
 
   // Re-sync session when the routine is edited mid-workout.
   React.useEffect(() => {
-    if (routineEditorWasOpen.current && !routineEditorOpen && routine) {
-      setEntries(
-        routine.items.map((item) => ({
-          exerciseId: item.exerciseId,
-          setLogs: Array.from({ length: item.sets }, () => ({
-            reps: item.reps,
-            durationSec: item.durationSec,
-          })),
-        })),
-      );
+    if (
+      routineEditorWasOpen.current &&
+      !routineEditorOpen &&
+      routine &&
+      sessions
+    ) {
+      setEntries(entriesFromRoutine(routine, sessions));
     }
     routineEditorWasOpen.current = routineEditorOpen;
-  }, [routineEditorOpen, routine]);
+  }, [routineEditorOpen, routine, sessions]);
 
   const addExercise = (ex: Exercise) => {
     setEntries((prev) => [
       ...prev,
       {
         exerciseId: ex.id,
-        setLogs: [
-          {
-            reps: ex.defaultReps,
-            durationSec: ex.defaultDurationSec,
-          },
-        ],
+        setLogs: defaultSetLogsForExercise(sessions ?? [], ex.id, 1, {
+          reps: ex.defaultReps,
+          durationSec: ex.defaultDurationSec,
+        }),
       },
     ]);
     setPickerOpen(false);
@@ -413,6 +418,13 @@ export function SessionLogger({
               (i) => i.exerciseId === entry.exerciseId,
             )?.notes;
             const isWarmup = warmupNote?.toLowerCase().startsWith("warm-up");
+            const lastBest = exerciseLastBestSetLog(
+              sessions ?? [],
+              entry.exerciseId,
+            );
+            const lastBestLabel = lastBest
+              ? formatSetLogSummary(lastBest, { isStrength, units })
+              : null;
             return (
               <Card
                 key={`${entry.exerciseId}-${idx}`}
@@ -471,6 +483,15 @@ export function SessionLogger({
                     </button>
                   </div>
                 </div>
+
+                {lastBestLabel && (
+                  <p className="mb-3 text-xs text-muted-foreground">
+                    Last session:{" "}
+                    <span className="font-medium text-foreground">
+                      {lastBestLabel}
+                    </span>
+                  </p>
+                )}
 
                 {warmupNote && (
                   <p className="mb-3 text-xs text-muted-foreground">

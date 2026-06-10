@@ -1,5 +1,6 @@
-import type { Category, Session } from "./types";
+import type { Category, Session, SetLog } from "./types";
 import { CATEGORY_LIST } from "./categories";
+import { displayWeightKg, weightUnitLabel } from "./units";
 import { localDateKey } from "./utils";
 
 export function sessionDateKey(s: Session): string {
@@ -87,6 +88,78 @@ export interface ExercisePersonalBest {
   weightKg?: number;
   reps?: number;
   durationSec?: number;
+}
+
+/** Best set from the most recent session that logged this exercise. */
+export function exerciseLastBestSetLog(
+  sessions: Session[],
+  exerciseId: string,
+): SetLog | null {
+  const sorted = [...sessions]
+    .filter((s) => s.entries.some((e) => e.exerciseId === exerciseId))
+    .sort((a, b) => b.createdAt - a.createdAt);
+
+  for (const s of sorted) {
+    const entry = s.entries.find((e) => e.exerciseId === exerciseId);
+    if (!entry?.setLogs.length) continue;
+
+    const best = entry.setLogs.reduce((top, set) => {
+      const w = set.weightKg ?? 0;
+      const tw = top.weightKg ?? 0;
+      if (w > tw) return set;
+      if (w === tw && (set.reps ?? 0) > (top.reps ?? 0)) return set;
+      if (w === 0 && tw === 0 && (set.reps ?? 0) > (top.reps ?? 0)) return set;
+      return top;
+    });
+
+    if (
+      (best.weightKg ?? 0) > 0 ||
+      (best.reps ?? 0) > 0 ||
+      (best.durationSec ?? 0) > 0
+    ) {
+      return { ...best };
+    }
+  }
+  return null;
+}
+
+/** Human-readable summary of a set log row. */
+export function formatSetLogSummary(
+  set: SetLog,
+  options: {
+    isStrength: boolean;
+    units?: "metric" | "imperial";
+  },
+): string {
+  const parts: string[] = [];
+  const units = options.units ?? "metric";
+  if (options.isStrength && set.weightKg != null) {
+    parts.push(
+      `${displayWeightKg(set.weightKg, units)} ${weightUnitLabel(units)}`,
+    );
+  }
+  if (set.reps != null) parts.push(`${set.reps} reps`);
+  if (set.rpe != null) parts.push(`RPE ${set.rpe}`);
+  if (!options.isStrength && set.durationSec != null) {
+    parts.push(`${set.durationSec}s`);
+  }
+  return parts.join(" · ");
+}
+
+/** Default set rows for a routine item, prefilled from last logged best. */
+export function defaultSetLogsForExercise(
+  sessions: Session[],
+  exerciseId: string,
+  sets: number,
+  template: { reps?: number; durationSec?: number },
+): SetLog[] {
+  const lastBest = exerciseLastBestSetLog(sessions, exerciseId);
+  return Array.from({ length: sets }, () => ({
+    weightKg: lastBest?.weightKg,
+    reps: lastBest?.reps ?? template.reps,
+    rpe: lastBest?.rpe,
+    durationSec: lastBest?.durationSec ?? template.durationSec,
+  }));
 }
 
 /** All-time best logged for an exercise across sessions. */

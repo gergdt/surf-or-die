@@ -8,6 +8,15 @@ import { useApp } from "@/components/providers";
 import { settingsRepo } from "@/lib/db/repository";
 import { syncToCloud } from "@/lib/db/cloud-sync";
 import { useSupabase } from "@/hooks/use-supabase";
+import { authCallbackUrl } from "@/lib/app-url";
+import { formatAuthError } from "@/lib/auth-errors";
+import {
+  formatCooldown,
+  getOtpCooldown,
+  markOtpRateLimited,
+  markOtpSent,
+  otpCooldownRemainingMs,
+} from "@/lib/otp-cooldown";
 import { cn } from "@/lib/utils";
 import type { Settings } from "@/lib/types";
 import type { User } from "@supabase/supabase-js";
@@ -25,8 +34,17 @@ export function CloudSyncPanel() {
   const [syncing, setSyncing] = React.useState(false);
   const [message, setMessage] = React.useState<string | null>(null);
   const [error, setError] = React.useState<string | null>(null);
+  const [cooldownMs, setCooldownMs] = React.useState(0);
 
   const update = (patch: Partial<Settings>) => settingsRepo.update(patch);
+
+  React.useEffect(() => {
+    const tick = () => setCooldownMs(otpCooldownRemainingMs(email));
+    tick();
+    if (!email.trim()) return;
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [email]);
 
   React.useEffect(() => {
     if (!client) return;
@@ -43,20 +61,41 @@ export function CloudSyncPanel() {
   }, [client]);
 
   const signIn = async () => {
+    const trimmed = email.trim();
+    const waitMs = otpCooldownRemainingMs(trimmed);
+    if (waitMs > 0) {
+      const reason = getOtpCooldown(trimmed)?.reason;
+      setError(
+        reason === "rate_limit"
+          ? `Email rate limit — try again in ${formatCooldown(waitMs)}. Check your inbox for a link sent earlier.`
+          : `Link already sent — wait ${formatCooldown(waitMs)} before requesting another.`,
+      );
+      return;
+    }
+
     setAuthLoading(true);
     setError(null);
     setMessage(null);
     try {
       if (!client) throw new Error("Supabase is not configured");
-      const redirectTo = `${window.location.origin}/auth/callback?next=/settings`;
+      const redirectTo = await authCallbackUrl("/settings");
       const { error: signInError } = await client.auth.signInWithOtp({
-        email: email.trim(),
+        email: trimmed,
         options: { emailRedirectTo: redirectTo },
       });
       if (signInError) throw signInError;
-      setMessage("Check your email for the sign-in link.");
+      markOtpSent(trimmed);
+      setCooldownMs(otpCooldownRemainingMs(trimmed));
+      setMessage(
+        `Magic link sent to ${trimmed}. Open it on this device — do not tap Sign in again for a minute.`,
+      );
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Sign-in failed");
+      const msg = formatAuthError(err);
+      if (/rate limit/i.test(msg)) {
+        markOtpRateLimited(trimmed);
+        setCooldownMs(otpCooldownRemainingMs(trimmed));
+      }
+      setError(msg);
     } finally {
       setAuthLoading(false);
     }
@@ -161,7 +200,7 @@ export function CloudSyncPanel() {
         <div className="space-y-2">
           <p className="text-xs text-muted-foreground">
             Sign in with a magic link to back up and sync sessions, routines,
-            and clips across devices.
+            and clips across devices. Only request one link per minute.
           </p>
           <div className="flex gap-2">
             <Input
@@ -171,9 +210,14 @@ export function CloudSyncPanel() {
               onChange={(e) => setEmail(e.target.value)}
               className="flex-1"
             />
-            <Button onClick={signIn} disabled={authLoading || !email.trim()}>
+            <Button
+              onClick={signIn}
+              disabled={authLoading || !email.trim() || cooldownMs > 0}
+            >
               {authLoading ? (
                 <Loader2 className="size-4 animate-spin" />
+              ) : cooldownMs > 0 ? (
+                formatCooldown(cooldownMs)
               ) : (
                 "Sign in"
               )}

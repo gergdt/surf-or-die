@@ -1,6 +1,7 @@
 export interface SupabasePublicConfig {
   supabaseUrl: string;
   supabaseAnonKey: string;
+  appUrl?: string | null;
 }
 
 let cached: SupabasePublicConfig | null | undefined;
