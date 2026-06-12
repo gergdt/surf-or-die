@@ -34,6 +34,7 @@ import { useDragReorder } from "@/hooks/use-drag-reorder";
 import {
   clearSessionDraft,
   loadSessionDraft,
+  routineItemsFingerprint,
   saveSessionDraft,
 } from "@/lib/session-draft";
 import {
@@ -176,11 +177,18 @@ export function SessionLogger({
     setSeconds(existingSession.durationSec ?? 0);
   }, [isEditing, existingSession]);
 
-  // Restore in-progress session after refresh / crash.
+  // Restore in-progress session or prefill from routine (wait for routine when linked).
   React.useEffect(() => {
     if (isEditing || draftLoadedRef.current) return;
+    if (routineId && !routine) return;
+    if (sessions === undefined) return;
+
     draftLoadedRef.current = true;
-    const draft = loadSessionDraft(category, routineId);
+    const draft = loadSessionDraft(
+      category,
+      routineId,
+      routine?.items,
+    );
     if (draft && draft.entries.length > 0) {
       setTitle(draft.title);
       setDate(draft.date);
@@ -191,17 +199,14 @@ export function SessionLogger({
       startedAtRef.current = draft.startedAt;
       seededRef.current = true;
       setDraftRestored(true);
-    }
-  }, [category, routineId, isEditing]);
-
-  // Prefill from routine once it loads (skip if draft was restored).
-  React.useEffect(() => {
-    if (isEditing || seededRef.current || !routine || sessions === undefined)
       return;
-    seededRef.current = true;
-    setTitle(routine.name);
-    setEntries(entriesFromRoutine(routine, sessions));
-  }, [routine, sessions, isEditing]);
+    }
+    if (routine) {
+      seededRef.current = true;
+      setTitle(routine.name);
+      setEntries(entriesFromRoutine(routine, sessions));
+    }
+  }, [category, routineId, routine, sessions, isEditing]);
 
   // Persist draft locally so a refresh does not lose the workout.
   React.useEffect(() => {
@@ -211,6 +216,9 @@ export function SessionLogger({
       saveSessionDraft({
         category,
         routineId,
+        routineFingerprint: routine
+          ? routineItemsFingerprint(routine.items)
+          : undefined,
         title,
         date,
         entries,
@@ -232,20 +240,30 @@ export function SessionLogger({
     notes,
     seconds,
     isEditing,
+    routine,
   ]);
 
   // Re-sync session when the routine is edited mid-workout.
   React.useEffect(() => {
-    if (
-      routineEditorWasOpen.current &&
-      !routineEditorOpen &&
-      routine &&
-      sessions
-    ) {
-      setEntries(entriesFromRoutine(routine, sessions));
+    if (!routineEditorWasOpen.current || routineEditorOpen) {
+      routineEditorWasOpen.current = routineEditorOpen;
+      return;
     }
-    routineEditorWasOpen.current = routineEditorOpen;
-  }, [routineEditorOpen, routine, sessions]);
+    routineEditorWasOpen.current = false;
+    if (!routineId || sessions === undefined) return;
+
+    let cancelled = false;
+    void (async () => {
+      const fresh = await routinesRepo.get(routineId);
+      if (cancelled || !fresh) return;
+      setTitle(fresh.name);
+      setEntries(entriesFromRoutine(fresh, sessions));
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [routineEditorOpen, routineId, sessions]);
 
   const addExercise = (ex: Exercise) => {
     setEntries((prev) => [

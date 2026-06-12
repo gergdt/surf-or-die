@@ -34,6 +34,7 @@ import {
 import {
   clearTimerDraft,
   loadTimerDraft,
+  routineItemsFingerprint,
   saveTimerDraft,
 } from "@/lib/session-draft";
 import { cn } from "@/lib/utils";
@@ -104,8 +105,9 @@ export function RoutineTimer({
 
   React.useEffect(() => {
     if (timerDraftLoadedRef.current) return;
+    if (!routine) return;
     timerDraftLoadedRef.current = true;
-    const draft = loadTimerDraft(category, routineId);
+    const draft = loadTimerDraft(category, routineId, routine.items);
     if (draft) {
       setIndex(draft.index);
       setRunning(draft.running);
@@ -116,7 +118,7 @@ export function RoutineTimer({
       return;
     }
     startedRef.current = Date.now();
-  }, [category, routineId]);
+  }, [category, routineId, routine]);
 
   React.useEffect(() => {
     if (!timerDraftLoadedRef.current || steps.length === 0) return;
@@ -124,6 +126,9 @@ export function RoutineTimer({
       saveTimerDraft({
         category,
         routineId,
+        routineFingerprint: routine
+          ? routineItemsFingerprint(routine.items)
+          : undefined,
         index,
         running,
         remaining,
@@ -132,7 +137,7 @@ export function RoutineTimer({
       });
     }, 350);
     return () => clearTimeout(timer);
-  }, [category, routineId, index, running, remaining, steps.length]);
+  }, [category, routineId, routine, index, running, remaining, steps.length]);
 
   const step = steps[index];
   const stepRoutineItem = routine?.items.find(

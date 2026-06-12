@@ -1,4 +1,18 @@
-import type { Category, SetLog } from "./types";
+import type { Category, RoutineItem, SetLog } from "./types";
+
+/** Stable signature of routine structure — used to invalidate stale in-progress drafts. */
+export function routineItemsFingerprint(items: RoutineItem[]): string {
+  return JSON.stringify(
+    items.map((i) => ({
+      e: i.exerciseId,
+      s: i.sets,
+      r: i.reps,
+      d: i.durationSec,
+      t: i.restSec,
+      n: i.notes,
+    })),
+  );
+}
 
 export interface SessionDraftEntry {
   exerciseId: string;
@@ -9,6 +23,8 @@ export interface SessionDraftEntry {
 export interface SessionDraft {
   category: Category;
   routineId?: string;
+  /** Snapshot of routine.items when the draft was saved. */
+  routineFingerprint?: string;
   title: string;
   date: string;
   entries: SessionDraftEntry[];
@@ -25,9 +41,24 @@ function draftKey(category: Category, routineId?: string) {
   return `surf-session-draft:${category}:${routineId ?? "free"}`;
 }
 
+function draftMatchesRoutine(
+  draft: SessionDraft,
+  items: RoutineItem[],
+): boolean {
+  if (draft.entries.length !== items.length) return false;
+  return draft.entries.every((entry, i) => {
+    const item = items[i];
+    return (
+      entry.exerciseId === item.exerciseId &&
+      entry.setLogs.length === item.sets
+    );
+  });
+}
+
 export function loadSessionDraft(
   category: Category,
   routineId?: string,
+  currentRoutineItems?: RoutineItem[],
 ): SessionDraft | null {
   if (typeof window === "undefined") return null;
   try {
@@ -37,6 +68,23 @@ export function loadSessionDraft(
     if (Date.now() - draft.updatedAt > DRAFT_MAX_AGE_MS) {
       clearSessionDraft(category, routineId);
       return null;
+    }
+    if (currentRoutineItems) {
+      const fingerprint = routineItemsFingerprint(currentRoutineItems);
+      if (
+        draft.routineFingerprint &&
+        draft.routineFingerprint !== fingerprint
+      ) {
+        clearSessionDraft(category, routineId);
+        return null;
+      }
+      if (
+        !draft.routineFingerprint &&
+        !draftMatchesRoutine(draft, currentRoutineItems)
+      ) {
+        clearSessionDraft(category, routineId);
+        return null;
+      }
     }
     return draft;
   } catch {
@@ -64,6 +112,7 @@ export function clearSessionDraft(category: Category, routineId?: string) {
 export interface TimerDraft {
   category: Category;
   routineId: string;
+  routineFingerprint?: string;
   index: number;
   running: boolean;
   remaining: number | null;
@@ -78,6 +127,7 @@ function timerKey(category: Category, routineId: string) {
 export function loadTimerDraft(
   category: Category,
   routineId: string,
+  currentRoutineItems?: RoutineItem[],
 ): TimerDraft | null {
   if (typeof window === "undefined") return null;
   try {
@@ -87,6 +137,16 @@ export function loadTimerDraft(
     if (Date.now() - draft.updatedAt > DRAFT_MAX_AGE_MS) {
       clearTimerDraft(category, routineId);
       return null;
+    }
+    if (currentRoutineItems) {
+      const fingerprint = routineItemsFingerprint(currentRoutineItems);
+      if (
+        draft.routineFingerprint &&
+        draft.routineFingerprint !== fingerprint
+      ) {
+        clearTimerDraft(category, routineId);
+        return null;
+      }
     }
     return draft;
   } catch {

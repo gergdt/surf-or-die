@@ -17,6 +17,7 @@ import { Card } from "@/components/ui/card";
 import { SurfTransferBadge } from "@/components/surf-transfer-badge";
 import { RoutineSurfScore } from "@/components/routine-surf-score";
 import { exercisesRepo, maneuversRepo, routinesRepo } from "@/lib/db/repository";
+import { clearSessionDraft, clearTimerDraft } from "@/lib/session-draft";
 import {
   getSurfTransfer,
   personalizedScore,
@@ -154,6 +155,8 @@ function RoutineEditorForm({
           ...payload,
           ...(routine.origin === "seed" ? { origin: "user" as const } : {}),
         });
+        clearSessionDraft(category, routine.id);
+        clearTimerDraft(category, routine.id);
       } else {
         await routinesRepo.create(payload);
       }
