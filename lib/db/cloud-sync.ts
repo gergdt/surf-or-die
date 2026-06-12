@@ -39,6 +39,48 @@ async function pullMissing<T extends { id: string }>(
   return toPull.length;
 }
 
+async function requireSignedInUser() {
+  const supabase = await getSupabaseClient();
+  if (!supabase) return null;
+
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+  if (authError || !user) return null;
+
+  return { supabase, userId: user.id };
+}
+
+/** Push a single session to Supabase after a local save. No-op when not signed in. */
+export async function pushSessionToCloud(session: Session): Promise<void> {
+  const ctx = await requireSignedInUser();
+  if (!ctx) return;
+
+  const { error } = await ctx.supabase.from("sessions").upsert(
+    {
+      id: session.id,
+      user_id: ctx.userId,
+      data: session,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "id" },
+  );
+  if (error) throw error;
+}
+
+/** Remove a session from Supabase after a local delete. No-op when not signed in. */
+export async function deleteSessionFromCloud(sessionId: string): Promise<void> {
+  const ctx = await requireSignedInUser();
+  if (!ctx) return;
+
+  const { error } = await ctx.supabase
+    .from("sessions")
+    .delete()
+    .eq("id", sessionId);
+  if (error) throw error;
+}
+
 /** Bidirectional sync between IndexedDB and Supabase for the signed-in user. */
 export async function syncToCloud(): Promise<CloudSyncResult> {
   const supabase = await getSupabaseClient();

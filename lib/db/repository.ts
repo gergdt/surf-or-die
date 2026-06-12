@@ -1,3 +1,4 @@
+import { deleteSessionFromCloud, pushSessionToCloud } from "./cloud-sync";
 import { getDB } from "./db";
 import { uid } from "../utils";
 import type {
@@ -59,11 +60,26 @@ export const sessionsRepo = {
   create: async (data: Omit<Session, "id" | "createdAt">) => {
     const s: Session = { ...data, id: uid("ses"), createdAt: Date.now() };
     await getDB().sessions.add(s);
+    void pushSessionToCloud(s).catch((err) =>
+      console.warn("Session cloud push failed", err),
+    );
     return s;
   },
-  update: (id: string, patch: Partial<Session>) =>
-    getDB().sessions.update(id, patch),
-  remove: (id: string) => getDB().sessions.delete(id),
+  update: async (id: string, patch: Partial<Session>) => {
+    await getDB().sessions.update(id, patch);
+    const session = await getDB().sessions.get(id);
+    if (session) {
+      void pushSessionToCloud(session).catch((err) =>
+        console.warn("Session cloud push failed", err),
+      );
+    }
+  },
+  remove: async (id: string) => {
+    await getDB().sessions.delete(id);
+    void deleteSessionFromCloud(id).catch((err) =>
+      console.warn("Session cloud delete failed", err),
+    );
+  },
 };
 
 // ---- Maneuvers ----

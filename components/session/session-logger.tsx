@@ -75,16 +75,26 @@ interface DraftEntry {
 }
 
 export function SessionLogger({
-  category,
-  routineId,
+  category: categoryProp,
+  routineId: routineIdProp,
+  sessionId,
 }: {
-  category: Category;
+  category?: Category;
   routineId?: string;
+  sessionId?: string;
 }) {
   const router = useRouter();
   const { settings } = useApp();
   const units = settings?.units ?? "metric";
   const weightUnit = weightUnitLabel(units);
+  const isEditing = !!sessionId;
+
+  const existingSession = useLiveQuery(
+    () => (sessionId ? sessionsRepo.get(sessionId) : undefined),
+    [sessionId],
+  );
+  const category = existingSession?.category ?? categoryProp!;
+  const routineId = existingSession?.routineId ?? routineIdProp;
   const isStrength = category === "gym";
 
   const exercises = useLiveQuery(
@@ -102,6 +112,13 @@ export function SessionLogger({
   );
   const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
   const sessions = useLiveQuery(() => sessionsRepo.all(), []);
+  const sessionsForStats = React.useMemo(
+    () =>
+      sessionId
+        ? (sessions ?? []).filter((s) => s.id !== sessionId)
+        : (sessions ?? []),
+    [sessions, sessionId],
+  );
 
   const exerciseMap = React.useMemo(() => {
     const m = new Map<string, Exercise>();
@@ -133,15 +150,35 @@ export function SessionLogger({
     setEntries,
   );
 
-  // Live elapsed timer.
+  // Live elapsed timer (new sessions only).
   React.useEffect(() => {
+    if (isEditing) return;
     const t = setInterval(() => setSeconds((s) => s + 1), 1000);
     return () => clearInterval(t);
-  }, []);
+  }, [isEditing]);
+
+  // Prefill when editing an existing session.
+  React.useEffect(() => {
+    if (!isEditing || !existingSession || seededRef.current) return;
+    seededRef.current = true;
+    draftLoadedRef.current = true;
+    setTitle(existingSession.title);
+    setDate(existingSession.date);
+    setEntries(
+      existingSession.entries.map((e) => ({
+        exerciseId: e.exerciseId,
+        setLogs: e.setLogs.map((s) => ({ ...s })),
+        notes: e.notes,
+      })),
+    );
+    setEffort(existingSession.perceivedEffort ?? 7);
+    setNotes(existingSession.notes ?? "");
+    setSeconds(existingSession.durationSec ?? 0);
+  }, [isEditing, existingSession]);
 
   // Restore in-progress session after refresh / crash.
   React.useEffect(() => {
-    if (draftLoadedRef.current) return;
+    if (isEditing || draftLoadedRef.current) return;
     draftLoadedRef.current = true;
     const draft = loadSessionDraft(category, routineId);
     if (draft && draft.entries.length > 0) {
@@ -155,19 +192,20 @@ export function SessionLogger({
       seededRef.current = true;
       setDraftRestored(true);
     }
-  }, [category, routineId]);
+  }, [category, routineId, isEditing]);
 
   // Prefill from routine once it loads (skip if draft was restored).
   React.useEffect(() => {
-    if (seededRef.current || !routine || sessions === undefined) return;
+    if (isEditing || seededRef.current || !routine || sessions === undefined)
+      return;
     seededRef.current = true;
     setTitle(routine.name);
     setEntries(entriesFromRoutine(routine, sessions));
-  }, [routine, sessions]);
+  }, [routine, sessions, isEditing]);
 
   // Persist draft locally so a refresh does not lose the workout.
   React.useEffect(() => {
-    if (!draftLoadedRef.current) return;
+    if (isEditing || !draftLoadedRef.current) return;
     if (entries.length === 0 && !title.trim()) return;
     const timer = setTimeout(() => {
       saveSessionDraft({
@@ -193,6 +231,7 @@ export function SessionLogger({
     effort,
     notes,
     seconds,
+    isEditing,
   ]);
 
   // Re-sync session when the routine is edited mid-workout.
@@ -213,7 +252,7 @@ export function SessionLogger({
       ...prev,
       {
         exerciseId: ex.id,
-        setLogs: defaultSetLogsForExercise(sessions ?? [], ex.id, 1, {
+        setLogs: defaultSetLogsForExercise(sessionsForStats, ex.id, 1, {
           reps: ex.defaultReps,
           durationSec: ex.defaultDurationSec,
         }),
@@ -306,7 +345,7 @@ export function SessionLogger({
     if (entries.length === 0) return;
     setSaving(true);
     try {
-      await sessionsRepo.create({
+      const payload = {
         date,
         category,
         routineId,
@@ -319,9 +358,15 @@ export function SessionLogger({
         perceivedEffort: effort,
         durationSec: seconds,
         notes: notes.trim() || undefined,
-      });
-      clearSessionDraft(category, routineId);
-      router.push(`${CATEGORIES[category].href}?logged=1`);
+      };
+      if (isEditing && sessionId) {
+        await sessionsRepo.update(sessionId, payload);
+        router.push(`/sessions/${sessionId}`);
+      } else {
+        await sessionsRepo.create(payload);
+        clearSessionDraft(category, routineId);
+        router.push(`${CATEGORIES[category].href}?logged=1`);
+      }
     } finally {
       setSaving(false);
     }
@@ -345,11 +390,32 @@ export function SessionLogger({
       )}
 
       <Card className="p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-            <Clock className="size-4" />
-            <span className="tabular-nums">{formatDuration(seconds)}</span>
-          </div>
+        <div className="flex items-center justify-between gap-3">
+          {isEditing ? (
+            <div className="flex items-center gap-2">
+              <Clock className="size-4 text-muted-foreground" />
+              <Input
+                type="number"
+                inputMode="numeric"
+                min={0}
+                className="h-9 w-20"
+                value={Math.round(seconds / 60) || ""}
+                onChange={(e) => {
+                  const mins = num(e.target.value);
+                  setSeconds(mins != null ? mins * 60 : 0);
+                }}
+              />
+              <span className="text-sm text-muted-foreground">min</span>
+              <span className="text-xs text-muted-foreground">
+                ({formatDuration(seconds)})
+              </span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <Clock className="size-4" />
+              <span className="tabular-nums">{formatDuration(seconds)}</span>
+            </div>
+          )}
           <input
             type="date"
             value={date}
@@ -419,7 +485,7 @@ export function SessionLogger({
             )?.notes;
             const isWarmup = warmupNote?.toLowerCase().startsWith("warm-up");
             const lastBest = exerciseLastBestSetLog(
-              sessions ?? [],
+              sessionsForStats,
               entry.exerciseId,
             );
             const lastBestLabel = lastBest
@@ -662,7 +728,12 @@ export function SessionLogger({
           disabled={entries.length === 0 || saving}
           onClick={save}
         >
-          <Check /> {saving ? "Saving..." : "Finish & save session"}
+          <Check />{" "}
+          {saving
+            ? "Saving..."
+            : isEditing
+              ? "Save changes"
+              : "Finish & save session"}
         </Button>
       </div>
 

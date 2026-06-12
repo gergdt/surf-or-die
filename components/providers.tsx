@@ -6,6 +6,7 @@ import { syncToCloud } from "@/lib/db/cloud-sync";
 import { ensureSeeded } from "@/lib/db/seed";
 import { settingsRepo } from "@/lib/db/repository";
 import { runHevyExerciseSync } from "@/lib/hevy/sync";
+import { getSupabaseClient } from "@/lib/supabase/client";
 import { resolveSupabaseConfig } from "@/lib/supabase/runtime-config";
 import type { Settings } from "@/lib/types";
 
@@ -83,6 +84,50 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       cancelled = true;
     };
   }, [ready, settings?.hevySyncEnabled, settings?.hevyLastSyncedAt]);
+
+  // Sync when the user signs in, or opens the app already signed in on a new device.
+  React.useEffect(() => {
+    if (!ready) return;
+
+    let cancelled = false;
+    let subscription: { unsubscribe: () => void } | undefined;
+
+    void getSupabaseClient().then((supabase) => {
+      if (cancelled || !supabase) return;
+
+      const runSignInSync = async () => {
+        try {
+          const result = await syncToCloud();
+          if (cancelled) return;
+          await settingsRepo.update({
+            cloudSyncEnabled: true,
+            cloudLastSyncedAt: result.syncedAt,
+          });
+        } catch (err) {
+          if (!cancelled) console.warn("Cloud sync on sign-in skipped", err);
+        }
+      };
+
+      const { data } = supabase.auth.onAuthStateChange((event, session) => {
+        if (!session?.user || cancelled) return;
+        if (event === "SIGNED_IN") {
+          void runSignInSync();
+          return;
+        }
+        if (event === "INITIAL_SESSION") {
+          void settingsRepo.get().then((local) => {
+            if (!local?.cloudLastSyncedAt && !cancelled) void runSignInSync();
+          });
+        }
+      });
+      subscription = data.subscription;
+    });
+
+    return () => {
+      cancelled = true;
+      subscription?.unsubscribe();
+    };
+  }, [ready]);
 
   React.useEffect(() => {
     if (!ready || !settings?.cloudSyncEnabled) return;

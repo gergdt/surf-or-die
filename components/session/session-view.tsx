@@ -1,13 +1,15 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLiveQuery } from "dexie-react-hooks";
-import { Trash2, Flame, Clock, Dumbbell } from "lucide-react";
+import { Trash2, Flame, Clock, Dumbbell, Pencil } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { EmptyState } from "@/components/ui/empty-state";
 import { exercisesRepo, sessionsRepo } from "@/lib/db/repository";
 import { useApp } from "@/components/providers";
@@ -62,9 +64,23 @@ export function SessionView({ id }: { id: string }) {
         backHref={meta.href}
         accent={meta.color}
         action={
-          <Button variant="outline" size="icon" onClick={handleDelete}>
-            <Trash2 />
-          </Button>
+          <div className="flex gap-2">
+            <Link
+              href={`/sessions/${session.id}/edit`}
+              aria-label="Edit session"
+              className={cn(buttonVariants({ variant: "outline", size: "icon" }))}
+            >
+              <Pencil />
+            </Link>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleDelete}
+              aria-label="Delete session"
+            >
+              <Trash2 />
+            </Button>
+          </div>
         }
       />
 
