@@ -43,7 +43,7 @@ import {
   routineSurfScore,
   scoreToTier,
 } from "@/lib/surf-transfer";
-import { todayISO, formatDuration, cn } from "@/lib/utils";
+import { todayISO, formatDuration, cn, localDateKey } from "@/lib/utils";
 import {
   displayWeightKg,
   parseWeightInput,
@@ -52,19 +52,26 @@ import {
 import { CATEGORIES } from "@/lib/categories";
 import {
   defaultSetLogsForExercise,
-  exerciseLastBestSetLog,
+  exerciseAllTimeHeaviestSetLog,
+  exerciseLastSessionSetLogs,
   formatSetLogSummary,
+  placeholderSetLogsFromLastSession,
+  resolveSetLog,
 } from "@/lib/stats";
 import type { Category, Exercise, Routine, RoutineItem, Session, SetLog } from "@/lib/types";
 
 function entriesFromRoutine(routine: Routine, sessions: Session[]): DraftEntry[] {
   return routine.items.map((item) => ({
     exerciseId: item.exerciseId,
-    setLogs: defaultSetLogsForExercise(
+    setLogs: placeholderSetLogsFromLastSession(
+      defaultSetLogsForExercise(
+        sessions,
+        item.exerciseId,
+        item.sets,
+        { reps: item.reps, durationSec: item.durationSec },
+      ),
       sessions,
       item.exerciseId,
-      item.sets,
-      { reps: item.reps, durationSec: item.durationSec },
     ),
   }));
 }
@@ -143,6 +150,7 @@ export function SessionLogger({
   const [draftRestored, setDraftRestored] = React.useState(false);
   const seededRef = React.useRef(false);
   const draftLoadedRef = React.useRef(false);
+  const dateEditedRef = React.useRef(false);
   const startedAtRef = React.useRef(Date.now());
   const routineEditorWasOpen = React.useRef(false);
 
@@ -151,11 +159,21 @@ export function SessionLogger({
     setEntries,
   );
 
-  // Live elapsed timer (new sessions only).
+  // Live elapsed timer from wall clock (survives screen lock).
   React.useEffect(() => {
     if (isEditing) return;
-    const t = setInterval(() => setSeconds((s) => s + 1), 1000);
-    return () => clearInterval(t);
+    const sync = () =>
+      setSeconds(Math.floor((Date.now() - startedAtRef.current) / 1000));
+    sync();
+    const t = setInterval(sync, 1000);
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") sync();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      clearInterval(t);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
   }, [isEditing]);
 
   // Prefill when editing an existing session.
@@ -163,6 +181,7 @@ export function SessionLogger({
     if (!isEditing || !existingSession || seededRef.current) return;
     seededRef.current = true;
     draftLoadedRef.current = true;
+    dateEditedRef.current = true;
     setTitle(existingSession.title);
     setDate(existingSession.date);
     setEntries(
@@ -190,13 +209,24 @@ export function SessionLogger({
       routine?.items,
     );
     if (draft && draft.entries.length > 0) {
+      const workoutDate = localDateKey(new Date(draft.startedAt));
+      dateEditedRef.current = draft.date !== workoutDate;
       setTitle(draft.title);
       setDate(draft.date);
-      setEntries(draft.entries);
+      setEntries(
+        draft.entries.map((entry) => ({
+          ...entry,
+          setLogs: placeholderSetLogsFromLastSession(
+            entry.setLogs,
+            sessions,
+            entry.exerciseId,
+          ),
+        })),
+      );
       setEffort(draft.effort);
       setNotes(draft.notes);
-      setSeconds(draft.seconds);
       startedAtRef.current = draft.startedAt;
+      setSeconds(Math.floor((Date.now() - draft.startedAt) / 1000));
       seededRef.current = true;
       setDraftRestored(true);
       return;
@@ -220,7 +250,9 @@ export function SessionLogger({
           ? routineItemsFingerprint(routine.items)
           : undefined,
         title,
-        date,
+        date: dateEditedRef.current
+          ? date
+          : localDateKey(new Date(startedAtRef.current)),
         entries,
         effort,
         notes,
@@ -270,10 +302,14 @@ export function SessionLogger({
       ...prev,
       {
         exerciseId: ex.id,
-        setLogs: defaultSetLogsForExercise(sessionsForStats, ex.id, 1, {
-          reps: ex.defaultReps,
-          durationSec: ex.defaultDurationSec,
-        }),
+        setLogs: placeholderSetLogsFromLastSession(
+          defaultSetLogsForExercise(sessionsForStats, ex.id, 1, {
+            reps: ex.defaultReps,
+            durationSec: ex.defaultDurationSec,
+          }),
+          sessionsForStats,
+          ex.id,
+        ),
       },
     ]);
     setPickerOpen(false);
@@ -285,12 +321,7 @@ export function SessionLogger({
   const addSet = (idx: number) =>
     setEntries((prev) =>
       prev.map((e, i) =>
-        i === idx
-          ? {
-              ...e,
-              setLogs: [...e.setLogs, { ...e.setLogs[e.setLogs.length - 1] }],
-            }
-          : e,
+        i === idx ? { ...e, setLogs: [...e.setLogs, {}] } : e,
       ),
     );
 
@@ -364,17 +395,25 @@ export function SessionLogger({
     setSaving(true);
     try {
       const payload = {
-        date,
+        date: dateEditedRef.current
+          ? date
+          : localDateKey(new Date(startedAtRef.current)),
         category,
         routineId,
         title: title.trim() || `${CATEGORIES[category].short} session`,
-        entries: entries.map((e) => ({
-          exerciseId: e.exerciseId,
-          setLogs: e.setLogs,
-          notes: e.notes,
-        })),
+        entries: entries.map((e) => {
+          const lastSets =
+            exerciseLastSessionSetLogs(sessionsForStats, e.exerciseId) ?? [];
+          return {
+            exerciseId: e.exerciseId,
+            setLogs: e.setLogs.map((set, sIdx) =>
+              resolveSetLog(set, lastSets[sIdx]),
+            ),
+            notes: e.notes,
+          };
+        }),
         perceivedEffort: effort,
-        durationSec: seconds,
+        durationSec: Math.floor((Date.now() - startedAtRef.current) / 1000),
         notes: notes.trim() || undefined,
       };
       if (isEditing && sessionId) {
@@ -437,7 +476,10 @@ export function SessionLogger({
           <input
             type="date"
             value={date}
-            onChange={(e) => setDate(e.target.value)}
+            onChange={(e) => {
+              dateEditedRef.current = true;
+              setDate(e.target.value);
+            }}
             className="rounded-md border border-input bg-background px-2 py-1 text-sm"
           />
         </div>
@@ -502,12 +544,15 @@ export function SessionLogger({
               (i) => i.exerciseId === entry.exerciseId,
             )?.notes;
             const isWarmup = warmupNote?.toLowerCase().startsWith("warm-up");
-            const lastBest = exerciseLastBestSetLog(
+            const lastSessionSets =
+              exerciseLastSessionSetLogs(sessionsForStats, entry.exerciseId) ??
+              [];
+            const heaviestSet = exerciseAllTimeHeaviestSetLog(
               sessionsForStats,
               entry.exerciseId,
             );
-            const lastBestLabel = lastBest
-              ? formatSetLogSummary(lastBest, { isStrength, units })
+            const heaviestLabel = heaviestSet
+              ? formatSetLogSummary(heaviestSet, { isStrength, units })
               : null;
             return (
               <Card
@@ -568,11 +613,11 @@ export function SessionLogger({
                   </div>
                 </div>
 
-                {lastBestLabel && (
+                {heaviestLabel && (
                   <p className="mb-3 text-xs text-muted-foreground">
-                    Last session:{" "}
+                    Heaviest set:{" "}
                     <span className="font-medium text-foreground">
-                      {lastBestLabel}
+                      {heaviestLabel}
                     </span>
                   </p>
                 )}
@@ -601,7 +646,19 @@ export function SessionLogger({
                     <span className="w-7" />
                   </div>
 
-                  {entry.setLogs.map((set, sIdx) => (
+                  {entry.setLogs.map((set, sIdx) => {
+                    const baseline = lastSessionSets[sIdx];
+                    const weightIsPlaceholder =
+                      set.weightKg == null && baseline?.weightKg != null;
+                    const repsIsPlaceholder =
+                      set.reps == null && baseline?.reps != null;
+                    const rpeIsPlaceholder =
+                      set.rpe == null && baseline?.rpe != null;
+                    const durationIsPlaceholder =
+                      set.durationSec == null && baseline?.durationSec != null;
+                    const placeholderClass = "text-muted-foreground";
+
+                    return (
                     <div key={sIdx} className="flex items-center gap-2">
                       <span className="w-6 text-center text-sm font-semibold text-muted-foreground">
                         {sIdx + 1}
@@ -611,12 +668,17 @@ export function SessionLogger({
                           <Input
                             type="number"
                             inputMode="decimal"
-                            className="h-9 flex-1"
+                            className={cn(
+                              "h-9 flex-1",
+                              weightIsPlaceholder && placeholderClass,
+                            )}
                             placeholder="0"
                             value={
                               set.weightKg != null
                                 ? displayWeightKg(set.weightKg, units)
-                                : ""
+                                : baseline?.weightKg != null
+                                  ? displayWeightKg(baseline.weightKg, units)
+                                  : ""
                             }
                             onChange={(e) =>
                               updateSet(idx, sIdx, {
@@ -630,9 +692,12 @@ export function SessionLogger({
                           <Input
                             type="number"
                             inputMode="numeric"
-                            className="h-9 flex-1"
+                            className={cn(
+                              "h-9 flex-1",
+                              repsIsPlaceholder && placeholderClass,
+                            )}
                             placeholder="0"
-                            value={set.reps ?? ""}
+                            value={set.reps ?? baseline?.reps ?? ""}
                             onChange={(e) =>
                               updateSet(idx, sIdx, {
                                 reps: num(e.target.value),
@@ -642,9 +707,12 @@ export function SessionLogger({
                           <Input
                             type="number"
                             inputMode="numeric"
-                            className="h-9 flex-1"
+                            className={cn(
+                              "h-9 flex-1",
+                              rpeIsPlaceholder && placeholderClass,
+                            )}
                             placeholder="-"
-                            value={set.rpe ?? ""}
+                            value={set.rpe ?? baseline?.rpe ?? ""}
                             onChange={(e) =>
                               updateSet(idx, sIdx, {
                                 rpe: num(e.target.value),
@@ -657,9 +725,12 @@ export function SessionLogger({
                           <Input
                             type="number"
                             inputMode="numeric"
-                            className="h-9 flex-1"
+                            className={cn(
+                              "h-9 flex-1",
+                              repsIsPlaceholder && placeholderClass,
+                            )}
                             placeholder="0"
-                            value={set.reps ?? ""}
+                            value={set.reps ?? baseline?.reps ?? ""}
                             onChange={(e) =>
                               updateSet(idx, sIdx, {
                                 reps: num(e.target.value),
@@ -669,9 +740,14 @@ export function SessionLogger({
                           <Input
                             type="number"
                             inputMode="numeric"
-                            className="h-9 flex-1"
+                            className={cn(
+                              "h-9 flex-1",
+                              durationIsPlaceholder && placeholderClass,
+                            )}
                             placeholder="0"
-                            value={set.durationSec ?? ""}
+                            value={
+                              set.durationSec ?? baseline?.durationSec ?? ""
+                            }
                             onChange={(e) =>
                               updateSet(idx, sIdx, {
                                 durationSec: num(e.target.value),
@@ -688,7 +764,8 @@ export function SessionLogger({
                         <Trash2 className="size-3.5" />
                       </button>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 <Button

@@ -37,7 +37,7 @@ import {
   routineItemsFingerprint,
   saveTimerDraft,
 } from "@/lib/session-draft";
-import { cn } from "@/lib/utils";
+import { cn, localDateKey } from "@/lib/utils";
 import type { Category, Exercise, SessionEntry } from "@/lib/types";
 
 interface Step {
@@ -102,6 +102,9 @@ export function RoutineTimer({
   const startedSavedRef = React.useRef(false);
   const timerDraftLoadedRef = React.useRef(false);
   const skipRemainingInitRef = React.useRef(false);
+  const stepEndsAtRef = React.useRef<number | null>(null);
+  const runningRef = React.useRef(false);
+  runningRef.current = running;
 
   React.useEffect(() => {
     if (timerDraftLoadedRef.current) return;
@@ -111,8 +114,16 @@ export function RoutineTimer({
     if (draft) {
       setIndex(draft.index);
       setRunning(draft.running);
-      setRemaining(draft.remaining);
       startedRef.current = draft.startedAt;
+      if (draft.running && draft.stepEndsAt != null) {
+        stepEndsAtRef.current = draft.stepEndsAt;
+        setRemaining(
+          Math.max(0, Math.ceil((draft.stepEndsAt - Date.now()) / 1000)),
+        );
+      } else {
+        stepEndsAtRef.current = null;
+        setRemaining(draft.remaining);
+      }
       skipRemainingInitRef.current = true;
       setDraftRestored(true);
       return;
@@ -132,6 +143,10 @@ export function RoutineTimer({
         index,
         running,
         remaining,
+        stepEndsAt:
+          running && stepEndsAtRef.current != null
+            ? stepEndsAtRef.current
+            : undefined,
         startedAt: startedRef.current,
         updatedAt: Date.now(),
       });
@@ -160,7 +175,7 @@ export function RoutineTimer({
       });
     }
     await sessionsRepo.create({
-      date: new Date().toISOString().slice(0, 10),
+      date: localDateKey(new Date(startedRef.current)),
       category,
       routineId,
       title: routine.name,
@@ -184,24 +199,63 @@ export function RoutineTimer({
 
   const prev = () => setIndex((i) => Math.max(0, i - 1));
 
+  const toggleRunning = () => {
+    setRunning((wasRunning) => {
+      if (wasRunning) {
+        if (stepEndsAtRef.current != null) {
+          setRemaining(
+            Math.max(
+              0,
+              Math.ceil((stepEndsAtRef.current - Date.now()) / 1000),
+            ),
+          );
+        }
+        stepEndsAtRef.current = null;
+        return false;
+      }
+      if (remaining != null && remaining > 0) {
+        stepEndsAtRef.current = Date.now() + remaining * 1000;
+      }
+      return true;
+    });
+  };
+
   // Initialise remaining time when the step changes.
   React.useEffect(() => {
     if (skipRemainingInitRef.current) {
       skipRemainingInitRef.current = false;
       return;
     }
-    setRemaining(steps[index]?.durationSec ?? null);
+    const durationSec = steps[index]?.durationSec ?? null;
+    setRemaining(durationSec);
+    if (runningRef.current && durationSec != null) {
+      stepEndsAtRef.current = Date.now() + durationSec * 1000;
+    } else {
+      stepEndsAtRef.current = null;
+    }
   }, [index, steps]);
 
-  // Countdown tick for timed steps.
+  // Wall-clock countdown — keeps correct time when the screen is locked.
   React.useEffect(() => {
-    if (!running || remaining == null || remaining <= 0) return;
-    const t = setTimeout(
-      () => setRemaining((r) => (r == null ? r : r - 1)),
-      1000,
-    );
-    return () => clearTimeout(t);
-  }, [running, remaining]);
+    if (!running || stepEndsAtRef.current == null) return;
+
+    const sync = () => {
+      const endsAt = stepEndsAtRef.current;
+      if (endsAt == null) return;
+      setRemaining(Math.max(0, Math.ceil((endsAt - Date.now()) / 1000)));
+    };
+
+    sync();
+    const interval = setInterval(sync, 250);
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") sync();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, [running, index]);
 
   // Auto-advance when a timed step elapses.
   React.useEffect(() => {
@@ -353,7 +407,7 @@ export function RoutineTimer({
           <SkipBack />
         </Button>
         {remaining != null ? (
-          <Button size="lg" className="px-8" onClick={() => setRunning((r) => !r)}>
+          <Button size="lg" className="px-8" onClick={toggleRunning}>
             {running ? <Pause className="fill-current" /> : <Play className="fill-current" />}
             {running ? "Pause" : "Start"}
           </Button>

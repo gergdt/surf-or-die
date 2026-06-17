@@ -116,6 +116,8 @@ export interface TimerDraft {
   index: number;
   running: boolean;
   remaining: number | null;
+  /** Wall-clock deadline for the current timed step (only while running). */
+  stepEndsAt?: number;
   startedAt: number;
   updatedAt: number;
 }

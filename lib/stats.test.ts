@@ -1,8 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
   defaultSetLogsForExercise,
+  exerciseAllTimeHeaviestSetLog,
   exerciseLastBestSetLog,
+  exerciseLastSessionSetLogs,
   exercisePersonalBest,
+  placeholderSetLogsFromLastSession,
 } from "./stats";
 import type { Session } from "./types";
 
@@ -51,8 +54,128 @@ describe("exerciseLastBestSetLog", () => {
   });
 });
 
+describe("exerciseLastSessionSetLogs", () => {
+  it("returns all sets from the most recent session", () => {
+    const sessions = [
+      session(
+        [
+          {
+            exerciseId: "ex_a",
+            setLogs: [{ weightKg: 40, reps: 10 }],
+          },
+        ],
+        100,
+      ),
+      session(
+        [
+          {
+            exerciseId: "ex_a",
+            setLogs: [
+              { weightKg: 15, reps: 10, rpe: 5 },
+              { weightKg: 17.5, reps: 10, rpe: 8 },
+              { weightKg: 20, reps: 10, rpe: 10 },
+            ],
+          },
+        ],
+        200,
+      ),
+    ];
+    expect(exerciseLastSessionSetLogs(sessions, "ex_a")).toEqual([
+      { weightKg: 15, reps: 10, rpe: 5 },
+      { weightKg: 17.5, reps: 10, rpe: 8 },
+      { weightKg: 20, reps: 10, rpe: 10 },
+    ]);
+  });
+});
+
+describe("exerciseAllTimeHeaviestSetLog", () => {
+  it("returns the heaviest set across every logged session", () => {
+    const sessions = [
+      session(
+        [
+          {
+            exerciseId: "ex_a",
+            setLogs: [
+              { weightKg: 40, reps: 10, rpe: 7 },
+              { weightKg: 45, reps: 8, rpe: 8 },
+            ],
+          },
+        ],
+        100,
+      ),
+      session(
+        [
+          {
+            exerciseId: "ex_a",
+            setLogs: [
+              { weightKg: 52, reps: 8, rpe: 8 },
+              { weightKg: 50, reps: 10, rpe: 9 },
+            ],
+          },
+        ],
+        200,
+      ),
+    ];
+    expect(exerciseAllTimeHeaviestSetLog(sessions, "ex_a")).toEqual({
+      weightKg: 52,
+      reps: 8,
+      rpe: 8,
+    });
+  });
+});
+
+describe("placeholderSetLogsFromLastSession", () => {
+  it("clears identical prefilled rows from older drafts", () => {
+    const sessions = [
+      session([
+        {
+          exerciseId: "ex_a",
+          setLogs: [
+            { weightKg: 15, reps: 10, rpe: 5 },
+            { weightKg: 17.5, reps: 10, rpe: 8 },
+          ],
+        },
+      ]),
+    ];
+    expect(
+      placeholderSetLogsFromLastSession(
+        [
+          { weightKg: 17.5, reps: 10, rpe: 8 },
+          { weightKg: 17.5, reps: 10, rpe: 8 },
+        ],
+        sessions,
+        "ex_a",
+      ),
+    ).toEqual([{}, {}]);
+  });
+
+  it("keeps modified rows while clearing untouched baselines", () => {
+    const sessions = [
+      session([
+        {
+          exerciseId: "ex_a",
+          setLogs: [
+            { weightKg: 15, reps: 10, rpe: 5 },
+            { weightKg: 17.5, reps: 10, rpe: 8 },
+          ],
+        },
+      ]),
+    ];
+    expect(
+      placeholderSetLogsFromLastSession(
+        [
+          { weightKg: 15, reps: 10, rpe: 5 },
+          { weightKg: 20, reps: 8, rpe: 9 },
+        ],
+        sessions,
+        "ex_a",
+      ),
+    ).toEqual([{}, { weightKg: 20, reps: 8, rpe: 9 }]);
+  });
+});
+
 describe("defaultSetLogsForExercise", () => {
-  it("prefills every set row from last best", () => {
+  it("creates empty rows for placeholder display", () => {
     const sessions = [
       session([
         {
@@ -63,11 +186,7 @@ describe("defaultSetLogsForExercise", () => {
     ];
     expect(
       defaultSetLogsForExercise(sessions, "ex_a", 3, { reps: 12 }),
-    ).toEqual([
-      { weightKg: 45, reps: 10, rpe: 8, durationSec: undefined },
-      { weightKg: 45, reps: 10, rpe: 8, durationSec: undefined },
-      { weightKg: 45, reps: 10, rpe: 8, durationSec: undefined },
-    ]);
+    ).toEqual([{}, {}, {}]);
   });
 });
 

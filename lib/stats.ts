@@ -90,11 +90,34 @@ export interface ExercisePersonalBest {
   durationSec?: number;
 }
 
-/** Best set from the most recent session that logged this exercise. */
-export function exerciseLastBestSetLog(
+/** Heaviest / highest-effort set within a list of set logs. */
+export function heaviestSetLog(setLogs: SetLog[]): SetLog | null {
+  if (setLogs.length === 0) return null;
+
+  const best = setLogs.reduce((top, set) => {
+    const w = set.weightKg ?? 0;
+    const tw = top.weightKg ?? 0;
+    if (w > tw) return set;
+    if (w === tw && (set.reps ?? 0) > (top.reps ?? 0)) return set;
+    if (w === 0 && tw === 0 && (set.reps ?? 0) > (top.reps ?? 0)) return set;
+    return top;
+  });
+
+  if (
+    (best.weightKg ?? 0) > 0 ||
+    (best.reps ?? 0) > 0 ||
+    (best.durationSec ?? 0) > 0
+  ) {
+    return { ...best };
+  }
+  return null;
+}
+
+/** All set rows from the most recent session that logged this exercise. */
+export function exerciseLastSessionSetLogs(
   sessions: Session[],
   exerciseId: string,
-): SetLog | null {
+): SetLog[] | null {
   const sorted = [...sessions]
     .filter((s) => s.entries.some((e) => e.exerciseId === exerciseId))
     .sort((a, b) => b.createdAt - a.createdAt);
@@ -102,25 +125,77 @@ export function exerciseLastBestSetLog(
   for (const s of sorted) {
     const entry = s.entries.find((e) => e.exerciseId === exerciseId);
     if (!entry?.setLogs.length) continue;
-
-    const best = entry.setLogs.reduce((top, set) => {
-      const w = set.weightKg ?? 0;
-      const tw = top.weightKg ?? 0;
-      if (w > tw) return set;
-      if (w === tw && (set.reps ?? 0) > (top.reps ?? 0)) return set;
-      if (w === 0 && tw === 0 && (set.reps ?? 0) > (top.reps ?? 0)) return set;
-      return top;
-    });
-
-    if (
-      (best.weightKg ?? 0) > 0 ||
-      (best.reps ?? 0) > 0 ||
-      (best.durationSec ?? 0) > 0
-    ) {
-      return { ...best };
-    }
+    return entry.setLogs.map((set) => ({ ...set }));
   }
   return null;
+}
+
+/** Best set from the most recent session that logged this exercise. */
+export function exerciseLastBestSetLog(
+  sessions: Session[],
+  exerciseId: string,
+): SetLog | null {
+  const lastSets = exerciseLastSessionSetLogs(sessions, exerciseId);
+  return lastSets ? heaviestSetLog(lastSets) : null;
+}
+
+/** Heaviest set ever logged for this exercise across all sessions. */
+export function exerciseAllTimeHeaviestSetLog(
+  sessions: Session[],
+  exerciseId: string,
+): SetLog | null {
+  const allSets: SetLog[] = [];
+  for (const s of sessions) {
+    const entry = s.entries.find((e) => e.exerciseId === exerciseId);
+    if (!entry) continue;
+    allSets.push(...entry.setLogs);
+  }
+  return heaviestSetLog(allSets);
+}
+
+function setLogMatches(a: SetLog, b: SetLog): boolean {
+  return (
+    (a.weightKg ?? null) === (b.weightKg ?? null) &&
+    (a.reps ?? null) === (b.reps ?? null) &&
+    (a.rpe ?? null) === (b.rpe ?? null) &&
+    (a.durationSec ?? null) === (b.durationSec ?? null)
+  );
+}
+
+/** Strip values that still match last-session baselines so the UI can show grey placeholders. */
+export function placeholderSetLogsFromLastSession(
+  setLogs: SetLog[],
+  sessions: Session[],
+  exerciseId: string,
+): SetLog[] {
+  const lastSets = exerciseLastSessionSetLogs(sessions, exerciseId);
+  if (!lastSets?.length) return setLogs;
+
+  const first = setLogs[0];
+  const allIdentical =
+    setLogs.length > 1 &&
+    first != null &&
+    setLogs.every((s) => setLogMatches(s, first));
+
+  if (allIdentical) {
+    return setLogs.map(() => ({}));
+  }
+
+  return setLogs.map((set, i) => {
+    const baseline = lastSets[i];
+    if (!baseline || !setLogMatches(set, baseline)) return set;
+    return {};
+  });
+}
+
+/** Merge user-entered values with last-session defaults for saving. */
+export function resolveSetLog(set: SetLog, baseline?: SetLog): SetLog {
+  return {
+    weightKg: set.weightKg ?? baseline?.weightKg,
+    reps: set.reps ?? baseline?.reps,
+    rpe: set.rpe ?? baseline?.rpe,
+    durationSec: set.durationSec ?? baseline?.durationSec,
+  };
 }
 
 /** Human-readable summary of a set log row. */
@@ -146,20 +221,14 @@ export function formatSetLogSummary(
   return parts.join(" · ");
 }
 
-/** Default set rows for a routine item, prefilled from last logged best. */
+/** Empty set rows — last-session values are shown as grey placeholders in the UI. */
 export function defaultSetLogsForExercise(
-  sessions: Session[],
-  exerciseId: string,
+  _sessions: Session[],
+  _exerciseId: string,
   sets: number,
-  template: { reps?: number; durationSec?: number },
+  _template: { reps?: number; durationSec?: number },
 ): SetLog[] {
-  const lastBest = exerciseLastBestSetLog(sessions, exerciseId);
-  return Array.from({ length: sets }, () => ({
-    weightKg: lastBest?.weightKg,
-    reps: lastBest?.reps ?? template.reps,
-    rpe: lastBest?.rpe,
-    durationSec: lastBest?.durationSec ?? template.durationSec,
-  }));
+  return Array.from({ length: sets }, () => ({}));
 }
 
 /** All-time best logged for an exercise across sessions. */
