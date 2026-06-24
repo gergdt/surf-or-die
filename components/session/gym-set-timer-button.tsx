@@ -29,9 +29,9 @@ export function GymSetTimerButton({
       onClick={onStart}
       aria-label={
         active
-          ? `Set timer running, ${formatTimerCompact(seconds)}`
+          ? `Set timer running, ${formatTimerCompact(seconds)}, tap to pause`
           : recorded
-            ? `Set took ${formatTimerCompact(seconds)}, tap to time again`
+            ? `Set took ${formatTimerCompact(seconds)}, tap to resume timing`
             : placeholder
               ? `Last session ${formatTimerCompact(seconds)}, tap to start set timer`
               : "Start set timer"

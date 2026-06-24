@@ -206,13 +206,21 @@ export function placeholderSetLogsFromLastSession(
   });
 }
 
+function resolveSetField(
+  value: number | null | undefined,
+  baseline: number | null | undefined,
+): number | undefined {
+  if (value === null) return undefined;
+  return value ?? baseline ?? undefined;
+}
+
 /** Merge user-entered values with last-session defaults for saving. */
 export function resolveSetLog(set: SetLog, baseline?: SetLog): SetLog {
   return {
-    weightKg: set.weightKg ?? baseline?.weightKg,
-    reps: set.reps ?? baseline?.reps,
-    rpe: set.rpe ?? baseline?.rpe,
-    durationSec: set.durationSec ?? baseline?.durationSec,
+    weightKg: resolveSetField(set.weightKg, baseline?.weightKg),
+    reps: resolveSetField(set.reps, baseline?.reps),
+    rpe: resolveSetField(set.rpe, baseline?.rpe),
+    durationSec: resolveSetField(set.durationSec, baseline?.durationSec),
     elapsedSec: set.elapsedSec,
   };
 }

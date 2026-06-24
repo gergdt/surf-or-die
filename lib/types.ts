@@ -112,10 +112,11 @@ export interface Routine {
 }
 
 export interface SetLog {
-  reps?: number;
-  weightKg?: number;
-  durationSec?: number;
-  rpe?: number;
+  /** `null` = user cleared the field; `undefined` = show last-session placeholder. */
+  reps?: number | null;
+  weightKg?: number | null;
+  durationSec?: number | null;
+  rpe?: number | null;
   /** Wall-clock seconds spent on this set (gym time tracking). */
   elapsedSec?: number;
 }

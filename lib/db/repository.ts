@@ -99,28 +99,48 @@ export const routinesRepo = {
   },
 };
 
+export interface SessionWriteResult {
+  session: Session;
+  /** True when the session was uploaded to Supabase (signed in and push succeeded). */
+  cloudSynced: boolean;
+}
+
+async function syncSessionAfterWrite(session: Session): Promise<boolean> {
+  try {
+    const pushed = await pushSessionToCloud(session);
+    if (pushed) {
+      await settingsRepo.update({ cloudLastSyncedAt: Date.now() });
+    }
+    return pushed;
+  } catch (err) {
+    console.warn("Session cloud push failed", err);
+    return false;
+  }
+}
+
 // ---- Sessions ----
 export const sessionsRepo = {
   all: () => getDB().sessions.orderBy("createdAt").reverse().toArray(),
   byCategory: (category: Category) =>
     getDB().sessions.where("category").equals(category).reverse().toArray(),
   get: (id: string) => getDB().sessions.get(id),
-  create: async (data: Omit<Session, "id" | "createdAt">) => {
+  create: async (
+    data: Omit<Session, "id" | "createdAt">,
+  ): Promise<SessionWriteResult> => {
     const s: Session = { ...data, id: uid("ses"), createdAt: Date.now() };
     await getDB().sessions.add(s);
-    void pushSessionToCloud(s).catch((err) =>
-      console.warn("Session cloud push failed", err),
-    );
-    return s;
+    const cloudSynced = await syncSessionAfterWrite(s);
+    return { session: s, cloudSynced };
   },
-  update: async (id: string, patch: Partial<Session>) => {
+  update: async (
+    id: string,
+    patch: Partial<Session>,
+  ): Promise<SessionWriteResult | null> => {
     await getDB().sessions.update(id, patch);
     const session = await getDB().sessions.get(id);
-    if (session) {
-      void pushSessionToCloud(session).catch((err) =>
-        console.warn("Session cloud push failed", err),
-      );
-    }
+    if (!session) return null;
+    const cloudSynced = await syncSessionAfterWrite(session);
+    return { session, cloudSynced };
   },
   remove: async (id: string) => {
     await getDB().sessions.delete(id);

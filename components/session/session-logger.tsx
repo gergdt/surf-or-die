@@ -12,6 +12,7 @@ import {
   Eye,
   Pencil,
   Save,
+  ArrowLeftRight,
 } from "lucide-react";
 import { ExerciseDetail } from "@/components/exercise-detail";
 import { GymSetTimerButton } from "@/components/session/gym-set-timer-button";
@@ -31,6 +32,7 @@ import {
   sessionsRepo,
 } from "@/lib/db/repository";
 import { useApp } from "@/components/providers";
+import { useSupabase } from "@/hooks/use-supabase";
 import { useDragReorder } from "@/hooks/use-drag-reorder";
 import { useGymWorkoutTimers } from "@/hooks/use-gym-workout-timers";
 import {
@@ -100,6 +102,8 @@ export function SessionLogger({
 }) {
   const router = useRouter();
   const { settings } = useApp();
+  const { client } = useSupabase();
+  const [signedIn, setSignedIn] = React.useState(false);
   const units = settings?.units ?? "metric";
   const weightUnit = weightUnitLabel(units);
   const isEditing = !!sessionId;
@@ -147,10 +151,15 @@ export function SessionLogger({
   const [effort, setEffort] = React.useState(7);
   const [notes, setNotes] = React.useState("");
   const [pickerOpen, setPickerOpen] = React.useState(false);
+  const [swapEntryIndex, setSwapEntryIndex] = React.useState<number | null>(
+    null,
+  );
   const [previewExercise, setPreviewExercise] = React.useState<Exercise | null>(
     null,
   );
   const [saving, setSaving] = React.useState(false);
+  const [syncWarning, setSyncWarning] = React.useState<string | null>(null);
+  const [savedSessionId, setSavedSessionId] = React.useState<string | null>(null);
   const [savingRoutine, setSavingRoutine] = React.useState(false);
   const [routineEditorOpen, setRoutineEditorOpen] = React.useState(false);
   const [seconds, setSeconds] = React.useState(0);
@@ -182,6 +191,7 @@ export function SessionLogger({
     gymTimerDraft,
     handleRemoveSet: handleGymRemoveSet,
     handleRemoveEntry: handleGymRemoveEntry,
+    handleSwapEntry: handleGymSwapEntry,
   } = useGymWorkoutTimers(entries, setEntries, {
     enabled: gymTimersEnabled,
     initialTimer: initialGymTimer,
@@ -203,6 +213,20 @@ export function SessionLogger({
       document.removeEventListener("visibilitychange", onVisibility);
     };
   }, [isEditing]);
+
+  React.useEffect(() => {
+    if (!client) {
+      setSignedIn(false);
+      return;
+    }
+    void client.auth.getUser().then((result) => setSignedIn(!!result.data.user));
+    const {
+      data: { subscription },
+    } = client.auth.onAuthStateChange((_event, session) => {
+      setSignedIn(!!session?.user);
+    });
+    return () => subscription.unsubscribe();
+  }, [client]);
 
   // Prefill when editing an existing session.
   React.useEffect(() => {
@@ -344,6 +368,21 @@ export function SessionLogger({
     };
   }, [routineEditorOpen, routineId, sessions]);
 
+  const closePicker = () => {
+    setPickerOpen(false);
+    setSwapEntryIndex(null);
+  };
+
+  const openAddPicker = () => {
+    setSwapEntryIndex(null);
+    setPickerOpen(true);
+  };
+
+  const openSwapPicker = (idx: number) => {
+    setSwapEntryIndex(idx);
+    setPickerOpen(true);
+  };
+
   const addExercise = (ex: Exercise) => {
     setEntries((prev) => [
       ...prev,
@@ -359,7 +398,41 @@ export function SessionLogger({
         ),
       },
     ]);
-    setPickerOpen(false);
+    closePicker();
+  };
+
+  const swapExercise = (idx: number, ex: Exercise) => {
+    handleGymSwapEntry(idx);
+    setEntries((prev) =>
+      prev.map((entry, i) => {
+        if (i !== idx) return entry;
+        const setCount = Math.max(1, entry.setLogs.length);
+        const routineItem = routine?.items.find(
+          (item) => item.exerciseId === entry.exerciseId,
+        );
+        return {
+          exerciseId: ex.id,
+          setLogs: placeholderSetLogsFromLastSession(
+            defaultSetLogsForExercise(sessionsForStats, ex.id, setCount, {
+              reps: routineItem?.reps ?? ex.defaultReps,
+              durationSec:
+                routineItem?.durationSec ?? ex.defaultDurationSec,
+            }),
+            sessionsForStats,
+            ex.id,
+          ),
+        };
+      }),
+    );
+    closePicker();
+  };
+
+  const handleExercisePick = (ex: Exercise) => {
+    if (swapEntryIndex != null) {
+      swapExercise(swapEntryIndex, ex);
+    } else {
+      addExercise(ex);
+    }
   };
 
   const removeEntry = (idx: number) => {
@@ -403,8 +476,31 @@ export function SessionLogger({
       ),
     );
 
-  const num = (v: string): number | undefined =>
-    v === "" ? undefined : Number(v);
+  const num = (v: string): number | null =>
+    v === "" ? null : Number(v);
+
+  const setFieldValue = (
+    value: number | null | undefined,
+    baseline?: number | null,
+  ): string | number =>
+    value === null ? "" : value != null ? value : (baseline ?? "");
+
+  const setWeightValue = (
+    value: number | null | undefined,
+    baseline?: number | null,
+  ): string =>
+    value === null
+      ? ""
+      : value != null
+        ? String(displayWeightKg(value, units))
+        : baseline != null
+          ? String(displayWeightKg(baseline, units))
+          : "";
+
+  const fieldIsPlaceholder = (
+    value: number | null | undefined,
+    baseline?: number | null,
+  ) => value === undefined && baseline != null;
 
   const sessionRoutineItems = React.useMemo((): RoutineItem[] => {
     return entries.map((entry) => {
@@ -415,8 +511,8 @@ export function SessionLogger({
       return {
         exerciseId: entry.exerciseId,
         sets: entry.setLogs.length,
-        reps: first?.reps,
-        durationSec: first?.durationSec,
+        reps: first?.reps ?? undefined,
+        durationSec: first?.durationSec ?? undefined,
         restSec: template?.restSec ?? 60,
         notes: template?.notes,
       };
@@ -444,6 +540,7 @@ export function SessionLogger({
   const save = async () => {
     if (entries.length === 0) return;
     setSaving(true);
+    setSyncWarning(null);
     try {
       const finalizedEntries = isStrength ? finalizeGymTimers() : entries;
       const payload = {
@@ -469,11 +566,32 @@ export function SessionLogger({
         durationSec: Math.floor((Date.now() - startedAtRef.current) / 1000),
         notes: notes.trim() || undefined,
       };
-      if (isEditing && sessionId) {
-        await sessionsRepo.update(sessionId, payload);
-        router.push(`/sessions/${sessionId}`);
+      const targetId = isEditing ? sessionId : savedSessionId;
+      if (targetId) {
+        const result = await sessionsRepo.update(targetId, payload);
+        if (!result) return;
+        if (!result.cloudSynced && signedIn) {
+          setSavedSessionId(result.session.id);
+          setSyncWarning(
+            "Session saved on this device, but cloud backup failed. Check your connection and tap Finish again to retry.",
+          );
+          return;
+        }
+        if (isEditing) {
+          router.push(`/sessions/${targetId}`);
+        } else {
+          clearSessionDraft(category, routineId);
+          router.push(`${CATEGORIES[category].href}?logged=1`);
+        }
       } else {
-        await sessionsRepo.create(payload);
+        const result = await sessionsRepo.create(payload);
+        if (!result.cloudSynced && signedIn) {
+          setSavedSessionId(result.session.id);
+          setSyncWarning(
+            "Session saved on this device, but cloud backup failed. Check your connection and tap Finish again to retry.",
+          );
+          return;
+        }
         clearSessionDraft(category, routineId);
         router.push(`${CATEGORIES[category].href}?logged=1`);
       }
@@ -487,6 +605,12 @@ export function SessionLogger({
       {draftRestored && (
         <p className="rounded-lg border border-accent/30 bg-accent/10 px-3 py-2 text-xs text-accent-foreground">
           Restored your in-progress workout from this device.
+        </p>
+      )}
+
+      {syncWarning && (
+        <p className="rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-900 dark:text-amber-200">
+          {syncWarning}
         </p>
       )}
 
@@ -580,7 +704,7 @@ export function SessionLogger({
           title="No exercises yet"
           description="Add exercises to start logging your sets."
           action={
-            <Button onClick={() => setPickerOpen(true)}>
+            <Button onClick={openAddPicker}>
               <Plus /> Add exercise
             </Button>
           }
@@ -644,72 +768,88 @@ export function SessionLogger({
                   draggingIndex === idx && "opacity-60 ring-2 ring-primary/30",
                 )}
               >
-                <div className="mb-3 flex items-center justify-between gap-2">
-                  <div className="flex min-w-0 flex-1 items-center gap-2">
-                    <button
-                      type="button"
-                      aria-label="Drag to reorder"
-                      className="touch-none rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
-                      {...bindHandle(idx)}
-                    >
-                      <GripVertical className="size-4 shrink-0" />
-                    </button>
-                    <p className="truncate font-semibold">
-                      {ex?.name ?? "Exercise"}
-                    </p>
-                    {isWarmup && (
-                      <span className="shrink-0 rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-medium text-accent-foreground">
-                        Warm-up
-                      </span>
-                    )}
-                    {surfScore != null && transfer && (
-                      <SurfTransferBadge
-                        tier={scoreToTier(surfScore)}
-                        score={surfScore}
-                      />
-                    )}
-                    {showExerciseTimer && (
-                      <span
-                        className={cn(
-                          "inline-flex shrink-0 items-center gap-1 rounded-md border px-1.5 py-0.5 text-[11px] font-medium tabular-nums",
-                          exerciseActive
-                            ? "border-primary/40 bg-primary/10 text-primary"
-                            : exerciseElapsedIsPlaceholder
-                              ? "border-dashed border-border text-muted-foreground"
-                              : "border-border bg-muted/40 text-muted-foreground",
+                <div className="mb-3 flex gap-2">
+                  <button
+                    type="button"
+                    aria-label="Drag to reorder"
+                    className="touch-none self-start rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+                    {...bindHandle(idx)}
+                  >
+                    <GripVertical className="size-4 shrink-0" />
+                  </button>
+                  <div className="min-w-0 flex-1 space-y-1.5">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex min-w-0 flex-1 flex-wrap items-center gap-1.5">
+                        {isWarmup && (
+                          <span className="shrink-0 rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-medium text-accent-foreground">
+                            Warm-up
+                          </span>
                         )}
-                        title={
-                          exerciseElapsedIsPlaceholder
-                            ? "Last session exercise time"
-                            : undefined
-                        }
-                      >
-                        <Clock className="size-3" />
-                        {formatTimerCompact(displayExerciseSeconds)}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex shrink-0 items-center gap-1">
-                    {ex && (
+                        {surfScore != null && transfer && (
+                          <SurfTransferBadge
+                            tier={scoreToTier(surfScore)}
+                            score={surfScore}
+                          />
+                        )}
+                        {showExerciseTimer && (
+                          <span
+                            className={cn(
+                              "inline-flex shrink-0 items-center gap-1 rounded-md border px-1.5 py-0.5 text-[11px] font-medium tabular-nums",
+                              exerciseActive
+                                ? "border-primary/40 bg-primary/10 text-primary"
+                                : exerciseElapsedIsPlaceholder
+                                  ? "border-dashed border-border text-muted-foreground"
+                                  : "border-border bg-muted/40 text-muted-foreground",
+                            )}
+                            title={
+                              exerciseElapsedIsPlaceholder
+                                ? "Last session exercise time"
+                                : undefined
+                            }
+                          >
+                            <Clock className="size-3" />
+                            {formatTimerCompact(displayExerciseSeconds)}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex shrink-0 items-center gap-1">
+                        {ex && (
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            size="sm"
+                            className="h-8 px-2.5"
+                            onClick={() => setPreviewExercise(ex)}
+                          >
+                            <Eye className="size-3.5" />
+                            Show
+                          </Button>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => removeEntry(idx)}
+                          className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-destructive"
+                          aria-label="Remove exercise"
+                        >
+                          <Trash2 className="size-4" />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <p className="min-w-0 flex-1 font-semibold leading-snug">
+                        {ex?.name ?? "Exercise"}
+                      </p>
                       <Button
                         type="button"
-                        variant="secondary"
+                        variant="outline"
                         size="sm"
-                        className="h-8 px-2.5"
-                        onClick={() => setPreviewExercise(ex)}
+                        className="h-7 shrink-0 gap-1 px-2 text-xs"
+                        onClick={() => openSwapPicker(idx)}
                       >
-                        <Eye className="size-3.5" />
-                        Show
+                        <ArrowLeftRight className="size-3.5" />
+                        Swap
                       </Button>
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => removeEntry(idx)}
-                      className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-destructive"
-                      aria-label="Remove exercise"
-                    >
-                      <Trash2 className="size-4" />
-                    </button>
+                    </div>
                   </div>
                 </div>
 
@@ -749,14 +889,22 @@ export function SessionLogger({
 
                   {entry.setLogs.map((set, sIdx) => {
                     const baseline = lastSessionSets[sIdx];
-                    const weightIsPlaceholder =
-                      set.weightKg == null && baseline?.weightKg != null;
-                    const repsIsPlaceholder =
-                      set.reps == null && baseline?.reps != null;
-                    const rpeIsPlaceholder =
-                      set.rpe == null && baseline?.rpe != null;
-                    const durationIsPlaceholder =
-                      set.durationSec == null && baseline?.durationSec != null;
+                    const weightIsPlaceholder = fieldIsPlaceholder(
+                      set.weightKg,
+                      baseline?.weightKg,
+                    );
+                    const repsIsPlaceholder = fieldIsPlaceholder(
+                      set.reps,
+                      baseline?.reps,
+                    );
+                    const rpeIsPlaceholder = fieldIsPlaceholder(
+                      set.rpe,
+                      baseline?.rpe,
+                    );
+                    const durationIsPlaceholder = fieldIsPlaceholder(
+                      set.durationSec,
+                      baseline?.durationSec,
+                    );
                     const setActive = gymTimersEnabled && isSetActive(idx, sIdx);
                     const setRecorded = (set.elapsedSec ?? 0) > 0;
                     const elapsedIsPlaceholder =
@@ -787,19 +935,16 @@ export function SessionLogger({
                               weightIsPlaceholder && placeholderClass,
                             )}
                             placeholder="0"
-                            value={
-                              set.weightKg != null
-                                ? displayWeightKg(set.weightKg, units)
-                                : baseline?.weightKg != null
-                                  ? displayWeightKg(baseline.weightKg, units)
-                                  : ""
-                            }
+                            value={setWeightValue(set.weightKg, baseline?.weightKg)}
                             onChange={(e) =>
                               updateSet(idx, sIdx, {
-                                weightKg: parseWeightInput(
-                                  num(e.target.value),
-                                  units,
-                                ),
+                                weightKg:
+                                  e.target.value === ""
+                                    ? null
+                                    : parseWeightInput(
+                                        num(e.target.value) ?? undefined,
+                                        units,
+                                      ),
                               })
                             }
                           />
@@ -811,7 +956,7 @@ export function SessionLogger({
                               repsIsPlaceholder && placeholderClass,
                             )}
                             placeholder="0"
-                            value={set.reps ?? baseline?.reps ?? ""}
+                            value={setFieldValue(set.reps, baseline?.reps)}
                             onChange={(e) =>
                               updateSet(idx, sIdx, {
                                 reps: num(e.target.value),
@@ -826,7 +971,7 @@ export function SessionLogger({
                               rpeIsPlaceholder && placeholderClass,
                             )}
                             placeholder="-"
-                            value={set.rpe ?? baseline?.rpe ?? ""}
+                            value={setFieldValue(set.rpe, baseline?.rpe)}
                             onChange={(e) =>
                               updateSet(idx, sIdx, {
                                 rpe: num(e.target.value),
@@ -859,7 +1004,7 @@ export function SessionLogger({
                               repsIsPlaceholder && placeholderClass,
                             )}
                             placeholder="0"
-                            value={set.reps ?? baseline?.reps ?? ""}
+                            value={setFieldValue(set.reps, baseline?.reps)}
                             onChange={(e) =>
                               updateSet(idx, sIdx, {
                                 reps: num(e.target.value),
@@ -874,9 +1019,10 @@ export function SessionLogger({
                               durationIsPlaceholder && placeholderClass,
                             )}
                             placeholder="0"
-                            value={
-                              set.durationSec ?? baseline?.durationSec ?? ""
-                            }
+                            value={setFieldValue(
+                              set.durationSec,
+                              baseline?.durationSec,
+                            )}
                             onChange={(e) =>
                               updateSet(idx, sIdx, {
                                 durationSec: num(e.target.value),
@@ -912,7 +1058,7 @@ export function SessionLogger({
           <Button
             variant="secondary"
             className="w-full"
-            onClick={() => setPickerOpen(true)}
+            onClick={openAddPicker}
           >
             <Plus /> Add exercise
           </Button>
@@ -954,19 +1100,30 @@ export function SessionLogger({
         >
           <Check />{" "}
           {saving
-            ? "Saving..."
-            : isEditing
-              ? "Save changes"
-              : "Finish & save session"}
+            ? signedIn
+              ? "Saving & backing up..."
+              : "Saving..."
+            : savedSessionId
+              ? "Retry cloud backup"
+              : isEditing
+                ? "Save changes"
+                : "Finish & save session"}
         </Button>
       </div>
 
       <ExercisePicker
         open={pickerOpen}
-        onClose={() => setPickerOpen(false)}
+        onClose={closePicker}
         exercises={pickerExercises ?? []}
-        selectedIds={entries.map((e) => e.exerciseId)}
-        onPick={addExercise}
+        title={swapEntryIndex != null ? "Swap exercise" : "Add exercise"}
+        selectedIds={
+          swapEntryIndex != null
+            ? entries
+                .filter((_, i) => i !== swapEntryIndex)
+                .map((e) => e.exerciseId)
+            : entries.map((e) => e.exerciseId)
+        }
+        onPick={handleExercisePick}
       />
 
       <ExerciseDetail

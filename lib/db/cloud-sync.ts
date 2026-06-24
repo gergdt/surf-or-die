@@ -52,10 +52,10 @@ async function requireSignedInUser() {
   return { supabase, userId: user.id };
 }
 
-/** Push a single session to Supabase after a local save. No-op when not signed in. */
-export async function pushSessionToCloud(session: Session): Promise<void> {
+/** Push a single session to Supabase after a local save. Returns true when uploaded. */
+export async function pushSessionToCloud(session: Session): Promise<boolean> {
   const ctx = await requireSignedInUser();
-  if (!ctx) return;
+  if (!ctx) return false;
 
   const { error } = await ctx.supabase.from("sessions").upsert(
     {
@@ -67,6 +67,7 @@ export async function pushSessionToCloud(session: Session): Promise<void> {
     { onConflict: "id" },
   );
   if (error) throw error;
+  return true;
 }
 
 /** Remove a session from Supabase after a local delete. No-op when not signed in. */

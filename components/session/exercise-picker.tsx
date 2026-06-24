@@ -25,6 +25,7 @@ export function ExercisePicker({
   exercises,
   selectedIds = [],
   onPick,
+  title = "Add exercise",
 }: {
   open: boolean;
   onClose: () => void;
@@ -32,6 +33,7 @@ export function ExercisePicker({
   /** Exercises already in the routine/session — shown disabled. */
   selectedIds?: string[];
   onPick: (exercise: Exercise) => void;
+  title?: string;
 }) {
   const [query, setQuery] = React.useState("");
   const [previewExercise, setPreviewExercise] = React.useState<Exercise | null>(
@@ -56,7 +58,7 @@ export function ExercisePicker({
 
   return (
     <>
-      <Modal open={open} onClose={onClose} title="Add exercise">
+      <Modal open={open} onClose={onClose} title={title}>
         <div className="relative mb-3">
           <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input

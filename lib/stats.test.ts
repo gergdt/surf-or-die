@@ -6,6 +6,7 @@ import {
   exerciseLastSessionSetLogs,
   exercisePersonalBest,
   placeholderSetLogsFromLastSession,
+  resolveSetLog,
 } from "./stats";
 import type { Session } from "./types";
 
@@ -120,6 +121,30 @@ describe("exerciseAllTimeHeaviestSetLog", () => {
       weightKg: 52,
       reps: 8,
       rpe: 8,
+    });
+  });
+});
+
+describe("resolveSetLog", () => {
+  const baseline = { weightKg: 50, reps: 10, rpe: 8 };
+
+  it("fills missing values from the last session", () => {
+    expect(resolveSetLog({}, baseline)).toEqual(baseline);
+  });
+
+  it("keeps user-entered values over baseline", () => {
+    expect(resolveSetLog({ reps: 5 }, baseline)).toEqual({
+      weightKg: 50,
+      reps: 5,
+      rpe: 8,
+    });
+  });
+
+  it("does not fall back to baseline when the user cleared a field", () => {
+    expect(resolveSetLog({ reps: null, rpe: null }, baseline)).toEqual({
+      weightKg: 50,
+      reps: undefined,
+      rpe: undefined,
     });
   });
 });

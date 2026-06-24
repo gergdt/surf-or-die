@@ -28,11 +28,14 @@ function finalizeSetOnEntry(
   setStartedAt: number,
   now: number,
 ): GymTimerEntry {
-  const elapsedSec = wallSeconds(setStartedAt, now);
+  const segment = wallSeconds(setStartedAt, now);
+  if (segment === 0) return entry;
   return {
     ...entry,
     setLogs: entry.setLogs.map((set, si) =>
-      si === setIdx ? { ...set, elapsedSec } : set,
+      si === setIdx
+        ? { ...set, elapsedSec: (set.elapsedSec ?? 0) + segment }
+        : set,
     ),
   };
 }
@@ -108,6 +111,21 @@ export function useGymWorkoutTimers(
         active.exerciseIdx === exerciseIdx &&
         active.setIdx === setIdx
       ) {
+        const now = Date.now();
+        const next = [...entries];
+        next[exerciseIdx] = finalizeSetOnEntry(
+          next[exerciseIdx],
+          setIdx,
+          active.setStartedAt,
+          now,
+        );
+        next[exerciseIdx] = finalizeExerciseOnEntry(
+          next[exerciseIdx],
+          active.exerciseStartedAt,
+          now,
+        );
+        setEntries(next);
+        setActive(null);
         return;
       }
 
@@ -188,10 +206,11 @@ export function useGymWorkoutTimers(
       void tick;
       const set = entries[exerciseIdx]?.setLogs[setIdx];
       if (!set) return 0;
+      const stored = set.elapsedSec ?? 0;
       if (active?.exerciseIdx === exerciseIdx && active.setIdx === setIdx) {
-        return wallSeconds(active.setStartedAt);
+        return stored + wallSeconds(active.setStartedAt);
       }
-      return set.elapsedSec ?? 0;
+      return stored;
     },
     [entries, active, tick],
   );
@@ -248,6 +267,15 @@ export function useGymWorkoutTimers(
     [active],
   );
 
+  const handleSwapEntry = React.useCallback(
+    (entryIdx: number) => {
+      if (active?.exerciseIdx === entryIdx) {
+        setActive(null);
+      }
+    },
+    [active],
+  );
+
   return {
     startSet,
     finalizeAndClear,
@@ -259,6 +287,7 @@ export function useGymWorkoutTimers(
     gymTimerDraft,
     handleRemoveSet,
     handleRemoveEntry,
+    handleSwapEntry,
     hasActiveTimer: active != null,
   };
 }
