@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useLiveQuery } from "dexie-react-hooks";
-import { Plus, ChevronRight, Dumbbell } from "lucide-react";
+import { Plus, ChevronRight, Dumbbell, Search } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea, Select, Label } from "@/components/ui/input";
@@ -54,6 +54,7 @@ export function ExerciseLibrary({
     "all",
   );
   const [sortMode, setSortMode] = React.useState<SortMode>("surf");
+  const [search, setSearch] = React.useState("");
   const [selected, setSelected] = React.useState<Exercise | null>(null);
   const [addOpen, setAddOpen] = React.useState(false);
 
@@ -66,6 +67,10 @@ export function ExerciseLibrary({
         (e) => (getSurfTransfer(e).demands[demandFilter] ?? 0) >= 2,
       );
     }
+    const q = search.trim().toLowerCase();
+    if (q) {
+      items = items.filter((e) => e.name.toLowerCase().includes(q));
+    }
     const m = maneuvers ?? [];
     return [...items].sort((a, b) => {
       if (sortMode === "surf") {
@@ -76,7 +81,7 @@ export function ExerciseLibrary({
       }
       return DIFFICULTY_ORDER[a.difficulty] - DIFFICULTY_ORDER[b.difficulty];
     });
-  }, [exercises, filter, demandFilter, sortMode, maneuvers]);
+  }, [exercises, filter, demandFilter, search, sortMode, maneuvers]);
 
   const availableParts = showBodyPartFilter
     ? BODY_PARTS.filter((p) =>
@@ -94,6 +99,17 @@ export function ExerciseLibrary({
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
+        <div className="relative min-w-[12rem] flex-1">
+          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            type="search"
+            placeholder="Search by name..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="h-8 pl-9 text-sm"
+            aria-label="Search exercises by name"
+          />
+        </div>
         <Select
           value={sortMode}
           onChange={(e) => setSortMode(e.target.value as SortMode)}
@@ -143,8 +159,12 @@ export function ExerciseLibrary({
       {list.length === 0 ? (
         <EmptyState
           icon={Dumbbell}
-          title="No exercises here yet"
-          description="Add your first exercise to build out the library."
+          title={search.trim() ? "No matching exercises" : "No exercises here yet"}
+          description={
+            search.trim()
+              ? "Try a different name or clear the search."
+              : "Add your first exercise to build out the library."
+          }
         />
       ) : (
         <div className="space-y-2">

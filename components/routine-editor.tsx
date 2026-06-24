@@ -8,8 +8,10 @@ import {
   ChevronUp,
   ChevronDown,
   GripVertical,
+  Eye,
 } from "lucide-react";
 import { Modal } from "@/components/ui/modal";
+import { ExerciseDetail } from "@/components/exercise-detail";
 import { ExercisePicker } from "@/components/session/exercise-picker";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea, Select, Label } from "@/components/ui/input";
@@ -93,6 +95,9 @@ function RoutineEditorForm({
     routine?.items ? structuredClone(routine.items) : [],
   );
   const [pickerOpen, setPickerOpen] = React.useState(false);
+  const [previewExercise, setPreviewExercise] = React.useState<Exercise | null>(
+    null,
+  );
   const [saving, setSaving] = React.useState(false);
 
   const { containerRef, bindHandle, draggingIndex } = useDragReorder(
@@ -280,6 +285,7 @@ function RoutineEditorForm({
                 onChange={(patch) => patchItem(idx, patch)}
                 onRemove={() => removeItem(idx)}
                 onMove={(dir) => moveItem(idx, dir)}
+                onView={ex ? () => setPreviewExercise(ex) : undefined}
               />
             );
           })}
@@ -303,6 +309,13 @@ function RoutineEditorForm({
         selectedIds={items.map((i) => i.exerciseId)}
         onPick={addExercise}
       />
+
+      <ExerciseDetail
+        exercise={previewExercise}
+        open={!!previewExercise}
+        onClose={() => setPreviewExercise(null)}
+        initialTab="guide"
+      />
     </div>
   );
 }
@@ -323,6 +336,7 @@ function RoutineItemRow({
   onChange,
   onRemove,
   onMove,
+  onView,
 }: {
   item: RoutineItem;
   exercise?: Exercise;
@@ -337,6 +351,7 @@ function RoutineItemRow({
   onChange: (patch: Partial<RoutineItem>) => void;
   onRemove: () => void;
   onMove: (dir: -1 | 1) => void;
+  onView?: () => void;
 }) {
   const [expanded, setExpanded] = React.useState(false);
 
@@ -376,6 +391,16 @@ function RoutineItemRow({
         <div className="flex items-center gap-1">
           {surfScore != null && exercise && (
             <SurfTransferBadge tier={scoreToTier(surfScore)} score={surfScore} />
+          )}
+          {onView && (
+            <button
+              type="button"
+              onClick={onView}
+              aria-label={`Show ${exerciseName}`}
+              className="rounded p-1 text-muted-foreground hover:text-foreground"
+            >
+              <Eye className="size-4" />
+            </button>
           )}
           <button
             onClick={() => onMove(-1)}

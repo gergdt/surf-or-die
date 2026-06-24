@@ -108,9 +108,19 @@ export function SessionView({ id }: { id: string }) {
         {session.entries.map((entry, idx) => {
           const ex = exMap.get(entry.exerciseId);
           const isStrength = session.category === "gym";
+          const showExerciseTime =
+            isStrength && (entry.exerciseElapsedSec ?? 0) > 0;
           return (
             <Card key={idx} className="p-4">
-              <p className="mb-2 font-semibold">{ex?.name ?? "Exercise"}</p>
+              <div className="mb-2 flex flex-wrap items-center gap-2">
+                <p className="font-semibold">{ex?.name ?? "Exercise"}</p>
+                {showExerciseTime && (
+                  <span className="inline-flex items-center gap-1 rounded-md border border-border bg-muted/40 px-1.5 py-0.5 text-[11px] font-medium tabular-nums text-muted-foreground">
+                    <Clock className="size-3" />
+                    {formatDuration(entry.exerciseElapsedSec!)}
+                  </span>
+                )}
+              </div>
               <div className="space-y-1">
                 {entry.setLogs.map((set, sIdx) => (
                   <div
@@ -150,6 +160,11 @@ export function SessionView({ id }: { id: string }) {
                         </>
                       )}
                     </span>
+                    {isStrength && set.elapsedSec != null && set.elapsedSec > 0 ? (
+                      <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
+                        {formatDuration(set.elapsedSec)}
+                      </span>
+                    ) : null}
                   </div>
                 ))}
               </div>

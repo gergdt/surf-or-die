@@ -11,7 +11,7 @@ import routinesSeed from "../seed/routines.json";
 import maneuversSeed from "../seed/maneuvers.json";
 import sourcesSeed from "../seed/sources.json";
 
-export const SEED_VERSION = 10;
+export const SEED_VERSION = 31;
 
 const DEFAULT_SETTINGS: Settings = {
   id: "app",
@@ -26,13 +26,14 @@ const DEFAULT_SETTINGS: Settings = {
 /**
  * Seed the local DB on first run (or when SEED_VERSION bumps). Uses bulkPut so
  * starter content stays in sync without clobbering the user's own additions.
+ *
+ * When the seed version is already current, still merges any new seed exercises
+ * that are missing locally (so library additions ship without a manual reset).
  */
 export async function ensureSeeded(): Promise<void> {
   const db = getDB();
   const existing = await db.settings.get("app");
   const settings = existing ?? DEFAULT_SETTINGS;
-
-  if (settings.seededVersion >= SEED_VERSION) return;
 
   const exercises: Exercise[] = (exercisesSeed as Omit<Exercise, "origin">[]).map(
     (e) => ({ ...e, origin: "seed" as const }),
@@ -47,23 +48,36 @@ export async function ensureSeeded(): Promise<void> {
     (s) => ({ ...s, origin: "seed" as const }),
   );
 
+  const needsVersionBump = settings.seededVersion < SEED_VERSION;
+
   await db.transaction(
     "rw",
     [db.exercises, db.routines, db.maneuvers, db.sources, db.settings],
     async () => {
-      await db.exercises.bulkPut(exercises);
-      // Keep user-edited routines (including customized defaults).
-      const existingRoutines = await db.routines.toArray();
-      const userRoutineIds = new Set(
-        existingRoutines
-          .filter((r) => r.origin === "user")
-          .map((r) => r.id),
+      if (needsVersionBump) {
+        await db.exercises.bulkPut(exercises);
+        // Keep user-edited routines (including customized defaults).
+        const existingRoutines = await db.routines.toArray();
+        const userRoutineIds = new Set(
+          existingRoutines
+            .filter((r) => r.origin === "user")
+            .map((r) => r.id),
+        );
+        const routinesToPut = routines.filter((r) => !userRoutineIds.has(r.id));
+        await db.routines.bulkPut(routinesToPut);
+        await db.maneuvers.bulkPut(maneuvers);
+        await db.sources.bulkPut(sources);
+        await db.settings.put({ ...settings, seededVersion: SEED_VERSION });
+        return;
+      }
+
+      const localIds = new Set(
+        await db.exercises.toCollection().primaryKeys(),
       );
-      const routinesToPut = routines.filter((r) => !userRoutineIds.has(r.id));
-      await db.routines.bulkPut(routinesToPut);
-      await db.maneuvers.bulkPut(maneuvers);
-      await db.sources.bulkPut(sources);
-      await db.settings.put({ ...settings, seededVersion: SEED_VERSION });
+      const missing = exercises.filter((e) => !localIds.has(e.id));
+      if (missing.length > 0) {
+        await db.exercises.bulkPut(missing);
+      }
     },
   );
 }

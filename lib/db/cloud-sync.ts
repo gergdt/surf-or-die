@@ -332,6 +332,8 @@ function settingsForCloud(settings: Settings): Partial<Settings> {
     hevyUserName,
     aiProvider,
     theme,
+    routineOrder,
+    hiddenRoutines,
   } = settings;
   return {
     units,
@@ -342,6 +344,8 @@ function settingsForCloud(settings: Settings): Partial<Settings> {
     hevyUserName,
     aiProvider,
     theme,
+    routineOrder,
+    hiddenRoutines,
   };
 }
 
@@ -363,5 +367,7 @@ function mergeCloudSettings(
     hevyUserName: remote.hevyUserName ?? local.hevyUserName,
     aiProvider: remote.aiProvider ?? local.aiProvider,
     theme: remote.theme ?? local.theme,
+    routineOrder: remote.routineOrder ?? local.routineOrder,
+    hiddenRoutines: remote.hiddenRoutines ?? local.hiddenRoutines,
   };
 }

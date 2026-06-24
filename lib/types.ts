@@ -116,12 +116,16 @@ export interface SetLog {
   weightKg?: number;
   durationSec?: number;
   rpe?: number;
+  /** Wall-clock seconds spent on this set (gym time tracking). */
+  elapsedSec?: number;
 }
 
 export interface SessionEntry {
   exerciseId: string;
   setLogs: SetLog[];
   notes?: string;
+  /** Total wall-clock seconds on this exercise during the session (gym). */
+  exerciseElapsedSec?: number;
 }
 
 export interface Session {
@@ -212,4 +216,8 @@ export interface Settings {
   aiProvider: "stub" | "openai" | "anthropic" | "gateway";
   seededVersion: number;
   theme: "system" | "light" | "dark";
+  /** Per-category routine list order (routine ids). */
+  routineOrder?: Partial<Record<Category, string[]>>;
+  /** Per-category hidden routine ids (still in library, not shown in main list). */
+  hiddenRoutines?: Partial<Record<Category, string[]>>;
 }

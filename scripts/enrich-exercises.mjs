@@ -9,6 +9,8 @@
  * Curated surf exercises keep their descriptions, cues, injury notes, prescriptions.
  * Mobility stretches get free-db demo frames; surfskate drills get Wikimedia photos.
  * Machine exercises import with Hevy video even when free-db has no match.
+ * Surf-priority Hevy exercises (lib/seed/surf-priority-hevy.json) import with
+ * Hevy video even when free-db has no match.
  *
  * Usage:
  *   npm run hevy-catalog   # refresh media catalog (optional)
@@ -23,6 +25,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const SEED = path.join(root, "lib/seed/exercises.json");
 const HEVY_CATALOG_PATH = path.join(root, "lib/seed/hevy-catalog.json");
+const SURF_PRIORITY_PATH = path.join(root, "lib/seed/surf-priority-hevy.json");
+const CURATED_META_PATH = path.join(root, "lib/seed/curated-exercise-meta.json");
 
 const FREE_DB =
   "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json";
@@ -114,6 +118,11 @@ const FREE_DB_OVERRIDE = {
   ex_russian_twist: "Russian_Twist",
   ex_db_shoulder_press: "Standing_Dumbbell_Press",
   ex_turkish_getup: "Kettlebell_Turkish_Get-Up_Lunge_style",
+  ex_jump_squat_weighted: "Weighted_Jump_Squat",
+  ex_kneeling_jump_squat: "Kneeling_Jump_Squat",
+  ex_hyperextension_glutes: "Hyperextensions_Back_Extensions",
+  ex_weighted_hyperextension_glutes: "Hyperextensions_Back_Extensions",
+  ex_hevy_651f844c: "Incline_Cable_Flye",
   fl_90_90_hip: "90_90_Hamstring",
   fl_ankle_dorsiflexion: "Calf_Stretch_Elbows_Against_Wall",
   fl_cat_cow: "Cat_Stretch",
@@ -311,7 +320,11 @@ function resolveHevyCatalogEntry(ex, maps) {
   return bestScore >= 0.85 ? best : null;
 }
 
-function enrichExisting(seed, freeDb, byId, hevyTemplates, hevyCatalogMaps, report) {
+function enrichExisting(seed, freeDb, byId, hevyTemplates, hevyCatalogMaps, curatedMeta, report) {
+  const lockNames = new Set(curatedMeta.lockNameIds ?? []);
+  const hevyOverrides = curatedMeta.hevyTemplateByExerciseId ?? {};
+  const skipFreeDb = new Set(curatedMeta.skipFreeDbMatchIds ?? []);
+
   for (const ex of seed) {
     if (!ENRICHED_CATEGORIES.has(ex.category)) continue;
 
@@ -328,7 +341,9 @@ function enrichExisting(seed, freeDb, byId, hevyTemplates, hevyCatalogMaps, repo
 
     let fe = FREE_DB_OVERRIDE[ex.id]
       ? byId.get(FREE_DB_OVERRIDE[ex.id])
-      : findFreeDbMatch(ex.name, freeDb);
+      : skipFreeDb.has(ex.id)
+        ? null
+        : findFreeDbMatch(ex.name, freeDb);
 
     if (fe?.images?.length) {
       applyFreeDbVisuals(ex, fe);
@@ -339,7 +354,11 @@ function enrichExisting(seed, freeDb, byId, hevyTemplates, hevyCatalogMaps, repo
 
     if (ex.category !== "gym") continue;
 
-    if (hevyTemplates.length > 0) {
+    const lockedName = lockNames.has(ex.id) ? ex.name : undefined;
+
+    if (hevyOverrides[ex.id]) {
+      ex.hevyTemplateId = hevyOverrides[ex.id];
+    } else if (hevyTemplates.length > 0 && !lockNames.has(ex.id)) {
       const best = findHevyMatch(ex.name, hevyTemplates);
       if (best) {
         ex.hevyTemplateId = best.id;
@@ -356,6 +375,20 @@ function enrichExisting(seed, freeDb, byId, hevyTemplates, hevyCatalogMaps, repo
     if (cat && applyHevyMedia(ex, cat)) {
       report.hevyMediaApplied.push(ex.name);
     }
+    if (skipFreeDb.has(ex.id) && cat) {
+      if (cat.instructions?.length) ex.instructions = cat.instructions;
+      const { primary, secondary } = mapMusclesFromHevy(cat);
+      if (primary.length) {
+        ex.primaryMuscles = primary;
+        ex.secondaryMuscles = secondary;
+        ex.bodyParts = bodyPartsFromMuscles(primary, secondary);
+      }
+      if (cat.thumbnailUrl) ex.imageUrls = [cat.thumbnailUrl];
+    }
+
+    if (lockedName) ex.name = lockedName;
+    applyCuratedDisplayName(ex, curatedMeta);
+    applyCuratedCopy(ex, ex.id, curatedMeta);
   }
 }
 
@@ -372,17 +405,42 @@ function findHevyMatch(name, templates) {
   return bestScore >= 0.5 ? best : null;
 }
 
-function importFromCatalog(seed, freeDb, hevyTemplates, hevyCatalogMaps, report) {
+function applySurfPriorityCopy(entry, templateId, surfPriority) {
+  const copy = surfPriority.copy?.[templateId];
+  if (!copy) return;
+  if (copy.description) entry.description = copy.description;
+  if (copy.techniqueCues?.length) entry.techniqueCues = copy.techniqueCues;
+  if (copy.injuryNotes !== undefined) entry.injuryNotes = copy.injuryNotes;
+}
+
+function importFromCatalog(
+  seed,
+  freeDb,
+  hevyTemplates,
+  hevyCatalogMaps,
+  surfPriority,
+  curatedMeta,
+  report,
+) {
+  const priorityIds = new Set(surfPriority.ids ?? []);
+  const displayNames = curatedMeta.displayNameByHevyId ?? {};
   const existingHevyIds = new Set(
     seed.map((e) => e.hevyTemplateId).filter(Boolean),
   );
-  const existingNames = new Set(seed.map((e) => norm(e.name)));
+  const existingTitles = new Set(
+    seed.map((e) => e.name.trim().toLowerCase()),
+  );
+  const existingNormNames = new Set(seed.map((e) => norm(e.name)));
 
   for (const template of hevyTemplates) {
     if (existingHevyIds.has(template.id)) continue;
 
-    const titleNorm = norm(template.title);
-    if (existingNames.has(titleNorm)) continue;
+    const titleKey = template.title.trim().toLowerCase();
+    if (existingHevyIds.has(template.id)) continue;
+    if (existingTitles.has(titleKey)) continue;
+
+    const isSurfPriority = priorityIds.has(template.id);
+    if (!isSurfPriority && existingNormNames.has(norm(template.title))) continue;
 
     const cat = hevyCatalogMaps.byId.get(template.id);
     const isMachine = template.equipment === "machine";
@@ -390,7 +448,11 @@ function importFromCatalog(seed, freeDb, hevyTemplates, hevyCatalogMaps, report)
     const hasFreeDbImage = !!fe?.images?.length;
     const hasHevyVideo = !!cat?.videoUrl;
 
-    if (!hasFreeDbImage && !(isMachine && hasHevyVideo)) {
+    if (
+      !hasFreeDbImage &&
+      !(isMachine && hasHevyVideo) &&
+      !(isSurfPriority && hasHevyVideo)
+    ) {
       report.importSkippedNoImage.push(template.title);
       continue;
     }
@@ -432,7 +494,7 @@ function importFromCatalog(seed, freeDb, hevyTemplates, hevyCatalogMaps, report)
 
     const entry = {
       id: `ex_hevy_${template.id.toLowerCase()}`,
-      name: template.title,
+      name: displayNames[template.id] ?? template.title,
       category: "gym",
       bodyParts,
       description,
@@ -451,13 +513,16 @@ function importFromCatalog(seed, freeDb, hevyTemplates, hevyCatalogMaps, report)
     };
 
     if (cat) applyHevyMedia(entry, cat);
+    applySurfPriorityCopy(entry, template.id, surfPriority);
 
     seed.push(entry);
     existingHevyIds.add(template.id);
-    existingNames.add(titleNorm);
+    existingTitles.add(titleKey);
+    existingNormNames.add(norm(template.title));
     const src = hasFreeDbImage ? fe.name : "Hevy video";
     report.imported.push(`${template.title}  ->  ${src}`);
     if (isMachine && hasHevyVideo) report.importedMachine.push(template.title);
+    if (isSurfPriority && hasHevyVideo) report.importedSurfPriority.push(template.title);
   }
 
   seed.sort((a, b) => {
@@ -496,8 +561,121 @@ async function loadHevyCatalog() {
   }
 }
 
+async function loadCuratedMeta() {
+  try {
+    return JSON.parse(await readFile(CURATED_META_PATH, "utf8"));
+  } catch {
+    console.warn(`No ${CURATED_META_PATH} — curated name locks disabled`);
+    return { lockNameIds: [], hevyTemplateByExerciseId: {}, displayNameByHevyId: {} };
+  }
+}
+
+function applyCuratedCopy(entry, exerciseId, curatedMeta) {
+  const copy = curatedMeta.copyByExerciseId?.[exerciseId];
+  if (!copy) return;
+  if (copy.description) entry.description = copy.description;
+  if (copy.techniqueCues?.length) entry.techniqueCues = copy.techniqueCues;
+  if (copy.injuryNotes !== undefined) entry.injuryNotes = copy.injuryNotes;
+}
+
+function applyCuratedDisplayName(entry, curatedMeta) {
+  const name = curatedMeta.displayNameByExerciseId?.[entry.id];
+  if (name) entry.name = name;
+}
+
+function ensureCuratedExtras(seed, freeDb, byId, hevyCatalogMaps, curatedMeta, surfPriority, report) {
+  const hevyOverrides = curatedMeta.hevyTemplateByExerciseId ?? {};
+  const lockNames = new Set(curatedMeta.lockNameIds ?? []);
+
+  for (const exerciseId of lockNames) {
+    if (seed.some((e) => e.id === exerciseId)) continue;
+
+    const hevyId = hevyOverrides[exerciseId];
+    const fe = FREE_DB_OVERRIDE[exerciseId]
+      ? byId.get(FREE_DB_OVERRIDE[exerciseId])
+      : null;
+    if (!hevyId && !fe?.images?.length) continue;
+
+    const cat = hevyId ? hevyCatalogMaps.byId.get(hevyId) : null;
+    if (!cat?.videoUrl && !cat?.thumbnailUrl && !fe?.images?.length) continue;
+
+    const displayNames = curatedMeta.displayNameByHevyId ?? {};
+    const name =
+      exerciseId === "ex_arnold_press"
+        ? "Arnold Press"
+        : exerciseId === "ex_straight_leg_deadlift"
+          ? "Straight Leg Deadlift"
+          : exerciseId === "ex_trap_bar_deadlift"
+            ? "Trap Bar Deadlift"
+            : exerciseId === "ex_romanian_deadlift_db"
+              ? "Romanian Deadlift (Dumbbell)"
+              : exerciseId === "ex_zercher_squat"
+                ? "Zercher Squat"
+                : exerciseId === "ex_jump_squat_weighted"
+                  ? "Jump Squat (Weighted)"
+                  : exerciseId === "ex_kneeling_jump_squat"
+                    ? "Kneeling Jump Squat"
+                    : exerciseId === "ex_hyperextension_glutes"
+                      ? "Hyperextension (Glutes)"
+                      : exerciseId === "ex_weighted_hyperextension_glutes"
+                        ? "Weighted Hyperextension (Glutes)"
+                        : (displayNames[hevyId] ?? cat?.title ?? fe?.name ?? exerciseId);
+
+    const { primary, secondary } = cat
+      ? mapMusclesFromHevy(cat)
+      : fe
+        ? mapMusclesFromFreeDb(fe)
+        : { primary: [], secondary: [] };
+    const bodyParts = bodyPartsFromMuscles(primary, secondary);
+
+    const entry = {
+      id: exerciseId,
+      name,
+      category: "gym",
+      bodyParts: bodyParts.length ? bodyParts : ["fullbody"],
+      description: `Strength and conditioning for ${bodyParts.join(" & ") || "full body"}.`,
+      techniqueCues: (cat?.instructions ?? fe?.instructions ?? []).slice(0, 4),
+      injuryNotes: "",
+      equipment: cat
+        ? [HEVY_EQUIPMENT[cat.equipment_category] ?? cat.equipment_category ?? "other"]
+        : fe?.equipment
+          ? [fe.equipment]
+          : ["other"],
+      difficulty: fe ? mapDifficulty(fe.level) : "intermediate",
+      primaryMuscles: primary,
+      secondaryMuscles: secondary,
+      mechanic: cat ? mapMechanic(cat.category) : fe?.mechanic,
+      instructions: cat?.instructions ?? fe?.instructions ?? [],
+      hevyTemplateId: hevyId,
+      defaultSets: 3,
+      defaultReps: 10,
+      origin: "seed",
+    };
+
+    if (fe?.images?.length) {
+      applyFreeDbVisuals(entry, fe);
+    }
+    if (cat) applyHevyMedia(entry, cat);
+    applySurfPriorityCopy(entry, hevyId, surfPriority);
+    applyCuratedCopy(entry, exerciseId, curatedMeta);
+    seed.push(entry);
+    report.curatedAdded.push(name);
+  }
+}
+
+async function loadSurfPriority() {
+  try {
+    return JSON.parse(await readFile(SURF_PRIORITY_PATH, "utf8"));
+  } catch {
+    console.warn(`No ${SURF_PRIORITY_PATH} — surf-priority import disabled`);
+    return { ids: [], copy: {} };
+  }
+}
+
 async function main() {
   const seed = JSON.parse(await readFile(SEED, "utf8"));
+  const surfPriority = await loadSurfPriority();
+  const curatedMeta = await loadCuratedMeta();
   const freeDb = await fetch(FREE_DB).then((r) => r.json());
   const byId = new Map(freeDb.map((e) => [e.id, e]));
 
@@ -523,10 +701,13 @@ async function main() {
     hevyMediaApplied: [],
     imported: [],
     importedMachine: [],
+    importedSurfPriority: [],
+    curatedAdded: [],
     importSkippedNoImage: [],
   };
 
-  enrichExisting(seed, freeDb, byId, hevyTemplates, hevyCatalogMaps, report);
+  enrichExisting(seed, freeDb, byId, hevyTemplates, hevyCatalogMaps, curatedMeta, report);
+  ensureCuratedExtras(seed, freeDb, byId, hevyCatalogMaps, curatedMeta, surfPriority, report);
 
   if (IMPORT_CATALOG && (hevyTemplates.length > 0 || hevyCatalog.length > 0)) {
     const templates =
@@ -540,7 +721,15 @@ async function main() {
             secondary_muscle_groups: e.other_muscles ?? [],
             equipment: e.equipment_category,
           }));
-    importFromCatalog(seed, freeDb, templates, hevyCatalogMaps, report);
+    importFromCatalog(
+      seed,
+      freeDb,
+      templates,
+      hevyCatalogMaps,
+      surfPriority,
+      curatedMeta,
+      report,
+    );
   }
 
   await writeFile(SEED, JSON.stringify(seed, null, 2) + "\n");
@@ -573,6 +762,18 @@ async function main() {
   if (report.importedMachine.length > 0) {
     console.log(`\n=== Machine imports with Hevy video (${report.importedMachine.length}) ===`);
     report.importedMachine.slice(0, 10).forEach((m) => console.log("  " + m));
+  }
+
+  if (report.importedSurfPriority.length > 0) {
+    console.log(
+      `\n=== Surf-priority imports (${report.importedSurfPriority.length}) ===`,
+    );
+    report.importedSurfPriority.forEach((m) => console.log("  " + m));
+  }
+
+  if (report.curatedAdded.length > 0) {
+    console.log(`\n=== Curated exercises added (${report.curatedAdded.length}) ===`);
+    report.curatedAdded.forEach((m) => console.log("  " + m));
   }
 
   if (report.importSkippedNoImage.length > 0) {

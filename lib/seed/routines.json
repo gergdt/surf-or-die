@@ -48,20 +48,71 @@
     ]
   },
   {
-    "id": "rt_core_rotation",
-    "name": "Surf Full Body — Gym Circuit",
+    "id": "rt_fullbody_power_base",
+    "name": "Surf Full Body A — Power Base",
     "category": "gym",
     "focus": "fullbody",
-    "description": "Full-body surf prep: hip power, machine compound work, rotation, and core stability in one session.",
-    "estMinutes": 53,
+    "description": "Strength base: Bulgarian squat + Romanian deadlift + hip thrust, vertical and horizontal pulls, flat and incline chest, Arnold press. One muscle per leg pattern.",
+    "estMinutes": 70,
     "items": [
-      { "exerciseId": "fl_worlds_greatest_stretch", "sets": 2, "reps": 5, "restSec": 20, "notes": "Warm-up: each side — hips, thoracic spine, and hamstrings" },
-      { "exerciseId": "ex_kettlebell_swing", "sets": 4, "reps": 15, "restSec": 75 },
-      { "exerciseId": "ex_hevy_a8814c06", "sets": 4, "reps": 10, "restSec": 90 },
-      { "exerciseId": "ex_cable_woodchopper", "sets": 3, "reps": 12, "restSec": 60, "notes": "Each side" },
-      { "exerciseId": "ex_turkish_getup", "sets": 3, "reps": 3, "restSec": 90, "notes": "Each side" },
-      { "exerciseId": "ex_hevy_0222db42", "sets": 3, "durationSec": 120, "restSec": 60 },
-      { "exerciseId": "ex_plank", "sets": 3, "durationSec": 45, "restSec": 45 }
+      { "exerciseId": "ex_hevy_0222db42", "sets": 1, "durationSec": 180, "restSec": 30, "notes": "Warm-up: easy rowing — prime paddle muscles" },
+      { "exerciseId": "ex_pop_up_drill", "sets": 2, "reps": 6, "restSec": 45, "notes": "Warm-up: explosive pop-up rehearsal" },
+      { "exerciseId": "ex_bulgarian_split_squat", "sets": 4, "reps": 10, "restSec": 90, "notes": "Legs — quads (unilateral); each leg" },
+      { "exerciseId": "ex_pull_up", "sets": 4, "reps": 8, "restSec": 120, "notes": "Back — lats vertical pull" },
+      { "exerciseId": "ex_db_bench_press", "sets": 4, "reps": 10, "restSec": 90, "notes": "Chest — flat dumbbell press" },
+      { "exerciseId": "ex_hevy_2b4b7310", "sets": 3, "reps": 10, "restSec": 90, "notes": "Legs — hamstrings / glutes (hinge)" },
+      { "exerciseId": "ex_bent_over_row", "sets": 3, "reps": 10, "restSec": 90, "notes": "Back — lats horizontal pull" },
+      { "exerciseId": "ex_hevy_d57c2ec7", "sets": 3, "reps": 12, "restSec": 75, "notes": "Legs — glutes (hip thrust)" },
+      { "exerciseId": "ex_hevy_fbf92739", "sets": 3, "reps": 12, "restSec": 90, "notes": "Chest — incline machine press (upper chest)" },
+      { "exerciseId": "ex_arnold_press", "sets": 3, "reps": 10, "restSec": 75, "notes": "Shoulders — Arnold dumbbell press" },
+      { "exerciseId": "ex_hevy_234897ab", "sets": 3, "reps": 12, "restSec": 60, "notes": "Arms — cable hammer curl" },
+      { "exerciseId": "ex_pallof_press", "sets": 3, "reps": 12, "restSec": 45, "notes": "Core — anti-rotation; each side" },
+      { "exerciseId": "ex_cable_woodchopper", "sets": 3, "reps": 12, "restSec": 60, "notes": "Core — rotation; each side" }
+    ]
+  },
+  {
+    "id": "rt_fullbody_explosive",
+    "name": "Surf Full Body B — Explosive Drive",
+    "category": "gym",
+    "focus": "fullbody",
+    "description": "Explosive day: Zercher squat + box jumps + glute hyperextensions, pullover and T-bar rows, feet-up and cable-fly chest, face pulls.",
+    "estMinutes": 70,
+    "items": [
+      { "exerciseId": "ex_hevy_0222db42", "sets": 1, "durationSec": 120, "restSec": 30, "notes": "Warm-up: rowing — paddle rhythm" },
+      { "exerciseId": "ex_pop_up_drill", "sets": 2, "reps": 6, "restSec": 45, "notes": "Warm-up: pop-up drill" },
+      { "exerciseId": "ex_box_jump", "sets": 4, "reps": 5, "restSec": 90, "notes": "Legs — explosive power (fresh, before heavy squat)" },
+      { "exerciseId": "ex_zercher_squat", "sets": 4, "reps": 8, "restSec": 120, "notes": "Legs — quads (front-loaded squat)" },
+      { "exerciseId": "ex_hevy_67280085", "sets": 4, "reps": 10, "restSec": 90, "notes": "Back — lats vertical (pullover)" },
+      { "exerciseId": "ex_hevy_867ac3b6", "sets": 4, "reps": 10, "restSec": 90, "notes": "Chest — feet-up (flying feet) bench press" },
+      { "exerciseId": "ex_hevy_08a2974e", "sets": 3, "reps": 10, "restSec": 90, "notes": "Back — lats horizontal (T-bar row)" },
+      { "exerciseId": "ex_hyperextension_glutes", "sets": 3, "reps": 12, "restSec": 75, "notes": "Legs — glutes (45° hyperextension)" },
+      { "exerciseId": "ex_hevy_651f844c", "sets": 3, "reps": 12, "restSec": 75, "notes": "Chest — upper cable fly crossovers" },
+      { "exerciseId": "ex_hevy_be640ba0", "sets": 3, "reps": 15, "restSec": 60, "notes": "Shoulders — face pull (rear delt / scapular)" },
+      { "exerciseId": "ex_hevy_2dbca395", "sets": 3, "reps": 12, "restSec": 60, "notes": "Arms — Bayesian cable curl" },
+      { "exerciseId": "ex_hevy_23a48484", "sets": 3, "reps": 15, "restSec": 45, "notes": "Core — cable crunch" }
+    ]
+  },
+  {
+    "id": "rt_fullbody_stance",
+    "name": "Surf Full Body C — Stance & Chain",
+    "category": "gym",
+    "focus": "fullbody",
+    "description": "Loaded jumps + hip abduction and adduction + low-back hyperextensions, straight-arm pulldowns, squeeze press and pop-up, lateral raises, dips and Potencia Billy, landmine 180.",
+    "estMinutes": 70,
+    "items": [
+      { "exerciseId": "ex_hevy_0222db42", "sets": 1, "durationSec": 120, "restSec": 30, "notes": "Warm-up: rowing" },
+      { "exerciseId": "ex_box_jump", "sets": 2, "reps": 4, "restSec": 45, "notes": "Plyo primer: light box jumps (fresh)" },
+      { "exerciseId": "ex_jump_squat_weighted", "sets": 4, "reps": 6, "restSec": 90, "notes": "Legs — explosive power (loaded jump squat, before strength work)" },
+      { "exerciseId": "ex_hevy_d2387ab1", "sets": 4, "reps": 12, "restSec": 75, "notes": "Back — lats vertical (straight-arm cable pulldown)" },
+      { "exerciseId": "ex_hevy_f72fa239", "sets": 4, "reps": 10, "restSec": 90, "notes": "Chest — dumbbell squeeze press" },
+      { "exerciseId": "ex_hevy_8bebfed6", "sets": 3, "reps": 15, "restSec": 60, "notes": "Legs — hip adductors (machine)" },
+      { "exerciseId": "ex_hevy_f4b4c6ee", "sets": 3, "reps": 15, "restSec": 60, "notes": "Legs — hip abductors (machine)" },
+      { "exerciseId": "ex_hevy_4f5866f8", "sets": 3, "reps": 12, "restSec": 75, "notes": "Back — lower back (hyperextension)" },
+      { "exerciseId": "ex_pop_up_drill", "sets": 4, "reps": 10, "restSec": 60, "notes": "Chest — pop-up drill (working sets)" },
+      { "exerciseId": "ex_hevy_de68c825", "sets": 3, "reps": 12, "restSec": 60, "notes": "Shoulders — single-arm cable lateral raise; each arm" },
+      { "exerciseId": "ex_hevy_28bb4a95", "sets": 3, "reps": 10, "restSec": 75, "notes": "Arms — triceps dip" },
+      { "exerciseId": "ex_potencia_billy", "sets": 3, "reps": 8, "restSec": 75, "notes": "Arms — Potencia Billy explosive finisher" },
+      { "exerciseId": "ex_hevy_923874ca", "sets": 3, "reps": 8, "restSec": 60, "notes": "Core — landmine 180; each side" }
     ]
   },
   {

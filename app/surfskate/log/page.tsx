@@ -1,5 +1,4 @@
-import { SessionLogger } from "@/components/session/session-logger";
-import { PageHeader } from "@/components/page-header";
+import { SessionLogPage } from "@/components/session/session-log-page";
 
 export const metadata = { title: "Log surfskate session" };
 
@@ -10,13 +9,12 @@ export default async function SurfskateLogPage({
 }) {
   const { routine } = await searchParams;
   return (
-    <div className="animate-fade-in">
-      <PageHeader
-        title="Log surfskate session"
-        backHref="/surfskate"
-        accent="text-surfskate"
-      />
-      <SessionLogger category="surfskate" routineId={routine} />
-    </div>
+    <SessionLogPage
+      title="Log surfskate session"
+      backHref="/surfskate"
+      accent="text-surfskate"
+      category="surfskate"
+      routineId={routine}
+    />
   );
 }

@@ -1,0 +1,219 @@
+{
+  "lockNameIds": [
+    "ex_back_squat",
+    "ex_bent_over_row",
+    "ex_box_jump",
+    "ex_bulgarian_split_squat",
+    "ex_cable_woodchopper",
+    "ex_db_bench_press",
+    "ex_db_shoulder_press",
+    "ex_pop_up_drill",
+    "ex_kettlebell_swing",
+    "ex_pallof_press",
+    "ex_plank",
+    "ex_pull_up",
+    "ex_push_up",
+    "ex_russian_twist",
+    "ex_single_leg_rdl",
+    "ex_turkish_getup",
+    "ex_arnold_press",
+    "ex_straight_leg_deadlift",
+    "ex_trap_bar_deadlift",
+    "ex_romanian_deadlift_db",
+    "ex_zercher_squat",
+    "ex_jump_squat_weighted",
+    "ex_kneeling_jump_squat",
+    "ex_hyperextension_glutes",
+    "ex_weighted_hyperextension_glutes"
+  ],
+  "hevyTemplateByExerciseId": {
+    "ex_back_squat": "D04AC939",
+    "ex_bent_over_row": "55E6546F",
+    "ex_box_jump": "56092DD1",
+    "ex_bulgarian_split_squat": "B5D3A742",
+    "ex_cable_woodchopper": "92D858EA",
+    "ex_db_bench_press": "3601968B",
+    "ex_db_shoulder_press": "6AC96645",
+    "ex_kettlebell_swing": "F8A0FCCA",
+    "ex_pallof_press": "CC55119B",
+    "ex_plank": "C6C9B8A0",
+    "ex_pull_up": "1B2B1E7C",
+    "ex_push_up": "392887AA",
+    "ex_russian_twist": "2982AA23",
+    "ex_single_leg_rdl": "937292AB",
+    "ex_turkish_getup": "5F8903BF",
+    "ex_arnold_press": "A69FF221",
+    "ex_straight_leg_deadlift": "2A48E443",
+    "ex_trap_bar_deadlift": "B923B230",
+    "ex_romanian_deadlift_db": "72CFFAD5",
+    "ex_zercher_squat": "40C6A9FC",
+    "ex_jump_squat_weighted": "70D4EBBF",
+    "ex_hyperextension_glutes": "4F5866F8",
+    "ex_weighted_hyperextension_glutes": "091737FA"
+  },
+  "displayNameByExerciseId": {
+    "ex_hevy_4f5866f8": "Hyperextension (Low Back)",
+    "ex_hevy_091737fa": "Weighted Hyperextension (Low Back)",
+    "ex_hyperextension_glutes": "Hyperextension (Glutes)",
+    "ex_weighted_hyperextension_glutes": "Weighted Hyperextension (Glutes)",
+    "ex_hevy_6a6c31a5": "Lateral Cable Pulldown",
+    "ex_hevy_867ac3b6": "Flying Feet Chest Press",
+    "ex_hevy_f72fa239": "Squeeze Bench Press",
+    "ex_hevy_651f844c": "Upper Cable Fly Crossovers",
+    "ex_hevy_c315dc2a": "Upper Shoulder Cable Crossovers",
+    "ex_hevy_de68c825": "Upper Shoulder Cable Lateral Raise",
+    "ex_hevy_2dbca395": "Bayesian Cable Curl",
+    "ex_hevy_234897ab": "Cable Hammer Curl"
+  },
+  "skipFreeDbMatchIds": [
+    "ex_hevy_f72fa239",
+    "ex_hevy_de68c825",
+    "ex_hevy_2dbca395",
+    "ex_hevy_234897ab"
+  ],
+  "displayNameByHevyId": {
+    "A69FF221": "Arnold Press"
+  },
+  "copyByExerciseId": {
+    "ex_jump_squat_weighted": {
+      "description": "Loaded jump squat for explosive leg power — direct pop-up and turn drive.",
+      "techniqueCues": [
+        "Light load on back (barbell, vest, or dumbbells)",
+        "Quarter squat, then explode up — arms drive for momentum",
+        "Land soft, absorb through hips and knees",
+        "Reset posture before the next rep — don't rush fatigued jumps"
+      ],
+      "injuryNotes": "Keep load light; this is power work, not max strength. Skip if knees are irritated."
+    },
+    "ex_kneeling_jump_squat": {
+      "description": "Barbell jump from kneeling — builds explosive hip drive for pop-ups and committed turns.",
+      "techniqueCues": [
+        "Bar racked on upper back; kneel with hips back to heels",
+        "Chest up, brace core, then explode hips to land on both feet",
+        "Absorb softly and finish standing in a full squat",
+        "Reset kneeling between reps — quality over speed"
+      ],
+      "injuryNotes": "Advanced plyometric with load; start bodyweight or empty bar. Skip if knees are sore."
+    },
+    "ex_hevy_4f5866f8": {
+      "description": "Low-back emphasis on the 45° bench — erector endurance for upright paddle posture.",
+      "techniqueCues": [
+        "Pad support over the hips — hip crease at the top edge of the pad",
+        "Rise straight in one line — minimal hip hinge, torso stays rigid",
+        "Arms crossed or plate held tight to the chest",
+        "Stop at neutral; don't over-arch at the top"
+      ],
+      "injuryNotes": "If you feel sharp lumbar pain, lower the pad or switch to the glute setup."
+    },
+    "ex_hevy_091737fa": {
+      "description": "Loaded low-back hyperextension — builds erector strength for long paddle sessions.",
+      "techniqueCues": [
+        "Pad over the hips, same straight-torso setup as bodyweight low-back version",
+        "Hold the plate tight to your chest — load stays close to the body",
+        "Rise in a straight line; squeeze erectors, not glutes",
+        "Lower with control — no bouncing at the bottom"
+      ],
+      "injuryNotes": "Start light; this targets the lower back directly under load."
+    },
+    "ex_hyperextension_glutes": {
+      "description": "Glute emphasis on the 45° bench — hip extension power for pop-ups and turn drive.",
+      "techniqueCues": [
+        "Pad lower — support down on the hips, more thigh on the pad",
+        "Rise with a small spinal curve — squeeze glutes hard at the top",
+        "Arms extended or plate held away from the body",
+        "Hinge at the hips on the way down; feel the stretch in hamstrings"
+      ],
+      "injuryNotes": "A slight arch at the top is intentional here — keep it small and glute-driven, not lumbar snap."
+    },
+    "ex_weighted_hyperextension_glutes": {
+      "description": "Loaded glute hyperextension — posterior-chain power with the weight as a long lever.",
+      "techniqueCues": [
+        "Pad low on the hips — same glute-bias setup as the bodyweight version",
+        "Hold the plate with arms extended — weight far from the body",
+        "Drive up with a small spinal curve, glutes doing the work",
+        "Lower until hamstrings stretch; don't collapse through the lower back"
+      ],
+      "injuryNotes": "The long lever increases demand — build load slowly and keep the arch glute-led."
+    },
+    "ex_hevy_6a6c31a5": {
+      "description": "Wide-grip cable lat pulldown — builds the vertical pull strength behind paddle power.",
+      "techniqueCues": [
+        "Thighs pinned under the pad, slight lean back, shoulders down",
+        "Pull the bar to upper chest — elbows drive down and slightly back",
+        "Squeeze lats at the bottom; think paddle catch",
+        "Control the return; don't let the stack yank your shoulders up"
+      ],
+      "injuryNotes": "Avoid behind-the-neck pulldowns — pull to the front of the chest only."
+    },
+    "ex_hevy_867ac3b6": {
+      "description": "Feet-up (Larsen) bench press — strict chest press with legs off the floor, removing leg drive for pure pressing strength.",
+      "techniqueCues": [
+        "Lie on the bench with legs extended — feet off the floor (flying feet)",
+        "Shoulder blades pinned, slight arch, bar to mid-chest",
+        "Press without using leg drive or hip bridge",
+        "Control the descent — this exposes weak points in your chest press"
+      ],
+      "injuryNotes": "Use less weight than your regular bench; the strict setup loads the shoulders and chest differently."
+    },
+    "ex_hevy_f72fa239": {
+      "description": "Dumbbell squeeze press — constant inward pressure on the bells for inner-chest and triceps work.",
+      "techniqueCues": [
+        "Lie back with dumbbells squeezed together over your chest, neutral grip",
+        "Keep pressing the bells into each other throughout the rep",
+        "Lower to mid-chest, then press up and slightly inward",
+        "Shoulders pinned — don't let elbows flare wide"
+      ],
+      "injuryNotes": "Use moderate weight; the squeeze fatigues wrists and forearms faster than a normal press."
+    },
+    "ex_hevy_651f844c": {
+      "description": "High-pulley cable crossover — upper chest and anterior delt squeeze from a standing fly.",
+      "techniqueCues": [
+        "Pulleys set high, step forward into a stable staggered stance",
+        "Slight bend in elbows, arms sweep down and in toward your hips",
+        "Squeeze chest hard at the bottom — knuckles meet in front",
+        "Control the stretch on the way back; don't let cables pull your shoulders forward"
+      ],
+      "injuryNotes": "Start light — the long lever at high pulleys stresses the shoulder capsule if you rush the stretch."
+    },
+    "ex_hevy_c315dc2a": {
+      "description": "High-pulley cable crossover for shoulders — rear delt and upper-back focus, paired with the chest crossover.",
+      "techniqueCues": [
+        "Pulleys set high, cross handles in front at shoulder height",
+        "Arms stay mostly straight — pull back and out, not down to the hips",
+        "Squeeze rear delts and mid-back at the end range",
+        "Control the return; don't let the stack wrench your shoulders forward"
+      ],
+      "injuryNotes": "Keep weight light — this is isolation work for shoulder health and posture, not max loading."
+    },
+    "ex_hevy_de68c825": {
+      "description": "Single-arm cable lateral raise from a low pulley — targets the side delt for shoulder width and paddle stability.",
+      "techniqueCues": [
+        "Low pulley, stand sideways — free hand on the frame for balance",
+        "Slight bend in the working elbow, cable crosses in front of your body at the start",
+        "Raise your arm out to the side until wrist and elbow are at shoulder height",
+        "Lower with control; switch sides after each set"
+      ],
+      "injuryNotes": "Don't shrug the trap or swing — if you need momentum, the weight is too heavy."
+    },
+    "ex_hevy_2dbca395": {
+      "description": "Bayesian (behind-the-back) cable curl — elbows behind the torso for a deep bicep stretch and long-head emphasis.",
+      "techniqueCues": [
+        "Low pulley behind you, handles in hand, step forward so arms trail behind your hips",
+        "Staggered stance, chest up, elbows fixed behind your torso",
+        "Curl without letting elbows drift forward — squeeze at the top",
+        "Lower slowly for a full stretch behind the body"
+      ],
+      "injuryNotes": "Start light — the stretched position loads the bicep tendon; avoid swinging or heaving the weight."
+    },
+    "ex_hevy_234897ab": {
+      "description": "Neutral-grip cable hammer curl with a rope — brachialis and forearm strength for paddle grip and board carry.",
+      "techniqueCues": [
+        "Low pulley with rope, neutral grip (palms facing each other)",
+        "Elbows pinned to your sides, shoulders back",
+        "Curl the rope to chest height without swinging",
+        "Lower with control — full extension at the bottom"
+      ],
+      "injuryNotes": "Keep wrists neutral; don't let elbows drift forward on the curl."
+    }
+  }
+}

@@ -39,6 +39,14 @@ export function formatDuration(totalSeconds: number): string {
   return `${m}m ${s.toString().padStart(2, "0")}s`;
 }
 
+/** Compact m:ss for inline gym set timers. */
+export function formatTimerCompact(totalSeconds: number): string {
+  const s = Math.max(0, Math.floor(totalSeconds));
+  const m = Math.floor(s / 60);
+  const rem = s % 60;
+  return `${m}:${rem.toString().padStart(2, "0")}`;
+}
+
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }

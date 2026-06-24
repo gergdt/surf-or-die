@@ -1,5 +1,6 @@
 import { deleteSessionFromCloud, pushSessionToCloud } from "./cloud-sync";
 import { getDB } from "./db";
+import { sortRoutinesByOrder } from "../routine-order";
 import { uid } from "../utils";
 import type {
   Annotation,
@@ -38,8 +39,14 @@ export const exercisesRepo = {
 // ---- Routines ----
 export const routinesRepo = {
   all: () => getDB().routines.toArray(),
-  byCategory: (category: Category) =>
-    getDB().routines.where("category").equals(category).toArray(),
+  byCategory: async (category: Category) => {
+    const db = getDB();
+    const [routines, settings] = await Promise.all([
+      db.routines.where("category").equals(category).toArray(),
+      db.settings.get("app"),
+    ]);
+    return sortRoutinesByOrder(routines, settings?.routineOrder?.[category]);
+  },
   get: (id: string) => getDB().routines.get(id),
   create: async (data: Omit<Routine, "id" | "origin">) => {
     const r: Routine = { ...data, id: uid("rt"), origin: "user" };
@@ -48,7 +55,48 @@ export const routinesRepo = {
   },
   update: (id: string, patch: Partial<Routine>) =>
     getDB().routines.update(id, patch),
-  remove: (id: string) => getDB().routines.delete(id),
+  remove: async (id: string) => {
+    const routine = await getDB().routines.get(id);
+    await getDB().routines.delete(id);
+    if (!routine) return;
+    const settings = await getDB().settings.get("app");
+    if (!settings) return;
+    const category = routine.category;
+    const hidden = (settings.hiddenRoutines?.[category] ?? []).filter(
+      (rid) => rid !== id,
+    );
+    const order = (settings.routineOrder?.[category] ?? []).filter(
+      (rid) => rid !== id,
+    );
+    await getDB().settings.update("app", {
+      hiddenRoutines: { ...settings.hiddenRoutines, [category]: hidden },
+      routineOrder: { ...settings.routineOrder, [category]: order },
+    });
+  },
+  setCategoryOrder: async (category: Category, routineIds: string[]) => {
+    const settings = await getDB().settings.get("app");
+    if (!settings) return;
+    await getDB().settings.update("app", {
+      routineOrder: { ...settings.routineOrder, [category]: routineIds },
+    });
+  },
+  setHidden: async (
+    category: Category,
+    routineId: string,
+    hidden: boolean,
+  ) => {
+    const settings = await getDB().settings.get("app");
+    if (!settings) return;
+    const current = new Set(settings.hiddenRoutines?.[category] ?? []);
+    if (hidden) current.add(routineId);
+    else current.delete(routineId);
+    await getDB().settings.update("app", {
+      hiddenRoutines: {
+        ...settings.hiddenRoutines,
+        [category]: [...current],
+      },
+    });
+  },
 };
 
 // ---- Sessions ----

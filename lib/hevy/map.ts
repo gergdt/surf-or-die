@@ -104,7 +104,6 @@ export function patchFromHevyTemplate(
   });
   const bodyParts = bodyPartsFromMuscles(primary, secondary);
   const patch: Partial<Exercise> = {
-    name: template.title,
     hevyTemplateId: template.id,
     equipment: hevyEquipment(template),
     primaryMuscles: primary.length ? primary : undefined,
@@ -121,6 +120,10 @@ export function patchFromHevyTemplate(
       patch.description = cues[0]?.slice(0, 160) ?? patch.description;
       patch.instructions = catalog.instructions;
     }
+  }
+
+  if (!preserveCurated) {
+    patch.name = template.title;
   }
 
   if (!preserveCurated && !patch.description) {

@@ -52,7 +52,12 @@ export function CategoryHome({
       </div>
 
       {tab === "routines" ? (
-        <RoutineList category={category} startMode={startMode} />
+        <RoutineList
+          category={category}
+          startMode={startMode}
+          reorderable={category === "gym"}
+          hideable={category === "gym"}
+        />
       ) : (
         <ExerciseLibrary
           category={category}

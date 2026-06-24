@@ -1,5 +1,4 @@
-import { SessionLogger } from "@/components/session/session-logger";
-import { PageHeader } from "@/components/page-header";
+import { SessionLogPage } from "@/components/session/session-log-page";
 
 export const metadata = { title: "Log mobility session" };
 
@@ -10,13 +9,12 @@ export default async function FlexibilityLogPage({
 }) {
   const { routine } = await searchParams;
   return (
-    <div className="animate-fade-in">
-      <PageHeader
-        title="Log mobility session"
-        backHref="/flexibility"
-        accent="text-flexibility"
-      />
-      <SessionLogger category="flexibility" routineId={routine} />
-    </div>
+    <SessionLogPage
+      title="Log mobility session"
+      backHref="/flexibility"
+      accent="text-flexibility"
+      category="flexibility"
+      routineId={routine}
+    />
   );
 }

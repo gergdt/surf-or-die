@@ -130,6 +130,22 @@ export function exerciseLastSessionSetLogs(
   return null;
 }
 
+/** Entry from the most recent session that logged this exercise. */
+export function exerciseLastSessionEntry(
+  sessions: Session[],
+  exerciseId: string,
+) {
+  const sorted = [...sessions]
+    .filter((s) => s.entries.some((e) => e.exerciseId === exerciseId))
+    .sort((a, b) => b.createdAt - a.createdAt);
+
+  for (const s of sorted) {
+    const entry = s.entries.find((e) => e.exerciseId === exerciseId);
+    if (entry) return { ...entry };
+  }
+  return null;
+}
+
 /** Best set from the most recent session that logged this exercise. */
 export function exerciseLastBestSetLog(
   sessions: Session[],
@@ -178,13 +194,15 @@ export function placeholderSetLogsFromLastSession(
     setLogs.every((s) => setLogMatches(s, first));
 
   if (allIdentical) {
-    return setLogs.map(() => ({}));
+    return setLogs.map((set) =>
+      set.elapsedSec != null ? { elapsedSec: set.elapsedSec } : {},
+    );
   }
 
   return setLogs.map((set, i) => {
     const baseline = lastSets[i];
     if (!baseline || !setLogMatches(set, baseline)) return set;
-    return {};
+    return set.elapsedSec != null ? { elapsedSec: set.elapsedSec } : {};
   });
 }
 
@@ -195,6 +213,7 @@ export function resolveSetLog(set: SetLog, baseline?: SetLog): SetLog {
     reps: set.reps ?? baseline?.reps,
     rpe: set.rpe ?? baseline?.rpe,
     durationSec: set.durationSec ?? baseline?.durationSec,
+    elapsedSec: set.elapsedSec,
   };
 }
 

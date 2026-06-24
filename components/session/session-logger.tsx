@@ -14,6 +14,7 @@ import {
   Save,
 } from "lucide-react";
 import { ExerciseDetail } from "@/components/exercise-detail";
+import { GymSetTimerButton } from "@/components/session/gym-set-timer-button";
 import { RoutineEditorModal } from "@/components/routine-editor";
 import { RoutineSurfScore } from "@/components/routine-surf-score";
 import { SurfTransferBadge } from "@/components/surf-transfer-badge";
@@ -31,11 +32,13 @@ import {
 } from "@/lib/db/repository";
 import { useApp } from "@/components/providers";
 import { useDragReorder } from "@/hooks/use-drag-reorder";
+import { useGymWorkoutTimers } from "@/hooks/use-gym-workout-timers";
 import {
   clearSessionDraft,
   loadSessionDraft,
   routineItemsFingerprint,
   saveSessionDraft,
+  type GymTimerDraft,
 } from "@/lib/session-draft";
 import {
   getSurfTransfer,
@@ -43,7 +46,7 @@ import {
   routineSurfScore,
   scoreToTier,
 } from "@/lib/surf-transfer";
-import { todayISO, formatDuration, cn, localDateKey } from "@/lib/utils";
+import { todayISO, formatDuration, formatTimerCompact, cn, localDateKey } from "@/lib/utils";
 import {
   displayWeightKg,
   parseWeightInput,
@@ -53,6 +56,7 @@ import { CATEGORIES } from "@/lib/categories";
 import {
   defaultSetLogsForExercise,
   exerciseAllTimeHeaviestSetLog,
+  exerciseLastSessionEntry,
   exerciseLastSessionSetLogs,
   formatSetLogSummary,
   placeholderSetLogsFromLastSession,
@@ -80,16 +84,19 @@ interface DraftEntry {
   exerciseId: string;
   setLogs: SetLog[];
   notes?: string;
+  exerciseElapsedSec?: number;
 }
 
 export function SessionLogger({
   category: categoryProp,
   routineId: routineIdProp,
   sessionId,
+  onDiscardReady,
 }: {
   category?: Category;
   routineId?: string;
   sessionId?: string;
+  onDiscardReady?: (discard: () => void) => void;
 }) {
   const router = useRouter();
   const { settings } = useApp();
@@ -148,8 +155,12 @@ export function SessionLogger({
   const [routineEditorOpen, setRoutineEditorOpen] = React.useState(false);
   const [seconds, setSeconds] = React.useState(0);
   const [draftRestored, setDraftRestored] = React.useState(false);
+  const [initialGymTimer, setInitialGymTimer] = React.useState<
+    GymTimerDraft | null | undefined
+  >(undefined);
   const seededRef = React.useRef(false);
   const draftLoadedRef = React.useRef(false);
+  const discardedRef = React.useRef(false);
   const dateEditedRef = React.useRef(false);
   const startedAtRef = React.useRef(Date.now());
   const routineEditorWasOpen = React.useRef(false);
@@ -158,6 +169,23 @@ export function SessionLogger({
     entries,
     setEntries,
   );
+
+  const gymTimersEnabled =
+    isStrength && !isEditing && initialGymTimer !== undefined;
+  const {
+    startSet: startGymSetTimer,
+    finalizeAndClear: finalizeGymTimers,
+    getExerciseSeconds,
+    getSetSeconds,
+    isSetActive,
+    isExerciseActive,
+    gymTimerDraft,
+    handleRemoveSet: handleGymRemoveSet,
+    handleRemoveEntry: handleGymRemoveEntry,
+  } = useGymWorkoutTimers(entries, setEntries, {
+    enabled: gymTimersEnabled,
+    initialTimer: initialGymTimer,
+  });
 
   // Live elapsed timer from wall clock (survives screen lock).
   React.useEffect(() => {
@@ -189,11 +217,13 @@ export function SessionLogger({
         exerciseId: e.exerciseId,
         setLogs: e.setLogs.map((s) => ({ ...s })),
         notes: e.notes,
+        exerciseElapsedSec: e.exerciseElapsedSec,
       })),
     );
     setEffort(existingSession.perceivedEffort ?? 7);
     setNotes(existingSession.notes ?? "");
     setSeconds(existingSession.durationSec ?? 0);
+    setInitialGymTimer(null);
   }, [isEditing, existingSession]);
 
   // Restore in-progress session or prefill from routine (wait for routine when linked).
@@ -227,6 +257,7 @@ export function SessionLogger({
       setNotes(draft.notes);
       startedAtRef.current = draft.startedAt;
       setSeconds(Math.floor((Date.now() - draft.startedAt) / 1000));
+      setInitialGymTimer(draft.gymTimer ?? null);
       seededRef.current = true;
       setDraftRestored(true);
       return;
@@ -235,12 +266,25 @@ export function SessionLogger({
       seededRef.current = true;
       setTitle(routine.name);
       setEntries(entriesFromRoutine(routine, sessions));
+      setInitialGymTimer(null);
+      return;
     }
+    setInitialGymTimer(null);
   }, [category, routineId, routine, sessions, isEditing]);
+
+  const discardSession = React.useCallback(() => {
+    discardedRef.current = true;
+    clearSessionDraft(category, routineId);
+    router.push(CATEGORIES[category].href);
+  }, [category, routineId, router]);
+
+  React.useEffect(() => {
+    onDiscardReady?.(discardSession);
+  }, [onDiscardReady, discardSession]);
 
   // Persist draft locally so a refresh does not lose the workout.
   React.useEffect(() => {
-    if (isEditing || !draftLoadedRef.current) return;
+    if (isEditing || !draftLoadedRef.current || discardedRef.current) return;
     if (entries.length === 0 && !title.trim()) return;
     const timer = setTimeout(() => {
       saveSessionDraft({
@@ -259,6 +303,7 @@ export function SessionLogger({
         seconds,
         startedAt: startedAtRef.current,
         updatedAt: Date.now(),
+        gymTimer: isStrength ? gymTimerDraft : undefined,
       });
     }, 350);
     return () => clearTimeout(timer);
@@ -273,6 +318,8 @@ export function SessionLogger({
     seconds,
     isEditing,
     routine,
+    gymTimerDraft,
+    isStrength,
   ]);
 
   // Re-sync session when the routine is edited mid-workout.
@@ -315,8 +362,10 @@ export function SessionLogger({
     setPickerOpen(false);
   };
 
-  const removeEntry = (idx: number) =>
+  const removeEntry = (idx: number) => {
+    handleGymRemoveEntry(idx);
     setEntries((prev) => prev.filter((_, i) => i !== idx));
+  };
 
   const addSet = (idx: number) =>
     setEntries((prev) =>
@@ -325,7 +374,8 @@ export function SessionLogger({
       ),
     );
 
-  const removeSet = (entryIdx: number, setIdx: number) =>
+  const removeSet = (entryIdx: number, setIdx: number) => {
+    handleGymRemoveSet(entryIdx, setIdx);
     setEntries((prev) =>
       prev.map((e, i) =>
         i === entryIdx
@@ -333,6 +383,7 @@ export function SessionLogger({
           : e,
       ),
     );
+  };
 
   const updateSet = (
     entryIdx: number,
@@ -394,6 +445,7 @@ export function SessionLogger({
     if (entries.length === 0) return;
     setSaving(true);
     try {
+      const finalizedEntries = isStrength ? finalizeGymTimers() : entries;
       const payload = {
         date: dateEditedRef.current
           ? date
@@ -401,7 +453,7 @@ export function SessionLogger({
         category,
         routineId,
         title: title.trim() || `${CATEGORIES[category].short} session`,
-        entries: entries.map((e) => {
+        entries: finalizedEntries.map((e) => {
           const lastSets =
             exerciseLastSessionSetLogs(sessionsForStats, e.exerciseId) ?? [];
           return {
@@ -410,6 +462,7 @@ export function SessionLogger({
               resolveSetLog(set, lastSets[sIdx]),
             ),
             notes: e.notes,
+            exerciseElapsedSec: e.exerciseElapsedSec,
           };
         }),
         perceivedEffort: effort,
@@ -547,6 +600,11 @@ export function SessionLogger({
             const lastSessionSets =
               exerciseLastSessionSetLogs(sessionsForStats, entry.exerciseId) ??
               [];
+            const lastSessionEntry = exerciseLastSessionEntry(
+              sessionsForStats,
+              entry.exerciseId,
+            );
+            const lastExerciseElapsed = lastSessionEntry?.exerciseElapsedSec;
             const heaviestSet = exerciseAllTimeHeaviestSetLog(
               sessionsForStats,
               entry.exerciseId,
@@ -554,6 +612,28 @@ export function SessionLogger({
             const heaviestLabel = heaviestSet
               ? formatSetLogSummary(heaviestSet, { isStrength, units })
               : null;
+            const exerciseSeconds = gymTimersEnabled
+              ? getExerciseSeconds(idx)
+              : entry.exerciseElapsedSec ?? 0;
+            const exerciseRecorded = (entry.exerciseElapsedSec ?? 0) > 0;
+            const exerciseActive = gymTimersEnabled && isExerciseActive(idx);
+            const exerciseElapsedIsPlaceholder =
+              gymTimersEnabled &&
+              !exerciseActive &&
+              !exerciseRecorded &&
+              lastExerciseElapsed != null &&
+              lastExerciseElapsed > 0;
+            const displayExerciseSeconds =
+              exerciseActive || exerciseRecorded
+                ? exerciseSeconds
+                : (lastExerciseElapsed ?? exerciseSeconds);
+            const showExerciseTimer =
+              isStrength &&
+              (gymTimersEnabled
+                ? exerciseSeconds > 0 ||
+                  exerciseActive ||
+                  exerciseElapsedIsPlaceholder
+                : (entry.exerciseElapsedSec ?? 0) > 0);
             return (
               <Card
                 key={`${entry.exerciseId}-${idx}`}
@@ -587,6 +667,26 @@ export function SessionLogger({
                         tier={scoreToTier(surfScore)}
                         score={surfScore}
                       />
+                    )}
+                    {showExerciseTimer && (
+                      <span
+                        className={cn(
+                          "inline-flex shrink-0 items-center gap-1 rounded-md border px-1.5 py-0.5 text-[11px] font-medium tabular-nums",
+                          exerciseActive
+                            ? "border-primary/40 bg-primary/10 text-primary"
+                            : exerciseElapsedIsPlaceholder
+                              ? "border-dashed border-border text-muted-foreground"
+                              : "border-border bg-muted/40 text-muted-foreground",
+                        )}
+                        title={
+                          exerciseElapsedIsPlaceholder
+                            ? "Last session exercise time"
+                            : undefined
+                        }
+                      >
+                        <Clock className="size-3" />
+                        {formatTimerCompact(displayExerciseSeconds)}
+                      </span>
                     )}
                   </div>
                   <div className="flex shrink-0 items-center gap-1">
@@ -636,6 +736,7 @@ export function SessionLogger({
                         <span className="flex-1">{weightUnit}</span>
                         <span className="flex-1">Reps</span>
                         <span className="flex-1">RPE</span>
+                        <span className="min-w-[3.25rem] text-center">Time</span>
                       </>
                     ) : (
                       <>
@@ -656,6 +757,19 @@ export function SessionLogger({
                       set.rpe == null && baseline?.rpe != null;
                     const durationIsPlaceholder =
                       set.durationSec == null && baseline?.durationSec != null;
+                    const setActive = gymTimersEnabled && isSetActive(idx, sIdx);
+                    const setRecorded = (set.elapsedSec ?? 0) > 0;
+                    const elapsedIsPlaceholder =
+                      gymTimersEnabled &&
+                      !setActive &&
+                      !setRecorded &&
+                      baseline?.elapsedSec != null &&
+                      baseline.elapsedSec > 0;
+                    const displaySetSeconds = setActive
+                      ? getSetSeconds(idx, sIdx)
+                      : setRecorded
+                        ? set.elapsedSec!
+                        : (baseline?.elapsedSec ?? 0);
                     const placeholderClass = "text-muted-foreground";
 
                     return (
@@ -719,6 +833,21 @@ export function SessionLogger({
                               })
                             }
                           />
+                          {gymTimersEnabled ? (
+                            <GymSetTimerButton
+                              seconds={displaySetSeconds}
+                              active={setActive}
+                              recorded={setRecorded}
+                              placeholder={elapsedIsPlaceholder}
+                              onStart={() => startGymSetTimer(idx, sIdx)}
+                            />
+                          ) : isEditing && set.elapsedSec != null ? (
+                            <span className="min-w-[3.25rem] text-center text-xs tabular-nums text-muted-foreground">
+                              {formatTimerCompact(set.elapsedSec)}
+                            </span>
+                          ) : (
+                            <span className="min-w-[3.25rem]" />
+                          )}
                         </>
                       ) : (
                         <>

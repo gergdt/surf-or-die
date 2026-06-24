@@ -449,6 +449,56 @@
     }
   },
   {
+    "id": "ex_arnold_press",
+    "name": "Arnold Press",
+    "category": "gym",
+    "bodyParts": [
+      "shoulders",
+      "arms"
+    ],
+    "description": "Strength and conditioning for shoulders & arms.",
+    "techniqueCues": [
+      "1. Grab a pair of light dumbbells and sit on a gym bench with an upright back support.\n2. Lift the dumbbells and rest them on your thighs.\n3. Bring your shoulders back, engage your abs, and take a breath.\n4. Thrust the dumbbells and bring them to your sides.\n5. Take a breath and press the dumbbells to an overhead position as you breathe out.\n6. Lower the dumbbells slowly as you rotate your wrists in, breathing in on the way down. You should end up with the dumbbells in front of your chin and palms facing your body.\n7. Press again, rotating your wrists to complete the repetition with your palms facing forward."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "intermediate",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Sit on an exercise bench with back support and hold two dumbbells in front of you at about upper chest level with your palms facing your body and your elbows bent. Tip: Your arms should be next to your torso. The starting position should look like the contracted portion of a dumbbell curl.",
+      "Now to perform the movement, raise the dumbbells as you rotate the palms of your hands until they are facing forward.",
+      "Continue lifting the dumbbells until your arms are extended above you in straight arm position. Breathe out as you perform this portion of the movement.",
+      "After a second pause at the top, begin to lower the dumbbells to the original position by rotating the palms of your hands towards you. Tip: The left arm will be rotated in a counter clockwise manner while the right one will be rotated clockwise. Breathe in as you perform this portion of the movement.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "hevyTemplateId": "A69FF221",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02871201-Dumbbell-Arnold-Press-II_Shoulders.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02871201-Dumbbell-Arnold-Press-II_Shoulders_thumbnail@3x.jpg",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Arnold_Dumbbell_Press/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Arnold_Dumbbell_Press/1.jpg"
+    ],
+    "surfTransfer": {
+      "baseScore": 14,
+      "demands": {
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
     "id": "ex_hevy_d4a2fe7e",
     "name": "Around The World",
     "category": "gym",
@@ -593,9 +643,9 @@
       "Begin to raise the bar as you exhale by pushing the floor with the heel or middle of your foot as you straighten the legs and extend the hips to go back to the starting position.",
       "Repeat for the recommended amount of repetitions."
     ],
-    "hevyTemplateId": "4F5866F8",
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/18601201-Hyperextension-(VERSION-2)_Hips.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/18601201-Hyperextension-(VERSION-2)_Hips_thumbnail@3x.jpg",
+    "hevyTemplateId": "D04AC939",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00431201-Barbell-Full-Squat_Thighs.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00431201-Barbell-Full-Squat_Thighs_thumbnail@3x.jpg",
     "surfTransfer": {
       "baseScore": 75,
       "demands": {
@@ -604,6 +654,99 @@
       },
       "tier": "high",
       "rationale": "Foundational leg strength for explosive pop-ups and bottom turns."
+    }
+  },
+  {
+    "id": "ex_hevy_f51d9080",
+    "name": "Ball Slams",
+    "category": "gym",
+    "bodyParts": [
+      "fullbody"
+    ],
+    "description": "Explosive full-body slam — trains the violent hip extension and rotation of turns.",
+    "techniqueCues": [
+      "Lift the ball overhead, brace your core",
+      "Slam straight down by hinging and rotating slightly",
+      "Catch on the bounce or pick up cleanly",
+      "Every rep should be maximal intent"
+    ],
+    "injuryNotes": "Use a non-bouncing ball on hard floors; watch foot placement.",
+    "equipment": [
+      "other"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/75351201-Medicine-Ball-Slam-(VERSION-2)-(male)_Waist_thumbnail_@3x.jpg"
+    ],
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "mechanic": "compound",
+    "instructions": [
+      "1. Stand tall with your feet in a comfortable stance and your toes pointing slightly out.\n2. Hold a medicine ball in both hands, keeping it at stomach level.\n3. Engage your midsection, bend your knees slightly, and thrust the medicine ball overhead. Your arms should be straight, and the ball should be directly overhead for balance.\n4. Inhale and use your upper body muscles to accelerate the ball down and slam it as hard as you can just in front of your body. Breathe out.\n5. Bend your knees enough to pick up the ball while keeping your spine neutral.\n6. Breathe in and repeat the sequence."
+    ],
+    "hevyTemplateId": "F51D9080",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/75351201-Medicine-Ball-Slam-(VERSION-2)-(male)_Waist_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/75351201-Medicine-Ball-Slam-(VERSION-2)-(male)_Waist_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 86,
+      "demands": {
+        "rotation": 4,
+        "popUp": 3,
+        "stanceBalance": 2
+      },
+      "tier": "high",
+      "rationale": "Explosive full-body slam trains violent hip extension for turns."
+    }
+  },
+  {
+    "id": "ex_hevy_e8d86ee8",
+    "name": "Band Pullaparts",
+    "category": "gym",
+    "bodyParts": [
+      "shoulders",
+      "back"
+    ],
+    "description": "Rear delt and scapular activation — keeps shoulders healthy through high paddle volume.",
+    "techniqueCues": [
+      "Arms straight, pull the band apart to chest height",
+      "Squeeze shoulder blades, externally rotate slightly",
+      "Hold briefly at end range",
+      "Slow return — stay tall"
+    ],
+    "injuryNotes": "Use a light band; this is prehab, not max effort.",
+    "equipment": [
+      "band"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/45681201-Resistance-Band-Pull-Apart_Shoulders_thumbnail_@3x.jpg"
+    ],
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "mechanic": "isolation",
+    "instructions": [
+      "1. Grab a looped or open-ended resistance band with handles on both ends. The band should offer moderate resistance.\n2. Extend your arms in front of your body and have your palms neutral (facing one another).\n3. Take a breath and pull the band apart, bringing your arms to the sides while keeping them straight. Exhale.\n4. Bring your arms together as you breathe in."
+    ],
+    "hevyTemplateId": "E8D86EE8",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/45681201-Resistance-Band-Pull-Apart_Shoulders_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/45681201-Resistance-Band-Pull-Apart_Shoulders_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
     }
   },
   {
@@ -660,6 +803,50 @@
     }
   },
   {
+    "id": "ex_hevy_2dbca395",
+    "name": "Bayesian Cable Curl",
+    "category": "gym",
+    "bodyParts": [
+      "arms"
+    ],
+    "description": "Bayesian (behind-the-back) cable curl — elbows behind the torso for a deep bicep stretch and long-head emphasis.",
+    "techniqueCues": [
+      "Low pulley behind you, handles in hand, step forward so arms trail behind your hips",
+      "Staggered stance, chest up, elbows fixed behind your torso",
+      "Curl without letting elbows drift forward — squeeze at the top",
+      "Lower slowly for a full stretch behind the body"
+    ],
+    "injuryNotes": "Start light — the stretched position loads the bicep tendon; avoid swinging or heaving the weight.",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "beginner",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/48381201-Cable-Unilateral-Bicep-Curl_Upper-Arms_thumbnail_@3x.jpg"
+    ],
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "mechanic": "isolation",
+    "instructions": [
+      "1. Set the pulleys at around mid-thigh height, attach handles, and select the load. \n2. Grab the handles one by one and stand so the pulleys are behind you.\n3. Take a couple of steps forward to lift the weights off their stacks and allow the weight to pull your elbows behind your torso.\n4. With your chest out, lean your torso slightly forward and stagger your stance (one foot forward, the other one back).\n5. Breathe in, engage your abs, and curl until your wrists are at elbow level. Squeeze your biceps and exhale.\n6. Slowly extend your arms, allowing the handles to travel behind your body, and breathe in. \n7. Repeat."
+    ],
+    "hevyTemplateId": "2DBCA395",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/48381201-Cable-Unilateral-Bicep-Curl_Upper-Arms_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/48381201-Cable-Unilateral-Bicep-Curl_Upper-Arms_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 62,
+      "demands": {
+        "paddlePower": 2
+      },
+      "tier": "medium",
+      "rationale": "Bayesian cable curl — bicep strength for paddle recovery and board carry; long-head stretch under load."
+    }
+  },
+  {
     "id": "ex_hevy_ddb29047",
     "name": "Behind the Back Bicep Wrist Curl (Barbell)",
     "category": "gym",
@@ -703,58 +890,6 @@
     "surfTransfer": {
       "baseScore": 0,
       "demands": {},
-      "tier": "low",
-      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
-    }
-  },
-  {
-    "id": "ex_hevy_2dbca395",
-    "name": "Behind the Back Curl (Cable)",
-    "category": "gym",
-    "bodyParts": [
-      "back",
-      "arms"
-    ],
-    "description": "Stand up straight with your feet at shoulder width as you hold a barbell with both hands behind your back using a pronated grip (palms facing back). Tip: Your h",
-    "techniqueCues": [
-      "Stand up straight with your feet at shoulder width as you hold a barbell with both hands behind your back using a pronated grip (palms facing back). Tip: Your hands should be a little wider than shoulder width apart. You can use wrist wraps for this exercise for better grip. This will be your starting position.",
-      "Raise your shoulders up as far as you can go as you breathe out and hold the contraction for a second. Tip: Refrain from trying to lift the barbell by using your biceps. The arms should remain stretched out at all times.",
-      "Slowly return to the starting position as you breathe in.",
-      "Repeat for the recommended amount of repetitions."
-    ],
-    "injuryNotes": "",
-    "equipment": [
-      "machine"
-    ],
-    "difficulty": "beginner",
-    "imageUrls": [
-      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Shrug_Behind_The_Back/0.jpg",
-      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Shrug_Behind_The_Back/1.jpg"
-    ],
-    "primaryMuscles": [
-      "traps"
-    ],
-    "secondaryMuscles": [
-      "forearms",
-      "traps"
-    ],
-    "mechanic": "isolation",
-    "instructions": [
-      "Stand up straight with your feet at shoulder width as you hold a barbell with both hands behind your back using a pronated grip (palms facing back). Tip: Your hands should be a little wider than shoulder width apart. You can use wrist wraps for this exercise for better grip. This will be your starting position.",
-      "Raise your shoulders up as far as you can go as you breathe out and hold the contraction for a second. Tip: Refrain from trying to lift the barbell by using your biceps. The arms should remain stretched out at all times.",
-      "Slowly return to the starting position as you breathe in.",
-      "Repeat for the recommended amount of repetitions."
-    ],
-    "hevyTemplateId": "2DBCA395",
-    "defaultSets": 3,
-    "defaultReps": 10,
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/48381201-Cable-Unilateral-Bicep-Curl_Upper-Arms_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/48381201-Cable-Unilateral-Bicep-Curl_Upper-Arms_thumbnail_@3x.jpg",
-    "surfTransfer": {
-      "baseScore": 0,
-      "demands": {
-        "paddlePower": 4
-      },
       "tier": "low",
       "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
     }
@@ -1035,6 +1170,116 @@
     }
   },
   {
+    "id": "ex_hevy_55e6546f",
+    "name": "Bent Over Row (Barbell)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "arms",
+      "shoulders"
+    ],
+    "description": "Holding a barbell with a pronated grip (palms facing down), bend your knees slightly and bring your torso forward, by bending at the waist, while keeping the ba",
+    "techniqueCues": [
+      "Holding a barbell with a pronated grip (palms facing down), bend your knees slightly and bring your torso forward, by bending at the waist, while keeping the back straight until it is almost parallel to the floor. Tip: Make sure that you keep the head up. The barbell should hang directly in front of you as your arms hang perpendicular to the floor and your torso. This is your starting position.",
+      "Now, while keeping the torso stationary, breathe out and lift the barbell to you. Keep the elbows close to the body and only use the forearms to hold the weight. At the top contracted position, squeeze the back muscles and hold for a brief pause.",
+      "Then inhale and slowly lower the barbell back to the starting position.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "beginner",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Bent_Over_Barbell_Row/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Bent_Over_Barbell_Row/1.jpg"
+    ],
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "lats",
+      "shoulders"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Holding a barbell with a pronated grip (palms facing down), bend your knees slightly and bring your torso forward, by bending at the waist, while keeping the back straight until it is almost parallel to the floor. Tip: Make sure that you keep the head up. The barbell should hang directly in front of you as your arms hang perpendicular to the floor and your torso. This is your starting position.",
+      "Now, while keeping the torso stationary, breathe out and lift the barbell to you. Keep the elbows close to the body and only use the forearms to hold the weight. At the top contracted position, squeeze the back muscles and hold for a brief pause.",
+      "Then inhale and slowly lower the barbell back to the starting position.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "hevyTemplateId": "55E6546F",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00271201-Barbell-Bent-Over-Row_Back.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00271201-Barbell-Bent-Over-Row_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hevy_23e92538",
+    "name": "Bent Over Row (Dumbbell)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "arms",
+      "shoulders"
+    ],
+    "description": "Holding a barbell with a pronated grip (palms facing down), bend your knees slightly and bring your torso forward, by bending at the waist, while keeping the ba",
+    "techniqueCues": [
+      "Holding a barbell with a pronated grip (palms facing down), bend your knees slightly and bring your torso forward, by bending at the waist, while keeping the back straight until it is almost parallel to the floor. Tip: Make sure that you keep the head up. The barbell should hang directly in front of you as your arms hang perpendicular to the floor and your torso. This is your starting position.",
+      "Now, while keeping the torso stationary, breathe out and lift the barbell to you. Keep the elbows close to the body and only use the forearms to hold the weight. At the top contracted position, squeeze the back muscles and hold for a brief pause.",
+      "Then inhale and slowly lower the barbell back to the starting position.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "beginner",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Bent_Over_Barbell_Row/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Bent_Over_Barbell_Row/1.jpg"
+    ],
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "lats",
+      "shoulders"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Holding a barbell with a pronated grip (palms facing down), bend your knees slightly and bring your torso forward, by bending at the waist, while keeping the back straight until it is almost parallel to the floor. Tip: Make sure that you keep the head up. The barbell should hang directly in front of you as your arms hang perpendicular to the floor and your torso. This is your starting position.",
+      "Now, while keeping the torso stationary, breathe out and lift the barbell to you. Keep the elbows close to the body and only use the forearms to hold the weight. At the top contracted position, squeeze the back muscles and hold for a brief pause.",
+      "Then inhale and slowly lower the barbell back to the starting position.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "hevyTemplateId": "23E92538",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02931201-Dumbbell-Bent-Over-Row_Back.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02931201-Dumbbell-Bent-Over-Row_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
     "id": "ex_bent_over_row",
     "name": "Bent-Over Row",
     "category": "gym",
@@ -1078,9 +1323,9 @@
       "Then inhale and slowly lower the barbell back to the starting position.",
       "Repeat for the recommended amount of repetitions."
     ],
-    "hevyTemplateId": "EA820646",
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/38991201-Band-bent-over-row-(male)_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/38991201-Band-bent-over-row-(male)_Back_thumbnail_@3x.jpg",
+    "hevyTemplateId": "55E6546F",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00271201-Barbell-Bent-Over-Row_Back.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00271201-Barbell-Bent-Over-Row_Back_thumbnail@3x.jpg",
     "surfTransfer": {
       "baseScore": 86,
       "demands": {
@@ -1139,6 +1384,55 @@
     }
   },
   {
+    "id": "ex_hevy_bd0ad077",
+    "name": "Bird Dog",
+    "category": "gym",
+    "bodyParts": [
+      "legs",
+      "shoulders"
+    ],
+    "description": "Contralateral core stability — trains the cross-body connection used in paddling and rotation.",
+    "techniqueCues": [
+      "On all fours, extend opposite arm and leg",
+      "Keep hips level — no rocking",
+      "Reach long through fingertips and heel",
+      "Hold 2–3 seconds, switch sides"
+    ],
+    "injuryNotes": "Reduce range if lower back arches excessively.",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/51821201-Bird-Dog-(VERSION-2)-(female)_Back_thumbnail_@3x.jpg"
+    ],
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "1. Get down on all fours. Have your shoulders, elbows, and wrists aligned and your knees directly under your hips. Keep your hands flat on the floor.\n2. Engage your abs and take a breath.\n3. Extend your right leg back and up, aligning it with your torso. At the same time, extend your left arm and raise it forward. Exhale.\n4. Bring your arm and leg to the starting position as you breathe in.\n5. Extend your opposite limbs.\n6. Keep alternating between opposite limbs until you complete the set."
+    ],
+    "hevyTemplateId": "BD0AD077",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/51821201-Bird-Dog-(VERSION-2)-(female)_Back_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/51821201-Bird-Dog-(VERSION-2)-(female)_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 29,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
     "id": "ex_box_jump",
     "name": "Box Jump",
     "category": "gym",
@@ -1191,6 +1485,64 @@
       },
       "tier": "high",
       "rationale": "Explosive leg power for fast pop-ups and committed turns."
+    }
+  },
+  {
+    "id": "ex_hevy_f2fce72d",
+    "name": "Box Squat",
+    "category": "gym",
+    "bodyParts": [
+      "legs",
+      "back"
+    ],
+    "description": "The box squat allows you to squat to desired depth and develop explosive strength in the squat movement. Begin in a power rack with a box at the appropriate hei",
+    "techniqueCues": [
+      "The box squat allows you to squat to desired depth and develop explosive strength in the squat movement. Begin in a power rack with a box at the appropriate height behind you. Typically, you would aim for a box height that brings you to a parallel squat, but you can train higher or lower if desired.",
+      "Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wider for more emphasis on the back, glutes, adductors, and hamstrings, or closer together for more quad development. Keep your head facing forward.",
+      "With your back, shoulders, and core tight, push your knees and butt out and you begin your descent. Sit back with your hips until you are seated on the box. Ideally, your shins should be perpendicular to the ground. Pause when you reach the box, and relax the hip flexors. Never bounce off of a box.",
+      "Keeping the weight on your heels and pushing your feet and knees out, drive upward off of the box as you lead the movement with your head. Continue upward, maintaining tightness head to toe."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Box_Squat/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Box_Squat/1.jpg"
+    ],
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "adductors",
+      "calves",
+      "glutes",
+      "hamstrings",
+      "lower_back"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "The box squat allows you to squat to desired depth and develop explosive strength in the squat movement. Begin in a power rack with a box at the appropriate height behind you. Typically, you would aim for a box height that brings you to a parallel squat, but you can train higher or lower if desired.",
+      "Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wider for more emphasis on the back, glutes, adductors, and hamstrings, or closer together for more quad development. Keep your head facing forward.",
+      "With your back, shoulders, and core tight, push your knees and butt out and you begin your descent. Sit back with your hips until you are seated on the box. Ideally, your shins should be perpendicular to the ground. Pause when you reach the box, and relax the hip flexors. Never bounce off of a box.",
+      "Keeping the weight on your heels and pushing your feet and knees out, drive upward off of the box as you lead the movement with your head. Continue upward, maintaining tightness head to toe."
+    ],
+    "hevyTemplateId": "F2FCE72D",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/101681201-Bodyweight-Box-Squat_Hips_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/101681201-Bodyweight-Box-Squat_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 49,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 5,
+        "stanceBalance": 4
+      },
+      "tier": "medium",
+      "rationale": "Builds pop-up and paddle power for better wave performance."
     }
   },
   {
@@ -1305,6 +1657,91 @@
     }
   },
   {
+    "id": "ex_hevy_bb792a36",
+    "name": "Burpee",
+    "category": "gym",
+    "bodyParts": [
+      "fullbody"
+    ],
+    "description": "Full-body conditioning that mimics the pop-up-to-stance transition under fatigue.",
+    "techniqueCues": [
+      "Chest to floor, hips snap up",
+      " Feet land ready to move — soft and athletic",
+      "Stand tall at the top before the next rep",
+      "Breathe rhythmically; don't rush form"
+    ],
+    "injuryNotes": "Modify to step-back burpees if wrists or low back are irritated.",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/11601201-Burpee_Cardio_thumbnail@3x.jpg"
+    ],
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "mechanic": "compound",
+    "instructions": [
+      "1. Stand tall with your feet in a comfortable stance, arms to your sides, and gaze directed forward.\n2. Take a breath, lean forward and bend your knees to place your hands flat on the floor, just in front of your feet.\n3. Kick your legs back to extend your body into a push-up position. Your shoulders, hips, knees, and ankles should be aligned.\n4. Inhale and perform a push-up, descending until your face is an inch or two from the floor (optional). Exhale as you extend your arms.\n5. Kick your legs forward to bring your feet just behind your hands as you breathe in.\n6. Extend your body and perform a vertical jump as you raise your arms above your head. Exhale."
+    ],
+    "hevyTemplateId": "BB792A36",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/11601201-Burpee_Cardio.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/11601201-Burpee_Cardio_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 82,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 3
+      },
+      "tier": "high",
+      "rationale": "Pop-up-to-stance conditioning under fatigue — direct wave-readiness work."
+    }
+  },
+  {
+    "id": "ex_hevy_86b00dde",
+    "name": "Burpee Over the Bar",
+    "category": "gym",
+    "bodyParts": [
+      "fullbody"
+    ],
+    "description": "1. Place a barbell on the ground and stand perpendicular to it.\n2. Get down into a high plank position.\n3. With your body straight and shoulders, elbows, and wr",
+    "techniqueCues": [
+      "1. Place a barbell on the ground and stand perpendicular to it.\n2. Get down into a high plank position.\n3. With your body straight and shoulders, elbows, and wrists aligned, take a breath and do a push-up. Push yourself back to the high plank position as you exhale.\n4. Kick your feet forward and stand up.\n5. Jump laterally over the barbell as you breathe out again.\n6. Get down to a high plank position again, breathe in, and perform another push-up.\n7. Stand up and jump laterally over the barbell again, repeating the sequence.\n8. Keep jumping over the bar until you're finished."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/101811201-Burpee-Over-the-Bar-(male)_Plyometrics_thumbnail_@3x.jpg"
+    ],
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "mechanic": "compound",
+    "instructions": [
+      "1. Place a barbell on the ground and stand perpendicular to it.\n2. Get down into a high plank position.\n3. With your body straight and shoulders, elbows, and wrists aligned, take a breath and do a push-up. Push yourself back to the high plank position as you exhale.\n4. Kick your feet forward and stand up.\n5. Jump laterally over the barbell as you breathe out again.\n6. Get down to a high plank position again, breathe in, and perform another push-up.\n7. Stand up and jump laterally over the barbell again, repeating the sequence.\n8. Keep jumping over the bar until you're finished."
+    ],
+    "hevyTemplateId": "86B00DDE",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/101811201-Burpee-Over-the-Bar-(male)_Plyometrics_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/101811201-Burpee-Over-the-Bar-(male)_Plyometrics_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 44,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
     "id": "ex_hevy_9dce2d64",
     "name": "Butterfly (Pec Deck)",
     "category": "gym",
@@ -1407,50 +1844,101 @@
     }
   },
   {
-    "id": "ex_hevy_651f844c",
-    "name": "Cable Fly Crossovers",
+    "id": "ex_hevy_23a48484",
+    "name": "Cable Crunch",
     "category": "gym",
     "bodyParts": [
-      "chest",
-      "shoulders"
+      "core"
     ],
-    "description": "1. Adjust the load on the pair of weight stacks inside the cable crossover machine.\n2. Set the pulleys in the highest position and attach handles on both.\n3. Gr",
+    "description": "Kneel below a high pulley that contains a rope attachment.",
     "techniqueCues": [
-      "1. Adjust the load on the pair of weight stacks inside the cable crossover machine.\n2. Set the pulleys in the highest position and attach handles on both.\n3. Grab the handles one at a time and position yourself in the middle between the two pillars.\n4. Bring your arms to your sides and take a half step forward to lift the weights from their stacks.\n5. Engage your abs, bring your shoulders back, and inhale.\n6. Bring your arms in and down, meeting your knuckles in front of your hips. Exhale.\n7. Hold for a moment and bring your arms to your sides as you breathe in."
+      "Kneel below a high pulley that contains a rope attachment.",
+      "Grasp cable rope attachment and lower the rope until your hands are placed next to your face.",
+      "Flex your hips slightly and allow the weight to hyperextend the lower back. This will be your starting position.",
+      "With the hips stationary, flex the waist as you contract the abs so that the elbows travel towards the middle of the thighs. Exhale as you perform this portion of the movement and hold the contraction for a second."
     ],
     "injuryNotes": "",
     "equipment": [
       "machine"
     ],
-    "difficulty": "intermediate",
+    "difficulty": "beginner",
     "imageUrls": [
-      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Rear_Delt_Fly/0.jpg",
-      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Rear_Delt_Fly/1.jpg"
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Crunch/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Crunch/1.jpg"
     ],
     "primaryMuscles": [
-      "shoulders"
+      "abdominals"
     ],
     "secondaryMuscles": [],
     "mechanic": "isolation",
     "instructions": [
-      "Adjust the pulleys to the appropriate height and adjust the weight. The pulleys should be above your head.",
-      "Grab the left pulley with your right hand and the right pulley with your left hand, crossing them in front of you. This will be your starting position.",
-      "Initiate the movement by moving your arms back and outward, keeping your arms straight as you execute the movement.",
-      "Pause at the end of the motion before returning the handles to the start position."
+      "Kneel below a high pulley that contains a rope attachment.",
+      "Grasp cable rope attachment and lower the rope until your hands are placed next to your face.",
+      "Flex your hips slightly and allow the weight to hyperextend the lower back. This will be your starting position.",
+      "With the hips stationary, flex the waist as you contract the abs so that the elbows travel towards the middle of the thighs. Exhale as you perform this portion of the movement and hold the contraction for a second.",
+      "Slowly return to the starting position as you inhale. Tip: Make sure that you keep constant tension on the abs throughout the movement. Also, do not choose a weight so heavy that the lower back handles the brunt of the work.",
+      "Repeat for the recommended amount of repetitions."
     ],
-    "hevyTemplateId": "651F844C",
+    "hevyTemplateId": "23A48484",
     "defaultSets": 3,
     "defaultReps": 10,
     "origin": "seed",
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12691201-Cable-Standing-Up-Straight-Crossovers_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12691201-Cable-Standing-Up-Straight-Crossovers_Chest_thumbnail@3x.jpg",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01751201-Cable-Kneeling-Crunch_Waist.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01751201-Cable-Kneeling-Crunch_Waist_thumbnail@3x.jpg",
     "surfTransfer": {
       "baseScore": 7,
       "demands": {
-        "popUp": 3
+        "stanceBalance": 2,
+        "rotation": 1
       },
       "tier": "low",
       "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hevy_234897ab",
+    "name": "Cable Hammer Curl",
+    "category": "gym",
+    "bodyParts": [
+      "arms"
+    ],
+    "description": "Neutral-grip cable hammer curl with a rope — brachialis and forearm strength for paddle grip and board carry.",
+    "techniqueCues": [
+      "Low pulley with rope, neutral grip (palms facing each other)",
+      "Elbows pinned to your sides, shoulders back",
+      "Curl the rope to chest height without swinging",
+      "Lower with control — full extension at the bottom"
+    ],
+    "injuryNotes": "Keep wrists neutral; don't let elbows drift forward on the curl.",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "beginner",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01651201-Cable-Hammer-Curl-(with-rope)-(male)_Forearms_thumbnail_@3x.jpg"
+    ],
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "mechanic": "isolation",
+    "instructions": [
+      "1. Set the pulley in the lowest position and attach a rope.\n2. Select the appropriate weight on the cable machine.\n3. Bend forward and grab both ends of the rope with a neutral grip (palms facing one another).\n4. Stand tall, bring your shoulders back, and step back to lift the weight from its stack.\n5. Take a breath and curl the cable by bending your elbows.\n6. Lift until your wrists are slightly higher than your elbows, and breathe out.\n7. Extend your arms slowly and breathe in."
+    ],
+    "hevyTemplateId": "234897AB",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01651201-Cable-Hammer-Curl-(with-rope)-(male)_Forearms_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01651201-Cable-Hammer-Curl-(with-rope)-(male)_Forearms_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 58,
+      "demands": {
+        "paddlePower": 2
+      },
+      "tier": "medium",
+      "rationale": "Cable hammer curl — brachialis and grip strength for paddle endurance and board handling."
     }
   },
   {
@@ -1559,6 +2047,61 @@
     }
   },
   {
+    "id": "ex_hevy_a2d838bd",
+    "name": "Cable Twist (Up to down)",
+    "category": "gym",
+    "bodyParts": [
+      "core",
+      "chest",
+      "shoulders"
+    ],
+    "description": "High-to-low cable rotation — mirrors the torso twist of cutbacks and off-the-lip snaps.",
+    "techniqueCues": [
+      "Pulley at shoulder height, stand sideways with a wide base",
+      "Pull diagonally down across your body — hips stay square",
+      "Brace your core and rotate through the thoracic spine",
+      "Control the return; don't let the cable whip you back"
+    ],
+    "injuryNotes": "Start light — excessive lumbar rotation under load can irritate the lower back.",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Crossover/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Crossover/1.jpg"
+    ],
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "mechanic": "isolation",
+    "instructions": [
+      "To get yourself into the starting position, place the pulleys on a high position (above your head), select the resistance to be used and hold the pulleys in each hand.",
+      "Step forward in front of an imaginary straight line between both pulleys while pulling your arms together in front of you. Your torso should have a small forward bend from the waist. This will be your starting position.",
+      "With a slight bend on your elbows in order to prevent stress at the biceps tendon, extend your arms to the side (straight out at both sides) in a wide arc until you feel a stretch on your chest. Breathe in as you perform this portion of the movement. Tip: Keep in mind that throughout the movement, the arms and torso should remain stationary; the movement should only occur at the shoulder joint.",
+      "Return your arms back to the starting position as you breathe out. Make sure to use the same arc of motion used to lower the weights.",
+      "Hold for a second at the starting position and repeat the movement for the prescribed amount of repetitions."
+    ],
+    "hevyTemplateId": "A2D838BD",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/08621201-Cable-twist-(up-down)_Waist.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08621201-Cable-twist-(up-down)_Waist_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 87,
+      "demands": {
+        "rotation": 5,
+        "stanceBalance": 2
+      },
+      "tier": "high",
+      "rationale": "High-to-low cable rotation for cutbacks, snaps, and re-entries."
+    }
+  },
+  {
     "id": "ex_cable_woodchopper",
     "name": "Cable Woodchopper",
     "category": "gym",
@@ -1604,9 +2147,9 @@
       "Repeat to failure.",
       "Then, reposition and repeat the same series of movements on the opposite side."
     ],
-    "hevyTemplateId": "23A48484",
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01751201-Cable-Kneeling-Crunch_Waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01751201-Cable-Kneeling-Crunch_Waist_thumbnail@3x.jpg",
+    "hevyTemplateId": "92D858EA",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12071201-Cable-twist-(down-up)_waist.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12071201-Cable-twist-(down-up)_waist_thumbnail@3x.jpg",
     "surfTransfer": {
       "baseScore": 88,
       "demands": {
@@ -1879,6 +2422,155 @@
     }
   },
   {
+    "id": "ex_hevy_914f3a96",
+    "name": "Chest Supported Incline Row (Dumbbell)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "arms",
+      "shoulders"
+    ],
+    "description": "Chest-supported row for pure pulling strength without lower-back fatigue — great paddle-volume work.",
+    "techniqueCues": [
+      "Chest flat on incline bench, arms hang straight",
+      "Row dumbbells high, elbows past your torso",
+      "Squeeze lats and mid-back at the top",
+      "Slow negative — no swinging"
+    ],
+    "injuryNotes": "Keep neck neutral; don't crane to look forward.",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Dumbbell_Incline_Row/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Dumbbell_Incline_Row/1.jpg"
+    ],
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "lats",
+      "shoulders"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Using a neutral grip, lean into an incline bench.",
+      "Take a dumbbell in each hand with a neutral grip, beginning with the arms straight. This will be your starting position.",
+      "Retract the shoulder blades and flex the elbows to row the dumbbells to your side.",
+      "Pause at the top of the motion, and then return to the starting position."
+    ],
+    "hevyTemplateId": "914F3A96",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/03271201-Dumbbell-Incline-Row_Back.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03271201-Dumbbell-Incline-Row_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 50,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and pop-up for better wave performance."
+    }
+  },
+  {
+    "id": "ex_hevy_b582299e",
+    "name": "Chest Supported Reverse Fly (Dumbbell)",
+    "category": "gym",
+    "bodyParts": [
+      "shoulders",
+      "back"
+    ],
+    "description": "1. Grab a pair of light dumbbells and position yourself face down on an incline gym bench.\n2. Keep your body straight and support yourself on the balls of your ",
+    "techniqueCues": [
+      "1. Grab a pair of light dumbbells and position yourself face down on an incline gym bench.\n2. Keep your body straight and support yourself on the balls of your feet.\n3. Your arms should be straight and vertical, with your palms facing one another.\n4. Bring your shoulders back and take a breath.\n5. Lift the dumbbells to your sides and back, stopping when you feel tension in the posterior of your shoulders. Exhale.\n6. Hold for a moment and bring your arms down slowly as you breathe in."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03831201-Dumbbell-Reverse-Fly_Shoulders_thumbnail@3x.jpg"
+    ],
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "mechanic": "isolation",
+    "instructions": [
+      "1. Grab a pair of light dumbbells and position yourself face down on an incline gym bench.\n2. Keep your body straight and support yourself on the balls of your feet.\n3. Your arms should be straight and vertical, with your palms facing one another.\n4. Bring your shoulders back and take a breath.\n5. Lift the dumbbells to your sides and back, stopping when you feel tension in the posterior of your shoulders. Exhale.\n6. Hold for a moment and bring your arms down slowly as you breathe in."
+    ],
+    "hevyTemplateId": "B582299E",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/03831201-Dumbbell-Reverse-Fly_Shoulders.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03831201-Dumbbell-Reverse-Fly_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 10,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hevy_f21d5693",
+    "name": "Chest Supported Y Raise (Dumbbell)",
+    "category": "gym",
+    "bodyParts": [
+      "shoulders",
+      "back"
+    ],
+    "description": "1. Set a gym bench at a 45-degree incline.\n2. Grab a pair of light dumbbells and sit down with your chest and stomach against the back support and arms hanging ",
+    "techniqueCues": [
+      "1. Set a gym bench at a 45-degree incline.\n2. Grab a pair of light dumbbells and sit down with your chest and stomach against the back support and arms hanging straight down.\n3. Take a deep breath and lift the dumbbells forward and up in one fluid motion, exhaling at the top.\n4. Lower the weights to the starting position as you breathe in."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/35411201-Dumbbell-Incline-Y-Raise_Shoulders__thumbnail_@3x.jpg"
+    ],
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "mechanic": "isolation",
+    "instructions": [
+      "1. Set a gym bench at a 45-degree incline.\n2. Grab a pair of light dumbbells and sit down with your chest and stomach against the back support and arms hanging straight down.\n3. Take a deep breath and lift the dumbbells forward and up in one fluid motion, exhaling at the top.\n4. Lower the weights to the starting position as you breathe in."
+    ],
+    "hevyTemplateId": "F21D5693",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/35411201-Dumbbell-Incline-Y-Raise_Shoulders_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/35411201-Dumbbell-Incline-Y-Raise_Shoulders__thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 10,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
     "id": "ex_hevy_29083183",
     "name": "Chin Up",
     "category": "gym",
@@ -1923,6 +2615,61 @@
     "defaultReps": 12,
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/13261201-Chin-Up_Back.mp4",
     "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/13261201-Chin-Up_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hevy_d23c609b",
+    "name": "Chin Up (Assisted)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "arms"
+    ],
+    "description": "Grab the pull-up bar with the palms facing your torso and a grip closer than the shoulder width.",
+    "techniqueCues": [
+      "Grab the pull-up bar with the palms facing your torso and a grip closer than the shoulder width.",
+      "As you have both arms extended in front of you holding the bar at the chosen grip width, keep your torso as straight as possible while creating a curvature on your lower back and sticking your chest out. This is your starting position. Tip: Keeping the torso as straight as possible maximizes biceps stimulation while minimizing back involvement.",
+      "As you breathe out, pull your torso up until your head is around the level of the pull-up bar. Concentrate on using the biceps muscles in order to perform the movement. Keep the elbows close to your body. Tip: The upper torso should remain stationary as it moves through space and only the arms should move. The forearms should do no other work other than hold the bar.",
+      "After a second of squeezing the biceps in the contracted position, slowly lower your torso back to the starting position; when your arms are fully extended. Breathe in as you perform this portion of the movement."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "beginner",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Chin-Up/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Chin-Up/1.jpg"
+    ],
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "traps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Grab the pull-up bar with the palms facing your torso and a grip closer than the shoulder width.",
+      "As you have both arms extended in front of you holding the bar at the chosen grip width, keep your torso as straight as possible while creating a curvature on your lower back and sticking your chest out. This is your starting position. Tip: Keeping the torso as straight as possible maximizes biceps stimulation while minimizing back involvement.",
+      "As you breathe out, pull your torso up until your head is around the level of the pull-up bar. Concentrate on using the biceps muscles in order to perform the movement. Keep the elbows close to your body. Tip: The upper torso should remain stationary as it moves through space and only the arms should move. The forearms should do no other work other than hold the bar.",
+      "After a second of squeezing the biceps in the contracted position, slowly lower your torso back to the starting position; when your arms are fully extended. Breathe in as you perform this portion of the movement.",
+      "Repeat this motion for the prescribed amount of repetitions."
+    ],
+    "hevyTemplateId": "D23C609B",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05721201-Lever-Assisted-Chin-Up_Back_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05721301-assisted-chin-up_small_thumbnail@3x.jpg",
     "surfTransfer": {
       "baseScore": 37,
       "demands": {
@@ -2438,6 +3185,118 @@
     }
   },
   {
+    "id": "ex_hevy_c6272009",
+    "name": "Deadlift (Barbell)",
+    "category": "gym",
+    "bodyParts": [
+      "legs",
+      "back",
+      "arms"
+    ],
+    "description": "1. Stand in front of a loaded barbell.\n2. The bar should be over mid-foot, your shins should be an inch or two from the bar, and your feet should be hip-width a",
+    "techniqueCues": [
+      "1. Stand in front of a loaded barbell.\n2. The bar should be over mid-foot, your shins should be an inch or two from the bar, and your feet should be hip-width apart, with toes pointing slightly out.\n3. Lean forward and grab the bar with a double overhand grip.\n4. Bend your knees to position your shins against the bar. Simultaneously, retract your shoulders to straighten your back.\n5. Take a breath.\n6. Initiate the pull by digging your heels into the floor.\n7. Lift the bar in a straight vertical line, keeping it close to your body.\n8. As the bar passes your knees, begin to extend your legs and drive your hips forward to complete the repetition.\n9. Begin the descent by driving your buttocks back and keeping your back neutral.\n10. Lower the barbell in the same vertical line, exhaling near the bottom."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Axle_Deadlift/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Axle_Deadlift/1.jpg"
+    ],
+    "primaryMuscles": [
+      "lower_back"
+    ],
+    "secondaryMuscles": [
+      "forearms",
+      "glutes",
+      "hamstrings",
+      "traps",
+      "quadriceps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Approach the bar so that it is centered over your feet. You feet should be about hip width apart. Bend at the hip to grip the bar at shoulder width, allowing your shoulder blades to protract. Typically, you would use an over/under grip.",
+      "With your feet and your grip set, take a big breath and then lower your hips and flex the knees until your shins contact the bar. Look forward with your head, keep your chest up and your back arched, and begin driving through the heels to move the weight upward.",
+      "After the bar passes the knees, aggressively pull the bar back, pulling your shoulder blades together as you drive your hips forward into the bar.",
+      "Lower the bar by bending at the hips and guiding it to the floor."
+    ],
+    "hevyTemplateId": "C6272009",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00321201-Barbell-Deadlift_Hips-FIX.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00321201-Barbell-Deadlift_Hips-FIX_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 36,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hevy_5f4e6dd3",
+    "name": "Deadlift (Dumbbell)",
+    "category": "gym",
+    "bodyParts": [
+      "legs",
+      "back",
+      "arms"
+    ],
+    "description": "1. Have your feet hip-width apart, and position a pair of dumbbells parallel to them. When seen from the top, the front weight plate of each dumbbell should ali",
+    "techniqueCues": [
+      "1. Have your feet hip-width apart, and position a pair of dumbbells parallel to them. When seen from the top, the front weight plate of each dumbbell should align with your mid-foot.\n2. Bend forward and grab the dumbbells while keeping your arms straight.\n3. Bring your chest out without lifting the dumbbells to put your back into a neutral position.\n4. Take a breath and initiate the lift by pressing through your heels as you engage your upper body and legs.\n5. Lift the dumbbells in a straight vertical line, moving them to your sides.\n6. Extend your hips and knees simultaneously, especially as the dumbbells pass the knees, and continue up until you’re standing. Breathe out at the top.\n7. Begin the descent by breaking at the hips and pushing your buttocks back—lower the weights in the same straight line.\n8. Breathe in as the weights move down or before initiating the next rep."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Axle_Deadlift/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Axle_Deadlift/1.jpg"
+    ],
+    "primaryMuscles": [
+      "lower_back"
+    ],
+    "secondaryMuscles": [
+      "forearms",
+      "glutes",
+      "hamstrings",
+      "traps",
+      "quadriceps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Approach the bar so that it is centered over your feet. You feet should be about hip width apart. Bend at the hip to grip the bar at shoulder width, allowing your shoulder blades to protract. Typically, you would use an over/under grip.",
+      "With your feet and your grip set, take a big breath and then lower your hips and flex the knees until your shins contact the bar. Look forward with your head, keep your chest up and your back arched, and begin driving through the heels to move the weight upward.",
+      "After the bar passes the knees, aggressively pull the bar back, pulling your shoulder blades together as you drive your hips forward into the bar.",
+      "Lower the bar by bending at the hips and guiding it to the floor."
+    ],
+    "hevyTemplateId": "5F4E6DD3",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/03001201-Dumbbell-Deadlift_Hips.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03001201-Dumbbell-Deadlift_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 36,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2,
+        "popUp": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
     "id": "ex_hevy_20870ed5",
     "name": "Deadlift (Smith Machine)",
     "category": "gym",
@@ -2491,6 +3350,65 @@
       },
       "tier": "low",
       "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hevy_fa5d0de1",
+    "name": "Deadlift High Pull",
+    "category": "gym",
+    "bodyParts": [
+      "fullbody",
+      "back",
+      "legs",
+      "shoulders"
+    ],
+    "description": "Triple extension power pull — trains violent hip and pull sequencing for explosive surfing.",
+    "techniqueCues": [
+      "Hinge, neutral spine, bar close",
+      "Drive hips forward, shrug, then pull high",
+      "Elbows lead above the bar",
+      "Lower under control"
+    ],
+    "injuryNotes": "Not a row — keep it explosive but don't muscle with the arms alone.",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Kettlebell_Sumo_High_Pull/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Kettlebell_Sumo_High_Pull/1.jpg"
+    ],
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "adductors",
+      "glutes",
+      "hamstrings",
+      "quadriceps",
+      "shoulders"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Place a kettlebell on the ground between your feet. Position your feet in a wide stance, and grasp the kettlebell with two hands. Set your hips back as far as possible, with your knees bent. Keep your chest and head up. This will be your starting position.",
+      "Begin by extending the hips and knees, simultaneously pulling the kettlebell to your shoulders, raising your elbows as you do so. Reverse the motion to return to the starting position."
+    ],
+    "hevyTemplateId": "FA5D0DE1",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/11991201-Sumo-Deadlift-High-Pull_Thighs_Shoulders.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/11991201-Sumo-Deadlift-High-Pull_Thighs_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 61,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 4,
+        "popUp": 5,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds pop-up and paddle power for better wave performance."
     }
   },
   {
@@ -2801,9 +3719,9 @@
       "Then, as you breathe out, use your chest to push the dumbbells up. Lock your arms at the top of the lift and squeeze your chest, hold for a second and then begin coming down slowly. Tip: Ideally, lowering the weight should take about twice as long as raising it.",
       "Repeat the movement for the prescribed amount of repetitions of your training program."
     ],
-    "hevyTemplateId": "79D0BB3A",
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00251201-Barbell-Bench-Press_Chest.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00251201-Barbell-Bench-Press_Chest_thumbnail@3x.jpg",
+    "hevyTemplateId": "3601968B",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02891201-Dumbbell-Bench-Press_Chest.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02891201-Dumbbell-Bench-Press_Chest_thumbnail@3x.jpg",
     "surfTransfer": {
       "baseScore": 78,
       "demands": {
@@ -2908,9 +3826,9 @@
       "Maintaining strict technique with no leg drive or leaning back, extend through the elbow to raise the weights together directly above your head.",
       "Pause, and slowly return the weight to the starting position."
     ],
-    "hevyTemplateId": "F72FA239",
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/36811201-Dumbbell-Squeeze-Bench-Press_Chest-FIX_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/36811201-Dumbbell-Squeeze-Bench-Press_Chest-FIX__thumbnail_@3x.jpg",
+    "hevyTemplateId": "6AC96645",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/04261201-Dumbbell-Standing-Overhead-Press_shoulder.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/04261201-Dumbbell-Standing-Overhead-Press_shoulder_thumbnail@3x.jpg",
     "surfTransfer": {
       "baseScore": 70,
       "demands": {
@@ -2919,6 +3837,70 @@
       },
       "tier": "medium",
       "rationale": "Overhead strength supports paddle posture and pop-up drive."
+    }
+  },
+  {
+    "id": "ex_hevy_f3717b0e",
+    "name": "Dumbbell Snatch",
+    "category": "gym",
+    "bodyParts": [
+      "fullbody",
+      "legs",
+      "arms",
+      "back",
+      "shoulders"
+    ],
+    "description": "Explosive hip drive and overhead catch — builds the fast power for pop-ups and late drops.",
+    "techniqueCues": [
+      "Hinge, bell between legs",
+      "Explode hips, pull elbow high",
+      "Punch overhead in one motion",
+      "Absorb the landing softly"
+    ],
+    "injuryNotes": "Master the one-arm swing before adding the snatch.",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Dumbbell_Clean/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Dumbbell_Clean/1.jpg"
+    ],
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "forearms",
+      "glutes",
+      "lower_back",
+      "quadriceps",
+      "shoulders",
+      "traps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Begin standing with a dumbbell in each hand with your feet shoulder width apart.",
+      "Lower the weights to the floor by flexing at the hips and knees, pushing your hips back until the dumbbells reach the floor. This will be your starting position.",
+      "To initiate the movement, violently jump upward by extending the hips, knees, and ankles to acclerate the weights upward. Maintaining a neutral grip on the dumbbells, keep the arms straight until full extension is reached.",
+      "After full extension, rebend the hips and knees to receive the weight in a squat position. Allow the arms to bend, guiding the dumbbells to your shoulders.",
+      "Upon receiving the weight in the squat position, extend the hips and knees to finish in a standing position with the weights on your shoulders."
+    ],
+    "hevyTemplateId": "F3717B0E",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/38881201-Dumbbell-One-Arm-Snatch_Weightlifting_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/38881101-Dumbbell-One-Arm-Snatch_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 85,
+      "demands": {
+        "popUp": 4,
+        "rotation": 2,
+        "stanceBalance": 2
+      },
+      "tier": "high",
+      "rationale": "Explosive hip drive and overhead catch — pop-up and late-drop power."
     }
   },
   {
@@ -3299,6 +4281,110 @@
       },
       "tier": "low",
       "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hevy_867ac3b6",
+    "name": "Flying Feet Chest Press",
+    "category": "gym",
+    "bodyParts": [
+      "chest",
+      "shoulders",
+      "arms"
+    ],
+    "description": "Feet-up (Larsen) bench press — strict chest press with legs off the floor, removing leg drive for pure pressing strength.",
+    "techniqueCues": [
+      "Lie on the bench with legs extended — feet off the floor (flying feet)",
+      "Shoulder blades pinned, slight arch, bar to mid-chest",
+      "Press without using leg drive or hip bridge",
+      "Control the descent — this exposes weak points in your chest press"
+    ],
+    "injuryNotes": "Use less weight than your regular bench; the strict setup loads the shoulders and chest differently.",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Chest_Press/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Chest_Press/1.jpg"
+    ],
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "triceps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Adjust the weight to an appropriate amount and be seated, grasping the handles. Your upper arms should be about 45 degrees to the body, with your head and chest up. The elbows should be bent to about 90 degrees. This will be your starting position.",
+      "Begin by extending through the elbow, pressing the handles together straight in front of you. Keep your shoulder blades retracted as you execute the movement.",
+      "After pausing at full extension, return to th starting position, keeping tension on the cables.",
+      "You can also execute this movement with your back off the pad, at an incline or decline, or alternate hands."
+    ],
+    "hevyTemplateId": "867AC3B6",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/62701201-Barbell-Larsen-Press-(male)_Chest_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/62701201-Barbell-Larsen-Press-(male)_Chest_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 68,
+      "demands": {
+        "paddlePower": 3,
+        "popUp": 2
+      },
+      "tier": "medium",
+      "rationale": "Strict chest press without leg drive — upper-body pushing strength for paddle posture and pop-up support."
+    }
+  },
+  {
+    "id": "ex_hevy_207dc636",
+    "name": "Frog Jumps",
+    "category": "gym",
+    "bodyParts": [
+      "legs"
+    ],
+    "description": "1. Stand tall with your feet wider than your hips and toes pointing slightly out.\n2. Engage your abs and extend your arms with your hands in front of your hips.",
+    "techniqueCues": [
+      "1. Stand tall with your feet wider than your hips and toes pointing slightly out.\n2. Engage your abs and extend your arms with your hands in front of your hips.\n3. Take a breath and descend into a squat, keeping your heels in contact with the floor.\n4. Descend until your hands brush the floor.\n5. Immediately press through your heels as powerfully as possible, propelling yourself in the air and exhaling at the top. Keep your arms pointing to the floor.\n6. Take another breath as you land, descend into the next repetition, and repeat."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Frog_Hops/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Frog_Hops/1.jpg"
+    ],
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Stand with your hands behind your head, and squat down keeping your torso upright and your head up. This will be your starting position.",
+      "Jump forward several feet, avoiding jumping unnecessarily high. As your feet contact the ground, absorb the impact through your legs, and jump again. Repeat this action 5-10 times."
+    ],
+    "hevyTemplateId": "207DC636",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/101651201-Frog-Jump_Plyometrics_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/101651201-Frog-Jump_Plyometrics_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 46,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 4
+      },
+      "tier": "medium",
+      "rationale": "Builds pop-up and stance & balance for better wave performance."
     }
   },
   {
@@ -3767,6 +4853,61 @@
       },
       "tier": "low",
       "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hevy_05487216",
+    "name": "Gorilla Row (Kettlebell)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "arms"
+    ],
+    "description": "Alternating kettlebell rows in a hinged position — paddle-style pulling with anti-rotation core demand.",
+    "techniqueCues": [
+      "Wide stance, hips back, flat back",
+      "Row one bell while the other anchors you",
+      "Fight the twist — stay square",
+      "Alternate smoothly, no jerking"
+    ],
+    "injuryNotes": "Keep hamstrings loaded; don't squat the weight up.",
+    "equipment": [
+      "kettlebell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Inverted_Row/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Inverted_Row/1.jpg"
+    ],
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "lats"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Position a bar in a rack to about waist height. You can also use a smith machine.",
+      "Take a wider than shoulder width grip on the bar and position yourself hanging underneath the bar. Your body should be straight with your heels on the ground with your arms fully extended. This will be your starting position.",
+      "Begin by flexing the elbow, pulling your chest towards the bar. Retract your shoulder blades as you perform the movement.",
+      "Pause at the top of the motion, and return yourself to the start position.",
+      "Repeat for the desired number of repetitions."
+    ],
+    "hevyTemplateId": "05487216",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/72301201-Kettlebell-Gorilla-Row-(male)_Back_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/72301201-Kettlebell-Gorilla-Row-(male)_Back__thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 83,
+      "demands": {
+        "paddlePower": 4,
+        "rotation": 3,
+        "stanceBalance": 2
+      },
+      "tier": "high",
+      "rationale": "Alternating rows with anti-rotation demand — paddle strength plus core stability."
     }
   },
   {
@@ -4306,6 +5447,168 @@
     }
   },
   {
+    "id": "ex_hevy_d57c2ec7",
+    "name": "Hip Thrust (Barbell)",
+    "category": "gym",
+    "bodyParts": [
+      "legs"
+    ],
+    "description": "Begin seated on the ground with a bench directly behind you. Have a loaded barbell over your legs. Using a fat bar or having a pad on the bar can greatly reduce",
+    "techniqueCues": [
+      "Begin seated on the ground with a bench directly behind you. Have a loaded barbell over your legs. Using a fat bar or having a pad on the bar can greatly reduce the discomfort caused by this exercise.",
+      "Roll the bar so that it is directly above your hips, and lean back against the bench so that your shoulder blades are near the top of it.",
+      "Begin the movement by driving through your feet, extending your hips vertically through the bar. Your weight should be supported by your shoulder blades and your feet. Extend as far as possible, then reverse the motion to return to the starting position."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Hip_Thrust/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Hip_Thrust/1.jpg"
+    ],
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "hamstrings"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Begin seated on the ground with a bench directly behind you. Have a loaded barbell over your legs. Using a fat bar or having a pad on the bar can greatly reduce the discomfort caused by this exercise.",
+      "Roll the bar so that it is directly above your hips, and lean back against the bench so that your shoulder blades are near the top of it.",
+      "Begin the movement by driving through your feet, extending your hips vertically through the bar. Your weight should be supported by your shoulder blades and your feet. Extend as far as possible, then reverse the motion to return to the starting position."
+    ],
+    "hevyTemplateId": "D57C2EC7",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/10601201-Barbell-Hip-Thrust_Hips-FIX_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/10601101-Barbell-Hip-Thrust_Hips_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 31,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hyperextension_glutes",
+    "name": "Hyperextension (Glutes)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "legs"
+    ],
+    "description": "Glute emphasis on the 45° bench — hip extension power for pop-ups and turn drive.",
+    "techniqueCues": [
+      "Pad lower — support down on the hips, more thigh on the pad",
+      "Rise with a small spinal curve — squeeze glutes hard at the top",
+      "Arms extended or plate held away from the body",
+      "Hinge at the hips on the way down; feel the stretch in hamstrings"
+    ],
+    "injuryNotes": "A slight arch at the top is intentional here — keep it small and glute-driven, not lumbar snap.",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "lower_back"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings"
+    ],
+    "mechanic": "isolation",
+    "instructions": [
+      "Lie face down on a hyperextension bench, tucking your ankles securely under the footpads.",
+      "Adjust the upper pad if possible so your upper thighs lie flat across the wide pad, leaving enough room for you to bend at the waist without any restriction.",
+      "With your body straight, cross your arms in front of you (my preference) or behind your head. This will be your starting position. Tip: You can also hold a weight plate for extra resistance in front of you under your crossed arms.",
+      "Start bending forward slowly at the waist as far as you can while keeping your back flat. Inhale as you perform this movement. Keep moving forward until you feel a nice stretch on the hamstrings and you can no longer keep going without a rounding of the back. Tip: Never round the back as you perform this exercise. Also, some people can go farther than others. The key thing is that you go as far as your body allows you to without rounding the back.",
+      "Slowly raise your torso back to the initial position as you inhale. Tip: Avoid the temptation to arch your back past a straight line. Also, do not swing the torso at any time in order to protect the back from injury.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "hevyTemplateId": "4F5866F8",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Hyperextensions_Back_Extensions/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Hyperextensions_Back_Extensions/1.jpg"
+    ],
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/18601201-Hyperextension-(VERSION-2)_Hips_thumbnail@3x.jpg",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/18601201-Hyperextension-(VERSION-2)_Hips.mp4",
+    "surfTransfer": {
+      "baseScore": 82,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 3
+      },
+      "tier": "high",
+      "rationale": "Glute-biased hyperextension — hip extension power for pop-ups and committed turns."
+    }
+  },
+  {
+    "id": "ex_hevy_4f5866f8",
+    "name": "Hyperextension (Low Back)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "legs"
+    ],
+    "description": "Low-back emphasis on the 45° bench — erector endurance for upright paddle posture.",
+    "techniqueCues": [
+      "Pad support over the hips — hip crease at the top edge of the pad",
+      "Rise straight in one line — minimal hip hinge, torso stays rigid",
+      "Arms crossed or plate held tight to the chest",
+      "Stop at neutral; don't over-arch at the top"
+    ],
+    "injuryNotes": "If you feel sharp lumbar pain, lower the pad or switch to the glute setup.",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Reverse_Hyperextension/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Reverse_Hyperextension/1.jpg"
+    ],
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Place your feet between the pads after loading an appropriate weight. Lay on the top pad, allowing your hips to hang off the back, while grasping the handles to hold your position.",
+      "To begin the movement, flex the hips, pulling the legs forward.",
+      "Reverse the motion by extending the hips, kicking the leg back. It is very important not to over-extend the hip on this movement, stopping short of your full range of motion.",
+      "Return by again flexing the hip, pulling the carriage forward as far as you can.",
+      "Repeat for the desired number of repetitions."
+    ],
+    "hevyTemplateId": "4F5866F8",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/18601201-Hyperextension-(VERSION-2)_Hips.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/18601201-Hyperextension-(VERSION-2)_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 74,
+      "demands": {
+        "paddlePower": 3,
+        "stanceBalance": 3
+      },
+      "tier": "medium",
+      "rationale": "Erector endurance for upright paddle posture — straight-torso hyperextension setup."
+    }
+  },
+  {
     "id": "ex_hevy_50dfdfab",
     "name": "Incline Bench Press (Barbell)",
     "category": "gym",
@@ -4819,6 +6122,58 @@
     }
   },
   {
+    "id": "ex_hevy_ba3de542",
+    "name": "Jump Shrug",
+    "category": "gym",
+    "bodyParts": [
+      "fullbody",
+      "back"
+    ],
+    "description": "Barbell jump with an explosive shrug — trains triple-extension power for pop-ups and fast turns.",
+    "techniqueCues": [
+      "Overhand grip just outside the thighs, slight hip hinge",
+      "Dip the knees, then drive through the floor like a vertical jump",
+      "Shrug shoulders to your ears at the top — bar stays close",
+      "Land soft and reset; this is power, not a max shrug"
+    ],
+    "injuryNotes": "Keep load moderate; avoid bouncing reps if your traps or lower back feel tight.",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Shrug/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Shrug/1.jpg"
+    ],
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [],
+    "mechanic": "isolation",
+    "instructions": [
+      "Stand up straight with your feet at shoulder width as you hold a barbell with both hands in front of you using a pronated grip (palms facing the thighs). Tip: Your hands should be a little wider than shoulder width apart. You can use wrist wraps for this exercise for a better grip. This will be your starting position.",
+      "Raise your shoulders up as far as you can go as you breathe out and hold the contraction for a second. Tip: Refrain from trying to lift the barbell by using your biceps.",
+      "Slowly return to the starting position as you breathe in.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "hevyTemplateId": "BA3DE542",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/49641201-Jump-Shrug_Thighs_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/49641201-Jump-Shrug_Thighs_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 38,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 2
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
     "id": "ex_hevy_70d4ebbf",
     "name": "Jump Squat",
     "category": "gym",
@@ -4868,6 +6223,114 @@
       "demands": {
         "stanceBalance": 4,
         "popUp": 5
+      },
+      "tier": "medium",
+      "rationale": "Builds pop-up and stance & balance for better wave performance."
+    }
+  },
+  {
+    "id": "ex_jump_squat_weighted",
+    "name": "Jump Squat (Weighted)",
+    "category": "gym",
+    "bodyParts": [
+      "legs",
+      "back"
+    ],
+    "description": "Loaded jump squat for explosive leg power — direct pop-up and turn drive.",
+    "techniqueCues": [
+      "Light load on back (barbell, vest, or dumbbells)",
+      "Quarter squat, then explode up — arms drive for momentum",
+      "Land soft, absorb through hips and knees",
+      "Reset posture before the next rep — don't rush fatigued jumps"
+    ],
+    "injuryNotes": "Keep load light; this is power work, not max strength. Skip if knees are irritated.",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "intermediate",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings",
+      "lower_back"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Position a lightly loaded barbell across the back of your shoulders. You could also use a weighted vest, sandbag, or other type of resistance for this exercise.",
+      "The weight should be light enough that it doesn't slow you down significantly. Your feet should be just outside of shoulder width with your head and chest up. This will be your starting position.",
+      "Using a countermovement, squat partially down and immediately reverse your direction to explode off of the ground, extending through your hips, knees, and ankles. Maintain good posture throughout the jump.",
+      "As you return to the ground, absorb the impact through your legs."
+    ],
+    "hevyTemplateId": "70D4EBBF",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Weighted_Jump_Squat/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Weighted_Jump_Squat/1.jpg"
+    ],
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05141201-Jump-Squat_Thighs_thumbnail@3x.jpg",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05141201-Jump-Squat_Thighs.mp4",
+    "surfTransfer": {
+      "baseScore": 88,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 3
+      },
+      "tier": "high",
+      "rationale": "Loaded explosive jump — builds the leg power behind fast pop-ups and committed turns."
+    }
+  },
+  {
+    "id": "ex_hevy_5cc07a1f",
+    "name": "Jumping Lunge",
+    "category": "gym",
+    "bodyParts": [
+      "legs"
+    ],
+    "description": "1. Stand tall with your feet a few inches apart, arms to your sides, and shoulders back.\n2. Engage your abs and take a breath.\n3. Jump vertically and immediatel",
+    "techniqueCues": [
+      "1. Stand tall with your feet a few inches apart, arms to your sides, and shoulders back.\n2. Engage your abs and take a breath.\n3. Jump vertically and immediately bring your right leg forward and your left leg back.\n4. As you land on your front foot and the ball of your left foot, immediately sink into a lunge.\n5. Descend until your front thigh is almost parallel to the floor. \n6. Press through your front heels to move up and immediately jump. Exhale as you start moving up.\n7. Switch leg positions while in the air, breathe in, and sink into another lunge. \n8. Keep jumping and switching leg positions, doing a lunge in between."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Lunge/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Lunge/1.jpg"
+    ],
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "This exercise is best performed inside a squat rack for safety purposes. To begin, first set the bar on a rack just below shoulder level. Once the correct height is chosen and the bar is loaded, step under the bar and place the back of your shoulders (slightly below the neck) across it.",
+      "Hold on to the bar using both arms at each side and lift it off the rack by first pushing with your legs and at the same time straightening your torso.",
+      "Step away from the rack and step forward with your right leg and squat down through your hips, while keeping the torso upright and maintaining balance. Inhale as you go down. Note: Do not allow your knee to go forward beyond your toes as you come down, as this will put undue stress on the knee joint. li>",
+      "Using mainly the heel of your foot, push up and go back to the starting position as you exhale.",
+      "Repeat the movement for the recommended amount of repetitions and then perform with the left leg."
+    ],
+    "hevyTemplateId": "5CC07A1F",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/11661201-Jump-Split-m_Plyometrics.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/11661201-Jump-Split-m_Plyometrics_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 46,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 5
       },
       "tier": "medium",
       "rationale": "Builds pop-up and stance & balance for better wave performance."
@@ -5306,6 +6769,58 @@
     }
   },
   {
+    "id": "ex_kneeling_jump_squat",
+    "name": "Kneeling Jump Squat",
+    "category": "gym",
+    "bodyParts": [
+      "legs"
+    ],
+    "description": "Barbell jump from kneeling — builds explosive hip drive for pop-ups and committed turns.",
+    "techniqueCues": [
+      "Bar racked on upper back; kneel with hips back to heels",
+      "Chest up, brace core, then explode hips to land on both feet",
+      "Absorb softly and finish standing in a full squat",
+      "Reset kneeling between reps — quality over speed"
+    ],
+    "injuryNotes": "Advanced plyometric with load; start bodyweight or empty bar. Skip if knees are sore.",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "advanced",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "hamstrings",
+      "quadriceps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Begin kneeling on the floor with a barbell racked across the back of your shoulders, or you can use your body weight for this exercise. This can be done inside of a power rack to make unracking easier.",
+      "Sit back with your hips until your glutes touch your feet, keeping your head and chest up.",
+      "Explode up with your hips, generating enough power to land with your feet flat on the floor.",
+      "Continue with the squat by driving through your heels and extending the knees to come to a standing position."
+    ],
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Kneeling_Jump_Squat/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Kneeling_Jump_Squat/1.jpg"
+    ],
+    "thumbnailUrl": "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Kneeling_Jump_Squat/0.jpg",
+    "surfTransfer": {
+      "baseScore": 90,
+      "demands": {
+        "popUp": 5,
+        "stanceBalance": 4
+      },
+      "tier": "high",
+      "rationale": "Barbell jump from kneeling — maximal hip explosion for pop-up drive and stance commitment."
+    }
+  },
+  {
     "id": "ex_hevy_d82ea543",
     "name": "Kneeling Pulldown (band)",
     "category": "gym",
@@ -5477,6 +6992,130 @@
     }
   },
   {
+    "id": "ex_hevy_d7d7fcce",
+    "name": "Landmine Row",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "arms"
+    ],
+    "description": "Heavy horizontal pull that builds paddle-power back strength with a stable hip hinge.",
+    "techniqueCues": [
+      "Hinge at the hips, neutral spine, elbows drive back",
+      "Squeeze shoulder blades at the top",
+      "Row to upper stomach — think paddle catch",
+      "Control the eccentric; don't rest the bar on the floor"
+    ],
+    "injuryNotes": "Keep the lower back flat — if it rounds, reduce load.",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Inverted_Row/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Inverted_Row/1.jpg"
+    ],
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "lats"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Position a bar in a rack to about waist height. You can also use a smith machine.",
+      "Take a wider than shoulder width grip on the bar and position yourself hanging underneath the bar. Your body should be straight with your heels on the ground with your arms fully extended. This will be your starting position.",
+      "Begin by flexing the elbow, pulling your chest towards the bar. Retract your shoulder blades as you perform the movement.",
+      "Pause at the top of the motion, and return yourself to the start position.",
+      "Repeat for the desired number of repetitions."
+    ],
+    "hevyTemplateId": "D7D7FCCE",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/32001201-Lever-Bent-over-Row-with-V-bar-(plate-loaded)_Back.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/32001201-Lever-Bent-over-Row-with-V-bar-(plate-loaded)_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 85,
+      "demands": {
+        "paddlePower": 5
+      },
+      "tier": "high",
+      "rationale": "Landmine row builds the horizontal pull strength behind every paddle stroke."
+    }
+  },
+  {
+    "id": "ex_hevy_983274dd",
+    "name": "Landmine Squat and Press",
+    "category": "gym",
+    "bodyParts": [
+      "fullbody",
+      "shoulders",
+      "core",
+      "legs",
+      "back",
+      "arms"
+    ],
+    "description": "Full-body power move linking leg drive to overhead press — pop-up and paddle posture in one.",
+    "techniqueCues": [
+      "Squat deep, drive through heels",
+      "Press the bar up and slightly forward as you stand",
+      "Brace hard at the top",
+      "Lower under control to chest, then squat"
+    ],
+    "injuryNotes": "Avoid overarching the lower back at lockout.",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Clean_and_Press/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Clean_and_Press/1.jpg"
+    ],
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "abdominals",
+      "calves",
+      "glutes",
+      "hamstrings",
+      "lower_back",
+      "traps",
+      "quadriceps",
+      "shoulders",
+      "triceps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Assume a shoulder-width stance, with knees inside the arms. Now while keeping the back flat, bend at the knees and hips so that you can grab the bar with the arms fully extended and a pronated grip that is slightly wider than shoulder width. Point the elbows out to sides. The bar should be close to the shins. Position the shoulders over or slightly ahead of the bar. Establish a flat back posture. This will be your starting position.",
+      "Begin to pull the bar by extending the knees. Move your hips forward and raise the shoulders at the same rate while keeping the angle of the back constant; continue to lift the bar straight up while keeping it close to your body.",
+      "As the bar passes the knee, extend at the ankles, knees, and hips forcefully, similar to a jumping motion. As you do so, continue to guide the bar with your hands, shrugging your shoulders and using the momentum from your movement to pull the bar as high as possible. The bar should travel close to your body, and you should keep your elbows out.",
+      "At maximum elevation, your feet should clear the floor and you should start to pull yourself under the bar. The mechanics of this could change slightly, depending on the weight used. You should descend into a squatting position as you pull yourself under the bar.",
+      "As the bar hits terminal height, rotate your elbows around and under the bar. Rack the bar across the front of the shoulders while keeping the torso erect and flexing the hips and knees to absorb the weight of the bar.",
+      "Stand to full height, holding the bar in the clean position.",
+      "Without moving your feet, press the bar overhead as you exhale. Lower the bar under control ."
+    ],
+    "hevyTemplateId": "983274DD",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/29761201-Landmine-Squat-and-Press_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/29761301-Landmine-Squat-and-Press_360_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 71,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 4,
+        "carvingTransfer": 3,
+        "rotation": 1
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and pop-up for better wave performance."
+    }
+  },
+  {
     "id": "ex_hevy_4e5257de",
     "name": "Lat Pulldown - Close Grip (Cable)",
     "category": "gym",
@@ -5533,16 +7172,16 @@
     }
   },
   {
-    "id": "ex_hevy_6a6c31a5",
-    "name": "Lat Pulldown (Cable)",
+    "id": "ex_hevy_473cf5b8",
+    "name": "Lat Pulldown (Machine)",
     "category": "gym",
     "bodyParts": [
       "back",
       "arms"
     ],
-    "description": "1. Adjust the knee pad on the machine to be right against your thighs.\n2. Select a weight you can lift for at least ten smooth reps.\n3. Grab the bar with your h",
+    "description": "1. Select the appropriate load.\n2. Adjust the thigh pad. Your legs should fit snugly.\n3. Stand up and grab the handles with an even overhand grip (palms facing ",
     "techniqueCues": [
-      "1. Adjust the knee pad on the machine to be right against your thighs.\n2. Select a weight you can lift for at least ten smooth reps.\n3. Grab the bar with your hands slightly wider than shoulder-width apart. Your palms should face forward.\n4. Sit down and secure your legs underneath the pad.\n5. With your arms extended, bring your shoulders back and down.\n6. Take a breath and pull the weight down through your elbows. As you pull, keep your elbows tucked and in line with your torso. Breathe out.\n7. Hold for a moment and extend your arms fully as you breathe in."
+      "1. Select the appropriate load.\n2. Adjust the thigh pad. Your legs should fit snugly.\n3. Stand up and grab the handles with an even overhand grip (palms facing forward).\n4. Keep your arms straight and sit down, securing your legs under the pad.\n5. Bring your shoulders back and take a breath.\n6. Pull the handles down, tucking your elbows and bringing them in line with your torso. Breathe out.\n7. Extend your arms slowly and breathe in."
     ],
     "injuryNotes": "",
     "equipment": [
@@ -5567,16 +7206,59 @@
       "Pause at the bottom of the motion, and then slowly return the handle to the starting position.",
       "For multiple repetitions, avoid completely returning the weight to keep tension on the muscles being worked."
     ],
-    "hevyTemplateId": "6A6C31A5",
+    "hevyTemplateId": "473CF5B8",
     "defaultSets": 3,
     "defaultReps": 10,
     "origin": "seed",
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01501201-Cable-Bar-Lateral-Pulldown_Back.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01501201-Cable-Bar-Lateral-Pulldown_Back_thumbnail@3x.jpg",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/05791201-Lever-Front-Pulldown_Back.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/05791201-Lever-Front-Pulldown_Back_thumbnail@3x.jpg",
     "surfTransfer": {
       "baseScore": 29,
       "demands": {
         "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hevy_ec02979e",
+    "name": "Lateral Band Walks",
+    "category": "gym",
+    "bodyParts": [
+      "legs"
+    ],
+    "description": "1. Wrap a looped resistance band around your ankles or thighs, just above the knees.\n2. Lean your torso forward a bit and bend your knees slightly.\n3. Engage yo",
+    "techniqueCues": [
+      "1. Wrap a looped resistance band around your ankles or thighs, just above the knees.\n2. Lean your torso forward a bit and bend your knees slightly.\n3. Engage your abs and take a breath.\n4. Take a lateral step to the right and exhale.\n5. Inhale again and take another step in the same direction.\n6. Once finished walking in one direction, take the same number of steps to the left, breathing steadily as you do."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "band"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/24601101-Resistance-Band-Lateral-Walk_Hips_small_thumbnail@3x.jpg"
+    ],
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "mechanic": "compound",
+    "instructions": [
+      "1. Wrap a looped resistance band around your ankles or thighs, just above the knees.\n2. Lean your torso forward a bit and bend your knees slightly.\n3. Engage your abs and take a breath.\n4. Take a lateral step to the right and exhale.\n5. Inhale again and take another step in the same direction.\n6. Once finished walking in one direction, take the same number of steps to the left, breathing steadily as you do."
+    ],
+    "hevyTemplateId": "EC02979E",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/24601201-Resistance-Band-Lateral-Walk-(female)_Hips_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/24601101-Resistance-Band-Lateral-Walk_Hips_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 39,
+      "demands": {
+        "stanceBalance": 2,
+        "popUp": 1
       },
       "tier": "low",
       "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
@@ -5637,6 +7319,62 @@
       },
       "tier": "medium",
       "rationale": "Builds pop-up and stance & balance for better wave performance."
+    }
+  },
+  {
+    "id": "ex_hevy_6a6c31a5",
+    "name": "Lateral Cable Pulldown",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "arms",
+      "shoulders"
+    ],
+    "description": "Wide-grip cable lat pulldown — builds the vertical pull strength behind paddle power.",
+    "techniqueCues": [
+      "Thighs pinned under the pad, slight lean back, shoulders down",
+      "Pull the bar to upper chest — elbows drive down and slightly back",
+      "Squeeze lats at the bottom; think paddle catch",
+      "Control the return; don't let the stack yank your shoulders up"
+    ],
+    "injuryNotes": "Avoid behind-the-neck pulldowns — pull to the front of the chest only.",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Seated_Lateral_Raise/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Seated_Lateral_Raise/1.jpg"
+    ],
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "mechanic": "isolation",
+    "instructions": [
+      "Stand in the middle of two low pulleys that are opposite to each other and place a flat bench right behind you (in perpendicular fashion to you; the narrow edge of the bench should be the one behind you). Select the weight to be used on each pulley.",
+      "Now sit at the edge of the flat bench behind you with your feet placed in front of your knees.",
+      "Bend forward while keeping your back flat and rest your torso on the thighs.",
+      "Have someone give you the single handles attached to the pulleys. Grasp the left pulley with the right hand and the right pulley with the left after you select your weight. The pulleys should run under your knees and your arms will be extended with palms facing each other and a slight bend at the elbows. This will be the starting position.",
+      "While keeping the arms stationary, raise the upper arms to the sides until they are parallel to the floor and at shoulder height. Exhale during the execution of this movement and hold the contraction for a second.",
+      "Slowly lower your arms to the starting position as you inhale.",
+      "Repeat for the recommended amount of repetitions. Tip: Maintain upper arms perpendicular to torso and a fixed elbow position (10 degree to 30 degree angle) throughout exercise."
+    ],
+    "hevyTemplateId": "6A6C31A5",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01501201-Cable-Bar-Lateral-Pulldown_Back.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01501201-Cable-Bar-Lateral-Pulldown_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 82,
+      "demands": {
+        "paddlePower": 5
+      },
+      "tier": "high",
+      "rationale": "Cable lat pulldown — direct vertical pull strength for paddle power and lat endurance."
     }
   },
   {
@@ -5985,6 +7723,59 @@
     }
   },
   {
+    "id": "ex_hevy_b537d09f",
+    "name": "Lunge (Dumbbell)",
+    "category": "gym",
+    "bodyParts": [
+      "legs"
+    ],
+    "description": "1. Grab a pair of dumbbells, hold them to your sides, and stand tall.\n2. Bring your shoulders back, engage your abs, and have your feet in a comfortable stance.",
+    "techniqueCues": [
+      "1. Grab a pair of dumbbells, hold them to your sides, and stand tall.\n2. Bring your shoulders back, engage your abs, and have your feet in a comfortable stance.\n3. Take a breath and lunge forward, plating one foot in front of your body.\n4. Immediately sink into a lunge and descend until your front thigh is almost parallel to the floor. Your back knee should be an inch or two from the floor.\n5. Press through your front heel to extend your leg and bring it back to the starting position as you exhale.\n6. Take another breath and lunge again, bringing your opposite leg forward.\n7. Keep alternating."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Lunge/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Lunge/1.jpg"
+    ],
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "This exercise is best performed inside a squat rack for safety purposes. To begin, first set the bar on a rack just below shoulder level. Once the correct height is chosen and the bar is loaded, step under the bar and place the back of your shoulders (slightly below the neck) across it.",
+      "Hold on to the bar using both arms at each side and lift it off the rack by first pushing with your legs and at the same time straightening your torso.",
+      "Step away from the rack and step forward with your right leg and squat down through your hips, while keeping the torso upright and maintaining balance. Inhale as you go down. Note: Do not allow your knee to go forward beyond your toes as you come down, as this will put undue stress on the knee joint. li>",
+      "Using mainly the heel of your foot, push up and go back to the starting position as you exhale.",
+      "Repeat the movement for the recommended amount of repetitions and then perform with the left leg."
+    ],
+    "hevyTemplateId": "B537D09F",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/03361201-Dumbbell-Lunge_Hips.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03361201-Dumbbell-Lunge_Hips_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 50,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 5,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds stance & balance and pop-up for better wave performance."
+    }
+  },
+  {
     "id": "ex_hevy_b8127ad1",
     "name": "Lying Leg Curl (Machine)",
     "category": "gym",
@@ -6136,6 +7927,58 @@
     }
   },
   {
+    "id": "ex_hevy_c732c341",
+    "name": "Meadows Rows (Barbell)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "arms"
+    ],
+    "description": "Single-arm landmine row with a long lever — targets lats and grip for extended paddle sessions.",
+    "techniqueCues": [
+      "Staggered stance, elbow tracks close to your side",
+      "Pull to hip pocket, pause at peak contraction",
+      "Keep hips square — resist rotation",
+      "Full stretch at the bottom without dumping the shoulder"
+    ],
+    "injuryNotes": "Use straps only when grip is the limiter, not as a default.",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/40381201-Landmine-One-Arm-Bent-Over-Row_Back_thumbnail_@3x.jpg"
+    ],
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "lats",
+      "biceps",
+      "forearms"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "1. Set a barbell on a landmine attachment or place one end of the bar at a wall angle to serve as an anchor point.\n2. Load the opposite side of the barbell with some weight.\n3. Stand perpendicular to the loaded side of the bar (one side facing it).\n4. Assume a staggered stance, bend forward, and grab the barbell sleeve with the hand closer to the bar.\n5. Raise your torso enough for the loaded side of the barbell to lift an inch or two off the floor while your arm is straight.\n6. Bring your shoulders back, take a breath, and pull the bar up and close to your side, squeezing your lat. Pull the weight until your elbow is at a 90-degree angle and the barbell sleeve is at torso level as you exhale.\n7. Extend your arm slowly, breathing in on the way down. Don’t protract your shoulder (roll it forward) as you reach the bottom of each rep.\n8. Once finished training one side, turn your body 180 degrees and do the same number of reps with your opposite arm."
+    ],
+    "hevyTemplateId": "C732C341",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/40381201-Landmine-One-Arm-Bent-Over-Row_Back_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/40381201-Landmine-One-Arm-Bent-Over-Row_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 53,
+      "demands": {
+        "paddlePower": 4,
+        "mobility": 4,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and mobility for better wave performance."
+    }
+  },
+  {
     "id": "ex_hevy_9f9c164b",
     "name": "Muscle Up",
     "category": "gym",
@@ -6243,6 +8086,52 @@
       },
       "tier": "low",
       "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hevy_108d7a14",
+    "name": "Nordic Hamstrings Curls",
+    "category": "gym",
+    "bodyParts": [
+      "legs"
+    ],
+    "description": "Eccentric hamstring strength for pop-up drive and knee stability in deep carves.",
+    "techniqueCues": [
+      "Knees anchored, hips high, body straight",
+      "Lower as slowly as possible",
+      "Use hands to push back up only as needed",
+      "Keep hips extended throughout the descent"
+    ],
+    "injuryNotes": "Very demanding — start with short ranges and band assistance.",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/77461201-Nordic-Hamstring-Curl-(male)_Thighs_thumbnail_@3x.jpg"
+    ],
+    "primaryMuscles": [],
+    "secondaryMuscles": [
+      "glutes"
+    ],
+    "mechanic": "isolation",
+    "instructions": [
+      "1. Get down on your knees and secure your feet underneath a loaded barbell or another sturdy object.\n2. Bring your shoulders back, engage your abs, and squeeze your glutes.\n3. You can have your arms to your sides or position your hands in front of your torso for support.\n4. Take a breath and lower your torso to the floor by slowly extending your knees. Keep your hips stable and your glutes engaged.\n5. Lower yourself as much as your strength allows and engage your posterior muscles to lift your torso to an upright position. Exhale near the top."
+    ],
+    "hevyTemplateId": "108D7A14",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/77461201-Nordic-Hamstring-Curl-(male)_Thighs_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/77461201-Nordic-Hamstring-Curl-(male)_Thighs_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 80,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 3
+      },
+      "tier": "high",
+      "rationale": "Eccentric hamstring strength for pop-up drive and deep carve stability."
     }
   },
   {
@@ -6502,6 +8391,65 @@
     }
   },
   {
+    "id": "ex_hevy_7b8d84e8",
+    "name": "Overhead Press (Barbell)",
+    "category": "gym",
+    "bodyParts": [
+      "shoulders",
+      "arms",
+      "core",
+      "legs",
+      "back"
+    ],
+    "description": "1. Position the barbell at collarbone height on a rack or stand.\n2. Grab the bar with an overhand grip (palms facing down), keeping your hands roughly shoulder-",
+    "techniqueCues": [
+      "1. Position the barbell at collarbone height on a rack or stand.\n2. Grab the bar with an overhand grip (palms facing down), keeping your hands roughly shoulder-width apart.\n3. Tuck yourself underneath the bar, retract your shoulders, engage your abs, and take a breath.\n4. Unrack the barbell and take a couple of steps back.\n5. Have your feet hip-width apart and the barbell at upper chest level.\n6. Take another breath and press the bar in a straight vertical line, moving your head slightly back.\n7. Press until your arms are straight and exhale.\n8. Lower the bar in the same straight line until it ends up at neck level. Breathe in on the way down.\n9. Once finished, move forward and carefully rack the barbell."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Bent_Press/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Bent_Press/1.jpg"
+    ],
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "lower_back",
+      "quadriceps",
+      "shoulders",
+      "triceps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Clean a kettlebell to your shoulder. Clean the kettlebell to your shoulders by extending through the legs and hips as you raise the kettlebell towards your shoulder. The wrist should rotate as you do so. This will be your starting position.",
+      "Begin my leaning to the side opposite the kettlebell, continuing until you are able to touch the ground with your free hand, keeping your eyes on the kettlebell. As you do so, press the weight vertically be extending through the elbow, keeping your arm perpendicular to the ground.",
+      "Return to an upright position, with the kettlebell above your head. Return the kettlebell to the shoulder and repeat for the desired number of repetitions."
+    ],
+    "hevyTemplateId": "7B8D84E8",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/11651201-Barbell-Standing-Military-Press-(without-rack)_Shoulders.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/11651201-Barbell-Standing-Military-Press-(without-rack)_Shoulders_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 37,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 4,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
     "id": "ex_hevy_b09a1304",
     "name": "Overhead Press (Smith Machine)",
     "category": "gym",
@@ -6721,9 +8669,9 @@
       "Hold the repetition for several seconds before returning to the starting position.",
       "At the conclusion of the set, repeat facing the other direction."
     ],
-    "hevyTemplateId": "A69FF221",
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02871201-Dumbbell-Arnold-Press-II_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02871201-Dumbbell-Arnold-Press-II_Shoulders_thumbnail@3x.jpg",
+    "hevyTemplateId": "CC55119B",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12021201-Cable-horizontal-Pallof-Press_waist.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12021201-Cable-horizontal-Pallof-Press_waist_thumbnail@3x.jpg",
     "surfTransfer": {
       "baseScore": 85,
       "demands": {
@@ -6782,6 +8730,117 @@
       },
       "tier": "low",
       "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_hevy_ce1054ce",
+    "name": "Pause Squat (Barbell)",
+    "category": "gym",
+    "bodyParts": [
+      "legs",
+      "back"
+    ],
+    "description": "1. Set the barbell at collarbone height and add the appropriate amount of weight to it.\n2. Place both hands evenly on the bar and grab it.\n3. Tuck your head und",
+    "techniqueCues": [
+      "1. Set the barbell at collarbone height and add the appropriate amount of weight to it.\n2. Place both hands evenly on the bar and grab it.\n3. Tuck your head underneath and position your trapezius against the bar.\n4. Engage your entire body and extend your knees to unrack the bar.\n5. Take a couple of careful steps back, assume a comfortable squatting stance, take a deep breath, and engage your abs.\n6. Squat to a comfortable depth and pause for two to three seconds.\n7. Press through your heels to return to the top as you exhale."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Squat/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Squat/1.jpg"
+    ],
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings",
+      "lower_back"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "This exercise is best performed inside a squat rack for safety purposes. To begin, first set the bar on a rack to just below shoulder level. Once the correct height is chosen and the bar is loaded, step under the bar and place the back of your shoulders (slightly below the neck) across it.",
+      "Hold on to the bar using both arms at each side and lift it off the rack by first pushing with your legs and at the same time straightening your torso.",
+      "Step away from the rack and position your legs using a shoulder width medium stance with the toes slightly pointed out. Keep your head up at all times and also maintain a straight back. This will be your starting position. (Note: For the purposes of this discussion we will use the medium stance described above which targets overall development; however you can choose any of the three stances discussed in the foot stances section).",
+      "Begin to slowly lower the bar by bending the knees and hips as you maintain a straight posture with the head up. Continue down until the angle between the upper leg and the calves becomes slightly less than 90-degrees. Inhale as you perform this portion of the movement. Tip: If you performed the exercise correctly, the front of the knees should make an imaginary straight line with the toes that is perpendicular to the front. If your knees are past that imaginary line (if they are past your toes) then you are placing undue stress on the knee and the exercise has been performed incorrectly.",
+      "Begin to raise the bar as you exhale by pushing the floor with the heel of your foot as you straighten the legs again and go back to the starting position.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "hevyTemplateId": "CE1054CE",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/50161201-Barbell-Pause-Full-Squat_Thighs_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/50161201-Barbell-Pause-Full-Squat_Thighs__thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 51,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 2,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and pop-up for better wave performance."
+    }
+  },
+  {
+    "id": "ex_hevy_018adc12",
+    "name": "Pendlay Row (Barbell)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "arms"
+    ],
+    "description": "Explosive barbell row from a dead stop — builds the fast pull strength behind a powerful paddle stroke.",
+    "techniqueCues": [
+      "Torso parallel to floor, bar rests on ground each rep",
+      "Explode the bar to lower chest",
+      "Elbows drive back, not out",
+      "Reset fully between reps"
+    ],
+    "injuryNotes": "Requires solid hip hinge — scale with dumbbell rows if lower back is sensitive.",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Inverted_Row/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Inverted_Row/1.jpg"
+    ],
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "lats"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Position a bar in a rack to about waist height. You can also use a smith machine.",
+      "Take a wider than shoulder width grip on the bar and position yourself hanging underneath the bar. Your body should be straight with your heels on the ground with your arms fully extended. This will be your starting position.",
+      "Begin by flexing the elbow, pulling your chest towards the bar. Retract your shoulder blades as you perform the movement.",
+      "Pause at the top of the motion, and return yourself to the start position.",
+      "Repeat for the desired number of repetitions."
+    ],
+    "hevyTemplateId": "018ADC12",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/30171201-Barbell-Pendlay-Row_Back_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/30171201-Barbell-Pendlay-Row_Back_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 84,
+      "demands": {
+        "paddlePower": 5,
+        "popUp": 2
+      },
+      "tier": "high",
+      "rationale": "Explosive dead-stop rows develop fast pull power for paddling."
     }
   },
   {
@@ -7184,6 +9243,56 @@
     }
   },
   {
+    "id": "ex_hevy_2c37ec5e",
+    "name": "Pull Up (Assisted)",
+    "category": "gym",
+    "bodyParts": [
+      "back"
+    ],
+    "description": "Take a pronated grip on a pull-up bar.",
+    "techniqueCues": [
+      "Take a pronated grip on a pull-up bar.",
+      "From a hanging position, raise yourself a few inches without using your arms. Do this by depressing your shoulder girdle in a reverse shrugging motion.",
+      "Pause at the completion of the movement, and then slowly return to the starting position before performing more repetitions."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "beginner",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Scapular_Pull-Up/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Scapular_Pull-Up/1.jpg"
+    ],
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "lats",
+      "traps"
+    ],
+    "mechanic": "isolation",
+    "instructions": [
+      "Take a pronated grip on a pull-up bar.",
+      "From a hanging position, raise yourself a few inches without using your arms. Do this by depressing your shoulder girdle in a reverse shrugging motion.",
+      "Pause at the completion of the movement, and then slowly return to the starting position before performing more repetitions."
+    ],
+    "hevyTemplateId": "2C37EC5E",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00171201-Assisted-Pull-up_Back.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00171201-Assisted-Pull-up_Back_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 19,
+      "demands": {
+        "paddlePower": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
     "id": "ex_pull_up",
     "name": "Pull-Up",
     "category": "gym",
@@ -7235,6 +9344,59 @@
       },
       "tier": "high",
       "rationale": "Pulling strength is the foundation of paddle power and wave count."
+    }
+  },
+  {
+    "id": "ex_hevy_67280085",
+    "name": "Pullover (Dumbbell)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "chest",
+      "arms"
+    ],
+    "description": "Lat and serratus expansion under load — opens the paddle arc and overhead reach.",
+    "techniqueCues": [
+      "Lie on bench, slight bend in elbows throughout",
+      "Lower the dumbbell behind your head with control",
+      "Feel the stretch across lats and rib cage",
+      "Pull back over chest in an arc, not a press"
+    ],
+    "injuryNotes": "Use moderate weight — shoulder impingement risk if elbows flare or weight is too heavy.",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03751201-Dumbbell-Pullover_Chest_thumbnail@3x.jpg"
+    ],
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "chest",
+      "traps",
+      "triceps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "1. Pick a dumbbell and set it on the floor next to a gym bench.\n2. Position your upper back against the flat gym bench.\n3. Bend your knees and have your feet flat on the floor.\n4. Reach down and grab the dumbbell.\n5. Position the weight over your torso with your hands flat against the top weight plate.\n6. Bring your shoulders back, engage your abs, and inhale.\n7. Lower the dumbbell behind your head while keeping your arms straight.\n8. Hold for a moment and pull the dumbbell over to the starting position as you exhale."
+    ],
+    "hevyTemplateId": "67280085",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/03751201-Dumbbell-Pullover_Chest.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03751201-Dumbbell-Pullover_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 53,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 3,
+        "mobility": 4
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and mobility for better wave performance."
     }
   },
   {
@@ -7444,8 +9606,8 @@
     }
   },
   {
-    "id": "ex_hevy_c315dc2a",
-    "name": "Rear Delt Reverse Fly (Cable)",
+    "id": "ex_hevy_e5988a0a",
+    "name": "Rear Delt Reverse Fly (Dumbbell)",
     "category": "gym",
     "bodyParts": [
       "shoulders"
@@ -7459,7 +9621,7 @@
     ],
     "injuryNotes": "",
     "equipment": [
-      "machine"
+      "dumbbells"
     ],
     "difficulty": "beginner",
     "imageUrls": [
@@ -7477,11 +9639,12 @@
       "Initiate the movement by moving your arms back and outward, keeping your arms straight as you execute the movement.",
       "Pause at the end of the motion before returning the handles to the start position."
     ],
-    "hevyTemplateId": "C315DC2A",
+    "hevyTemplateId": "E5988A0A",
     "defaultSets": 3,
     "defaultReps": 10,
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02251201-Cable-Standing-Cross-over-High-Reverse-Fly_Shoulders_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02251201-Cable-Standing-Cross-over-High-Reverse-Fly_Shoulders_thumbnail_@3x.jpg",
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/24871201-Dumbbell-Rear-Delt-Fly-(female)_Shoulders.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/24871101-Dumbbell-Rear-Delt-Fly-(female)_Shoulders_small_thumbnail@3x.jpg",
     "surfTransfer": {
       "baseScore": 0,
       "demands": {},
@@ -7913,6 +10076,64 @@
     }
   },
   {
+    "id": "ex_hevy_ffda283b",
+    "name": "Reverse Lunge (Dumbbell)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "core",
+      "legs"
+    ],
+    "description": "Stand with your feet shoulder width apart. This will be your starting position.",
+    "techniqueCues": [
+      "Stand with your feet shoulder width apart. This will be your starting position.",
+      "Perform a rear lunge by stepping back with one foot and flexing the hips and front knee. As you do so, rotate your torso across the front leg.",
+      "After a brief pause, return to the starting position and repeat on the other side, continuing in an alternating fashion."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Crossover_Reverse_Lunge/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Crossover_Reverse_Lunge/1.jpg"
+    ],
+    "primaryMuscles": [
+      "lower_back"
+    ],
+    "secondaryMuscles": [
+      "abdominals",
+      "abductors",
+      "glutes",
+      "hamstrings",
+      "quadriceps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Stand with your feet shoulder width apart. This will be your starting position.",
+      "Perform a rear lunge by stepping back with one foot and flexing the hips and front knee. As you do so, rotate your torso across the front leg.",
+      "After a brief pause, return to the starting position and repeat on the other side, continuing in an alternating fashion."
+    ],
+    "hevyTemplateId": "FFDA283B",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/03811201-Dumbbell-Rear-Lunge_Thighs.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/03811201-Dumbbell-Rear-Lunge_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 39,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 5,
+        "popUp": 1,
+        "rotation": 1
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
     "id": "ex_hevy_51a0edaa",
     "name": "Ring Dips",
     "category": "gym",
@@ -8128,56 +10349,56 @@
     }
   },
   {
-    "id": "ex_hevy_234897ab",
-    "name": "Rope Cable Curl",
+    "id": "ex_romanian_deadlift_db",
+    "name": "Romanian Deadlift (Dumbbell)",
     "category": "gym",
     "bodyParts": [
-      "arms"
+      "legs",
+      "back"
     ],
-    "description": "Place a preacher bench about 2 feet in front of a pulley machine.",
+    "description": "Strength and conditioning for legs & back.",
     "techniqueCues": [
-      "Place a preacher bench about 2 feet in front of a pulley machine.",
-      "Attach a straight bar to the low pulley.",
-      "Sit at the preacher bench with your elbow and upper arms firmly on top of the bench pad and have someone hand you the bar from the low pulley.",
-      "Grab the bar and fully extend your arms on top of the preacher bench pad. This will be your starting position."
+      "1. Grab a pair of dumbbells and stand tall.\n2. Position the weights in front of your hips with your palms facing your body.\n3. Bring your shoulders back, position your feet a few inches apart, and take a breath.\n4. Lean your torso forward by hinging at the hip. Your back should remain neutral, and you should feel a stretch in your posterior thigh muscles.\n5. Lower the dumbbells in a straight line until they are below knee level.\n6. Extend your hips forward and exhale."
     ],
     "injuryNotes": "",
     "equipment": [
-      "machine"
+      "dumbbells"
     ],
-    "difficulty": "beginner",
-    "imageUrls": [
-      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Preacher_Curl/0.jpg",
-      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Cable_Preacher_Curl/1.jpg"
-    ],
+    "difficulty": "intermediate",
     "primaryMuscles": [
-      "biceps"
+      "hamstrings"
     ],
     "secondaryMuscles": [
-      "forearms"
+      "calves",
+      "glutes",
+      "lower_back"
     ],
-    "mechanic": "isolation",
+    "mechanic": "compound",
     "instructions": [
-      "Place a preacher bench about 2 feet in front of a pulley machine.",
-      "Attach a straight bar to the low pulley.",
-      "Sit at the preacher bench with your elbow and upper arms firmly on top of the bench pad and have someone hand you the bar from the low pulley.",
-      "Grab the bar and fully extend your arms on top of the preacher bench pad. This will be your starting position.",
-      "Now start pilling the weight up towards your shoulders and squeeze the biceps hard at the top of the movement. Exhale as you perform this motion. Also, hold for a second at the top.",
-      "Now slowly lower the weight to the starting position.",
+      "Put a barbell in front of you on the ground and grab it using a pronated (palms facing down) grip that a little wider than shoulder width. Tip: Depending on the weight used, you may need wrist wraps to perform the exercise and also a raised platform in order to allow for better range of motion.",
+      "Bend the knees slightly and keep the shins vertical, hips back and back straight. This will be your starting position.",
+      "Keeping your back and arms completely straight at all times, use your hips to lift the bar as you exhale. Tip: The movement should not be fast but steady and under control.",
+      "Once you are standing completely straight up, lower the bar by pushing the hips back, only slightly bending the knees, unlike when squatting. Tip: Take a deep breath at the start of the movement and keep your chest up. Hold your breath as you lower and exhale as you complete the movement.",
       "Repeat for the recommended amount of repetitions."
     ],
-    "hevyTemplateId": "234897AB",
+    "hevyTemplateId": "72CFFAD5",
     "defaultSets": 3,
     "defaultReps": 10,
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01651201-Cable-Hammer-Curl-(with-rope)-(male)_Forearms_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01651201-Cable-Hammer-Curl-(with-rope)-(male)_Forearms_thumbnail_@3x.jpg",
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/14591201-Dumbbell-Romanian-Deadlift_Hips.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/14591201-Dumbbell-Romanian-Deadlift_Hips_thumbnail@3x.jpg",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Romanian_Deadlift/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Romanian_Deadlift/1.jpg"
+    ],
     "surfTransfer": {
-      "baseScore": 0,
+      "baseScore": 77,
       "demands": {
-        "popUp": 3
+        "stanceBalance": 3,
+        "popUp": 2
       },
-      "tier": "low",
-      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+      "tier": "high",
+      "rationale": "Hamstring and glute hinge work that supports pop-ups and single-leg balance on the board."
     }
   },
   {
@@ -8326,9 +10547,9 @@
       "Hold the contraction for a second and move back to the starting position while breathing out. Now move to the opposite side performing the same techniques you applied to the right side.",
       "Repeat for the recommended amount of repetitions."
     ],
-    "hevyTemplateId": "BB83BDDE",
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/06871201-Russian-Twist_waist.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06871201-Russian-Twist_waist_thumbnail@3x.jpg",
+    "hevyTemplateId": "2982AA23",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/23711201-Weighted-Russian-Twist_Waist.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/23711201-Weighted-Russian-Twist_Waist_thumbnail@3x.jpg",
     "surfTransfer": {
       "baseScore": 78,
       "demands": {
@@ -9384,6 +11605,61 @@
     }
   },
   {
+    "id": "ex_hevy_1837ba23",
+    "name": "Single Arm Landmine Press (Barbell)",
+    "category": "gym",
+    "bodyParts": [
+      "shoulders",
+      "arms",
+      "chest"
+    ],
+    "description": "1. Anchor one end of a barbell on a landmine attachment. \n2. Add a weight plate on the opposite barbell sleeve.\n3. Lean forward and grab the loaded side with bo",
+    "techniqueCues": [
+      "1. Anchor one end of a barbell on a landmine attachment. \n2. Add a weight plate on the opposite barbell sleeve.\n3. Lean forward and grab the loaded side with both hands.\n4. Carefully lift the bar to chest level and stand tall.\n5. Bring your shoulders back, engage your abs, and raise your left arm to your side.\n6. Take a breath and press the bar forward and up until your arm is straight. Exhale at the top.\n7. Slowly lower the bar to your upper chest as you breathe in.\n8. Once finished training one side, grab the bar with your left hand and do the same number of reps."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/One_Arm_Floor_Press/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/One_Arm_Floor_Press/1.jpg"
+    ],
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "chest",
+      "shoulders"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Lie down on a flat surface with your back pressing against the floor or an exercise mat. Make sure your knees are bent.",
+      "Have a partner hand you the bar on one hand. When starting, your arm should be just about fully extended, similar to the starting position of a barbell bench press. However, this time your grip will be neutral (palms facing your torso).",
+      "Make sure the hand you are not using to lift the weight is placed by your side.",
+      "Begin the exercise by lowering the barbell until your elbow touches the ground. Make sure to breathe in as this is the eccentric (lowering part of the exercise).",
+      "Then start lifting the barbell back up to the original starting position. Remember to breathe out during the concentric (lifting part of the exercise).",
+      "Repeat until you have performed your recommended repetitions.",
+      "Switch arms and repeat the movement."
+    ],
+    "hevyTemplateId": "1837BA23",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/50941201-Landmine-Single-Arm-Press_Shoulders_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/50941201-Landmine-Single-Arm-Press_Shoulders_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 32,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 4
+      },
+      "tier": "low",
+      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
     "id": "ex_hevy_2ee45f81",
     "name": "Single Arm Lat Pulldown",
     "category": "gym",
@@ -9430,56 +11706,6 @@
       "baseScore": 33,
       "demands": {
         "paddlePower": 4,
-        "stanceBalance": 4
-      },
-      "tier": "low",
-      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
-    }
-  },
-  {
-    "id": "ex_hevy_de68c825",
-    "name": "Single Arm Lateral Raise (Cable)",
-    "category": "gym",
-    "bodyParts": [
-      "shoulders"
-    ],
-    "description": "While holding a dumbbell in one hand, lay with your chest down on a flat bench. The other hand can be used to hold to the leg of the bench for stability.",
-    "techniqueCues": [
-      "While holding a dumbbell in one hand, lay with your chest down on a flat bench. The other hand can be used to hold to the leg of the bench for stability.",
-      "Position the palm of the hand that is holding the dumbbell in a neutral manner (palms facing your torso) as you keep the arm extended with the elbow slightly bent. This will be your starting position.",
-      "Now raise the arm with the dumbbell to the side until your elbow is at shoulder height and your arm is roughly parallel to the floor as you exhale. Tip: Maintain your arm perpendicular to the torso while keeping your arm extended throughout the movement. Also, keep the contraction at the top for a second.",
-      "Slowly lower the dumbbell to the starting position as you inhale."
-    ],
-    "injuryNotes": "",
-    "equipment": [
-      "machine"
-    ],
-    "difficulty": "intermediate",
-    "imageUrls": [
-      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Lying_One-Arm_Lateral_Raise/0.jpg",
-      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Lying_One-Arm_Lateral_Raise/1.jpg"
-    ],
-    "primaryMuscles": [
-      "shoulders"
-    ],
-    "secondaryMuscles": [],
-    "mechanic": "isolation",
-    "instructions": [
-      "While holding a dumbbell in one hand, lay with your chest down on a flat bench. The other hand can be used to hold to the leg of the bench for stability.",
-      "Position the palm of the hand that is holding the dumbbell in a neutral manner (palms facing your torso) as you keep the arm extended with the elbow slightly bent. This will be your starting position.",
-      "Now raise the arm with the dumbbell to the side until your elbow is at shoulder height and your arm is roughly parallel to the floor as you exhale. Tip: Maintain your arm perpendicular to the torso while keeping your arm extended throughout the movement. Also, keep the contraction at the top for a second.",
-      "Slowly lower the dumbbell to the starting position as you inhale.",
-      "Repeat for the recommended amount of repetitions."
-    ],
-    "hevyTemplateId": "DE68C825",
-    "defaultSets": 3,
-    "defaultReps": 10,
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01921201-Cable-One-Arm-Lateral-Raise_Shoulders.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01921201-Cable-One-Arm-Lateral-Raise_Shoulders-3_thumbnail_@3x.jpg",
-    "surfTransfer": {
-      "baseScore": 10,
-      "demands": {
-        "popUp": 3,
         "stanceBalance": 4
       },
       "tier": "low",
@@ -9687,6 +11913,58 @@
     }
   },
   {
+    "id": "ex_hevy_487b3755",
+    "name": "Single Leg Hip Thrust",
+    "category": "gym",
+    "bodyParts": [
+      "legs"
+    ],
+    "description": "Unilateral hip extension for single-leg pop-up power and stance stability.",
+    "techniqueCues": [
+      "Upper back on bench, one foot planted",
+      "Drive through the heel to full hip extension",
+      "Squeeze glute at the top, ribs down",
+      "Control the descent — no collapsing"
+    ],
+    "injuryNotes": "Keep the pelvis level — don't rotate open at the top.",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Hip_Thrust/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Hip_Thrust/1.jpg"
+    ],
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "hamstrings"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Begin seated on the ground with a bench directly behind you. Have a loaded barbell over your legs. Using a fat bar or having a pad on the bar can greatly reduce the discomfort caused by this exercise.",
+      "Roll the bar so that it is directly above your hips, and lean back against the bench so that your shoulder blades are near the top of it.",
+      "Begin the movement by driving through your feet, extending your hips vertically through the bar. Your weight should be supported by your shoulder blades and your feet. Extend as far as possible, then reverse the motion to return to the starting position."
+    ],
+    "hevyTemplateId": "487B3755",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/20711201-Single-Leg%20_Hip-Thrusts_Hips_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/20711101-Single-Leg_Hip-Thrusts_Hips_small_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 82,
+      "demands": {
+        "stanceBalance": 5,
+        "popUp": 2
+      },
+      "tier": "high",
+      "rationale": "Single-leg hip thrust builds unilateral pop-up and stance power."
+    }
+  },
+  {
     "id": "ex_hevy_3fd83744",
     "name": "Single Leg Press (Machine)",
     "category": "gym",
@@ -9839,9 +12117,9 @@
       "Once you are standing completely straight up, lower the bar by pushing the hips back, only slightly bending the knees, unlike when squatting. Tip: Take a deep breath at the start of the movement and keep your chest up. Hold your breath as you lower and exhale as you complete the movement.",
       "Repeat for the recommended amount of repetitions."
     ],
-    "hevyTemplateId": "93472AC1",
-    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/17561201-Barbell-Single-Leg-Deadlift_Hips_.mp4",
-    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/17561201-Barbell-Single-Leg-Deadlift_Hips_thumbnail_@3x.jpg",
+    "hevyTemplateId": "937292AB",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/97541201-Dumbbell-Single-Leg-Romanian-Deadlift-Leg-Raise-(m.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/97541201-Dumbbell-Single-Leg-Romanian-Deadlift-Leg-Raise-(m_thumbnail_@3x.jpg",
     "surfTransfer": {
       "baseScore": 86,
       "demands": {
@@ -10332,6 +12610,63 @@
     }
   },
   {
+    "id": "ex_hevy_d04ac939",
+    "name": "Squat (Barbell)",
+    "category": "gym",
+    "bodyParts": [
+      "legs",
+      "back"
+    ],
+    "description": "1. Position the barbell at collarbone height.\n2. Grab the bar with an even overhand grip (palms facing down).\n3. Tuck yourself underneath the bar and place it o",
+    "techniqueCues": [
+      "1. Position the barbell at collarbone height.\n2. Grab the bar with an even overhand grip (palms facing down).\n3. Tuck yourself underneath the bar and place it on top of your trapezius (upper back).\n4. Align your feet, engage your abs, take a breath, and unrack the bar by straightening your legs.\n5. Take a couple of careful steps back and bring your feet shoulder-width apart.\n6. Bring your shoulders back, inhale, and squat until your thighs are parallel to the floor. Keep your heels in contact with the floor.\n7. Hold for a moment and press through your heels to bring yourself back to the top. Exhale near the top.\n8. Once finished, move forward and rack the barbell carefully before relaxing your body."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Squat/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Squat/1.jpg"
+    ],
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings",
+      "lower_back"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "This exercise is best performed inside a squat rack for safety purposes. To begin, first set the bar on a rack to just below shoulder level. Once the correct height is chosen and the bar is loaded, step under the bar and place the back of your shoulders (slightly below the neck) across it.",
+      "Hold on to the bar using both arms at each side and lift it off the rack by first pushing with your legs and at the same time straightening your torso.",
+      "Step away from the rack and position your legs using a shoulder width medium stance with the toes slightly pointed out. Keep your head up at all times and also maintain a straight back. This will be your starting position. (Note: For the purposes of this discussion we will use the medium stance described above which targets overall development; however you can choose any of the three stances discussed in the foot stances section).",
+      "Begin to slowly lower the bar by bending the knees and hips as you maintain a straight posture with the head up. Continue down until the angle between the upper leg and the calves becomes slightly less than 90-degrees. Inhale as you perform this portion of the movement. Tip: If you performed the exercise correctly, the front of the knees should make an imaginary straight line with the toes that is perpendicular to the front. If your knees are past that imaginary line (if they are past your toes) then you are placing undue stress on the knee and the exercise has been performed incorrectly.",
+      "Begin to raise the bar as you exhale by pushing the floor with the heel of your foot as you straighten the legs again and go back to the starting position.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "hevyTemplateId": "D04AC939",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/00431201-Barbell-Full-Squat_Thighs.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/00431201-Barbell-Full-Squat_Thighs_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 51,
+      "demands": {
+        "paddlePower": 4,
+        "popUp": 4,
+        "stanceBalance": 2,
+        "carvingTransfer": 3
+      },
+      "tier": "medium",
+      "rationale": "Builds paddle power and pop-up for better wave performance."
+    }
+  },
+  {
     "id": "ex_hevy_cc35a01f",
     "name": "Squat (Machine)",
     "category": "gym",
@@ -10444,6 +12779,57 @@
       },
       "tier": "medium",
       "rationale": "Builds paddle power and pop-up for better wave performance."
+    }
+  },
+  {
+    "id": "ex_hevy_f72fa239",
+    "name": "Squeeze Bench Press",
+    "category": "gym",
+    "bodyParts": [
+      "chest",
+      "shoulders",
+      "arms"
+    ],
+    "description": "Dumbbell squeeze press — constant inward pressure on the bells for inner-chest and triceps work.",
+    "techniqueCues": [
+      "Lie back with dumbbells squeezed together over your chest, neutral grip",
+      "Keep pressing the bells into each other throughout the rep",
+      "Lower to mid-chest, then press up and slightly inward",
+      "Shoulders pinned — don't let elbows flare wide"
+    ],
+    "injuryNotes": "Use moderate weight; the squeeze fatigues wrists and forearms faster than a normal press.",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/36811201-Dumbbell-Squeeze-Bench-Press_Chest-FIX__thumbnail_@3x.jpg"
+    ],
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "triceps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "1. Grab a pair of dumbbells, sit on a flat gym bench, and place the weights on top of your thighs.\n2. Lie back slowly while keeping your arms bent and dumbbells against your body.\n3. Extend your arms, position the dumbbells over your chest, have your wrists neutral (palms facing one another), and squeeze the weights together.\n4. Bring your shoulders back and inhale.\n5. Lower the dumbbells to your chest, hold for a moment, and press them back to the top as you breathe out."
+    ],
+    "hevyTemplateId": "F72FA239",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/36811201-Dumbbell-Squeeze-Bench-Press_Chest-FIX_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/36811201-Dumbbell-Squeeze-Bench-Press_Chest-FIX__thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 72,
+      "demands": {
+        "paddlePower": 3,
+        "popUp": 3
+      },
+      "tier": "medium",
+      "rationale": "Squeeze press builds inner-chest and triceps strength for a connected paddle and pop-up drive."
     }
   },
   {
@@ -10806,6 +13192,54 @@
     }
   },
   {
+    "id": "ex_straight_leg_deadlift",
+    "name": "Straight Leg Deadlift",
+    "category": "gym",
+    "bodyParts": [
+      "legs",
+      "back"
+    ],
+    "description": "Strength and conditioning for legs & back.",
+    "techniqueCues": [
+      "1. Stand in front of a loaded barbell.\n2. Position your feet underneath and have your shins a couple of inches from the bar.\n3. Lean forward by hinging at the hips.\n4. Grab the bar with a double overhand grip (palms facing back).\n5. Bring your shoulders back and engage your abs. Keep your legs straight.\n6. Take a breath and pull the bar in a straight vertical line while pushing through your heels.\n7. Squeeze your glutes at the top and exhale. \n8. Slowly lower the bar in the same straight line and breathe in on the way down or before initiating the next rep."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "primaryMuscles": [],
+    "secondaryMuscles": [
+      "glutes",
+      "lower_back",
+      "traps",
+      "lats"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "1. Stand in front of a loaded barbell.\n2. Position your feet underneath and have your shins a couple of inches from the bar.\n3. Lean forward by hinging at the hips.\n4. Grab the bar with a double overhand grip (palms facing back).\n5. Bring your shoulders back and engage your abs. Keep your legs straight.\n6. Take a breath and pull the bar in a straight vertical line while pushing through your heels.\n7. Squeeze your glutes at the top and exhale. \n8. Slowly lower the bar in the same straight line and breathe in on the way down or before initiating the next rep."
+    ],
+    "hevyTemplateId": "2A48E443",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01161201-Barbell-Straight-Leg-Deadlift_Thighs.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01161201-Barbell-Straight-Leg-Deadlift_Thighs_thumbnail@3x.jpg",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01161201-Barbell-Straight-Leg-Deadlift_Thighs_thumbnail@3x.jpg"
+    ],
+    "surfTransfer": {
+      "baseScore": 78,
+      "demands": {
+        "stanceBalance": 3,
+        "popUp": 2,
+        "mobility": 2
+      },
+      "tier": "high",
+      "rationale": "Posterior chain hinge strength for a deep, stable surf stance and pop-up drive."
+    }
+  },
+  {
     "id": "ex_hevy_d20d7bbe",
     "name": "Sumo Deadlift",
     "category": "gym",
@@ -10926,14 +13360,14 @@
       "back",
       "arms"
     ],
-    "description": "Load up the T-bar Row Machine with the desired weight and adjust the leg height so that your upper chest is at the top of the pad. Tip: In some machines all you",
+    "description": "Heavy chest-supported horizontal pull — builds the lat and mid-back strength that drives paddle power.",
     "techniqueCues": [
-      "Load up the T-bar Row Machine with the desired weight and adjust the leg height so that your upper chest is at the top of the pad. Tip: In some machines all you can do is stand on the appropriate step that allows you to be at a height that has the upper chest at the top of the pad.",
-      "Lay face down on the pad and grab the handles. You can either use a palms down, palms up, or palms in position depending on what part of your back you want to emphasize.",
-      "Lift the bar off the rack and extend your arms in front of you. This will be your starting position.",
-      "As you exhale slowly pull the weight up and squeeze your back at the top of the movement. Tip: Keep the upper arms as close to the torso as possible throughout the movement in order to better engage the back muscles. Also, do not lift your body off of the pad at any time and refrain from using the biceps to lift the weight."
+      "Chest on the pad, neutral spine, squeeze shoulder blades before each pull",
+      "Row to lower chest — elbows drive back along your sides",
+      "Pause and squeeze lats at the top, think paddle catch",
+      "Control the negative; don't bounce the weight"
     ],
-    "injuryNotes": "",
+    "injuryNotes": "Keep hips pinned to the pad — lifting off reduces back engagement and risks strain.",
     "equipment": [
       "barbell"
     ],
@@ -10964,12 +13398,13 @@
     "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/06061201-Lever-T-bar-Row-(plate-loaded)_Back.mp4",
     "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/06061201-Lever-T-bar-Row-(plate-loaded)_Back_thumbnail@3x.jpg",
     "surfTransfer": {
-      "baseScore": 37,
+      "baseScore": 84,
       "demands": {
-        "paddlePower": 4
+        "paddlePower": 5,
+        "rotation": 1
       },
-      "tier": "low",
-      "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+      "tier": "high",
+      "rationale": "Heavy horizontal pull for lat and mid-back strength — direct paddle power builder."
     }
   },
   {
@@ -11015,6 +13450,57 @@
       },
       "tier": "low",
       "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_trap_bar_deadlift",
+    "name": "Trap Bar Deadlift",
+    "category": "gym",
+    "bodyParts": [
+      "legs",
+      "back"
+    ],
+    "description": "Strength and conditioning for legs & back.",
+    "techniqueCues": [
+      "1. Load a trap bar and stand inside it. Your feet should be hip-width apart, with the toes pointing slightly out.\n2. Squat down and grab the handles on both sides.\n3. Bring your shoulders back to straighten your back.\n4. Take a breath and initiate the pull by digging your heels into the floor.\n5. As the bar moves up, gradually extend your hips and knees until you’re upright. Breathe out.\n6. Lower the trap bar slowly. Bring your buttocks back first and gradually bend your knees until you’re at the starting position.\n7. Breathe in as the bar moves down or before initiating the next rep."
+    ],
+    "injuryNotes": "",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "For this exercise load a trap bar, also known as a hex bar, to an appropriate weight resting on the ground. Stand in the center of the apparatus and grasp both handles.",
+      "Lower your hips, look forward with your head and keep your chest up.",
+      "Begin the movement by driving through the heels and extend your hips and knees. Avoid rounding your back at all times.",
+      "At the completion of the movement, lower the weight back to the ground under control."
+    ],
+    "hevyTemplateId": "B923B230",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/08111201-Trap-Bar-Deadlift_Thighs.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/08111201-Trap-Bar-Deadlift_Thighs_thumbnail@3x.jpg",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Trap_Bar_Deadlift/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Trap_Bar_Deadlift/1.jpg"
+    ],
+    "surfTransfer": {
+      "baseScore": 76,
+      "demands": {
+        "popUp": 3,
+        "stanceBalance": 3
+      },
+      "tier": "high",
+      "rationale": "Full posterior chain power with a joint-friendly pull pattern for explosive leg drive."
     }
   },
   {
@@ -11423,6 +13909,158 @@
     }
   },
   {
+    "id": "ex_hevy_651f844c",
+    "name": "Upper Cable Fly Crossovers",
+    "category": "gym",
+    "bodyParts": [
+      "chest",
+      "shoulders"
+    ],
+    "description": "High-pulley cable crossover — upper chest and anterior delt squeeze from a standing fly.",
+    "techniqueCues": [
+      "Pulleys set high, step forward into a stable staggered stance",
+      "Slight bend in elbows, arms sweep down and in toward your hips",
+      "Squeeze chest hard at the bottom — knuckles meet in front",
+      "Control the stretch on the way back; don't let cables pull your shoulders forward"
+    ],
+    "injuryNotes": "Start light — the long lever at high pulleys stresses the shoulder capsule if you rush the stretch.",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Incline_Cable_Flye/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Incline_Cable_Flye/1.jpg"
+    ],
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "mechanic": "isolation",
+    "instructions": [
+      "To get yourself into the starting position, set the pulleys at the floor level (lowest level possible on the machine that is below your torso).",
+      "Place an incline bench (set at 45 degrees) in between the pulleys, select a weight on each one and grab a pulley on each hand.",
+      "With a handle on each hand, lie on the incline bench and bring your hands together at arms length in front of your face. This will be your starting position.",
+      "With a slight bend of your elbows (in order to prevent stress at the biceps tendon), lower your arms out at both sides in a wide arc until you feel a stretch on your chest. Breathe in as you perform this portion of the movement. Tip: Keep in mind that throughout the movement, the arms should remain stationary. The movement should only occur at the shoulder joint.",
+      "Return your arms back to the starting position as you squeeze your chest muscles and exhale. Hold the contracted position for a second. Tip: Make sure to use the same arc of motion used to lower the weights.",
+      "Repeat the movement for the prescribed amount of repetitions."
+    ],
+    "hevyTemplateId": "651F844C",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/12691201-Cable-Standing-Up-Straight-Crossovers_Chest.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/12691201-Cable-Standing-Up-Straight-Crossovers_Chest_thumbnail@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 70,
+      "demands": {
+        "paddlePower": 3,
+        "popUp": 2
+      },
+      "tier": "medium",
+      "rationale": "High cable crossover — upper chest and shoulder strength for paddle reach and board control."
+    }
+  },
+  {
+    "id": "ex_hevy_c315dc2a",
+    "name": "Upper Shoulder Cable Crossovers",
+    "category": "gym",
+    "bodyParts": [
+      "shoulders",
+      "arms"
+    ],
+    "description": "High-pulley cable crossover for shoulders — rear delt and upper-back focus, paired with the chest crossover.",
+    "techniqueCues": [
+      "Pulleys set high, cross handles in front at shoulder height",
+      "Arms stay mostly straight — pull back and out, not down to the hips",
+      "Squeeze rear delts and mid-back at the end range",
+      "Control the return; don't let the stack wrench your shoulders forward"
+    ],
+    "injuryNotes": "Keep weight light — this is isolation work for shoulder health and posture, not max loading.",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "beginner",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Alternating_Cable_Shoulder_Press/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Alternating_Cable_Shoulder_Press/1.jpg"
+    ],
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "Move the cables to the bottom of the tower and select an appropriate weight.",
+      "Grasp the cables and hold them at shoulder height, palms facing forward. This will be your starting position.",
+      "Keeping your head and chest up, extend through the elbow to press one side directly over head.",
+      "After pausing at the top, return to the starting position and repeat on the opposite side."
+    ],
+    "hevyTemplateId": "C315DC2A",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/02251201-Cable-Standing-Cross-over-High-Reverse-Fly_Shoulders_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/02251201-Cable-Standing-Cross-over-High-Reverse-Fly_Shoulders_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 78,
+      "demands": {
+        "paddlePower": 4,
+        "stanceBalance": 2
+      },
+      "tier": "high",
+      "rationale": "High cable shoulder crossover — rear delt and upper-back strength for paddle posture and shoulder balance."
+    }
+  },
+  {
+    "id": "ex_hevy_de68c825",
+    "name": "Upper Shoulder Cable Lateral Raise",
+    "category": "gym",
+    "bodyParts": [
+      "shoulders"
+    ],
+    "description": "Single-arm cable lateral raise from a low pulley — targets the side delt for shoulder width and paddle stability.",
+    "techniqueCues": [
+      "Low pulley, stand sideways — free hand on the frame for balance",
+      "Slight bend in the working elbow, cable crosses in front of your body at the start",
+      "Raise your arm out to the side until wrist and elbow are at shoulder height",
+      "Lower with control; switch sides after each set"
+    ],
+    "injuryNotes": "Don't shrug the trap or swing — if you need momentum, the weight is too heavy.",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01921201-Cable-One-Arm-Lateral-Raise_Shoulders-3_thumbnail_@3x.jpg"
+    ],
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "mechanic": "isolation",
+    "instructions": [
+      "1. Select the appropriate load, set the pulley to the lowest position, and attach a handle.\n2. Stand with your left side facing the cable attachment and grab the handle with your right hand.\n3. Take a lateral step away to lift the weight off its stack and maintain a slight bend in your right arm.\n4. Breathe in, engage your abs, and lift your arm to the side until the wrist and elbow align with your shoulder. Exhale at the top.\n5. Slowly lower your arm as you breathe in.\n6. Once finished training one side, turn your body 180 degrees, grab the handle with your left hand, and repeat."
+    ],
+    "hevyTemplateId": "DE68C825",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/01921201-Cable-One-Arm-Lateral-Raise_Shoulders.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/01921201-Cable-One-Arm-Lateral-Raise_Shoulders-3_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 74,
+      "demands": {
+        "paddlePower": 3,
+        "stanceBalance": 3
+      },
+      "tier": "medium",
+      "rationale": "Cable lateral raise — side-delt strength for shoulder stability during paddling and pop-up drive."
+    }
+  },
+  {
     "id": "ex_hevy_7ab9a362",
     "name": "Upright Row (Barbell)",
     "category": "gym",
@@ -11582,6 +14220,117 @@
     }
   },
   {
+    "id": "ex_weighted_hyperextension_glutes",
+    "name": "Weighted Hyperextension (Glutes)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "legs"
+    ],
+    "description": "Loaded glute hyperextension — posterior-chain power with the weight as a long lever.",
+    "techniqueCues": [
+      "Pad low on the hips — same glute-bias setup as the bodyweight version",
+      "Hold the plate with arms extended — weight far from the body",
+      "Drive up with a small spinal curve, glutes doing the work",
+      "Lower until hamstrings stretch; don't collapse through the lower back"
+    ],
+    "injuryNotes": "The long lever increases demand — build load slowly and keep the arch glute-led.",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "lower_back"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings"
+    ],
+    "mechanic": "isolation",
+    "instructions": [
+      "Lie face down on a hyperextension bench, tucking your ankles securely under the footpads.",
+      "Adjust the upper pad if possible so your upper thighs lie flat across the wide pad, leaving enough room for you to bend at the waist without any restriction.",
+      "With your body straight, cross your arms in front of you (my preference) or behind your head. This will be your starting position. Tip: You can also hold a weight plate for extra resistance in front of you under your crossed arms.",
+      "Start bending forward slowly at the waist as far as you can while keeping your back flat. Inhale as you perform this movement. Keep moving forward until you feel a nice stretch on the hamstrings and you can no longer keep going without a rounding of the back. Tip: Never round the back as you perform this exercise. Also, some people can go farther than others. The key thing is that you go as far as your body allows you to without rounding the back.",
+      "Slowly raise your torso back to the initial position as you inhale. Tip: Avoid the temptation to arch your back past a straight line. Also, do not swing the torso at any time in order to protect the back from injury.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "hevyTemplateId": "091737FA",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Hyperextensions_Back_Extensions/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Hyperextensions_Back_Extensions/1.jpg"
+    ],
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/57821201-Weighted-Hyperextension-(female)_Hips_thumbnail_@3x.jpg",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/57821201-Weighted-Hyperextension-(female)_Hips_.mp4",
+    "surfTransfer": {
+      "baseScore": 84,
+      "demands": {
+        "popUp": 4,
+        "stanceBalance": 3
+      },
+      "tier": "high",
+      "rationale": "Loaded glute hyperextension — posterior-chain power with long-lever hip drive."
+    }
+  },
+  {
+    "id": "ex_hevy_091737fa",
+    "name": "Weighted Hyperextension (Low Back)",
+    "category": "gym",
+    "bodyParts": [
+      "back",
+      "legs"
+    ],
+    "description": "Loaded low-back hyperextension — builds erector strength for long paddle sessions.",
+    "techniqueCues": [
+      "Pad over the hips, same straight-torso setup as bodyweight low-back version",
+      "Hold the plate tight to your chest — load stays close to the body",
+      "Rise in a straight line; squeeze erectors, not glutes",
+      "Lower with control — no bouncing at the bottom"
+    ],
+    "injuryNotes": "Start light; this targets the lower back directly under load.",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "intermediate",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Weighted_Ball_Hyperextension/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Weighted_Ball_Hyperextension/1.jpg"
+    ],
+    "primaryMuscles": [
+      "lower_back"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "traps"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "To begin, lie down on an exercise ball with your torso pressing against the ball and parallel to the floor. The ball of your feet should be pressed against the floor to help keep you balanced. Place a weighted plate under your chin or behind your neck. This is the starting position.",
+      "Slowly raise your torso up by bending at the waist and lower back. Remember to exhale during this movement.",
+      "Hold the contraction on your lower back for a second and lower your torso back down to the starting position while inhaling.",
+      "Repeat for the recommended amount of repetitions prescribed in your program."
+    ],
+    "hevyTemplateId": "091737FA",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/57821201-Weighted-Hyperextension-(female)_Hips_.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/57821201-Weighted-Hyperextension-(female)_Hips_thumbnail_@3x.jpg",
+    "surfTransfer": {
+      "baseScore": 76,
+      "demands": {
+        "paddlePower": 3,
+        "stanceBalance": 3
+      },
+      "tier": "medium",
+      "rationale": "Loaded erector work for long paddle sessions — low-back hyperextension bias."
+    }
+  },
+  {
     "id": "ex_hevy_7c50f118",
     "name": "Wide Pull Up",
     "category": "gym",
@@ -11690,6 +14439,65 @@
     }
   },
   {
+    "id": "ex_zercher_squat",
+    "name": "Zercher Squat",
+    "category": "gym",
+    "bodyParts": [
+      "legs",
+      "arms",
+      "back"
+    ],
+    "description": "Front-loaded squat with the bar in your elbows — builds upright leg strength and core bracing for a stable surf stance.",
+    "techniqueCues": [
+      "Bar rests in the crease of your elbows, pressed against your stomach",
+      "Stay tall through the chest, brace your abs hard",
+      "Sit between your heels, knees track over toes",
+      "Drive through the heels to stand, exhale at the top"
+    ],
+    "injuryNotes": "Pad your elbows or use a thick bar sleeve if the bar digs in — build load gradually.",
+    "equipment": [
+      "barbell"
+    ],
+    "difficulty": "intermediate",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings",
+      "lower_back"
+    ],
+    "mechanic": "compound",
+    "instructions": [
+      "This exercise is best performed inside a squat rack for safety purposes. To begin, first set the bar on a rack to just below shoulder level. Once the correct height is chosen and the bar is loaded, step under the bar and place the back of your shoulders (slightly below the neck) across it.",
+      "Hold on to the bar using both arms at each side and lift it off the rack by first pushing with your legs and at the same time straightening your torso.",
+      "Step away from the rack and position your legs using a shoulder width medium stance with the toes slightly pointed out. Keep your head up at all times and also maintain a straight back. This will be your starting position. (Note: For the purposes of this discussion we will use the medium stance described above which targets overall development; however you can choose any of the three stances discussed in the foot stances section).",
+      "Begin to slowly lower the bar by bending the knees and hips as you maintain a straight posture with the head up. Continue down until the angle between the upper leg and the calves becomes slightly less than 90-degrees. Inhale as you perform this portion of the movement. Tip: If you performed the exercise correctly, the front of the knees should make an imaginary straight line with the toes that is perpendicular to the front. If your knees are past that imaginary line (if they are past your toes) then you are placing undue stress on the knee and the exercise has been performed incorrectly.",
+      "Begin to raise the bar as you exhale by pushing the floor with the heel of your foot as you straighten the legs again and go back to the starting position.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "hevyTemplateId": "40C6A9FC",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "origin": "seed",
+    "videoUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-assets/15451201-Barbell-full-Zercher-Squat_Thighs.mp4",
+    "thumbnailUrl": "https://pump-app.s3.eu-west-2.amazonaws.com/exercise-thumbnails/15451101-Barbell-full-Zercher-Squat_Thighs_small_thumbnail@3x.jpg",
+    "imageUrls": [
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Squat/0.jpg",
+      "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/Barbell_Squat/1.jpg"
+    ],
+    "surfTransfer": {
+      "baseScore": 79,
+      "demands": {
+        "stanceBalance": 4,
+        "popUp": 3
+      },
+      "tier": "high",
+      "rationale": "Front-loaded squat strength and core bracing for an upright, connected surf stance."
+    }
+  },
+  {
     "id": "ex_hevy_123ee239",
     "name": "Zottman Curl (Dumbbell)",
     "category": "gym",
@@ -11739,6 +14547,48 @@
       "demands": {},
       "tier": "low",
       "rationale": "Limited direct transfer to surfing — general fitness with weak surf-specific overlap."
+    }
+  },
+  {
+    "id": "ex_potencia_billy",
+    "name": "Potencia Billy",
+    "category": "gym",
+    "bodyParts": [
+      "arms",
+      "chest",
+      "shoulders"
+    ],
+    "description": "Custom explosive pressing finisher — fast elbow extension and lockout power for a violent pop-up and late take-off drive.",
+    "techniqueCues": [
+      "Set up at cables or dip station with a slight forward lean",
+      "Explode through extension — think snapping off the deck",
+      "Lock out hard at the top, ribs down",
+      "Reset fully between reps; every rep is max intent"
+    ],
+    "injuryNotes": "Keep shoulders packed — don't shrug into the lockout. Scale load so speed stays high.",
+    "equipment": [
+      "cable",
+      "dip station"
+    ],
+    "difficulty": "intermediate",
+    "defaultSets": 3,
+    "defaultReps": 8,
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "chest",
+      "shoulders"
+    ],
+    "mechanic": "compound",
+    "surfTransfer": {
+      "baseScore": 74,
+      "demands": {
+        "popUp": 4,
+        "paddlePower": 2
+      },
+      "tier": "high",
+      "rationale": "Explosive arm extension power for fast pop-ups and committed take-offs."
     }
   },
   {

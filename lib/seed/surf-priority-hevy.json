@@ -1,0 +1,380 @@
+{
+  "ids": [
+    "08A2974E",
+    "A2D838BD",
+    "D7D7FCCE",
+    "983274DD",
+    "1837BA23",
+    "914F3A96",
+    "B582299E",
+    "F21D5693",
+    "018ADC12",
+    "C732C341",
+    "05487216",
+    "67280085",
+    "473CF5B8",
+    "55E6546F",
+    "23E92538",
+    "2C37EC5E",
+    "D23C609B",
+    "E5988A0A",
+    "E8D86EE8",
+    "F51D9080",
+    "BB792A36",
+    "86B00DDE",
+    "BD0AD077",
+    "108D7A14",
+    "487B3755",
+    "D57C2EC7",
+    "5CC07A1F",
+    "B537D09F",
+    "FFDA283B",
+    "C6272009",
+    "D04AC939",
+    "7B8D84E8",
+    "F3717B0E",
+    "FA5D0DE1",
+    "EC02979E",
+    "207DC636",
+    "F2FCE72D",
+    "CE1054CE",
+    "2A48E443",
+    "B923B230",
+    "72CFFAD5",
+    "5F4E6DD3",
+    "40C6A9FC",
+    "BA3DE542",
+    "4F5866F8",
+    "091737FA",
+    "6A6C31A5",
+    "867AC3B6",
+    "F72FA239",
+    "651F844C",
+    "C315DC2A",
+    "DE68C825",
+    "2DBCA395",
+    "234897AB"
+  ],
+  "copy": {
+    "08A2974E": {
+      "description": "Heavy chest-supported horizontal pull — builds the lat and mid-back strength that drives paddle power.",
+      "techniqueCues": [
+        "Chest on the pad, neutral spine, squeeze shoulder blades before each pull",
+        "Row to lower chest — elbows drive back along your sides",
+        "Pause and squeeze lats at the top, think paddle catch",
+        "Control the negative; don't bounce the weight"
+      ],
+      "injuryNotes": "Keep hips pinned to the pad — lifting off reduces back engagement and risks strain."
+    },
+    "A2D838BD": {
+      "description": "High-to-low cable rotation — mirrors the torso twist of cutbacks and off-the-lip snaps.",
+      "techniqueCues": [
+        "Pulley at shoulder height, stand sideways with a wide base",
+        "Pull diagonally down across your body — hips stay square",
+        "Brace your core and rotate through the thoracic spine",
+        "Control the return; don't let the cable whip you back"
+      ],
+      "injuryNotes": "Start light — excessive lumbar rotation under load can irritate the lower back."
+    },
+    "D7D7FCCE": {
+      "description": "Heavy horizontal pull that builds paddle-power back strength with a stable hip hinge.",
+      "techniqueCues": [
+        "Hinge at the hips, neutral spine, elbows drive back",
+        "Squeeze shoulder blades at the top",
+        "Row to upper stomach — think paddle catch",
+        "Control the eccentric; don't rest the bar on the floor"
+      ],
+      "injuryNotes": "Keep the lower back flat — if it rounds, reduce load."
+    },
+    "983274DD": {
+      "description": "Full-body power move linking leg drive to overhead press — pop-up and paddle posture in one.",
+      "techniqueCues": [
+        "Squat deep, drive through heels",
+        "Press the bar up and slightly forward as you stand",
+        "Brace hard at the top",
+        "Lower under control to chest, then squat"
+      ],
+      "injuryNotes": "Avoid overarching the lower back at lockout."
+    },
+    "914F3A96": {
+      "description": "Chest-supported row for pure pulling strength without lower-back fatigue — great paddle-volume work.",
+      "techniqueCues": [
+        "Chest flat on incline bench, arms hang straight",
+        "Row dumbbells high, elbows past your torso",
+        "Squeeze lats and mid-back at the top",
+        "Slow negative — no swinging"
+      ],
+      "injuryNotes": "Keep neck neutral; don't crane to look forward."
+    },
+    "018ADC12": {
+      "description": "Explosive barbell row from a dead stop — builds the fast pull strength behind a powerful paddle stroke.",
+      "techniqueCues": [
+        "Torso parallel to floor, bar rests on ground each rep",
+        "Explode the bar to lower chest",
+        "Elbows drive back, not out",
+        "Reset fully between reps"
+      ],
+      "injuryNotes": "Requires solid hip hinge — scale with dumbbell rows if lower back is sensitive."
+    },
+    "C732C341": {
+      "description": "Single-arm landmine row with a long lever — targets lats and grip for extended paddle sessions.",
+      "techniqueCues": [
+        "Staggered stance, elbow tracks close to your side",
+        "Pull to hip pocket, pause at peak contraction",
+        "Keep hips square — resist rotation",
+        "Full stretch at the bottom without dumping the shoulder"
+      ],
+      "injuryNotes": "Use straps only when grip is the limiter, not as a default."
+    },
+    "05487216": {
+      "description": "Alternating kettlebell rows in a hinged position — paddle-style pulling with anti-rotation core demand.",
+      "techniqueCues": [
+        "Wide stance, hips back, flat back",
+        "Row one bell while the other anchors you",
+        "Fight the twist — stay square",
+        "Alternate smoothly, no jerking"
+      ],
+      "injuryNotes": "Keep hamstrings loaded; don't squat the weight up."
+    },
+    "67280085": {
+      "description": "Lat and serratus expansion under load — opens the paddle arc and overhead reach.",
+      "techniqueCues": [
+        "Lie on bench, slight bend in elbows throughout",
+        "Lower the dumbbell behind your head with control",
+        "Feel the stretch across lats and rib cage",
+        "Pull back over chest in an arc, not a press"
+      ],
+      "injuryNotes": "Use moderate weight — shoulder impingement risk if elbows flare or weight is too heavy."
+    },
+    "F51D9080": {
+      "description": "Explosive full-body slam — trains the violent hip extension and rotation of turns.",
+      "techniqueCues": [
+        "Lift the ball overhead, brace your core",
+        "Slam straight down by hinging and rotating slightly",
+        "Catch on the bounce or pick up cleanly",
+        "Every rep should be maximal intent"
+      ],
+      "injuryNotes": "Use a non-bouncing ball on hard floors; watch foot placement."
+    },
+    "108D7A14": {
+      "description": "Eccentric hamstring strength for pop-up drive and knee stability in deep carves.",
+      "techniqueCues": [
+        "Knees anchored, hips high, body straight",
+        "Lower as slowly as possible",
+        "Use hands to push back up only as needed",
+        "Keep hips extended throughout the descent"
+      ],
+      "injuryNotes": "Very demanding — start with short ranges and band assistance."
+    },
+    "487B3755": {
+      "description": "Unilateral hip extension for single-leg pop-up power and stance stability.",
+      "techniqueCues": [
+        "Upper back on bench, one foot planted",
+        "Drive through the heel to full hip extension",
+        "Squeeze glute at the top, ribs down",
+        "Control the descent — no collapsing"
+      ],
+      "injuryNotes": "Keep the pelvis level — don't rotate open at the top."
+    },
+    "E8D86EE8": {
+      "description": "Rear delt and scapular activation — keeps shoulders healthy through high paddle volume.",
+      "techniqueCues": [
+        "Arms straight, pull the band apart to chest height",
+        "Squeeze shoulder blades, externally rotate slightly",
+        "Hold briefly at end range",
+        "Slow return — stay tall"
+      ],
+      "injuryNotes": "Use a light band; this is prehab, not max effort."
+    },
+    "BB792A36": {
+      "description": "Full-body conditioning that mimics the pop-up-to-stance transition under fatigue.",
+      "techniqueCues": [
+        "Chest to floor, hips snap up",
+        " Feet land ready to move — soft and athletic",
+        "Stand tall at the top before the next rep",
+        "Breathe rhythmically; don't rush form"
+      ],
+      "injuryNotes": "Modify to step-back burpees if wrists or low back are irritated."
+    },
+    "BD0AD077": {
+      "description": "Contralateral core stability — trains the cross-body connection used in paddling and rotation.",
+      "techniqueCues": [
+        "On all fours, extend opposite arm and leg",
+        "Keep hips level — no rocking",
+        "Reach long through fingertips and heel",
+        "Hold 2–3 seconds, switch sides"
+      ],
+      "injuryNotes": "Reduce range if lower back arches excessively."
+    },
+    "F3717B0E": {
+      "description": "Explosive hip drive and overhead catch — builds the fast power for pop-ups and late drops.",
+      "techniqueCues": [
+        "Hinge, bell between legs",
+        "Explode hips, pull elbow high",
+        "Punch overhead in one motion",
+        "Absorb the landing softly"
+      ],
+      "injuryNotes": "Master the one-arm swing before adding the snatch."
+    },
+    "FA5D0DE1": {
+      "description": "Triple extension power pull — trains violent hip and pull sequencing for explosive surfing.",
+      "techniqueCues": [
+        "Hinge, neutral spine, bar close",
+        "Drive hips forward, shrug, then pull high",
+        "Elbows lead above the bar",
+        "Lower under control"
+      ],
+      "injuryNotes": "Not a row — keep it explosive but don't muscle with the arms alone."
+    },
+    "2A48E443": {
+      "description": "Hamstring and glute hinge with straight legs — builds posterior chain length and strength for deep surf stance.",
+      "techniqueCues": [
+        "Feet hip-width, bar over mid-foot",
+        "Hinge at the hips, legs stay straight with soft knees",
+        "Bar travels in a straight vertical line close to the body",
+        "Squeeze glutes at the top, slow eccentric stretch"
+      ],
+      "injuryNotes": "Keep the back flat — if it rounds, reduce range or load."
+    },
+    "B923B230": {
+      "description": "Trap-bar deadlift with neutral grip — posterior chain power with less lower-back stress than conventional.",
+      "techniqueCues": [
+        "Stand inside the bar, grip handles, chest up",
+        "Push the floor away, hips and knees extend together",
+        "Lock out with glutes, not hyperextension",
+        "Hinge back on the descent, bar stays vertical"
+      ],
+      "injuryNotes": "Great alternative if conventional deadlift bothers your lower back."
+    },
+    "72CFFAD5": {
+      "description": "Hip-hinge with dumbbells — hamstring and glute strength for pop-up drive and single-leg stability.",
+      "techniqueCues": [
+        "Soft knees, hinge until you feel hamstring tension",
+        "Dumbbells trace down the front of your legs",
+        "Drive hips forward to stand, squeeze glutes",
+        "Keep ribs down — no lower-back arch at the top"
+      ],
+      "injuryNotes": "Start light; ROM beats weight for surf transfer."
+    },
+    "40C6A9FC": {
+      "description": "Front-loaded squat with the bar in your elbows — builds upright leg strength and core bracing for a stable surf stance.",
+      "techniqueCues": [
+        "Bar rests in the crease of your elbows, pressed against your stomach",
+        "Stay tall through the chest, brace your abs hard",
+        "Sit between your heels, knees track over toes",
+        "Drive through the heels to stand, exhale at the top"
+      ],
+      "injuryNotes": "Pad your elbows or use a thick bar sleeve if the bar digs in — build load gradually."
+    },
+    "BA3DE542": {
+      "description": "Barbell jump with an explosive shrug — trains triple-extension power for pop-ups and fast turns.",
+      "techniqueCues": [
+        "Overhand grip just outside the thighs, slight hip hinge",
+        "Dip the knees, then drive through the floor like a vertical jump",
+        "Shrug shoulders to your ears at the top — bar stays close",
+        "Land soft and reset; this is power, not a max shrug"
+      ],
+      "injuryNotes": "Keep load moderate; avoid bouncing reps if your traps or lower back feel tight."
+    },
+    "4F5866F8": {
+      "description": "Low-back emphasis on the 45° bench — erector endurance for upright paddle posture.",
+      "techniqueCues": [
+        "Pad support over the hips — hip crease at the top edge of the pad",
+        "Rise straight in one line — minimal hip hinge, torso stays rigid",
+        "Arms crossed or plate held tight to the chest",
+        "Stop at neutral; don't over-arch at the top"
+      ],
+      "injuryNotes": "If you feel sharp lumbar pain, lower the pad or switch to the glute setup."
+    },
+    "091737FA": {
+      "description": "Loaded low-back hyperextension — builds erector strength for long paddle sessions.",
+      "techniqueCues": [
+        "Pad over the hips, same straight-torso setup as bodyweight low-back version",
+        "Hold the plate tight to your chest — load stays close to the body",
+        "Rise in a straight line; squeeze erectors, not glutes",
+        "Lower with control — no bouncing at the bottom"
+      ],
+      "injuryNotes": "Start light; this targets the lower back directly under load."
+    },
+    "6A6C31A5": {
+      "description": "Wide-grip cable lat pulldown — builds the vertical pull strength behind paddle power.",
+      "techniqueCues": [
+        "Thighs pinned under the pad, slight lean back, shoulders down",
+        "Pull the bar to upper chest — elbows drive down and slightly back",
+        "Squeeze lats at the bottom; think paddle catch",
+        "Control the return; don't let the stack yank your shoulders up"
+      ],
+      "injuryNotes": "Avoid behind-the-neck pulldowns — pull to the front of the chest only."
+    },
+    "867AC3B6": {
+      "description": "Feet-up (Larsen) bench press — strict chest press with legs off the floor, removing leg drive for pure pressing strength.",
+      "techniqueCues": [
+        "Lie on the bench with legs extended — feet off the floor (flying feet)",
+        "Shoulder blades pinned, slight arch, bar to mid-chest",
+        "Press without using leg drive or hip bridge",
+        "Control the descent — this exposes weak points in your chest press"
+      ],
+      "injuryNotes": "Use less weight than your regular bench; the strict setup loads the shoulders and chest differently."
+    },
+    "F72FA239": {
+      "description": "Dumbbell squeeze press — constant inward pressure on the bells for inner-chest and triceps work.",
+      "techniqueCues": [
+        "Lie back with dumbbells squeezed together over your chest, neutral grip",
+        "Keep pressing the bells into each other throughout the rep",
+        "Lower to mid-chest, then press up and slightly inward",
+        "Shoulders pinned — don't let elbows flare wide"
+      ],
+      "injuryNotes": "Use moderate weight; the squeeze fatigues wrists and forearms faster than a normal press."
+    },
+    "651F844C": {
+      "description": "High-pulley cable crossover — upper chest and anterior delt squeeze from a standing fly.",
+      "techniqueCues": [
+        "Pulleys set high, step forward into a stable staggered stance",
+        "Slight bend in elbows, arms sweep down and in toward your hips",
+        "Squeeze chest hard at the bottom — knuckles meet in front",
+        "Control the stretch on the way back; don't let cables pull your shoulders forward"
+      ],
+      "injuryNotes": "Start light — the long lever at high pulleys stresses the shoulder capsule if you rush the stretch."
+    },
+    "C315DC2A": {
+      "description": "High-pulley cable crossover for shoulders — rear delt and upper-back focus, paired with the chest crossover.",
+      "techniqueCues": [
+        "Pulleys set high, cross handles in front at shoulder height",
+        "Arms stay mostly straight — pull back and out, not down to the hips",
+        "Squeeze rear delts and mid-back at the end range",
+        "Control the return; don't let the stack wrench your shoulders forward"
+      ],
+      "injuryNotes": "Keep weight light — this is isolation work for shoulder health and posture, not max loading."
+    },
+    "DE68C825": {
+      "description": "Single-arm cable lateral raise from a low pulley — targets the side delt for shoulder width and paddle stability.",
+      "techniqueCues": [
+        "Low pulley, stand sideways — free hand on the frame for balance",
+        "Slight bend in the working elbow, cable crosses in front of your body at the start",
+        "Raise your arm out to the side until wrist and elbow are at shoulder height",
+        "Lower with control; switch sides after each set"
+      ],
+      "injuryNotes": "Don't shrug the trap or swing — if you need momentum, the weight is too heavy."
+    },
+    "2DBCA395": {
+      "description": "Bayesian (behind-the-back) cable curl — elbows behind the torso for a deep bicep stretch and long-head emphasis.",
+      "techniqueCues": [
+        "Low pulley behind you, handles in hand, step forward so arms trail behind your hips",
+        "Staggered stance, chest up, elbows fixed behind your torso",
+        "Curl without letting elbows drift forward — squeeze at the top",
+        "Lower slowly for a full stretch behind the body"
+      ],
+      "injuryNotes": "Start light — the stretched position loads the bicep tendon; avoid swinging or heaving the weight."
+    },
+    "234897AB": {
+      "description": "Neutral-grip cable hammer curl with a rope — brachialis and forearm strength for paddle grip and board carry.",
+      "techniqueCues": [
+        "Low pulley with rope, neutral grip (palms facing each other)",
+        "Elbows pinned to your sides, shoulders back",
+        "Curl the rope to chest height without swinging",
+        "Lower with control — full extension at the bottom"
+      ],
+      "injuryNotes": "Keep wrists neutral; don't let elbows drift forward on the curl."
+    }
+  }
+}
