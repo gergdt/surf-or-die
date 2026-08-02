@@ -9,6 +9,7 @@
     "lint": "eslint",
     "icons": "node scripts/generate-icons.mjs",
     "enrich": "node scripts/enrich-exercises.mjs",
+    "import-exercises-dataset": "node scripts/import-exercises-dataset.mjs",
     "hevy-catalog": "node scripts/fetch-hevy-catalog.mjs",
     "verify": "node scripts/verify-ui.mjs",
     "score-exercises": "node scripts/score-exercises.mjs",

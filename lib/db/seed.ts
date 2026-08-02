@@ -11,7 +11,7 @@ import routinesSeed from "../seed/routines.json";
 import maneuversSeed from "../seed/maneuvers.json";
 import sourcesSeed from "../seed/sources.json";
 
-export const SEED_VERSION = 31;
+export const SEED_VERSION = 32;
 
 const DEFAULT_SETTINGS: Settings = {
   id: "app",
