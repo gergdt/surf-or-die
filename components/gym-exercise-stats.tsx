@@ -36,7 +36,14 @@ export function GymExerciseStats() {
     [exercises],
   );
 
-  if (!sessions || stats.length === 0) return null;
+  if (!sessions) return null;
+  if (stats.length === 0) {
+    return (
+      <Card className="mb-8 p-6 text-center text-sm text-muted-foreground">
+        Log a gym session to see your most used lifts and PRs here.
+      </Card>
+    );
+  }
 
   const visible = expanded ? stats : stats.slice(0, PREVIEW);
   const selected = openId ? (exerciseMap.get(openId) ?? null) : null;

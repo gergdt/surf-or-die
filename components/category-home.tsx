@@ -13,7 +13,7 @@ import { CATEGORIES } from "@/lib/categories";
 import { cn } from "@/lib/utils";
 import type { Category } from "@/lib/types";
 
-type Tab = "routines" | "library";
+type Tab = "routines" | "library" | "lifts";
 
 export function CategoryHome({
   category,
@@ -26,6 +26,7 @@ export function CategoryHome({
 }) {
   const meta = CATEGORIES[category];
   const [tab, setTab] = React.useState<Tab>("routines");
+  const showLifts = category === "gym";
 
   return (
     <div className="animate-fade-in">
@@ -43,18 +44,28 @@ export function CategoryHome({
         }
       />
 
-      <div className="mb-4 grid grid-cols-2 gap-1 rounded-lg bg-muted p-1">
+      <div
+        className={cn(
+          "mb-4 grid gap-1 rounded-lg bg-muted p-1",
+          showLifts ? "grid-cols-3" : "grid-cols-2",
+        )}
+      >
         <TabButton active={tab === "routines"} onClick={() => setTab("routines")}>
           Routines
         </TabButton>
         <TabButton active={tab === "library"} onClick={() => setTab("library")}>
           {libraryLabel}
         </TabButton>
+        {showLifts ? (
+          <TabButton active={tab === "lifts"} onClick={() => setTab("lifts")}>
+            Lifts
+          </TabButton>
+        ) : null}
       </div>
 
-      {category === "gym" ? <GymExerciseStats /> : null}
-
-      {tab === "routines" ? (
+      {tab === "lifts" ? (
+        <GymExerciseStats />
+      ) : tab === "routines" ? (
         <RoutineList
           category={category}
           startMode={startMode}
