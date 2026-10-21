@@ -22,15 +22,20 @@ export function ClipPlayer({
 }) {
   const [url, setUrl] = React.useState<string | null>(null);
 
+  const clipId = clip?.id;
+
   React.useEffect(() => {
-    if (!clip) {
+    if (!clipId || !clip?.blob) {
       setUrl(null);
       return;
     }
     const u = URL.createObjectURL(clip.blob);
     setUrl(u);
     return () => URL.revokeObjectURL(u);
-  }, [clip]);
+    // Recreate only when the clip identity changes — live-query object
+    // identity churn must not restart playback.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clipId]);
 
   if (!clip) return null;
 

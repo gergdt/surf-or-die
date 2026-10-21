@@ -29,6 +29,7 @@ export function VideoRecorder({
   const streamRef = React.useRef<MediaStream | null>(null);
   const recorderRef = React.useRef<MediaRecorder | null>(null);
   const chunksRef = React.useRef<Blob[]>([]);
+  const aliveRef = React.useRef(false);
 
   const [phase, setPhase] = React.useState<Phase>("idle");
   const [error, setError] = React.useState<string | null>(null);
@@ -39,10 +40,23 @@ export function VideoRecorder({
   const [maneuverId, setManeuverId] = React.useState(defaultManeuverId ?? "");
   const [saving, setSaving] = React.useState(false);
 
-  const stopStream = React.useCallback(() => {
+  const stopTracks = React.useCallback(() => {
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
   }, []);
+
+  const stopRecorderThenTracks = React.useCallback(() => {
+    const rec = recorderRef.current;
+    if (rec && rec.state !== "inactive") {
+      try {
+        rec.stop();
+      } catch {
+        /* already stopped */
+      }
+    }
+    recorderRef.current = null;
+    stopTracks();
+  }, [stopTracks]);
 
   const startCamera = React.useCallback(async () => {
     setError(null);
@@ -51,6 +65,10 @@ export function VideoRecorder({
         video: { facingMode: "environment" },
         audio: true,
       });
+      if (!aliveRef.current) {
+        stream.getTracks().forEach((t) => t.stop());
+        return;
+      }
       streamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -58,26 +76,30 @@ export function VideoRecorder({
         await videoRef.current.play().catch(() => {});
       }
     } catch {
+      if (!aliveRef.current) return;
       setError(
         "Couldn't access the camera. Check permissions and that you're on HTTPS.",
       );
     }
   }, []);
 
-  // Manage camera lifecycle with the modal.
+  React.useEffect(() => {
+    aliveRef.current = open;
+    if (!open) {
+      stopRecorderThenTracks();
+    }
+    return () => {
+      aliveRef.current = false;
+      stopRecorderThenTracks();
+    };
+  }, [open, stopRecorderThenTracks]);
+
   React.useEffect(() => {
     if (open && phase === "idle") {
       startCamera();
     }
-    if (!open) {
-      stopStream();
-    }
-    return () => {
-      if (!open) stopStream();
-    };
-  }, [open, phase, startCamera, stopStream]);
+  }, [open, phase, startCamera]);
 
-  // Recording timer.
   React.useEffect(() => {
     if (phase !== "recording") return;
     const t = setInterval(() => setElapsed((e) => e + 1), 1000);
@@ -93,16 +115,18 @@ export function VideoRecorder({
       mime ? { mimeType: mime } : undefined,
     );
     rec.ondataavailable = (e) => {
+      if (!aliveRef.current) return;
       if (e.data.size > 0) chunksRef.current.push(e.data);
     };
     rec.onstop = () => {
+      if (!aliveRef.current) return;
       const blob = new Blob(chunksRef.current, {
         type: mime || "video/webm",
       });
       setRecordedBlob(blob);
       setReviewUrl(URL.createObjectURL(blob));
       setPhase("review");
-      stopStream();
+      stopTracks();
     };
     recorderRef.current = rec;
     setElapsed(0);
@@ -111,7 +135,10 @@ export function VideoRecorder({
   };
 
   const stopRecording = () => {
-    recorderRef.current?.stop();
+    const rec = recorderRef.current;
+    if (rec && rec.state !== "inactive") {
+      rec.stop();
+    }
   };
 
   const retake = () => {
@@ -132,7 +159,7 @@ export function VideoRecorder({
   }, [reviewUrl]);
 
   const handleClose = () => {
-    stopStream();
+    stopRecorderThenTracks();
     reset();
     onClose();
   };

@@ -1,10 +1,16 @@
 import { describe, expect, it } from "vitest";
 import {
+  allTimeHeaviestSetLogByExercise,
+  betterUsageSet,
   defaultSetLogsForExercise,
+  formatUsageSets,
+  mostUsedExerciseStats,
   exerciseAllTimeHeaviestSetLog,
   exerciseLastBestSetLog,
   exerciseLastSessionSetLogs,
   exercisePersonalBest,
+  lastSessionSetLogsByExercise,
+  placeholderSetLogsFromBaseline,
   placeholderSetLogsFromLastSession,
   resolveSetLog,
 } from "./stats";
@@ -147,6 +153,20 @@ describe("resolveSetLog", () => {
       rpe: undefined,
     });
   });
+
+  it("preserves a stable set id when resolving", () => {
+    expect(
+      resolveSetLog(
+        { id: "set_1", reps: 5 } as { id: string; reps: number },
+        baseline,
+      ),
+    ).toEqual({
+      id: "set_1",
+      weightKg: 50,
+      reps: 5,
+      rpe: 8,
+    });
+  });
 });
 
 describe("placeholderSetLogsFromLastSession", () => {
@@ -199,6 +219,29 @@ describe("placeholderSetLogsFromLastSession", () => {
   });
 });
 
+describe("placeholderSetLogsFromBaseline elapsed time", () => {
+  it("does not copy last-session set times onto a new session", () => {
+    expect(
+      placeholderSetLogsFromBaseline(
+        [{}, {}],
+        [
+          { weightKg: 15, reps: 10, elapsedSec: 42 },
+          { weightKg: 20, reps: 8, elapsedSec: 55 },
+        ],
+      ),
+    ).toEqual([{}, {}]);
+  });
+
+  it("keeps set time already recorded in the current session", () => {
+    expect(
+      placeholderSetLogsFromBaseline(
+        [{ weightKg: 15, reps: 10, elapsedSec: 30 }],
+        [{ weightKg: 15, reps: 10, elapsedSec: 42 }],
+      ),
+    ).toEqual([{ elapsedSec: 30 }]);
+  });
+});
+
 describe("defaultSetLogsForExercise", () => {
   it("creates empty rows for placeholder display", () => {
     const sessions = [
@@ -244,5 +287,153 @@ describe("exercisePersonalBest", () => {
       ]),
     ];
     expect(exercisePersonalBest(sessions, "ex_b")).toEqual({ reps: 15 });
+  });
+});
+
+describe("lastSessionSetLogsByExercise", () => {
+  it("precomputes the same last-session sets as the per-id helper", () => {
+    const sessions = [
+      session(
+        [
+          {
+            exerciseId: "ex_a",
+            setLogs: [{ weightKg: 40, reps: 10 }],
+          },
+          {
+            exerciseId: "ex_b",
+            setLogs: [{ reps: 12 }],
+          },
+        ],
+        100,
+      ),
+      session(
+        [
+          {
+            exerciseId: "ex_a",
+            setLogs: [
+              { weightKg: 15, reps: 10, rpe: 5 },
+              { weightKg: 20, reps: 10, rpe: 10 },
+            ],
+          },
+        ],
+        200,
+      ),
+    ];
+
+    const map = lastSessionSetLogsByExercise(sessions);
+    expect(map.get("ex_a")).toEqual(
+      exerciseLastSessionSetLogs(sessions, "ex_a"),
+    );
+    expect(map.get("ex_b")).toEqual(
+      exerciseLastSessionSetLogs(sessions, "ex_b"),
+    );
+    expect(
+      allTimeHeaviestSetLogByExercise(sessions).get("ex_a"),
+    ).toEqual(exerciseAllTimeHeaviestSetLog(sessions, "ex_a"));
+  });
+});
+
+describe("mostUsedExerciseStats", () => {
+  const gym = (
+    entries: Session["entries"],
+    createdAt: number,
+    date: string,
+  ): Session => ({
+    ...session(entries, createdAt),
+    date,
+  });
+
+  it("ranks by session count and keeps last sets plus the heaviest-rep PR", () => {
+    const sessions = [
+      gym(
+        [
+          {
+            exerciseId: "bench",
+            setLogs: [
+              { weightKg: 60, reps: 10 },
+              { weightKg: 80, reps: 8 },
+              { weightKg: 80, reps: 6 },
+            ],
+          },
+        ],
+        1,
+        "2026-06-01",
+      ),
+      gym(
+        [
+          {
+            exerciseId: "bench",
+            setLogs: [
+              { weightKg: 80, reps: 8 },
+              { weightKg: 80, reps: 8 },
+              { weightKg: 85, reps: 3 },
+            ],
+          },
+          {
+            exerciseId: "row",
+            setLogs: [{ weightKg: 50, reps: 10 }],
+          },
+        ],
+        2,
+        "2026-06-08",
+      ),
+      gym(
+        [{ exerciseId: "bench", setLogs: [{ weightKg: 90, reps: 5 }] }],
+        0,
+        "2026-05-01",
+      ),
+      {
+        ...session(
+          [{ exerciseId: "stretch", setLogs: [{ durationSec: 30 }] }],
+          4,
+        ),
+        category: "flexibility" as const,
+      },
+    ];
+
+    const stats = mostUsedExerciseStats(sessions);
+    expect(stats.map((s) => s.exerciseId)).toEqual(["bench", "row"]);
+    expect(stats[0]).toMatchObject({
+      sessions: 3,
+      sets: 7,
+      lastDate: "2026-06-08",
+      lastSets: [
+        { weightKg: 80, reps: 8, durationSec: 0 },
+        { weightKg: 80, reps: 8, durationSec: 0 },
+        { weightKg: 85, reps: 3, durationSec: 0 },
+      ],
+      pr: { weightKg: 90, reps: 5, durationSec: 0 },
+    });
+    expect(formatUsageSets(stats[0].lastSets)).toBe(
+      "80 kg × 8, 80 kg × 8, 85 kg × 3",
+    );
+    expect(formatUsageSets(stats[0].pr ? [stats[0].pr] : [])).toBe("90 kg × 5");
+  });
+
+  it("uses the most reps at the heaviest weight as the PR", () => {
+    expect(
+      betterUsageSet(
+        { weightKg: 100, reps: 3, durationSec: 0 },
+        { weightKg: 100, reps: 5, durationSec: 0 },
+      ),
+    ).toEqual({ weightKg: 100, reps: 5, durationSec: 0 });
+    expect(
+      betterUsageSet(
+        { weightKg: 100, reps: 1, durationSec: 0 },
+        { weightKg: 90, reps: 8, durationSec: 0 },
+      ).weightKg,
+    ).toBe(100);
+  });
+
+  it("formats bodyweight reps and holds", () => {
+    expect(
+      formatUsageSets([
+        { weightKg: 0, reps: 10, durationSec: 0 },
+        { weightKg: 0, reps: 8, durationSec: 0 },
+      ]),
+    ).toBe("10, 8 reps");
+    expect(
+      formatUsageSets([{ weightKg: 0, reps: 0, durationSec: 45 }]),
+    ).toBe("45s");
   });
 });

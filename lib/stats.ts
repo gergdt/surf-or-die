@@ -1,4 +1,4 @@
-import type { Category, Session, SetLog } from "./types";
+import type { Category, Session, SessionEntry, SetLog } from "./types";
 import { CATEGORY_LIST } from "./categories";
 import { displayWeightKg, weightUnitLabel } from "./units";
 import { localDateKey } from "./utils";
@@ -113,6 +113,70 @@ export function heaviestSetLog(setLogs: SetLog[]): SetLog | null {
   return null;
 }
 
+function extraSetLogId(set: SetLog): string | undefined {
+  const id = (set as SetLog & { id?: string }).id;
+  return typeof id === "string" && id.length > 0 ? id : undefined;
+}
+
+function withExtraSetLogId(set: SetLog, id?: string): SetLog {
+  if (!id) return set;
+  (set as SetLog & { id: string }).id = id;
+  return set;
+}
+
+/** Last-session set rows keyed by exercise, computed once per sessions snapshot. */
+export function lastSessionSetLogsByExercise(
+  sessions: Session[],
+): Map<string, SetLog[]> {
+  const map = new Map<string, SetLog[]>();
+  const sorted = [...sessions].sort((a, b) => b.createdAt - a.createdAt);
+  for (const s of sorted) {
+    for (const entry of s.entries) {
+      if (map.has(entry.exerciseId) || !entry.setLogs.length) continue;
+      map.set(
+        entry.exerciseId,
+        entry.setLogs.map((set) => ({ ...set })),
+      );
+    }
+  }
+  return map;
+}
+
+/** Most recent session entry keyed by exercise, computed once per sessions snapshot. */
+export function lastSessionEntryByExercise(
+  sessions: Session[],
+): Map<string, SessionEntry> {
+  const map = new Map<string, SessionEntry>();
+  const sorted = [...sessions].sort((a, b) => b.createdAt - a.createdAt);
+  for (const s of sorted) {
+    for (const entry of s.entries) {
+      if (map.has(entry.exerciseId)) continue;
+      map.set(entry.exerciseId, { ...entry });
+    }
+  }
+  return map;
+}
+
+/** Heaviest set ever logged, keyed by exercise. */
+export function allTimeHeaviestSetLogByExercise(
+  sessions: Session[],
+): Map<string, SetLog> {
+  const setsByEx = new Map<string, SetLog[]>();
+  for (const s of sessions) {
+    for (const entry of s.entries) {
+      const list = setsByEx.get(entry.exerciseId);
+      if (list) list.push(...entry.setLogs);
+      else setsByEx.set(entry.exerciseId, [...entry.setLogs]);
+    }
+  }
+  const map = new Map<string, SetLog>();
+  for (const [id, sets] of setsByEx) {
+    const best = heaviestSetLog(sets);
+    if (best) map.set(id, best);
+  }
+  return map;
+}
+
 /** All set rows from the most recent session that logged this exercise. */
 export function exerciseLastSessionSetLogs(
   sessions: Session[],
@@ -178,13 +242,17 @@ function setLogMatches(a: SetLog, b: SetLog): boolean {
   );
 }
 
+function emptyPlaceholderSet(set: SetLog): SetLog {
+  const next: SetLog =
+    set.elapsedSec != null ? { elapsedSec: set.elapsedSec } : {};
+  return withExtraSetLogId(next, extraSetLogId(set));
+}
+
 /** Strip values that still match last-session baselines so the UI can show grey placeholders. */
-export function placeholderSetLogsFromLastSession(
+export function placeholderSetLogsFromBaseline(
   setLogs: SetLog[],
-  sessions: Session[],
-  exerciseId: string,
+  lastSets: SetLog[] | null | undefined,
 ): SetLog[] {
-  const lastSets = exerciseLastSessionSetLogs(sessions, exerciseId);
   if (!lastSets?.length) return setLogs;
 
   const first = setLogs[0];
@@ -194,16 +262,25 @@ export function placeholderSetLogsFromLastSession(
     setLogs.every((s) => setLogMatches(s, first));
 
   if (allIdentical) {
-    return setLogs.map((set) =>
-      set.elapsedSec != null ? { elapsedSec: set.elapsedSec } : {},
-    );
+    return setLogs.map((set) => emptyPlaceholderSet(set));
   }
 
   return setLogs.map((set, i) => {
     const baseline = lastSets[i];
     if (!baseline || !setLogMatches(set, baseline)) return set;
-    return set.elapsedSec != null ? { elapsedSec: set.elapsedSec } : {};
+    return emptyPlaceholderSet(set);
   });
+}
+
+export function placeholderSetLogsFromLastSession(
+  setLogs: SetLog[],
+  sessions: Session[],
+  exerciseId: string,
+): SetLog[] {
+  return placeholderSetLogsFromBaseline(
+    setLogs,
+    exerciseLastSessionSetLogs(sessions, exerciseId),
+  );
 }
 
 function resolveSetField(
@@ -216,13 +293,16 @@ function resolveSetField(
 
 /** Merge user-entered values with last-session defaults for saving. */
 export function resolveSetLog(set: SetLog, baseline?: SetLog): SetLog {
-  return {
-    weightKg: resolveSetField(set.weightKg, baseline?.weightKg),
-    reps: resolveSetField(set.reps, baseline?.reps),
-    rpe: resolveSetField(set.rpe, baseline?.rpe),
-    durationSec: resolveSetField(set.durationSec, baseline?.durationSec),
-    elapsedSec: set.elapsedSec,
-  };
+  return withExtraSetLogId(
+    {
+      weightKg: resolveSetField(set.weightKg, baseline?.weightKg),
+      reps: resolveSetField(set.reps, baseline?.reps),
+      rpe: resolveSetField(set.rpe, baseline?.rpe),
+      durationSec: resolveSetField(set.durationSec, baseline?.durationSec),
+      elapsedSec: set.elapsedSec,
+    },
+    extraSetLogId(set),
+  );
 }
 
 /** Human-readable summary of a set log row. */
@@ -253,7 +333,7 @@ export function defaultSetLogsForExercise(
   _sessions: Session[],
   _exerciseId: string,
   sets: number,
-  _template: { reps?: number; durationSec?: number },
+  _template?: { reps?: number; durationSec?: number },
 ): SetLog[] {
   return Array.from({ length: sets }, () => ({}));
 }
@@ -301,6 +381,149 @@ export function exerciseWeightTrend(
     if (best > 0) points.push({ date: sessionDateKey(s), best });
   }
   return points.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+export interface UsageSet {
+  weightKg: number;
+  reps: number;
+  durationSec: number;
+}
+
+export interface ExerciseUsageStat {
+  exerciseId: string;
+  /** Sessions that logged this exercise. */
+  sessions: number;
+  /** Logged sets with weight, reps, or duration. */
+  sets: number;
+  lastDate: string;
+  /** Sets from the most recent session, in the order they were logged. */
+  lastSets: UsageSet[];
+  /**
+   * Best set: highest weight, then the most reps at that weight.
+   * Unweighted work uses highest reps, then longest duration.
+   */
+  pr: UsageSet | null;
+}
+
+function toUsageSet(set: SetLog): UsageSet | null {
+  const usage: UsageSet = {
+    weightKg: set.weightKg ?? 0,
+    reps: set.reps ?? 0,
+    durationSec: set.durationSec ?? 0,
+  };
+  if (usage.weightKg <= 0 && usage.reps <= 0 && usage.durationSec <= 0) {
+    return null;
+  }
+  return usage;
+}
+
+/** Higher weight wins; at the same weight, more reps, then longer duration. */
+export function betterUsageSet(a: UsageSet, b: UsageSet): UsageSet {
+  if (a.weightKg !== b.weightKg) return a.weightKg > b.weightKg ? a : b;
+  if (a.reps !== b.reps) return a.reps > b.reps ? a : b;
+  return a.durationSec >= b.durationSec ? a : b;
+}
+
+/**
+ * Gym exercises ranked by how often they are logged, with the last session
+ * and the best set (heaviest weight, then most reps at that weight).
+ */
+export function mostUsedExerciseStats(sessions: Session[]): ExerciseUsageStat[] {
+  const gym = sessions.filter((s) => s.category === "gym");
+  const sorted = [...gym].sort((a, b) => b.createdAt - a.createdAt);
+
+  type Acc = ExerciseUsageStat & { lastSessionId?: string };
+  const map = new Map<string, Acc>();
+
+  for (const s of sorted) {
+    const counted = new Set<string>();
+    for (const entry of s.entries) {
+      const logged = entry.setLogs
+        .map(toUsageSet)
+        .filter((set): set is UsageSet => set != null);
+      if (logged.length === 0) continue;
+
+      let acc = map.get(entry.exerciseId);
+      if (!acc) {
+        acc = {
+          exerciseId: entry.exerciseId,
+          sessions: 0,
+          sets: 0,
+          lastDate: sessionDateKey(s),
+          lastSets: [],
+          pr: null,
+        };
+        map.set(entry.exerciseId, acc);
+      }
+
+      if (!counted.has(entry.exerciseId)) {
+        acc.sessions += 1;
+        counted.add(entry.exerciseId);
+      }
+      acc.sets += logged.length;
+
+      if (!acc.lastSessionId) {
+        acc.lastSessionId = s.id;
+        acc.lastDate = sessionDateKey(s);
+        acc.lastSets = [...logged];
+      } else if (acc.lastSessionId === s.id) {
+        acc.lastSets.push(...logged);
+      }
+
+      for (const set of logged) {
+        acc.pr = acc.pr ? betterUsageSet(acc.pr, set) : set;
+      }
+    }
+  }
+
+  return [...map.values()]
+    .map(({ lastSessionId: _id, ...stat }) => stat)
+    .sort(
+      (a, b) =>
+        b.sessions - a.sessions ||
+        b.sets - a.sets ||
+        b.lastDate.localeCompare(a.lastDate),
+    );
+}
+
+/** Compact "80 kg × 8, 8, 6" (or reps / duration) for a list of sets. */
+export function formatUsageSets(
+  sets: UsageSet[],
+  units: "metric" | "imperial" = "metric",
+): string {
+  if (sets.length === 0) return "—";
+  const unit = weightUnitLabel(units);
+  const weighted = sets.some((set) => set.weightKg > 0);
+
+  if (weighted) {
+    const sameWeight = sets.every((set) => set.weightKg === sets[0].weightKg);
+    if (sameWeight && sets[0].weightKg > 0) {
+      const weight = `${displayWeightKg(sets[0].weightKg, units)} ${unit}`;
+      const reps = sets.map((set) => set.reps).filter((reps) => reps > 0);
+      return reps.length > 0 ? `${weight} × ${reps.join(", ")}` : weight;
+    }
+    return sets
+      .map((set) => {
+        const weight =
+          set.weightKg > 0
+            ? `${displayWeightKg(set.weightKg, units)} ${unit}`
+            : "";
+        if (weight && set.reps > 0) return `${weight} × ${set.reps}`;
+        if (set.reps > 0) return `${set.reps} reps`;
+        if (set.durationSec > 0) return `${set.durationSec}s`;
+        return weight;
+      })
+      .filter(Boolean)
+      .join(", ");
+  }
+
+  const reps = sets.map((set) => set.reps).filter((reps) => reps > 0);
+  if (reps.length > 0) return `${reps.join(", ")} reps`;
+  const durations = sets
+    .map((set) => set.durationSec)
+    .filter((duration) => duration > 0);
+  if (durations.length > 0) return durations.map((d) => `${d}s`).join(", ");
+  return "—";
 }
 
 export function totalVolume(session: Session): number {

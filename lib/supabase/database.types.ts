@@ -6,6 +6,8 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+/** Row shapes after migration 0002 (`primary key (user_id, id)` on per-user tables). */
+
 export interface Database {
   public: {
     Tables: {
@@ -133,6 +135,46 @@ export interface Database {
         };
       };
       annotations: {
+        Row: {
+          id: string;
+          user_id: string;
+          data: Json;
+          updated_at: string;
+        };
+        Insert: {
+          id: string;
+          user_id: string;
+          data: Json;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          data?: Json;
+          updated_at?: string;
+        };
+      };
+      body_metrics: {
+        Row: {
+          id: string;
+          user_id: string;
+          data: Json;
+          updated_at: string;
+        };
+        Insert: {
+          id: string;
+          user_id: string;
+          data: Json;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          data?: Json;
+          updated_at?: string;
+        };
+      };
+      surf_sessions: {
         Row: {
           id: string;
           user_id: string;

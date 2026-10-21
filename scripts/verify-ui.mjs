@@ -75,6 +75,19 @@ async function main() {
   // --- 2) Exercise detail modal ---
   await page.goto(`${BASE}/gym`, { waitUntil: "networkidle" });
   await page.getByRole("button", { name: "Exercises" }).click();
+  await page.getByRole("searchbox", { name: "Search exercises" }).waitFor({
+    timeout: 10000,
+  });
+  await page.locator("[data-exercise-card]").first().waitFor({ timeout: 15000 });
+
+  const exerciseCardCount = await page.locator("[data-exercise-card]").count();
+  if (exerciseCardCount >= 100) {
+    throw new Error(
+      `/gym mounted ${exerciseCardCount} exercise cards; expected fewer than 100`,
+    );
+  }
+
+  await page.getByRole("searchbox", { name: "Search exercises" }).fill("Back Squat");
   await page.getByText("Back Squat", { exact: true }).waitFor({ timeout: 10000 });
 
   // Click the exercise card (not just text node)
@@ -126,6 +139,7 @@ async function main() {
     hasMuscleMap,
     hasStatsTab,
     hasMusclesLabel,
+    exerciseCardCount,
   };
 
   await writeFile(

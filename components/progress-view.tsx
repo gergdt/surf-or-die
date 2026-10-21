@@ -1,26 +1,15 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { useLiveQuery } from "dexie-react-hooks";
-import {
-  BarChart,
-  Bar,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Cell,
-  CartesianGrid,
-} from "recharts";
-import { ResponsiveChart } from "@/components/charts/responsive-chart";
 import { Flame, CalendarCheck, TrendingUp, Dumbbell } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Select } from "@/components/ui/input";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Progress } from "@/components/ui/progress";
-import { exercisesRepo, maneuversRepo, sessionsRepo } from "@/lib/db/repository";
+import { exercisesRepo, maneuversRepo, sessionsRepo, surfSessionsRepo } from "@/lib/db/repository";
 import { useApp } from "@/components/providers";
 import { displayWeightKg, weightUnitLabel } from "@/lib/units";
 import {
@@ -30,14 +19,81 @@ import {
   weeklyActivity,
   exerciseWeightTrend,
 } from "@/lib/stats";
+import type { Session, SurfSession } from "@/lib/types";
+
+const WeeklyActivityChart = dynamic(
+  () =>
+    import("@/components/charts/progress-charts").then(
+      (m) => m.WeeklyActivityChart,
+    ),
+  { loading: () => <div className="h-40 animate-pulse rounded-lg bg-muted/50" /> },
+);
+const CategorySessionsChart = dynamic(
+  () =>
+    import("@/components/charts/progress-charts").then(
+      (m) => m.CategorySessionsChart,
+    ),
+  { loading: () => <div className="h-40 animate-pulse rounded-lg bg-muted/50" /> },
+);
+const StrengthTrendChart = dynamic(
+  () =>
+    import("@/components/charts/progress-charts").then(
+      (m) => m.StrengthTrendChart,
+    ),
+  { loading: () => <div className="h-44 animate-pulse rounded-lg bg-muted/50" /> },
+);
+const GymSurfCorrelationChart = dynamic(
+  () =>
+    import("@/components/charts/progress-charts").then(
+      (m) => m.GymSurfCorrelationChart,
+    ),
+  { loading: () => <div className="h-44 animate-pulse rounded-lg bg-muted/50" /> },
+);
 
 const STATUS_LABELS = ["wishlist", "learning", "practicing", "mastered"] as const;
+
+export function gymSurfWeeklySeries(
+  gymSessions: Session[],
+  surfSessions: SurfSession[],
+  weeks = 8,
+): { label: string; gym: number; surf: number }[] {
+  const now = new Date();
+  const monday = new Date(now);
+  const day = (now.getDay() + 6) % 7;
+  monday.setDate(now.getDate() - day);
+  monday.setHours(0, 0, 0, 0);
+
+  const gymDays = gymSessions.map((s) => s.date.slice(0, 10));
+  const surfDays = surfSessions.map((s) => s.date.slice(0, 10));
+
+  const buckets: { label: string; gym: number; surf: number }[] = [];
+  for (let i = weeks - 1; i >= 0; i--) {
+    const start = new Date(monday);
+    start.setDate(monday.getDate() - i * 7);
+    const end = new Date(start);
+    end.setDate(start.getDate() + 7);
+    const inWeek = (iso: string) => {
+      const d = new Date(`${iso}T00:00:00`);
+      return d >= start && d < end;
+    };
+    buckets.push({
+      label: start.toLocaleDateString(undefined, {
+        day: "numeric",
+        month: "short",
+      }),
+      gym: gymDays.filter(inWeek).length,
+      surf: surfDays.filter(inWeek).length,
+    });
+  }
+  return buckets;
+}
 
 export function ProgressView() {
   const { settings } = useApp();
   const units = settings?.units ?? "metric";
   const weightUnit = weightUnitLabel(units);
   const sessions = useLiveQuery(() => sessionsRepo.all(), []);
+  const surfSessions = useLiveQuery(() => surfSessionsRepo.all(), []);
   const exercises = useLiveQuery(() => exercisesRepo.all(), []);
   const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
 
@@ -77,6 +133,12 @@ export function ProgressView() {
     }));
   }, [sessions, exId, units]);
 
+  const gymSurf = React.useMemo(
+    () => gymSurfWeeklySeries(sessions ?? [], surfSessions ?? []),
+    [sessions, surfSessions],
+  );
+  const hasGymSurf = gymSurf.some((b) => b.gym > 0 || b.surf > 0);
+
   const maneuverCounts = STATUS_LABELS.map((status) => ({
     status,
     count: (maneuvers ?? []).filter((m) => m.status === status).length,
@@ -97,7 +159,7 @@ export function ProgressView() {
     );
   }
 
-  if (sessions.length === 0) {
+  if (sessions.length === 0 && !(surfSessions?.length)) {
     return (
       <div className="animate-fade-in">
         <PageHeader title="Progress" description="Your training trends." />
@@ -131,58 +193,29 @@ export function ProgressView() {
       <section>
         <h2 className="mb-3 text-lg font-semibold">Weekly activity</h2>
         <Card className="p-3">
-          <ResponsiveChart height={160}>
-            <BarChart data={stats.weekly}>
-              <CartesianGrid
-                vertical={false}
-                stroke="var(--border)"
-                strokeDasharray="3 3"
-              />
-              <XAxis
-                dataKey="label"
-                tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <YAxis
-                allowDecimals={false}
-                width={20}
-                tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <Tooltip
-                cursor={{ fill: "var(--muted)" }}
-                contentStyle={tooltipStyle}
-              />
-              <Bar dataKey="count" radius={[4, 4, 0, 0]} fill="var(--primary)" />
-            </BarChart>
-          </ResponsiveChart>
+          {sessions.length > 0 ? (
+            <WeeklyActivityChart data={stats.weekly} />
+          ) : (
+            <p className="px-2 py-8 text-center text-sm text-muted-foreground">
+              Log gym sessions to see weekly activity.
+            </p>
+          )}
         </Card>
       </section>
+
+      {hasGymSurf ? (
+        <section>
+          <h2 className="mb-3 text-lg font-semibold">Gym vs surf</h2>
+          <Card className="p-3">
+            <GymSurfCorrelationChart data={gymSurf} />
+          </Card>
+        </section>
+      ) : null}
 
       <section>
         <h2 className="mb-3 text-lg font-semibold">Sessions by category</h2>
         <Card className="p-3">
-          <ResponsiveChart height={160}>
-            <BarChart data={stats.byCat} layout="vertical">
-              <XAxis type="number" hide allowDecimals={false} />
-              <YAxis
-                type="category"
-                dataKey="label"
-                width={70}
-                tick={{ fontSize: 12, fill: "var(--muted-foreground)" }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <Tooltip cursor={{ fill: "var(--muted)" }} contentStyle={tooltipStyle} />
-              <Bar dataKey="count" radius={[0, 4, 4, 0]}>
-                {stats.byCat.map((c) => (
-                  <Cell key={c.category} fill={c.color} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveChart>
+          <CategorySessionsChart data={stats.byCat} />
         </Card>
       </section>
 
@@ -205,33 +238,7 @@ export function ProgressView() {
         </div>
         <Card className="p-3">
           {trend.length > 0 ? (
-            <ResponsiveChart height={176}>
-              <LineChart data={trend}>
-                <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="date"
-                  tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
-                  axisLine={false}
-                  tickLine={false}
-                  tickFormatter={(d: string) => d.slice(5)}
-                />
-                <YAxis
-                  width={28}
-                  tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
-                  axisLine={false}
-                  tickLine={false}
-                  unit={weightUnit}
-                />
-                <Tooltip contentStyle={tooltipStyle} />
-                <Line
-                  type="monotone"
-                  dataKey="best"
-                  stroke="var(--gym)"
-                  strokeWidth={2.5}
-                  dot={{ r: 3 }}
-                />
-              </LineChart>
-            </ResponsiveChart>
+            <StrengthTrendChart data={trend} unit={weightUnit} />
           ) : (
             <EmptyState
               icon={Dumbbell}
@@ -271,13 +278,6 @@ export function ProgressView() {
     </div>
   );
 }
-
-const tooltipStyle = {
-  background: "var(--card)",
-  border: "1px solid var(--border)",
-  borderRadius: 12,
-  fontSize: 12,
-} as const;
 
 function Stat({
   icon,

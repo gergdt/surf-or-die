@@ -11,6 +11,10 @@ export function uniq<T>(arr: T[]): T[] {
   return [...new Set(arr)];
 }
 
+export function firstToken(s: string): string {
+  return norm(s).split(" ")[0] ?? "";
+}
+
 export function tokenScore(a: string, b: string): number {
   const ta = new Set(norm(a).split(" ").filter(Boolean));
   const tb = new Set(norm(b).split(" ").filter(Boolean));

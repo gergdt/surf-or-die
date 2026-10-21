@@ -1,39 +1,54 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useLiveQuery } from "dexie-react-hooks";
-import {
-  Video,
-  Upload,
-  Film,
-  GitCompareArrows,
-  Play,
-  Footprints,
-  Waves,
-} from "lucide-react";
+import { Video, Upload, Film, GitCompareArrows, Play, Footprints, Waves, Trash2 } from "lucide-react";
 import { ClipPlayer } from "./clip-player";
 import { Card } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { VideoRecorder } from "./video-recorder";
-import { clipsRepo, maneuversRepo } from "@/lib/db/repository";
+import { clipsRepo, maneuversRepo, annotationsRepo } from "@/lib/db/repository";
+import { getDB } from "@/lib/db/db";
+import { showUndoToast } from "@/components/ui/toast";
 import { extractVideoMeta } from "@/lib/video";
 import { formatDate, formatDuration, cn } from "@/lib/utils";
 import {
   CLIP_CONTEXTS,
   CLIP_CONTEXT_META,
-  clipContext,
 } from "@/lib/clips";
 import type { Clip, ClipContext } from "@/lib/types";
+
+const VideoRecorder = dynamic(
+  () => import("./video-recorder").then((m) => m.VideoRecorder),
+  { loading: () => null },
+);
 
 const CONTEXT_ICONS = {
   land: Footprints,
   water: Waves,
 } as const;
 
+export type ClipMeta = Omit<Clip, "blob"> & { blob?: Blob };
+
+export async function queryClipMetaList(): Promise<ClipMeta[]> {
+  const repo = clipsRepo as typeof clipsRepo & {
+    allMeta?: () => Promise<ClipMeta[]>;
+  };
+  if (typeof repo.allMeta === "function") {
+    return repo.allMeta();
+  }
+  const clips = await clipsRepo.all();
+  return clips.map((clip) => {
+    const { blob, ...meta } = clip;
+    void blob;
+    return meta;
+  });
+}
+
 export function ClipGallery({ maneuverId }: { maneuverId?: string }) {
-  const clips = useLiveQuery(() => clipsRepo.all(), []);
+  const clips = useLiveQuery(() => queryClipMetaList(), []);
   const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
   const [context, setContext] = React.useState<ClipContext>("land");
   const [recordOpen, setRecordOpen] = React.useState(false);
@@ -47,11 +62,43 @@ export function ClipGallery({ maneuverId }: { maneuverId?: string }) {
   const maneuverName = (id?: string) =>
     id ? maneuvers?.find((m) => m.id === id)?.name : undefined;
 
-  const list = (clips ?? []).filter(
-    (c) =>
-      clipContext(c) === context &&
-      (!maneuverId || c.maneuverId === maneuverId),
+  const list = React.useMemo(
+    () =>
+      (clips ?? []).filter(
+        (c) =>
+          (c.context ?? "land") === context &&
+          (!maneuverId || c.maneuverId === maneuverId),
+      ),
+    [clips, context, maneuverId],
   );
+
+  const playClip = async (id: string) => {
+    const full = await clipsRepo.get(id);
+    if (full) setPlaying(full);
+  };
+
+  const deleteClip = async (id: string) => {
+    const full = await clipsRepo.get(id);
+    if (!full) return;
+    const annotations = await annotationsRepo.byClip(id);
+    await clipsRepo.remove(id);
+    if (playing?.id === id) setPlaying(null);
+    showUndoToast("Clip deleted", async () => {
+      const { blob, ...meta } = full;
+      const db = getDB();
+      await db.transaction(
+        "rw",
+        db.clips,
+        db.clipBlobs,
+        db.annotations,
+        async () => {
+          await db.clips.put(meta);
+          await db.clipBlobs.put({ id: meta.id, blob });
+          if (annotations.length > 0) await db.annotations.bulkPut(annotations);
+        },
+      );
+    });
+  };
 
   const onImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -141,7 +188,7 @@ export function ClipGallery({ maneuverId }: { maneuverId?: string }) {
           {list.map((clip) => (
             <Card key={clip.id} className="overflow-hidden">
               <button
-                onClick={() => setPlaying(clip)}
+                onClick={() => playClip(clip.id)}
                 className="group relative block aspect-square w-full bg-black"
               >
                 {clip.thumbnail ? (
@@ -165,12 +212,22 @@ export function ClipGallery({ maneuverId }: { maneuverId?: string }) {
                   </span>
                 ) : null}
               </button>
-              <div className="p-2.5">
-                <p className="truncate text-sm font-medium">{clip.label}</p>
-                <p className="truncate text-[11px] text-muted-foreground">
-                  {maneuverName(clip.maneuverId) ??
-                    formatDate(new Date(clip.createdAt).toISOString())}
-                </p>
+              <div className="flex items-start justify-between gap-2 p-2.5">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium">{clip.label}</p>
+                  <p className="truncate text-[11px] text-muted-foreground">
+                    {maneuverName(clip.maneuverId) ??
+                      formatDate(new Date(clip.createdAt).toISOString())}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => void deleteClip(clip.id)}
+                  className="rounded-md p-1 text-muted-foreground hover:text-destructive"
+                  aria-label={`Delete ${clip.label}`}
+                >
+                  <Trash2 className="size-4" />
+                </button>
               </div>
             </Card>
           ))}
@@ -184,12 +241,14 @@ export function ClipGallery({ maneuverId }: { maneuverId?: string }) {
         <GitCompareArrows /> Open compare studio
       </Link>
 
-      <VideoRecorder
-        open={recordOpen}
-        onClose={() => setRecordOpen(false)}
-        defaultManeuverId={maneuverId}
-        defaultContext={context}
-      />
+      {recordOpen && (
+        <VideoRecorder
+          open={recordOpen}
+          onClose={() => setRecordOpen(false)}
+          defaultManeuverId={maneuverId}
+          defaultContext={context}
+        />
+      )}
       <ClipPlayer clip={playing} onClose={() => setPlaying(null)} />
     </div>
   );

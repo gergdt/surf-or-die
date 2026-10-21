@@ -55,11 +55,14 @@ function finalizeExerciseOnEntry(
 export function useGymWorkoutTimers(
   entries: GymTimerEntry[],
   setEntries: React.Dispatch<React.SetStateAction<GymTimerEntry[]>>,
-  options: { enabled: boolean; initialTimer?: GymTimerDraft | null | undefined },
+  options: {
+    enabled: boolean;
+    initialTimer?: GymTimerDraft | null | undefined;
+    onSetCompleted?: (exerciseIdx: number, setIdx: number) => void;
+  },
 ) {
-  const { enabled, initialTimer } = options;
+  const { enabled, initialTimer, onSetCompleted } = options;
   const [active, setActive] = React.useState<ActiveGymTimer | null>(null);
-  const [tick, setTick] = React.useState(0);
   const restoredRef = React.useRef(false);
 
   React.useEffect(() => {
@@ -68,25 +71,10 @@ export function useGymWorkoutTimers(
     setActive(initialTimer);
   }, [initialTimer]);
 
-  React.useEffect(() => {
-    if (!enabled || !active) return;
-    const sync = () => setTick(Date.now());
-    sync();
-    const id = setInterval(sync, 1000);
-    const onVisibility = () => {
-      if (document.visibilityState === "visible") sync();
-    };
-    document.addEventListener("visibilitychange", onVisibility);
-    return () => {
-      clearInterval(id);
-      document.removeEventListener("visibilitychange", onVisibility);
-    };
-  }, [enabled, active]);
-
   const finalizeActive = React.useCallback(
     (now = Date.now()): GymTimerEntry[] => {
       if (!active) return entries;
-      let next = [...entries];
+      const next = [...entries];
       next[active.exerciseIdx] = finalizeSetOnEntry(
         next[active.exerciseIdx],
         active.setIdx,
@@ -126,11 +114,12 @@ export function useGymWorkoutTimers(
         );
         setEntries(next);
         setActive(null);
+        onSetCompleted?.(exerciseIdx, setIdx);
         return;
       }
 
       const now = Date.now();
-      let next = [...entries];
+      const next = [...entries];
 
       if (active) {
         next[active.exerciseIdx] = finalizeSetOnEntry(
@@ -173,7 +162,7 @@ export function useGymWorkoutTimers(
         setStartedAt: now,
       });
     },
-    [enabled, active, entries, setEntries],
+    [enabled, active, entries, setEntries, onSetCompleted],
   );
 
   const clearActive = React.useCallback(() => setActive(null), []);
@@ -189,7 +178,6 @@ export function useGymWorkoutTimers(
 
   const getExerciseSeconds = React.useCallback(
     (exerciseIdx: number) => {
-      void tick;
       const entry = entries[exerciseIdx];
       if (!entry) return 0;
       let total = entry.exerciseElapsedSec ?? 0;
@@ -198,12 +186,11 @@ export function useGymWorkoutTimers(
       }
       return total;
     },
-    [entries, active, tick],
+    [entries, active],
   );
 
   const getSetSeconds = React.useCallback(
     (exerciseIdx: number, setIdx: number) => {
-      void tick;
       const set = entries[exerciseIdx]?.setLogs[setIdx];
       if (!set) return 0;
       const stored = set.elapsedSec ?? 0;
@@ -212,7 +199,7 @@ export function useGymWorkoutTimers(
       }
       return stored;
     },
-    [entries, active, tick],
+    [entries, active],
   );
 
   const isSetActive = React.useCallback(
@@ -277,6 +264,7 @@ export function useGymWorkoutTimers(
   );
 
   return {
+    active,
     startSet,
     finalizeAndClear,
     clearActive,

@@ -7,6 +7,7 @@ import { PageHeader } from "@/components/page-header";
 import { buttonVariants } from "@/components/ui/button";
 import { RoutineList } from "@/components/routine-list";
 import { ExerciseLibrary } from "@/components/exercise-library";
+import { GymExerciseStats } from "@/components/gym-exercise-stats";
 import { RecentSessions } from "@/components/recent-sessions";
 import { CATEGORIES } from "@/lib/categories";
 import { cn } from "@/lib/utils";
@@ -50,6 +51,8 @@ export function CategoryHome({
           {libraryLabel}
         </TabButton>
       </div>
+
+      {category === "gym" ? <GymExerciseStats /> : null}
 
       {tab === "routines" ? (
         <RoutineList

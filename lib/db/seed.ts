@@ -6,12 +6,11 @@ import type {
   Settings,
   Source,
 } from "../types";
-import exercisesSeed from "../seed/exercises.json";
 import routinesSeed from "../seed/routines.json";
 import maneuversSeed from "../seed/maneuvers.json";
 import sourcesSeed from "../seed/sources.json";
 
-export const SEED_VERSION = 32;
+export const SEED_VERSION = 33;
 
 const DEFAULT_SETTINGS: Settings = {
   id: "app",
@@ -23,61 +22,82 @@ const DEFAULT_SETTINGS: Settings = {
   theme: "system",
 };
 
+export function exerciseSeedUrl(version = SEED_VERSION): string {
+  return `/seed/exercises.v${version}.json`;
+}
+
+/** True when we must fetch the public seed and bulkPut exercises. */
+export function needsExerciseReseed(
+  seededVersion: number,
+  exerciseCount: number,
+): boolean {
+  return seededVersion < SEED_VERSION || exerciseCount === 0;
+}
+
+function withSeedOrigin<T extends { origin?: string }>(
+  rows: Omit<T, "origin">[],
+): T[] {
+  return rows.map((row) => ({ ...row, origin: "seed" as const })) as T[];
+}
+
+async function fetchExerciseSeed(): Promise<Exercise[]> {
+  const res = await fetch(exerciseSeedUrl());
+  if (!res.ok) {
+    throw new Error(`Failed to load exercise seed (${res.status})`);
+  }
+  const raw = (await res.json()) as Omit<Exercise, "origin">[];
+  return withSeedOrigin<Exercise>(raw);
+}
+
 /**
  * Seed the local DB on first run (or when SEED_VERSION bumps). Uses bulkPut so
  * starter content stays in sync without clobbering the user's own additions.
  *
- * When the seed version is already current, still merges any new seed exercises
- * that are missing locally (so library additions ship without a manual reset).
+ * When seededVersion already matches SEED_VERSION and the exercises table is
+ * not empty, this is a no-op: no network and no IDB bulk writes.
  */
 export async function ensureSeeded(): Promise<void> {
   const db = getDB();
   const existing = await db.settings.get("app");
   const settings = existing ?? DEFAULT_SETTINGS;
-
-  const exercises: Exercise[] = (exercisesSeed as Omit<Exercise, "origin">[]).map(
-    (e) => ({ ...e, origin: "seed" as const }),
-  );
-  const routines: Routine[] = (routinesSeed as Omit<Routine, "origin">[]).map(
-    (r) => ({ ...r, origin: "seed" as const }),
-  );
-  const maneuvers: Maneuver[] = (maneuversSeed as Omit<Maneuver, "origin">[]).map(
-    (m) => ({ ...m, origin: "seed" as const }),
-  );
-  const sources: Source[] = (sourcesSeed as Omit<Source, "origin">[]).map(
-    (s) => ({ ...s, origin: "seed" as const }),
-  );
-
   const needsVersionBump = settings.seededVersion < SEED_VERSION;
+
+  if (!needsVersionBump) {
+    const exerciseCount = await db.exercises.count();
+    if (!needsExerciseReseed(settings.seededVersion, exerciseCount)) {
+      return;
+    }
+  }
+
+  const exercises = await fetchExerciseSeed();
 
   await db.transaction(
     "rw",
     [db.exercises, db.routines, db.maneuvers, db.sources, db.settings],
     async () => {
-      if (needsVersionBump) {
-        await db.exercises.bulkPut(exercises);
-        // Keep user-edited routines (including customized defaults).
-        const existingRoutines = await db.routines.toArray();
-        const userRoutineIds = new Set(
-          existingRoutines
-            .filter((r) => r.origin === "user")
-            .map((r) => r.id),
-        );
-        const routinesToPut = routines.filter((r) => !userRoutineIds.has(r.id));
-        await db.routines.bulkPut(routinesToPut);
-        await db.maneuvers.bulkPut(maneuvers);
-        await db.sources.bulkPut(sources);
-        await db.settings.put({ ...settings, seededVersion: SEED_VERSION });
-        return;
-      }
+      await db.exercises.bulkPut(exercises);
+      if (!needsVersionBump) return;
 
-      const localIds = new Set(
-        await db.exercises.toCollection().primaryKeys(),
+      const routines = withSeedOrigin<Routine>(
+        routinesSeed as Omit<Routine, "origin">[],
       );
-      const missing = exercises.filter((e) => !localIds.has(e.id));
-      if (missing.length > 0) {
-        await db.exercises.bulkPut(missing);
-      }
+      const maneuvers = withSeedOrigin<Maneuver>(
+        maneuversSeed as Omit<Maneuver, "origin">[],
+      );
+      const sources = withSeedOrigin<Source>(
+        sourcesSeed as Omit<Source, "origin">[],
+      );
+      const existingRoutines = await db.routines.toArray();
+      const userRoutineIds = new Set(
+        existingRoutines
+          .filter((r) => r.origin === "user")
+          .map((r) => r.id),
+      );
+      const routinesToPut = routines.filter((r) => !userRoutineIds.has(r.id));
+      await db.routines.bulkPut(routinesToPut);
+      await db.maneuvers.bulkPut(maneuvers);
+      await db.sources.bulkPut(sources);
+      await db.settings.put({ ...settings, seededVersion: SEED_VERSION });
     },
   );
 }

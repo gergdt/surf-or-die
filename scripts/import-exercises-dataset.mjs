@@ -7,10 +7,14 @@
  * - Media: jsDelivr CDN for 180×180 thumb + GIF; Hevy mp4 when Gym Visual code matches.
  *
  * Usage: node scripts/import-exercises-dataset.mjs
+ *
+ * Also bumps SEED_VERSION in lib/db/seed.ts and copies the JSON to
+ * public/seed/exercises.v{N}.json so the client can fetch it on version bump.
  */
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { bumpSeedVersion, copyExerciseSeed } from "./copy-exercise-seed.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
@@ -387,11 +391,16 @@ async function main() {
 
   await writeFile(SEED, `${JSON.stringify(forFile, null, 2)}\n`, "utf8");
 
+  const seedVersion = await bumpSeedVersion();
+  const publicSeed = await copyExerciseSeed(seedVersion);
+
   console.log(`Enriched existing gym exercises: ${enriched}`);
   console.log(`Imported new exercises: ${imported}`);
   console.log(`Skipped name/hevy duplicates: ${skippedDup}`);
   console.log(`Total seed exercises: ${forFile.length}`);
   console.log(`Wrote ${SEED}`);
+  console.log(`Bumped SEED_VERSION to ${seedVersion}`);
+  console.log(`Copied public seed to ${publicSeed}`);
 }
 
 main().catch((err) => {

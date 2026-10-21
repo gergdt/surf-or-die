@@ -1,3 +1,5 @@
+import { slimHevyCatalogEntry } from "@/lib/hevy/catalog";
+import { enrichHevyTemplates } from "@/lib/hevy/catalog-server";
 import { getAllExerciseTemplates, getUserInfo, isHevyConfigured } from "@/lib/hevy/client";
 
 export async function GET() {
@@ -14,7 +16,10 @@ export async function GET() {
       getUserInfo(),
     ]);
     return Response.json({
-      templates,
+      templates: enrichHevyTemplates(templates).map((template) => ({
+        ...template,
+        catalog: slimHevyCatalogEntry(template.catalog),
+      })),
       user: { name: userInfo.data.name },
       syncedAt: new Date().toISOString(),
     });

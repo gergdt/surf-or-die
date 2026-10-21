@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useLiveQuery } from "dexie-react-hooks";
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { Plus, ChevronRight, Dumbbell, Search } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,11 +14,11 @@ import { ExerciseDetail } from "@/components/exercise-detail";
 import { ExerciseThumb } from "@/components/exercise-thumb";
 import { SurfTransferBadge } from "@/components/surf-transfer-badge";
 import { BODY_PARTS, BODY_PART_LABEL } from "@/lib/categories";
+import { MUSCLE_LABEL } from "@/lib/muscles";
 import { exercisesRepo, maneuversRepo } from "@/lib/db/repository";
 import {
-  compareBySurfTransfer,
-  getSurfTransfer,
-  personalizedScore,
+  compareByPrecomputedScore,
+  precomputeSurfScores,
   SURF_DEMAND_LABEL,
   SURF_DEMANDS,
 } from "@/lib/surf-transfer";
@@ -27,6 +28,7 @@ import type {
   Difficulty,
   Exercise,
   SurfDemand,
+  SurfTransferProfile,
 } from "@/lib/types";
 
 type SortMode = "surf" | "name" | "difficulty";
@@ -36,6 +38,26 @@ const DIFFICULTY_ORDER: Record<Difficulty, number> = {
   intermediate: 1,
   advanced: 2,
 };
+
+const ROW_ESTIMATE = 76;
+
+function matchesExerciseSearch(exercise: Exercise, q: string): boolean {
+  if (!q) return true;
+  if (exercise.name.toLowerCase().includes(q)) return true;
+  if (
+    exercise.primaryMuscles?.some((m) => {
+      if (m.toLowerCase().includes(q)) return true;
+      return MUSCLE_LABEL[m].toLowerCase().includes(q);
+    })
+  ) {
+    return true;
+  }
+  if (exercise.equipment.some((eq) => eq.toLowerCase().includes(q))) return true;
+  return exercise.bodyParts.some((b) => {
+    if (b.toLowerCase().includes(q)) return true;
+    return BODY_PART_LABEL[b].toLowerCase().includes(q);
+  });
+}
 
 export function ExerciseLibrary({
   category,
@@ -55,8 +77,14 @@ export function ExerciseLibrary({
   );
   const [sortMode, setSortMode] = React.useState<SortMode>("surf");
   const [search, setSearch] = React.useState("");
+  const deferredSearch = React.useDeferredValue(search);
   const [selected, setSelected] = React.useState<Exercise | null>(null);
   const [addOpen, setAddOpen] = React.useState(false);
+
+  const { scores, profiles } = React.useMemo(
+    () => precomputeSurfScores(exercises ?? [], maneuvers ?? []),
+    [exercises, maneuvers],
+  );
 
   const list = React.useMemo(() => {
     let items = (exercises ?? []).filter(
@@ -64,30 +92,39 @@ export function ExerciseLibrary({
     );
     if (demandFilter !== "all") {
       items = items.filter(
-        (e) => (getSurfTransfer(e).demands[demandFilter] ?? 0) >= 2,
+        (e) => (profiles.get(e.id)?.demands[demandFilter] ?? 0) >= 2,
       );
     }
-    const q = search.trim().toLowerCase();
+    const q = deferredSearch.trim().toLowerCase();
     if (q) {
-      items = items.filter((e) => e.name.toLowerCase().includes(q));
+      items = items.filter((e) => matchesExerciseSearch(e, q));
     }
-    const m = maneuvers ?? [];
     return [...items].sort((a, b) => {
       if (sortMode === "surf") {
-        return compareBySurfTransfer(a, b, m);
+        return compareByPrecomputedScore(a, b, scores);
       }
       if (sortMode === "name") {
         return a.name.localeCompare(b.name);
       }
       return DIFFICULTY_ORDER[a.difficulty] - DIFFICULTY_ORDER[b.difficulty];
     });
-  }, [exercises, filter, demandFilter, search, sortMode, maneuvers]);
+  }, [
+    exercises,
+    filter,
+    demandFilter,
+    deferredSearch,
+    sortMode,
+    scores,
+    profiles,
+  ]);
 
-  const availableParts = showBodyPartFilter
-    ? BODY_PARTS.filter((p) =>
-        (exercises ?? []).some((e) => e.bodyParts.includes(p.id)),
-      )
-    : [];
+  const availableParts = React.useMemo(() => {
+    if (!showBodyPartFilter) return [];
+    const items = exercises ?? [];
+    return BODY_PARTS.filter((p) =>
+      items.some((e) => e.bodyParts.includes(p.id)),
+    );
+  }, [showBodyPartFilter, exercises]);
 
   return (
     <div className="space-y-4">
@@ -103,11 +140,11 @@ export function ExerciseLibrary({
           <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search by name..."
+            placeholder="Search name, muscle, equipment..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="h-8 pl-9 text-sm"
-            aria-label="Search exercises by name"
+            aria-label="Search exercises"
           />
         </div>
         <Select
@@ -162,44 +199,17 @@ export function ExerciseLibrary({
           title={search.trim() ? "No matching exercises" : "No exercises here yet"}
           description={
             search.trim()
-              ? "Try a different name or clear the search."
+              ? "Try a different name, muscle, or equipment, or clear the search."
               : "Add your first exercise to build out the library."
           }
         />
       ) : (
-        <div className="space-y-2">
-          {list.map((ex) => {
-            const transfer = getSurfTransfer(ex);
-            const score = personalizedScore(transfer, maneuvers ?? []);
-            return (
-              <Card
-                key={ex.id}
-                onClick={() => setSelected(ex)}
-                className="flex cursor-pointer items-center gap-3 p-3 transition-colors hover:bg-muted/50"
-              >
-                <ExerciseThumb exercise={ex} />
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
-                    <p className="truncate font-medium">{ex.name}</p>
-                    {ex.origin === "user" && (
-                      <span className="rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-medium text-accent-foreground">
-                        Mine
-                      </span>
-                    )}
-                  </div>
-                  <p className="truncate text-xs text-muted-foreground">
-                    {ex.bodyParts.map((b) => BODY_PART_LABEL[b]).join(", ")}
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <SurfTransferBadge tier={transfer.tier} score={score} />
-                  <DifficultyBadge level={ex.difficulty} />
-                  <ChevronRight className="size-4 text-muted-foreground" />
-                </div>
-              </Card>
-            );
-          })}
-        </div>
+        <VirtualExerciseList
+          list={list}
+          scores={scores}
+          profiles={profiles}
+          onSelect={setSelected}
+        />
       )}
 
       <ExerciseDetail
@@ -215,6 +225,108 @@ export function ExerciseLibrary({
     </div>
   );
 }
+
+function VirtualExerciseList({
+  list,
+  scores,
+  profiles,
+  onSelect,
+}: {
+  list: Exercise[];
+  scores: Map<string, number>;
+  profiles: Map<string, SurfTransferProfile>;
+  onSelect: (exercise: Exercise) => void;
+}) {
+  const listRef = React.useRef<HTMLDivElement>(null);
+  const [scrollMargin, setScrollMargin] = React.useState(0);
+
+  React.useLayoutEffect(() => {
+    const el = listRef.current;
+    if (!el) return;
+    setScrollMargin(el.getBoundingClientRect().top + window.scrollY);
+  }, [list.length]);
+
+  const virtualizer = useWindowVirtualizer({
+    count: list.length,
+    estimateSize: () => ROW_ESTIMATE,
+    overscan: 8,
+    scrollMargin,
+  });
+
+  return (
+    <div
+      ref={listRef}
+      className="relative w-full"
+      style={{ height: virtualizer.getTotalSize() }}
+    >
+      {virtualizer.getVirtualItems().map((virtualRow) => {
+        const ex = list[virtualRow.index];
+        return (
+          <div
+            key={ex.id}
+            data-index={virtualRow.index}
+            ref={virtualizer.measureElement}
+            className="absolute top-0 left-0 w-full pb-2"
+            style={{
+              transform: `translateY(${
+                virtualRow.start - virtualizer.options.scrollMargin
+              }px)`,
+            }}
+          >
+            <ExerciseRow
+              exercise={ex}
+              profile={profiles.get(ex.id)}
+              score={scores.get(ex.id) ?? 0}
+              onSelect={onSelect}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+const ExerciseRow = React.memo(function ExerciseRow({
+  exercise,
+  profile,
+  score,
+  onSelect,
+}: {
+  exercise: Exercise;
+  profile: SurfTransferProfile | undefined;
+  score: number;
+  onSelect: (exercise: Exercise) => void;
+}) {
+  return (
+    <Card
+      data-exercise-card=""
+      onClick={() => onSelect(exercise)}
+      className="flex cursor-pointer items-center gap-3 p-3 transition-colors hover:bg-muted/50"
+    >
+      <ExerciseThumb exercise={exercise} />
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <p className="truncate font-medium">{exercise.name}</p>
+          {exercise.origin === "user" && (
+            <span className="rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-medium text-accent-foreground">
+              Mine
+            </span>
+          )}
+        </div>
+        <p className="truncate text-xs text-muted-foreground">
+          {exercise.bodyParts.map((b) => BODY_PART_LABEL[b]).join(", ")}
+        </p>
+      </div>
+      <div className="flex items-center gap-2">
+        {profile && (
+          <SurfTransferBadge tier={profile.tier} score={score} />
+        )}
+        <DifficultyBadge level={exercise.difficulty} />
+        <ChevronRight className="size-4 text-muted-foreground" />
+      </div>
+    </Card>
+  );
+});
 
 function FilterChip({
   label,

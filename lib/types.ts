@@ -88,6 +88,8 @@ export interface Exercise {
   origin: "seed" | "user";
   /** Pre-computed surf transfer rating (seed data) or filled at runtime. */
   surfTransfer?: SurfTransferProfile;
+  /** Set by repository create/update. Seed rows without this are never-modified. */
+  updatedAt?: number;
 }
 
 export interface RoutineItem {
@@ -109,6 +111,8 @@ export interface Routine {
   items: RoutineItem[];
   estMinutes: number;
   origin: "seed" | "user";
+  /** Set by repository create/update. Seed rows without this are never-modified. */
+  updatedAt?: number;
 }
 
 export interface SetLog {
@@ -140,6 +144,7 @@ export interface Session {
   durationSec?: number;
   notes?: string;
   createdAt: number;
+  updatedAt?: number;
 }
 
 export interface ManeuverReferenceUrls {
@@ -161,6 +166,8 @@ export interface Maneuver {
   /** Has the user "unlocked" / is working on this maneuver. */
   status: "learning" | "practicing" | "mastered" | "wishlist";
   origin: "seed" | "user";
+  /** Set by repository create/update. Seed rows without this are never-modified. */
+  updatedAt?: number;
 }
 
 export interface AnnotationShape {
@@ -177,6 +184,7 @@ export interface Annotation {
   timeSec: number;
   shapes: AnnotationShape[];
   note?: string;
+  updatedAt?: number;
 }
 
 /** Where the clip was recorded — land projections vs in the water. */
@@ -193,7 +201,11 @@ export interface Clip {
   thumbnail?: string;
   durationSec?: number;
   createdAt: number;
+  updatedAt?: number;
 }
+
+/** Clip row stored in Dexie without the video blob (see `clipBlobs`). */
+export type ClipMeta = Omit<Clip, "blob">;
 
 export interface Source {
   id: string;
@@ -203,6 +215,8 @@ export interface Source {
   tags: string[];
   notes?: string;
   origin: "seed" | "user" | "ai";
+  /** Set by repository create/update. Seed rows without this are never-modified. */
+  updatedAt?: number;
 }
 
 export interface Settings {
@@ -221,4 +235,30 @@ export interface Settings {
   routineOrder?: Partial<Record<Category, string[]>>;
   /** Per-category hidden routine ids (still in library, not shown in main list). */
   hiddenRoutines?: Partial<Record<Category, string[]>>;
+  /** Default rest between gym sets (seconds). RoutineItem.restSec overrides. */
+  defaultRestSec?: number;
+  favoriteExerciseIds?: string[];
+  /** Weekday index `"0"`–`"6"` (Monday = 0) → routine ids. */
+  weeklyPlan?: Partial<Record<string, string[]>>;
+}
+
+export interface BodyMetric {
+  id: string;
+  date: string;
+  weightKg?: number;
+  notes?: string;
+  createdAt: number;
+  updatedAt?: number;
+}
+
+export interface SurfSession {
+  id: string;
+  date: string;
+  spot?: string;
+  durationMin?: number;
+  conditions?: string;
+  maneuversAttempted?: string[];
+  notes?: string;
+  createdAt: number;
+  updatedAt?: number;
 }

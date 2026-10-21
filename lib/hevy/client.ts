@@ -1,3 +1,4 @@
+import type { HevyPostWorkout } from "./workout-map";
 import type { HevyPaginatedTemplates, HevyUserInfo } from "./types";
 
 const BASE = "https://api.hevyapp.com/v1";
@@ -42,6 +43,31 @@ export async function getAllExerciseTemplates(pageSize = 100) {
 
 export function getUserInfo() {
   return hevyGet<HevyUserInfo>("/user/info");
+}
+
+async function hevyPost<T>(path: string, body: unknown): Promise<T> {
+  const res = await fetch(`${BASE}${path}`, {
+    method: "POST",
+    headers: {
+      "api-key": key(),
+      accept: "application/json",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(body),
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    const detail = await res.text().catch(() => "");
+    throw new Error(
+      `Hevy API ${res.status} for ${path}${detail ? `: ${detail.slice(0, 240)}` : ""}`,
+    );
+  }
+  return res.json() as Promise<T>;
+}
+
+/** POST https://api.hevyapp.com/v1/workouts */
+export function postWorkout(workout: HevyPostWorkout) {
+  return hevyPost<{ workout?: unknown }>("/workouts", { workout });
 }
 
 export function isHevyConfigured(): boolean {

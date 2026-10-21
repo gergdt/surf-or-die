@@ -19,11 +19,11 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { RoutineSurfScore } from "@/components/routine-surf-score";
 import { SurfTransferBadge } from "@/components/surf-transfer-badge";
 import {
-  exercisesRepo,
   maneuversRepo,
   routinesRepo,
   sessionsRepo,
 } from "@/lib/db/repository";
+import { getDB } from "@/lib/db/db";
 import { CATEGORIES } from "@/lib/categories";
 import {
   getSurfTransfer,
@@ -58,7 +58,17 @@ export function RoutineTimer({
 }) {
   const router = useRouter();
   const routine = useLiveQuery(() => routinesRepo.get(routineId), [routineId]);
-  const exercises = useLiveQuery(() => exercisesRepo.all(), []);
+  const routineExerciseIdsKey = (routine?.items ?? [])
+    .map((item) => item.exerciseId)
+    .join("\0");
+  const exercises = useLiveQuery(() => {
+    if (!routine) return [] as Exercise[];
+    const ids = [...new Set(routine.items.map((item) => item.exerciseId))];
+    if (ids.length === 0) return [];
+    return getDB()
+      .exercises.bulkGet(ids)
+      .then((rows) => rows.filter((e): e is Exercise => e != null));
+  }, [routineId, routineExerciseIdsKey]);
   const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
 
   const exMap = React.useMemo(() => {
@@ -104,7 +114,9 @@ export function RoutineTimer({
   const skipRemainingInitRef = React.useRef(false);
   const stepEndsAtRef = React.useRef<number | null>(null);
   const runningRef = React.useRef(false);
-  runningRef.current = running;
+  React.useEffect(() => {
+    runningRef.current = running;
+  });
 
   React.useEffect(() => {
     if (timerDraftLoadedRef.current) return;

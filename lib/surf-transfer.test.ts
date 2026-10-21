@@ -3,8 +3,10 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   compareBySurfTransfer,
+  compareByPrecomputedScore,
   getSurfTransfer,
   personalizedScore,
+  precomputeSurfScores,
   routineSurfScore,
   scoreExercise,
 } from "./surf-transfer";
@@ -114,5 +116,19 @@ describe("compareBySurfTransfer", () => {
       sampleManeuvers,
     );
     expect(cmp).toBeLessThan(0);
+  });
+});
+
+describe("precomputeSurfScores", () => {
+  it("reuses scores for sort without changing order", () => {
+    const curl = exercises.find((e) => e.name === "EZ Bar Biceps Curl")!;
+    const pop = byId("ex_pop_up_drill");
+    const { scores } = precomputeSurfScores([pop, curl], sampleManeuvers);
+    expect(compareByPrecomputedScore(pop, curl, scores)).toBe(
+      compareBySurfTransfer(pop, curl, sampleManeuvers),
+    );
+    expect(scores.get(pop.id)).toBe(
+      personalizedScore(getSurfTransfer(pop), sampleManeuvers),
+    );
   });
 });

@@ -1,19 +1,32 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useLiveQuery } from "dexie-react-hooks";
-import { BarChart, Bar, XAxis, Tooltip, Cell } from "recharts";
-import { Flame, CalendarCheck, TrendingUp, ChevronRight, Waves } from "lucide-react";
+import {
+  Flame,
+  CalendarCheck,
+  TrendingUp,
+  ChevronRight,
+  Waves,
+  Play,
+  RotateCcw,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { ResponsiveChart } from "@/components/charts/responsive-chart";
 import { RecentSessions } from "@/components/recent-sessions";
-import { cn } from "@/lib/utils";
+import { useApp } from "@/components/providers";
+import { cn, todayISO } from "@/lib/utils";
 import { SurfTransferBadge } from "@/components/surf-transfer-badge";
-import { exercisesRepo, maneuversRepo, sessionsRepo } from "@/lib/db/repository";
-import { CATEGORY_LIST } from "@/lib/categories";
+import {
+  exercisesRepo,
+  maneuversRepo,
+  routinesRepo,
+  sessionsRepo,
+} from "@/lib/db/repository";
+import { CATEGORIES, CATEGORY_LIST } from "@/lib/categories";
 import {
   compareBySurfTransfer,
   getSurfTransfer,
@@ -24,12 +37,46 @@ import {
   sessionsThisWeek,
   weeklyActivity,
 } from "@/lib/stats";
+import {
+  clearSessionDraft,
+  isDraftSupersededBySavedSession,
+  listSessionDrafts,
+  saveSessionDraft,
+  type SessionDraft,
+} from "@/lib/session-draft";
+import type { Category, Routine } from "@/lib/types";
+
+const WeeklyBarChart = dynamic(
+  () =>
+    import("@/components/charts/weekly-bar-chart").then((m) => m.WeeklyBarChart),
+  {
+    loading: () => (
+      <div className="h-32 animate-pulse rounded-lg bg-muted/50" />
+    ),
+  },
+);
 
 export function Dashboard() {
+  const { settings } = useApp();
   const sessions = useLiveQuery(() => sessionsRepo.all(), []);
   const exercises = useLiveQuery(() => exercisesRepo.all(), []);
   const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
+  const routines = useLiveQuery(() => routinesRepo.all(), []);
   const loading = sessions === undefined;
+  const [drafts, setDrafts] = React.useState<SessionDraft[]>([]);
+
+  React.useEffect(() => {
+    if (sessions === undefined) return;
+    const next: SessionDraft[] = [];
+    for (const draft of listSessionDrafts()) {
+      if (isDraftSupersededBySavedSession(draft, sessions)) {
+        clearSessionDraft(draft.category, draft.routineId);
+        continue;
+      }
+      next.push(draft);
+    }
+    setDrafts(next);
+  }, [sessions]);
 
   const streak = React.useMemo(
     () => computeStreak(sessions ?? []),
@@ -58,6 +105,37 @@ export function Dashboard() {
   // Compute the time-based greeting after mount to avoid SSR/client mismatch.
   const [greeting, setGreeting] = React.useState("Welcome back");
   React.useEffect(() => setGreeting(getGreeting()), []);
+
+  const continueDraft = drafts[0] ?? null;
+  const lastGym = (sessions ?? []).find((s) => s.category === "gym") ?? null;
+  const weekdayIndex = (new Date().getDay() + 6) % 7;
+  const todayRoutineIds = settings?.weeklyPlan?.[String(weekdayIndex)] ?? [];
+  const routineMap = React.useMemo(() => {
+    const m = new Map<string, Routine>();
+    (routines ?? []).forEach((r) => m.set(r.id, r));
+    return m;
+  }, [routines]);
+  const todayRoutines = todayRoutineIds
+    .map((id) => routineMap.get(id))
+    .filter((r): r is Routine => !!r);
+
+  const seedRepeatDraft = (session: NonNullable<typeof lastGym>) => {
+    if (session.routineId) return;
+    saveSessionDraft({
+      category: "gym",
+      title: session.title,
+      date: todayISO(),
+      entries: session.entries.map((entry) => ({
+        exerciseId: entry.exerciseId,
+        setLogs: entry.setLogs.map(() => ({})),
+      })),
+      effort: 7,
+      notes: "",
+      seconds: 0,
+      startedAt: Date.now(),
+      updatedAt: Date.now(),
+    });
+  };
 
   return (
     <div className="animate-fade-in space-y-6">
@@ -93,6 +171,93 @@ export function Dashboard() {
           </>
         )}
       </div>
+
+      {(continueDraft || lastGym) && (
+        <section className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {continueDraft && (
+            <Link href={draftLogHref(continueDraft)}>
+              <Card className="flex h-full items-start gap-3 p-4 transition-colors hover:bg-muted/50">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                  <Play className="size-5" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Continue draft
+                  </p>
+                  <p className="truncate font-semibold">
+                    {continueDraft.title || "In-progress workout"}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {continueDraft.entries.length} exercises
+                  </p>
+                </div>
+              </Card>
+            </Link>
+          )}
+          {lastGym && (
+            <Link
+              href={
+                lastGym.routineId
+                  ? `/gym/log?routine=${lastGym.routineId}`
+                  : "/gym/log"
+              }
+              onClick={() => seedRepeatDraft(lastGym)}
+            >
+              <Card className="flex h-full items-start gap-3 p-4 transition-colors hover:bg-muted/50">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gym/10 text-gym">
+                  <RotateCcw className="size-5" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Repeat last workout
+                  </p>
+                  <p className="truncate font-semibold">{lastGym.title}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {lastGym.entries.length} exercises
+                  </p>
+                </div>
+              </Card>
+            </Link>
+          )}
+        </section>
+      )}
+
+      {settings?.weeklyPlan && (
+        <section>
+          <h2 className="mb-3 text-lg font-semibold">Today&apos;s plan</h2>
+          {todayRoutines.length === 0 ? (
+            <Card className="p-4">
+              <p className="text-sm text-muted-foreground">
+                Nothing scheduled for today.
+              </p>
+            </Card>
+          ) : (
+            <div className="space-y-2">
+              {todayRoutines.map((routine) => (
+                <Link
+                  key={routine.id}
+                  href={
+                    routine.category === "technique"
+                      ? "/technique"
+                      : `${CATEGORIES[routine.category].href}/log?routine=${routine.id}`
+                  }
+                >
+                  <Card className="flex items-center justify-between gap-3 p-3 transition-colors hover:bg-muted/50">
+                    <div className="min-w-0">
+                      <p className="truncate font-medium">{routine.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {routine.items.length} exercises · ~{routine.estMinutes}{" "}
+                        min
+                      </p>
+                    </div>
+                    <Play className="size-4 shrink-0 text-primary" />
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
 
       {topGoalExercises.length > 0 && (
         <section>
@@ -167,31 +332,7 @@ export function Dashboard() {
             </Link>
           </div>
           <Card className="p-3">
-            <ResponsiveChart height={128}>
-              <BarChart data={weekly}>
-                <XAxis
-                  dataKey="label"
-                  tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
-                  axisLine={false}
-                  tickLine={false}
-                  interval={1}
-                />
-                <Tooltip
-                  cursor={{ fill: "var(--muted)" }}
-                  contentStyle={{
-                    background: "var(--card)",
-                    border: "1px solid var(--border)",
-                    borderRadius: 12,
-                    fontSize: 12,
-                  }}
-                />
-                <Bar dataKey="count" radius={[4, 4, 0, 0]} fill="var(--primary)">
-                  {weekly.map((_, i) => (
-                    <Cell key={i} fill="var(--primary)" />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveChart>
+            <WeeklyBarChart weekly={weekly} />
           </Card>
         </section>
       )}
@@ -229,4 +370,11 @@ function getGreeting(): string {
   if (h < 12) return "Good morning";
   if (h < 18) return "Good afternoon";
   return "Good evening";
+}
+
+function draftLogHref(draft: SessionDraft): string {
+  const base = CATEGORIES[draft.category as Category]?.href ?? "/gym";
+  if (draft.category === "technique") return "/technique";
+  const log = `${base}/log`;
+  return draft.routineId ? `${log}?routine=${encodeURIComponent(draft.routineId)}` : log;
 }

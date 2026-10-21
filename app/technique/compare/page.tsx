@@ -1,5 +1,19 @@
+import dynamic from "next/dynamic";
 import { PageHeader } from "@/components/page-header";
-import { CompareStudio } from "@/components/technique/compare-studio";
+
+const CompareStudio = dynamic(
+  () =>
+    import("@/components/technique/compare-studio").then((m) => m.CompareStudio),
+  {
+    loading: () => (
+      <div className="space-y-3">
+        <div className="h-10 animate-pulse rounded-lg bg-muted/50" />
+        <div className="aspect-video animate-pulse rounded-lg bg-muted/50" />
+        <div className="aspect-video animate-pulse rounded-lg bg-muted/50" />
+      </div>
+    ),
+  },
+);
 
 export const metadata = { title: "Compare Studio" };
 

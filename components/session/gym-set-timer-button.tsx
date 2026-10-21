@@ -1,25 +1,29 @@
 "use client";
 
 import { Timer } from "lucide-react";
+import { useElapsedSeconds } from "@/components/session/elapsed-timer";
 import { cn, formatTimerCompact } from "@/lib/utils";
 
 export function GymSetTimerButton({
-  seconds,
+  storedSeconds,
+  startedAt,
   active,
   recorded,
-  placeholder,
   disabled,
   onStart,
 }: {
-  seconds: number;
+  storedSeconds: number;
+  startedAt?: number | null;
   active: boolean;
   recorded: boolean;
-  /** Last-session time shown before this set is timed. */
-  placeholder?: boolean;
   disabled?: boolean;
   onStart: () => void;
 }) {
-  const showTime = active || recorded || placeholder;
+  const seconds = useElapsedSeconds(
+    active && startedAt != null ? startedAt : null,
+    storedSeconds,
+  );
+  const showTime = active || recorded;
   const label = showTime ? formatTimerCompact(seconds) : null;
 
   return (
@@ -32,9 +36,7 @@ export function GymSetTimerButton({
           ? `Set timer running, ${formatTimerCompact(seconds)}, tap to pause`
           : recorded
             ? `Set took ${formatTimerCompact(seconds)}, tap to resume timing`
-            : placeholder
-              ? `Last session ${formatTimerCompact(seconds)}, tap to start set timer`
-              : "Start set timer"
+            : "Start set timer"
       }
       className={cn(
         "grid h-9 min-w-[3.25rem] place-items-center rounded-md border px-1.5 text-xs font-medium tabular-nums transition-colors",
@@ -42,9 +44,7 @@ export function GymSetTimerButton({
           ? "border-primary bg-primary/15 text-primary"
           : recorded
             ? "border-border bg-muted/50 text-foreground"
-            : placeholder
-              ? "border-dashed border-border bg-transparent text-muted-foreground"
-              : "border-dashed border-border text-muted-foreground hover:border-primary/50 hover:bg-muted/40 hover:text-foreground",
+            : "border-dashed border-border text-muted-foreground hover:border-primary/50 hover:bg-muted/40 hover:text-foreground",
         disabled && "pointer-events-none opacity-50",
       )}
     >

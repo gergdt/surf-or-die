@@ -1,11 +1,25 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { PageHeader } from "@/components/page-header";
-import { SessionLogger } from "@/components/session/session-logger";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import type { Category } from "@/lib/types";
+
+const SessionLogger = dynamic(
+  () =>
+    import("@/components/session/session-logger").then((m) => m.SessionLogger),
+  {
+    loading: () => (
+      <div className="space-y-3">
+        <div className="h-16 animate-pulse rounded-xl bg-muted/50" />
+        <div className="h-24 animate-pulse rounded-xl bg-muted/50" />
+        <div className="h-24 animate-pulse rounded-xl bg-muted/50" />
+      </div>
+    ),
+  },
+);
 
 export function SessionLogPage({
   category,
@@ -42,6 +56,7 @@ export function SessionLogPage({
         }
       />
       <SessionLogger
+        key={`${category}:${routineId ?? "free"}`}
         category={category}
         routineId={routineId}
         onDiscardReady={(discard) => {

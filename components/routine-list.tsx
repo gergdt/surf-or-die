@@ -31,6 +31,8 @@ import { CATEGORIES } from "@/lib/categories";
 import { cn } from "@/lib/utils";
 import { RoutineEditorModal } from "@/components/routine-editor";
 import { RoutineSurfScore } from "@/components/routine-surf-score";
+import { showUndoToast } from "@/components/ui/toast";
+import { getDB } from "@/lib/db/db";
 import { routineSurfScore } from "@/lib/surf-transfer";
 import { useDragReorder } from "@/hooks/use-drag-reorder";
 import type { Category, Exercise, Maneuver, Routine } from "@/lib/types";
@@ -56,7 +58,10 @@ export function RoutineList({
   const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
   const href = CATEGORIES[category].href;
 
-  const hiddenIds = settings?.hiddenRoutines?.[category] ?? [];
+  const hiddenIds = React.useMemo(
+    () => settings?.hiddenRoutines?.[category] ?? [],
+    [settings, category],
+  );
   const hiddenIdSet = React.useMemo(() => new Set(hiddenIds), [hiddenIds]);
 
   const exerciseMap = React.useMemo(() => {
@@ -70,7 +75,9 @@ export function RoutineList({
   const [hiddenModalOpen, setHiddenModalOpen] = React.useState(false);
   const [orderedRoutines, setOrderedRoutines] = React.useState<Routine[]>([]);
   const orderedRef = React.useRef(orderedRoutines);
-  orderedRef.current = orderedRoutines;
+  React.useEffect(() => {
+    orderedRef.current = orderedRoutines;
+  });
 
   const visibleRoutines = React.useMemo(
     () => (routines ?? []).filter((r) => !hiddenIdSet.has(r.id)),
@@ -82,11 +89,17 @@ export function RoutineList({
   );
 
   React.useEffect(() => {
-    if (routines) {
-      setOrderedRoutines(
-        hideable ? visibleRoutines : routines,
-      );
-    }
+    if (!routines) return;
+    const next = hideable ? visibleRoutines : routines;
+    setOrderedRoutines((prev) => {
+      if (
+        prev.length === next.length &&
+        prev.every((routine, i) => routine.id === next[i]?.id)
+      ) {
+        return prev;
+      }
+      return next;
+    });
   }, [routines, visibleRoutines, hideable]);
 
   const { containerRef, bindHandle, draggingIndex } = useDragReorder(
@@ -278,7 +291,14 @@ export function RoutineList({
               </button>
               {r.origin === "user" && (
                 <button
-                  onClick={() => routinesRepo.remove(r.id)}
+                  onClick={() => {
+                    const snapshot = r;
+                    void routinesRepo.remove(r.id).then(() => {
+                      showUndoToast("Routine deleted", async () => {
+                        await getDB().routines.put(snapshot);
+                      });
+                    });
+                  }}
                   className="rounded-md p-1.5 text-muted-foreground hover:text-destructive"
                   aria-label="Delete routine"
                 >

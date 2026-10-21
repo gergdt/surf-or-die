@@ -1,8 +1,11 @@
 /* Surf or Die service worker - offline-first PWA shell. */
-const VERSION = "v3";
+const VERSION = "v4";
 const STATIC_CACHE = `sod-static-${VERSION}`;
 const RUNTIME_CACHE = `sod-runtime-${VERSION}`;
+const MEDIA_CACHE = `sod-media-${VERSION}`;
+const MEDIA_CACHE_MAX = 150;
 const OFFLINE_URL = "/offline";
+const SEED_JSON = /^\/seed\/exercises\.v\d+\.json$/;
 
 const PRECACHE_URLS = [
   "/",
@@ -26,11 +29,10 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     (async () => {
+      const keep = new Set([STATIC_CACHE, RUNTIME_CACHE, MEDIA_CACHE]);
       const keys = await caches.keys();
       await Promise.all(
-        keys
-          .filter((k) => ![STATIC_CACHE, RUNTIME_CACHE].includes(k))
-          .map((k) => caches.delete(k)),
+        keys.filter((k) => !keep.has(k)).map((k) => caches.delete(k)),
       );
       await self.clients.claim();
     })(),
@@ -50,20 +52,7 @@ self.addEventListener("fetch", (event) => {
     url.hostname === "d2l9nsnmtah87f.cloudfront.net";
 
   if (isExerciseCdn && ["image", "video"].includes(request.destination)) {
-    event.respondWith(
-      (async () => {
-        const cache = await caches.open(RUNTIME_CACHE);
-        const cached = await cache.match(request);
-        if (cached) return cached;
-        try {
-          const res = await fetch(request);
-          if (res && res.status === 200) cache.put(request, res.clone());
-          return res;
-        } catch {
-          return cached || Response.error();
-        }
-      })(),
-    );
+    event.respondWith(cacheFirstMedia(request));
     return;
   }
 
@@ -71,42 +60,89 @@ self.addEventListener("fetch", (event) => {
 
   // Navigations: network-first, fall back to cached shell, then offline page.
   if (request.mode === "navigate") {
-    event.respondWith(
-      (async () => {
-        try {
-          const fresh = await fetch(request);
-          const cache = await caches.open(RUNTIME_CACHE);
-          cache.put(request, fresh.clone());
-          return fresh;
-        } catch {
-          const cached = await caches.match(request);
-          if (cached) return cached;
-          const shell = await caches.match("/");
-          if (shell) return shell;
-          return caches.match(OFFLINE_URL);
-        }
-      })(),
-    );
+    event.respondWith(networkFirstNavigate(request));
     return;
   }
 
-  // Static assets: stale-while-revalidate.
-  if (
-    ["style", "script", "image", "font"].includes(request.destination) ||
-    url.pathname.startsWith("/_next/static")
-  ) {
-    event.respondWith(
-      (async () => {
-        const cache = await caches.open(RUNTIME_CACHE);
-        const cached = await cache.match(request);
-        const network = fetch(request)
-          .then((res) => {
-            if (res && res.status === 200) cache.put(request, res.clone());
-            return res;
-          })
-          .catch(() => cached);
-        return cached || network;
-      })(),
+  // Hashed Next.js assets: cache-first (immutable).
+  if (url.pathname.startsWith("/_next/static/")) {
+    event.respondWith(cacheFirst(request, STATIC_CACHE));
+    return;
+  }
+
+  // Versioned exercise seed: cache-first after the first fetch.
+  if (SEED_JSON.test(url.pathname)) {
+    event.respondWith(cacheFirst(request, STATIC_CACHE));
+    return;
+  }
+
+  // Other same-origin: network-first.
+  event.respondWith(networkFirst(request, RUNTIME_CACHE));
+});
+
+async function cacheFirst(request, cacheName) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(request);
+  if (cached) return cached;
+  const res = await fetch(request);
+  if (res && res.status === 200) cache.put(request, res.clone());
+  return res;
+}
+
+async function networkFirst(request, cacheName) {
+  const cache = await caches.open(cacheName);
+  try {
+    const fresh = await fetch(request);
+    if (fresh && fresh.status === 200) cache.put(request, fresh.clone());
+    return fresh;
+  } catch {
+    return (
+      (await cache.match(request)) ||
+      (await caches.match(request)) ||
+      Response.error()
     );
   }
-});
+}
+
+async function networkFirstNavigate(request) {
+  try {
+    const fresh = await fetch(request);
+    const cache = await caches.open(RUNTIME_CACHE);
+    cache.put(request, fresh.clone());
+    return fresh;
+  } catch {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    const shell = await caches.match("/");
+    if (shell) return shell;
+    return caches.match(OFFLINE_URL);
+  }
+}
+
+async function cacheFirstMedia(request) {
+  const cache = await caches.open(MEDIA_CACHE);
+  const cached = await cache.match(request);
+  if (cached) {
+    await cache.put(request, cached.clone());
+    return cached;
+  }
+  try {
+    const res = await fetch(request);
+    if (res && res.status === 200) {
+      await cache.put(request, res.clone());
+      await trimCache(cache, MEDIA_CACHE_MAX);
+    }
+    return res;
+  } catch {
+    return cached || Response.error();
+  }
+}
+
+async function trimCache(cache, maxEntries) {
+  const keys = await cache.keys();
+  const extra = keys.length - maxEntries;
+  if (extra <= 0) return;
+  for (let i = 0; i < extra; i++) {
+    await cache.delete(keys[i]);
+  }
+}

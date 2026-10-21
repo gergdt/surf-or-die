@@ -1,14 +1,21 @@
 import Dexie, { type Table } from "dexie";
 import type {
   Annotation,
-  Clip,
+  BodyMetric,
+  ClipMeta,
   Exercise,
   Maneuver,
   Routine,
   Session,
   Settings,
   Source,
+  SurfSession,
 } from "../types";
+
+export interface ClipBlobRecord {
+  id: string;
+  blob: Blob;
+}
 
 /**
  * Local-first IndexedDB store. The app talks to this through the repository
@@ -20,10 +27,13 @@ export class SurfDB extends Dexie {
   routines!: Table<Routine, string>;
   sessions!: Table<Session, string>;
   maneuvers!: Table<Maneuver, string>;
-  clips!: Table<Clip, string>;
+  clips!: Table<ClipMeta, string>;
+  clipBlobs!: Table<ClipBlobRecord, string>;
   annotations!: Table<Annotation, string>;
   sources!: Table<Source, string>;
   settings!: Table<Settings, string>;
+  bodyMetrics!: Table<BodyMetric, string>;
+  surfSessions!: Table<SurfSession, string>;
 
   constructor() {
     super("surf-or-die");
@@ -56,6 +66,37 @@ export class SurfDB extends Dexie {
             if (!clip.context) clip.context = "land";
           }),
       );
+    this.version(3)
+      .stores({
+        exercises:
+          "id, category, difficulty, origin, hevyTemplateId, *bodyParts, [category+difficulty]",
+        routines: "id, category, origin",
+        sessions: "id, category, date, routineId, createdAt, [category+date]",
+        maneuvers: "id, difficulty, status, origin",
+        clips: "id, sessionId, maneuverId, context, createdAt",
+        clipBlobs: "id",
+        annotations: "id, clipId, timeSec",
+        sources: "id, category, origin",
+        settings: "id",
+      })
+      .upgrade(async (tx) => {
+        const clipsTable = tx.table("clips");
+        const blobTable = tx.table("clipBlobs");
+        const clips = await clipsTable.toArray();
+        const blobs: ClipBlobRecord[] = [];
+        for (const clip of clips) {
+          if (clip.blob) {
+            blobs.push({ id: clip.id, blob: clip.blob });
+            delete clip.blob;
+          }
+        }
+        if (blobs.length > 0) await blobTable.bulkPut(blobs);
+        if (clips.length > 0) await clipsTable.bulkPut(clips);
+      });
+    this.version(4).stores({
+      bodyMetrics: "id, date, createdAt",
+      surfSessions: "id, date, createdAt",
+    });
   }
 }
 

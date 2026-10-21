@@ -15,7 +15,17 @@ import {
   ArrowLeftRight,
 } from "lucide-react";
 import { ExerciseDetail } from "@/components/exercise-detail";
+import {
+  ElapsedTimer,
+  RestTimer,
+  requestRestNotificationPermission,
+} from "@/components/session/elapsed-timer";
 import { GymSetTimerButton } from "@/components/session/gym-set-timer-button";
+import {
+  setLogKey,
+  withSetLogId,
+  withSetLogIds,
+} from "@/components/session/set-log-id";
 import { RoutineEditorModal } from "@/components/routine-editor";
 import { RoutineSurfScore } from "@/components/routine-surf-score";
 import { SurfTransferBadge } from "@/components/surf-transfer-badge";
@@ -24,7 +34,13 @@ import { Card } from "@/components/ui/card";
 import { Input, Textarea, Label } from "@/components/ui/input";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ExercisePicker } from "./exercise-picker";
-import { SessionPersonalBests } from "./session-personal-bests";
+import {
+  SessionPersonalBests,
+  formatOverloadHint,
+  isLivePersonalBest,
+  suggestOverload,
+} from "./session-personal-bests";
+import { getDB } from "@/lib/db/db";
 import {
   exercisesRepo,
   maneuversRepo,
@@ -37,6 +53,7 @@ import { useDragReorder } from "@/hooks/use-drag-reorder";
 import { useGymWorkoutTimers } from "@/hooks/use-gym-workout-timers";
 import {
   clearSessionDraft,
+  isDraftSupersededBySavedSession,
   loadSessionDraft,
   routineItemsFingerprint,
   saveSessionDraft,
@@ -56,30 +73,44 @@ import {
 } from "@/lib/units";
 import { CATEGORIES } from "@/lib/categories";
 import {
+  allTimeHeaviestSetLogByExercise,
   defaultSetLogsForExercise,
-  exerciseAllTimeHeaviestSetLog,
-  exerciseLastSessionEntry,
-  exerciseLastSessionSetLogs,
   formatSetLogSummary,
-  placeholderSetLogsFromLastSession,
+  lastSessionSetLogsByExercise,
+  placeholderSetLogsFromBaseline,
   resolveSetLog,
 } from "@/lib/stats";
-import type { Category, Exercise, Routine, RoutineItem, Session, SetLog } from "@/lib/types";
+import type { Category, Exercise, Routine, RoutineItem, SetLog } from "@/lib/types";
 
-function entriesFromRoutine(routine: Routine, sessions: Session[]): DraftEntry[] {
+function draftSetLogs(
+  setLogs: SetLog[],
+  lastSets: SetLog[] | null | undefined,
+): SetLog[] {
+  return withSetLogIds(placeholderSetLogsFromBaseline(setLogs, lastSets));
+}
+
+function entriesFromRoutine(
+  routine: Routine,
+  lastSetLogsByExercise: Map<string, SetLog[]>,
+): DraftEntry[] {
   return routine.items.map((item) => ({
     exerciseId: item.exerciseId,
-    setLogs: placeholderSetLogsFromLastSession(
+    setLogs: draftSetLogs(
       defaultSetLogsForExercise(
-        sessions,
+        [],
         item.exerciseId,
         item.sets,
         { reps: item.reps, durationSec: item.durationSec },
       ),
-      sessions,
-      item.exerciseId,
+      lastSetLogsByExercise.get(item.exerciseId),
     ),
   }));
+}
+
+async function exercisesByIds(ids: string[]): Promise<Exercise[]> {
+  if (ids.length === 0) return [];
+  const rows = await getDB().exercises.bulkGet(ids);
+  return rows.filter((e): e is Exercise => e != null);
 }
 
 interface DraftEntry {
@@ -116,11 +147,6 @@ export function SessionLogger({
   const routineId = existingSession?.routineId ?? routineIdProp;
   const isStrength = category === "gym";
 
-  const exercises = useLiveQuery(
-    () =>
-      routineId ? exercisesRepo.all() : exercisesRepo.byCategory(category),
-    [category, routineId],
-  );
   const pickerExercises = useLiveQuery(
     () => exercisesRepo.byCategory(category),
     [category],
@@ -128,6 +154,21 @@ export function SessionLogger({
   const routine = useLiveQuery(
     () => (routineId ? routinesRepo.get(routineId) : undefined),
     [routineId],
+  );
+  const routineExerciseIdsKey = React.useMemo(() => {
+    const ids = new Set<string>();
+    routine?.items.forEach((item) => ids.add(item.exerciseId));
+    existingSession?.entries.forEach((entry) => ids.add(entry.exerciseId));
+    return [...ids].join("\0");
+  }, [routine, existingSession]);
+  const routineExercises = useLiveQuery(
+    () => {
+      if (!routineId) return [] as Exercise[];
+      const ids =
+        routineExerciseIdsKey === "" ? [] : routineExerciseIdsKey.split("\0");
+      return exercisesByIds(ids);
+    },
+    [routineId, routineExerciseIdsKey],
   );
   const maneuvers = useLiveQuery(() => maneuversRepo.all(), []);
   const sessions = useLiveQuery(() => sessionsRepo.all(), []);
@@ -139,11 +180,21 @@ export function SessionLogger({
     [sessions, sessionId],
   );
 
+  const lastSetLogsByExercise = React.useMemo(
+    () => lastSessionSetLogsByExercise(sessionsForStats),
+    [sessionsForStats],
+  );
+  const heaviestSetByExercise = React.useMemo(
+    () => allTimeHeaviestSetLogByExercise(sessionsForStats),
+    [sessionsForStats],
+  );
+
   const exerciseMap = React.useMemo(() => {
     const m = new Map<string, Exercise>();
-    (exercises ?? []).forEach((e) => m.set(e.id, e));
+    (pickerExercises ?? []).forEach((e) => m.set(e.id, e));
+    (routineExercises ?? []).forEach((e) => m.set(e.id, e));
     return m;
-  }, [exercises]);
+  }, [pickerExercises, routineExercises]);
 
   const [title, setTitle] = React.useState("");
   const [date, setDate] = React.useState(todayISO());
@@ -162,16 +213,19 @@ export function SessionLogger({
   const [savedSessionId, setSavedSessionId] = React.useState<string | null>(null);
   const [savingRoutine, setSavingRoutine] = React.useState(false);
   const [routineEditorOpen, setRoutineEditorOpen] = React.useState(false);
-  const [seconds, setSeconds] = React.useState(0);
+  const [editDurationSec, setEditDurationSec] = React.useState(0);
+  const [startedAt, setStartedAt] = React.useState(() => Date.now());
   const [draftRestored, setDraftRestored] = React.useState(false);
   const [initialGymTimer, setInitialGymTimer] = React.useState<
     GymTimerDraft | null | undefined
   >(undefined);
+  const [restEndsAt, setRestEndsAt] = React.useState<number | null>(null);
+  const [restDurationSec, setRestDurationSec] = React.useState(90);
   const seededRef = React.useRef(false);
   const draftLoadedRef = React.useRef(false);
   const discardedRef = React.useRef(false);
+  const savedRef = React.useRef(false);
   const dateEditedRef = React.useRef(false);
-  const startedAtRef = React.useRef(Date.now());
   const routineEditorWasOpen = React.useRef(false);
 
   const { containerRef, bindHandle, draggingIndex } = useDragReorder(
@@ -181,11 +235,28 @@ export function SessionLogger({
 
   const gymTimersEnabled =
     isStrength && !isEditing && initialGymTimer !== undefined;
+
+  const startRest = React.useCallback(
+    (entryIdx: number) => {
+      if (!isStrength || isEditing) return;
+      const entry = entries[entryIdx];
+      if (!entry) return;
+      const item = routine?.items.find((i) => i.exerciseId === entry.exerciseId);
+      const sec = item?.restSec ?? settings?.defaultRestSec ?? 90;
+      if (sec <= 0) return;
+      requestRestNotificationPermission();
+      setRestDurationSec(sec);
+      setRestEndsAt(Date.now() + sec * 1000);
+    },
+    [isStrength, isEditing, entries, routine, settings?.defaultRestSec],
+  );
+
+  const clearRest = React.useCallback(() => setRestEndsAt(null), []);
+
   const {
+    active: activeGymTimer,
     startSet: startGymSetTimer,
     finalizeAndClear: finalizeGymTimers,
-    getExerciseSeconds,
-    getSetSeconds,
     isSetActive,
     isExerciseActive,
     gymTimerDraft,
@@ -195,24 +266,50 @@ export function SessionLogger({
   } = useGymWorkoutTimers(entries, setEntries, {
     enabled: gymTimersEnabled,
     initialTimer: initialGymTimer,
+    onSetCompleted: startRest,
   });
 
-  // Live elapsed timer from wall clock (survives screen lock).
-  React.useEffect(() => {
-    if (isEditing) return;
-    const sync = () =>
-      setSeconds(Math.floor((Date.now() - startedAtRef.current) / 1000));
-    sync();
-    const t = setInterval(sync, 1000);
-    const onVisibility = () => {
-      if (document.visibilityState === "visible") sync();
-    };
-    document.addEventListener("visibilitychange", onVisibility);
-    return () => {
-      clearInterval(t);
-      document.removeEventListener("visibilitychange", onVisibility);
-    };
-  }, [isEditing]);
+  const persistCurrentDraft = React.useCallback(() => {
+    if (
+      isEditing ||
+      !draftLoadedRef.current ||
+      discardedRef.current ||
+      savedRef.current
+    )
+      return;
+    if (entries.length === 0 && !title.trim()) return;
+    saveSessionDraft({
+      category,
+      routineId,
+      routineFingerprint: routine
+        ? routineItemsFingerprint(routine.items)
+        : undefined,
+      title,
+      date: dateEditedRef.current
+        ? date
+        : localDateKey(new Date(startedAt)),
+      entries,
+      effort,
+      notes,
+      seconds: Math.max(0, Math.floor((Date.now() - startedAt) / 1000)),
+      startedAt,
+      updatedAt: Date.now(),
+      gymTimer: isStrength ? gymTimerDraft : undefined,
+    });
+  }, [
+    category,
+    routineId,
+    routine,
+    title,
+    date,
+    entries,
+    effort,
+    notes,
+    startedAt,
+    isEditing,
+    gymTimerDraft,
+    isStrength,
+  ]);
 
   React.useEffect(() => {
     if (!client) {
@@ -239,14 +336,14 @@ export function SessionLogger({
     setEntries(
       existingSession.entries.map((e) => ({
         exerciseId: e.exerciseId,
-        setLogs: e.setLogs.map((s) => ({ ...s })),
+        setLogs: withSetLogIds(e.setLogs.map((s) => ({ ...s }))),
         notes: e.notes,
         exerciseElapsedSec: e.exerciseElapsedSec,
       })),
     );
     setEffort(existingSession.perceivedEffort ?? 7);
     setNotes(existingSession.notes ?? "");
-    setSeconds(existingSession.durationSec ?? 0);
+    setEditDurationSec(existingSession.durationSec ?? 0);
     setInitialGymTimer(null);
   }, [isEditing, existingSession]);
 
@@ -262,7 +359,10 @@ export function SessionLogger({
       routineId,
       routine?.items,
     );
-    if (draft && draft.entries.length > 0) {
+    const superseded =
+      draft != null && isDraftSupersededBySavedSession(draft, sessions);
+    if (superseded) clearSessionDraft(category, routineId);
+    if (draft && draft.entries.length > 0 && !superseded) {
       const workoutDate = localDateKey(new Date(draft.startedAt));
       dateEditedRef.current = draft.date !== workoutDate;
       setTitle(draft.title);
@@ -270,17 +370,15 @@ export function SessionLogger({
       setEntries(
         draft.entries.map((entry) => ({
           ...entry,
-          setLogs: placeholderSetLogsFromLastSession(
+          setLogs: draftSetLogs(
             entry.setLogs,
-            sessions,
-            entry.exerciseId,
+            lastSetLogsByExercise.get(entry.exerciseId),
           ),
         })),
       );
       setEffort(draft.effort);
       setNotes(draft.notes);
-      startedAtRef.current = draft.startedAt;
-      setSeconds(Math.floor((Date.now() - draft.startedAt) / 1000));
+      setStartedAt(draft.startedAt);
       setInitialGymTimer(draft.gymTimer ?? null);
       seededRef.current = true;
       setDraftRestored(true);
@@ -289,12 +387,12 @@ export function SessionLogger({
     if (routine) {
       seededRef.current = true;
       setTitle(routine.name);
-      setEntries(entriesFromRoutine(routine, sessions));
+      setEntries(entriesFromRoutine(routine, lastSetLogsByExercise));
       setInitialGymTimer(null);
       return;
     }
     setInitialGymTimer(null);
-  }, [category, routineId, routine, sessions, isEditing]);
+  }, [category, routineId, routine, sessions, isEditing, lastSetLogsByExercise]);
 
   const discardSession = React.useCallback(() => {
     discardedRef.current = true;
@@ -308,43 +406,36 @@ export function SessionLogger({
 
   // Persist draft locally so a refresh does not lose the workout.
   React.useEffect(() => {
-    if (isEditing || !draftLoadedRef.current || discardedRef.current) return;
+    if (
+      isEditing ||
+      !draftLoadedRef.current ||
+      discardedRef.current ||
+      savedRef.current
+    )
+      return;
     if (entries.length === 0 && !title.trim()) return;
-    const timer = setTimeout(() => {
-      saveSessionDraft({
-        category,
-        routineId,
-        routineFingerprint: routine
-          ? routineItemsFingerprint(routine.items)
-          : undefined,
-        title,
-        date: dateEditedRef.current
-          ? date
-          : localDateKey(new Date(startedAtRef.current)),
-        entries,
-        effort,
-        notes,
-        seconds,
-        startedAt: startedAtRef.current,
-        updatedAt: Date.now(),
-        gymTimer: isStrength ? gymTimerDraft : undefined,
-      });
-    }, 350);
+    const timer = setTimeout(() => persistCurrentDraft(), 350);
     return () => clearTimeout(timer);
   }, [
-    category,
-    routineId,
-    title,
-    date,
-    entries,
-    effort,
-    notes,
-    seconds,
+    persistCurrentDraft,
     isEditing,
-    routine,
-    gymTimerDraft,
-    isStrength,
+    entries.length,
+    title,
   ]);
+
+  React.useEffect(() => {
+    if (isEditing) return;
+    const onVisibility = () => {
+      if (document.visibilityState === "hidden") persistCurrentDraft();
+    };
+    const onPageHide = () => persistCurrentDraft();
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("pagehide", onPageHide);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pagehide", onPageHide);
+    };
+  }, [isEditing, persistCurrentDraft]);
 
   // Re-sync session when the routine is edited mid-workout.
   React.useEffect(() => {
@@ -360,13 +451,13 @@ export function SessionLogger({
       const fresh = await routinesRepo.get(routineId);
       if (cancelled || !fresh) return;
       setTitle(fresh.name);
-      setEntries(entriesFromRoutine(fresh, sessions));
+      setEntries(entriesFromRoutine(fresh, lastSetLogsByExercise));
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [routineEditorOpen, routineId, sessions]);
+  }, [routineEditorOpen, routineId, sessions, lastSetLogsByExercise]);
 
   const closePicker = () => {
     setPickerOpen(false);
@@ -388,13 +479,12 @@ export function SessionLogger({
       ...prev,
       {
         exerciseId: ex.id,
-        setLogs: placeholderSetLogsFromLastSession(
+        setLogs: draftSetLogs(
           defaultSetLogsForExercise(sessionsForStats, ex.id, 1, {
             reps: ex.defaultReps,
             durationSec: ex.defaultDurationSec,
           }),
-          sessionsForStats,
-          ex.id,
+          lastSetLogsByExercise.get(ex.id),
         ),
       },
     ]);
@@ -412,14 +502,13 @@ export function SessionLogger({
         );
         return {
           exerciseId: ex.id,
-          setLogs: placeholderSetLogsFromLastSession(
+          setLogs: draftSetLogs(
             defaultSetLogsForExercise(sessionsForStats, ex.id, setCount, {
               reps: routineItem?.reps ?? ex.defaultReps,
               durationSec:
                 routineItem?.durationSec ?? ex.defaultDurationSec,
             }),
-            sessionsForStats,
-            ex.id,
+            lastSetLogsByExercise.get(ex.id),
           ),
         };
       }),
@@ -443,7 +532,7 @@ export function SessionLogger({
   const addSet = (idx: number) =>
     setEntries((prev) =>
       prev.map((e, i) =>
-        i === idx ? { ...e, setLogs: [...e.setLogs, {}] } : e,
+        i === idx ? { ...e, setLogs: [...e.setLogs, withSetLogId()] } : e,
       ),
     );
 
@@ -458,13 +547,19 @@ export function SessionLogger({
     );
   };
 
+  const gymSetIsLogged = (set: SetLog) =>
+    set.reps != null || set.durationSec != null;
+
   const updateSet = (
     entryIdx: number,
     setIdx: number,
     patch: Partial<SetLog>,
-  ) =>
-    setEntries((prev) =>
-      prev.map((e, i) =>
+  ) => {
+    let shouldRest = false;
+    setEntries((prev) => {
+      const current = prev[entryIdx]?.setLogs[setIdx];
+      const wasLogged = current ? gymSetIsLogged(current) : false;
+      const next = prev.map((e, i) =>
         i === entryIdx
           ? {
               ...e,
@@ -473,8 +568,18 @@ export function SessionLogger({
               ),
             }
           : e,
-      ),
-    );
+      );
+      const updated = next[entryIdx]?.setLogs[setIdx];
+      shouldRest =
+        isStrength &&
+        !isEditing &&
+        !!updated &&
+        !wasLogged &&
+        gymSetIsLogged(updated);
+      return next;
+    });
+    if (shouldRest && !isSetActive(entryIdx, setIdx)) startRest(entryIdx);
+  };
 
   const num = (v: string): number | null =>
     v === "" ? null : Number(v);
@@ -502,6 +607,14 @@ export function SessionLogger({
     baseline?: number | null,
   ) => value === undefined && baseline != null;
 
+  const pbExerciseIdsKey = [
+    ...new Set(entries.map((entry) => entry.exerciseId)),
+  ].join("\0");
+  const pbExerciseIds = React.useMemo(
+    () => (pbExerciseIdsKey === "" ? [] : pbExerciseIdsKey.split("\0")),
+    [pbExerciseIdsKey],
+  );
+
   const sessionRoutineItems = React.useMemo((): RoutineItem[] => {
     return entries.map((entry) => {
       const template = routine?.items.find(
@@ -513,11 +626,11 @@ export function SessionLogger({
         sets: entry.setLogs.length,
         reps: first?.reps ?? undefined,
         durationSec: first?.durationSec ?? undefined,
-        restSec: template?.restSec ?? 60,
+        restSec: template?.restSec ?? settings?.defaultRestSec ?? 90,
         notes: template?.notes,
       };
     });
-  }, [entries, routine]);
+  }, [entries, routine, settings?.defaultRestSec]);
 
   const sessionSurfScore = React.useMemo(
     () => routineSurfScore(sessionRoutineItems, exerciseMap, maneuvers ?? []),
@@ -546,13 +659,12 @@ export function SessionLogger({
       const payload = {
         date: dateEditedRef.current
           ? date
-          : localDateKey(new Date(startedAtRef.current)),
+          : localDateKey(new Date(startedAt)),
         category,
         routineId,
         title: title.trim() || `${CATEGORIES[category].short} session`,
         entries: finalizedEntries.map((e) => {
-          const lastSets =
-            exerciseLastSessionSetLogs(sessionsForStats, e.exerciseId) ?? [];
+          const lastSets = lastSetLogsByExercise.get(e.exerciseId) ?? [];
           return {
             exerciseId: e.exerciseId,
             setLogs: e.setLogs.map((set, sIdx) =>
@@ -563,7 +675,12 @@ export function SessionLogger({
           };
         }),
         perceivedEffort: effort,
-        durationSec: Math.floor((Date.now() - startedAtRef.current) / 1000),
+        durationSec: isEditing
+          ? editDurationSec
+          : Math.max(
+              0,
+              Math.floor((Date.now() - startedAt) / 1000),
+            ),
         notes: notes.trim() || undefined,
       };
       const targetId = isEditing ? sessionId : savedSessionId;
@@ -580,6 +697,7 @@ export function SessionLogger({
         if (isEditing) {
           router.push(`/sessions/${targetId}`);
         } else {
+          savedRef.current = true;
           clearSessionDraft(category, routineId);
           router.push(`${CATEGORIES[category].href}?logged=1`);
         }
@@ -592,6 +710,7 @@ export function SessionLogger({
           );
           return;
         }
+        savedRef.current = true;
         clearSessionDraft(category, routineId);
         router.push(`${CATEGORIES[category].href}?logged=1`);
       }
@@ -617,7 +736,7 @@ export function SessionLogger({
       {entries.length > 0 && (
         <SessionPersonalBests
           category={category}
-          exerciseIds={entries.map((e) => e.exerciseId)}
+          exerciseIds={pbExerciseIds}
           exerciseMap={exerciseMap}
           units={units}
         />
@@ -633,21 +752,21 @@ export function SessionLogger({
                 inputMode="numeric"
                 min={0}
                 className="h-9 w-20"
-                value={Math.round(seconds / 60) || ""}
+                value={Math.round(editDurationSec / 60) || ""}
                 onChange={(e) => {
                   const mins = num(e.target.value);
-                  setSeconds(mins != null ? mins * 60 : 0);
+                  setEditDurationSec(mins != null ? mins * 60 : 0);
                 }}
               />
               <span className="text-sm text-muted-foreground">min</span>
               <span className="text-xs text-muted-foreground">
-                ({formatDuration(seconds)})
+                ({formatDuration(editDurationSec)})
               </span>
             </div>
           ) : (
             <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
               <Clock className="size-4" />
-              <span className="tabular-nums">{formatDuration(seconds)}</span>
+              <ElapsedTimer startedAt={startedAt} />
             </div>
           )}
           <input
@@ -698,6 +817,15 @@ export function SessionLogger({
         )}
       </Card>
 
+      {restEndsAt != null && gymTimersEnabled && (
+        <RestTimer
+          endsAt={restEndsAt}
+          durationSec={restDurationSec}
+          onSkip={clearRest}
+          onComplete={clearRest}
+        />
+      )}
+
       {entries.length === 0 ? (
         <EmptyState
           icon={Plus}
@@ -722,42 +850,32 @@ export function SessionLogger({
             )?.notes;
             const isWarmup = warmupNote?.toLowerCase().startsWith("warm-up");
             const lastSessionSets =
-              exerciseLastSessionSetLogs(sessionsForStats, entry.exerciseId) ??
-              [];
-            const lastSessionEntry = exerciseLastSessionEntry(
-              sessionsForStats,
-              entry.exerciseId,
-            );
-            const lastExerciseElapsed = lastSessionEntry?.exerciseElapsedSec;
-            const heaviestSet = exerciseAllTimeHeaviestSetLog(
-              sessionsForStats,
-              entry.exerciseId,
-            );
+              lastSetLogsByExercise.get(entry.exerciseId) ?? [];
+            const heaviestSet = heaviestSetByExercise.get(entry.exerciseId);
             const heaviestLabel = heaviestSet
               ? formatSetLogSummary(heaviestSet, { isStrength, units })
               : null;
-            const exerciseSeconds = gymTimersEnabled
-              ? getExerciseSeconds(idx)
-              : entry.exerciseElapsedSec ?? 0;
-            const exerciseRecorded = (entry.exerciseElapsedSec ?? 0) > 0;
+            const lastSetsLabel = lastSessionSets
+              .map((set) => formatSetLogSummary(set, { isStrength, units }))
+              .filter(Boolean)
+              .join(" · ");
+            const targetReps = routine?.items.find(
+              (i) => i.exerciseId === entry.exerciseId,
+            )?.reps;
+            const overload = isStrength
+              ? suggestOverload(lastSessionSets, targetReps)
+              : null;
+            const overloadLabel = overload
+              ? formatOverloadHint(overload, units)
+              : null;
+            const storedExerciseSeconds = entry.exerciseElapsedSec ?? 0;
+            const exerciseRecorded = storedExerciseSeconds > 0;
             const exerciseActive = gymTimersEnabled && isExerciseActive(idx);
-            const exerciseElapsedIsPlaceholder =
-              gymTimersEnabled &&
-              !exerciseActive &&
-              !exerciseRecorded &&
-              lastExerciseElapsed != null &&
-              lastExerciseElapsed > 0;
-            const displayExerciseSeconds =
-              exerciseActive || exerciseRecorded
-                ? exerciseSeconds
-                : (lastExerciseElapsed ?? exerciseSeconds);
             const showExerciseTimer =
               isStrength &&
               (gymTimersEnabled
-                ? exerciseSeconds > 0 ||
-                  exerciseActive ||
-                  exerciseElapsedIsPlaceholder
-                : (entry.exerciseElapsedSec ?? 0) > 0);
+                ? exerciseRecorded || exerciseActive
+                : storedExerciseSeconds > 0);
             return (
               <Card
                 key={`${entry.exerciseId}-${idx}`}
@@ -797,18 +915,19 @@ export function SessionLogger({
                               "inline-flex shrink-0 items-center gap-1 rounded-md border px-1.5 py-0.5 text-[11px] font-medium tabular-nums",
                               exerciseActive
                                 ? "border-primary/40 bg-primary/10 text-primary"
-                                : exerciseElapsedIsPlaceholder
-                                  ? "border-dashed border-border text-muted-foreground"
-                                  : "border-border bg-muted/40 text-muted-foreground",
+                                : "border-border bg-muted/40 text-muted-foreground",
                             )}
-                            title={
-                              exerciseElapsedIsPlaceholder
-                                ? "Last session exercise time"
-                                : undefined
-                            }
                           >
                             <Clock className="size-3" />
-                            {formatTimerCompact(displayExerciseSeconds)}
+                            <ElapsedTimer
+                              startedAt={
+                                exerciseActive
+                                  ? activeGymTimer?.exerciseStartedAt
+                                  : null
+                              }
+                              baseSeconds={storedExerciseSeconds}
+                              format={formatTimerCompact}
+                            />
                           </span>
                         )}
                       </div>
@@ -853,13 +972,30 @@ export function SessionLogger({
                   </div>
                 </div>
 
-                {heaviestLabel && (
-                  <p className="mb-3 text-xs text-muted-foreground">
-                    Heaviest set:{" "}
-                    <span className="font-medium text-foreground">
-                      {heaviestLabel}
-                    </span>
-                  </p>
+                {(heaviestLabel || lastSetsLabel || overloadLabel) && (
+                  <div className="mb-3 space-y-0.5">
+                    {heaviestLabel && (
+                      <p className="text-xs text-muted-foreground">
+                        Heaviest set:{" "}
+                        <span className="font-medium text-foreground">
+                          {heaviestLabel}
+                        </span>
+                      </p>
+                    )}
+                    {lastSetsLabel && (
+                      <p className="text-xs text-muted-foreground">
+                        Last:{" "}
+                        <span className="font-medium text-foreground">
+                          {lastSetsLabel}
+                        </span>
+                      </p>
+                    )}
+                    {overloadLabel && (
+                      <p className="text-xs text-primary">
+                        Suggest {overloadLabel}
+                      </p>
+                    )}
+                  </div>
                 )}
 
                 {warmupNote && (
@@ -906,22 +1042,18 @@ export function SessionLogger({
                       baseline?.durationSec,
                     );
                     const setActive = gymTimersEnabled && isSetActive(idx, sIdx);
-                    const setRecorded = (set.elapsedSec ?? 0) > 0;
-                    const elapsedIsPlaceholder =
-                      gymTimersEnabled &&
-                      !setActive &&
-                      !setRecorded &&
-                      baseline?.elapsedSec != null &&
-                      baseline.elapsedSec > 0;
-                    const displaySetSeconds = setActive
-                      ? getSetSeconds(idx, sIdx)
-                      : setRecorded
-                        ? set.elapsedSec!
-                        : (baseline?.elapsedSec ?? 0);
+                    const storedSetSeconds = set.elapsedSec ?? 0;
+                    const setRecorded = storedSetSeconds > 0;
                     const placeholderClass = "text-muted-foreground";
+                    const resolvedSet = resolveSetLog(set, baseline);
+                    const livePb =
+                      isStrength &&
+                      (set.weightKg != null || set.reps != null) &&
+                      isLivePersonalBest(resolvedSet, heaviestSet);
 
                     return (
-                    <div key={sIdx} className="flex items-center gap-2">
+                    <div key={setLogKey(set, sIdx)}>
+                    <div className="flex items-center gap-2">
                       <span className="w-6 text-center text-sm font-semibold text-muted-foreground">
                         {sIdx + 1}
                       </span>
@@ -980,10 +1112,14 @@ export function SessionLogger({
                           />
                           {gymTimersEnabled ? (
                             <GymSetTimerButton
-                              seconds={displaySetSeconds}
+                              storedSeconds={storedSetSeconds}
+                              startedAt={
+                                setActive
+                                  ? activeGymTimer?.setStartedAt
+                                  : null
+                              }
                               active={setActive}
                               recorded={setRecorded}
-                              placeholder={elapsedIsPlaceholder}
                               onStart={() => startGymSetTimer(idx, sIdx)}
                             />
                           ) : isEditing && set.elapsedSec != null ? (
@@ -1038,6 +1174,12 @@ export function SessionLogger({
                       >
                         <Trash2 className="size-3.5" />
                       </button>
+                    </div>
+                    {livePb && (
+                      <p className="pl-8 pt-0.5 text-[11px] font-medium text-gym">
+                        New personal best
+                      </p>
+                    )}
                     </div>
                     );
                   })}

@@ -1,3 +1,5 @@
+import type { HevyCatalogEntry } from "./catalog";
+
 export interface HevyExerciseTemplate {
   id: string;
   title: string;
@@ -6,6 +8,11 @@ export interface HevyExerciseTemplate {
   secondary_muscle_groups: string[];
   equipment: string;
   is_custom: boolean;
+}
+
+/** Template plus optional catalog media resolved on the server. */
+export interface HevyEnrichedTemplate extends HevyExerciseTemplate {
+  catalog?: HevyCatalogEntry;
 }
 
 export interface HevyPaginatedTemplates {

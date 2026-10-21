@@ -1,22 +1,15 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { useLiveQuery } from "dexie-react-hooks";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-} from "recharts";
 import {
   ExternalLink,
   ShieldAlert,
   ListChecks,
   Trash2,
-  Dumbbell,
   Pencil,
+  Star,
 } from "lucide-react";
 import { Modal } from "@/components/ui/modal";
 import { Badge } from "@/components/ui/badge";
@@ -24,18 +17,26 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Input, Textarea, Label } from "@/components/ui/input";
 import { DifficultyBadge } from "@/components/page-header";
 import { EmptyState } from "@/components/ui/empty-state";
-import { ResponsiveChart } from "@/components/charts/responsive-chart";
 import { MuscleMap } from "@/components/muscle-map";
 import { useApp } from "@/components/providers";
-import { exercisesRepo, sessionsRepo } from "@/lib/db/repository";
-import { exerciseWeightTrend } from "@/lib/stats";
+import { exercisesRepo, sessionsRepo, settingsRepo } from "@/lib/db/repository";
 import { displayWeightKg, weightUnitLabel } from "@/lib/units";
 import { MUSCLE_LABEL } from "@/lib/muscles";
 import { SurfTransferPanel } from "@/components/surf-transfer-panel";
 import { maneuversRepo } from "@/lib/db/repository";
 import { formatDate } from "@/lib/utils";
 import { cn } from "@/lib/utils";
-import type { Exercise, Muscle } from "@/lib/types";
+import type { Exercise, Muscle, Session, SessionEntry } from "@/lib/types";
+
+const StatsTab = dynamic(
+  () =>
+    import("@/components/exercise-stats-tab").then((m) => m.ExerciseStatsTab),
+  {
+    loading: () => (
+      <div className="h-40 animate-pulse rounded-xl bg-muted/50" />
+    ),
+  },
+);
 
 type Tab = "stats" | "history" | "guide";
 
@@ -81,6 +82,15 @@ function ExerciseDetailBody({
   const { settings } = useApp();
   const units = settings?.units ?? "metric";
   const [tab, setTab] = React.useState<Tab>(initialTab);
+  const favorited = (settings?.favoriteExerciseIds ?? []).includes(exercise.id);
+
+  const toggleFavorite = () => {
+    const current = settings?.favoriteExerciseIds ?? [];
+    const next = favorited
+      ? current.filter((id) => id !== exercise.id)
+      : [...current, exercise.id];
+    void settingsRepo.update({ favoriteExerciseIds: next });
+  };
 
   React.useEffect(() => {
     setTab(initialTab);
@@ -111,6 +121,17 @@ function ExerciseDetailBody({
       <ExerciseMediaEditor exercise={exercise} />
 
       <div className="flex flex-wrap items-center gap-2">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className={cn(favorited && "border-amber-500/50 text-amber-500")}
+          aria-pressed={favorited}
+          onClick={toggleFavorite}
+        >
+          <Star className={cn("size-4", favorited && "fill-current")} />
+          {favorited ? "Favorited" : "Favorite"}
+        </Button>
         <DifficultyBadge level={exercise.difficulty} />
         {exercise.mechanic && (
           <Badge variant="muted" className="capitalize">
@@ -413,78 +434,6 @@ function MuscleRow({
   );
 }
 
-function StatsTab({
-  exercise,
-  units,
-}: {
-  exercise: Exercise;
-  units: "metric" | "imperial";
-}) {
-  const sessions = useLiveQuery(() => sessionsRepo.all(), []);
-  const trend = React.useMemo(() => {
-    const raw = exerciseWeightTrend(sessions ?? [], exercise.id);
-    return raw.map((p) => ({ ...p, best: displayWeightKg(p.best, units) }));
-  }, [sessions, exercise.id, units]);
-
-  if (trend.length === 0) {
-    return (
-      <EmptyState
-        icon={Dumbbell}
-        title="No weighted sets yet"
-        description="Log this exercise with weight to see your strength trend."
-        className="border-0 py-8"
-      />
-    );
-  }
-
-  const best = Math.max(...trend.map((t) => t.best));
-
-  return (
-    <div className="space-y-3">
-      <div className="flex items-baseline gap-2">
-        <span className="text-2xl font-bold tabular-nums">{best}</span>
-        <span className="text-sm text-muted-foreground">
-          {weightUnitLabel(units)} best
-        </span>
-      </div>
-      <ResponsiveChart height={160}>
-        <LineChart data={trend}>
-          <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" />
-          <XAxis
-            dataKey="date"
-            tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
-            axisLine={false}
-            tickLine={false}
-            tickFormatter={(d: string) => d.slice(5)}
-          />
-          <YAxis
-            width={28}
-            tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
-            axisLine={false}
-            tickLine={false}
-            unit={weightUnitLabel(units)}
-          />
-          <Tooltip
-            contentStyle={{
-              background: "var(--card)",
-              border: "1px solid var(--border)",
-              borderRadius: 12,
-              fontSize: 12,
-            }}
-          />
-          <Line
-            type="monotone"
-            dataKey="best"
-            stroke="var(--gym)"
-            strokeWidth={2.5}
-            dot={{ r: 3 }}
-          />
-        </LineChart>
-      </ResponsiveChart>
-    </div>
-  );
-}
-
 function HistoryTab({
   exercise,
   units,
@@ -493,12 +442,16 @@ function HistoryTab({
   units: "metric" | "imperial";
 }) {
   const sessions = useLiveQuery(() => sessionsRepo.all(), []);
-  const logged = (sessions ?? [])
-    .map((s) => ({
-      session: s,
-      entry: s.entries.find((e) => e.exerciseId === exercise.id),
-    }))
-    .filter((x) => x.entry);
+  const logged = React.useMemo(() => {
+    return (sessions ?? [])
+      .map((s) => ({
+        session: s,
+        entry: s.entries.find((e) => e.exerciseId === exercise.id),
+      }))
+      .filter(
+        (x): x is { session: Session; entry: SessionEntry } => Boolean(x.entry),
+      );
+  }, [sessions, exercise.id]);
 
   if (logged.length === 0) {
     return (
@@ -519,7 +472,7 @@ function HistoryTab({
         <div key={session.id} className="rounded-lg border border-border p-3">
           <p className="mb-1.5 text-sm font-medium">{formatDate(session.date)}</p>
           <div className="flex flex-wrap gap-1.5">
-            {entry!.setLogs.map((set, i) => (
+            {entry.setLogs.map((set, i) => (
               <span
                 key={i}
                 className="rounded-md bg-muted px-2 py-0.5 text-xs tabular-nums text-muted-foreground"

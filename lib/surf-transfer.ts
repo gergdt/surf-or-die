@@ -738,6 +738,35 @@ export function compareBySurfTransfer(
   return a.name.localeCompare(b.name);
 }
 
+/** Precompute transfer profiles and personalized scores once per library snapshot. */
+export function precomputeSurfScores(
+  exercises: Exercise[],
+  maneuvers: Maneuver[] = [],
+): {
+  scores: Map<string, number>;
+  profiles: Map<string, SurfTransferProfile>;
+} {
+  const scores = new Map<string, number>();
+  const profiles = new Map<string, SurfTransferProfile>();
+  for (const exercise of exercises) {
+    const profile = getSurfTransfer(exercise);
+    profiles.set(exercise.id, profile);
+    scores.set(exercise.id, personalizedScore(profile, maneuvers));
+  }
+  return { scores, profiles };
+}
+
+export function compareByPrecomputedScore(
+  a: Exercise,
+  b: Exercise,
+  scores: Map<string, number>,
+): number {
+  const scoreA = scores.get(a.id) ?? 0;
+  const scoreB = scores.get(b.id) ?? 0;
+  if (scoreB !== scoreA) return scoreB - scoreA;
+  return a.name.localeCompare(b.name);
+}
+
 export function scoreToTier(score: number): SurfTransferTier {
   return tierFromScore(score);
 }

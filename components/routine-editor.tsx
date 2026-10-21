@@ -14,7 +14,7 @@ import { Modal } from "@/components/ui/modal";
 import { ExerciseDetail } from "@/components/exercise-detail";
 import { ExercisePicker } from "@/components/session/exercise-picker";
 import { Button } from "@/components/ui/button";
-import { Input, Textarea, Select, Label } from "@/components/ui/input";
+import { Input, Textarea, Label } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { SurfTransferBadge } from "@/components/surf-transfer-badge";
 import { RoutineSurfScore } from "@/components/routine-surf-score";
@@ -257,7 +257,7 @@ function RoutineEditorForm({
 
         {items.length === 0 && (
           <p className="rounded-lg border border-dashed border-border p-4 text-center text-sm text-muted-foreground">
-            No exercises yet. Tap "Add" to pick from the library.
+            No exercises yet. Tap &ldquo;Add&rdquo; to pick from the library.
           </p>
         )}
 

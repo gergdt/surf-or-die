@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useLiveQuery } from "dexie-react-hooks";
 import {
   Ruler,
   SunMoon,
@@ -8,23 +9,47 @@ import {
   Download,
   Trash2,
   Info,
+  CalendarDays,
+  Scale,
+  Upload,
+  CloudDownload,
 } from "lucide-react";
 import { CloudSyncIcon, CloudSyncPanel } from "@/components/cloud-sync-panel";
 import { HevySyncIcon, HevySyncPanel } from "@/components/hevy-sync-panel";
+import { HevyPushButton } from "@/components/session/hevy-push-button";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
+import { Input, Label } from "@/components/ui/input";
 import { useApp } from "@/components/providers";
-import { settingsRepo, exportAllData, wipeAllData } from "@/lib/db/repository";
+import {
+  settingsRepo,
+  exportAllDataZip,
+  importAllDataZip,
+  wipeAllData,
+  routinesRepo,
+  bodyMetricsRepo,
+  sessionsRepo,
+} from "@/lib/db/repository";
+import { syncToCloud } from "@/lib/db/cloud-sync";
 import { ensureSeeded } from "@/lib/db/seed";
-import { cn } from "@/lib/utils";
+import { displayWeightKg, parseWeightInput, weightUnitLabel } from "@/lib/units";
+import { cn, formatDate, todayISO } from "@/lib/utils";
 import type { Settings } from "@/lib/types";
+
+const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
 
 export function SettingsView() {
   const { settings } = useApp();
   const [resetOpen, setResetOpen] = React.useState(false);
   const [resetting, setResetting] = React.useState(false);
+  const [exporting, setExporting] = React.useState(false);
+  const [importing, setImporting] = React.useState(false);
+  const [restoring, setRestoring] = React.useState(false);
+  const [dataMessage, setDataMessage] = React.useState<string | null>(null);
+  const [dataError, setDataError] = React.useState<string | null>(null);
+  const importRef = React.useRef<HTMLInputElement>(null);
 
   const update = (patch: Partial<Settings>) => settingsRepo.update(patch);
 
@@ -35,18 +60,63 @@ export function SettingsView() {
   }, [settings?.aiProvider]);
 
   const exportData = async () => {
-    const data = await exportAllData();
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `surf-or-die-export-${new Date()
-      .toISOString()
-      .slice(0, 10)}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    setExporting(true);
+    setDataError(null);
+    setDataMessage(null);
+    try {
+      const bytes = await exportAllDataZip();
+      const copy = new ArrayBuffer(bytes.byteLength);
+      new Uint8Array(copy).set(bytes);
+      const blob = new Blob([copy], { type: "application/zip" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `surf-or-die-backup-${new Date()
+        .toISOString()
+        .slice(0, 10)}.zip`;
+      a.click();
+      URL.revokeObjectURL(url);
+      setDataMessage("Exported zip including sessions, settings, and clips.");
+    } catch (err) {
+      setDataError(err instanceof Error ? err.message : "Export failed");
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  const importData = async (file: File) => {
+    setImporting(true);
+    setDataError(null);
+    setDataMessage(null);
+    try {
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      await importAllDataZip(bytes);
+      setDataMessage("Imported backup. Reload if lists look stale.");
+    } catch (err) {
+      setDataError(err instanceof Error ? err.message : "Import failed");
+    } finally {
+      setImporting(false);
+    }
+  };
+
+  const restoreFromCloud = async () => {
+    setRestoring(true);
+    setDataError(null);
+    setDataMessage(null);
+    try {
+      const result = await syncToCloud();
+      await settingsRepo.update({
+        cloudSyncEnabled: true,
+        cloudLastSyncedAt: result.syncedAt,
+      });
+      setDataMessage(
+        `Restored from cloud — pushed ${result.pushed}, pulled ${result.pulled}.`,
+      );
+    } catch (err) {
+      setDataError(err instanceof Error ? err.message : "Restore failed");
+    } finally {
+      setRestoring(false);
+    }
   };
 
   const resetData = async () => {
@@ -104,12 +174,17 @@ export function SettingsView() {
         />
       </SettingRow>
 
+      <WeeklyPlanEditor weeklyPlan={settings?.weeklyPlan} />
+
+      <BodyWeightLog units={settings?.units ?? "metric"} />
+
       <Card className="p-4">
         <div className="flex items-center gap-2">
           <HevySyncIcon />
           <span className="font-medium">Hevy exercises</span>
         </div>
         <HevySyncPanel />
+        <HevyPushPanel />
       </Card>
 
       <Card className="p-4">
@@ -122,8 +197,41 @@ export function SettingsView() {
 
       <section className="space-y-2">
         <h2 className="text-sm font-semibold text-muted-foreground">Data</h2>
-        <Button variant="secondary" className="w-full" onClick={exportData}>
-          <Download /> Export my data (JSON)
+        <Button
+          variant="secondary"
+          className="w-full"
+          onClick={exportData}
+          disabled={exporting}
+        >
+          <Download /> {exporting ? "Exporting…" : "Export backup (zip)"}
+        </Button>
+        <input
+          ref={importRef}
+          type="file"
+          accept=".zip,application/zip"
+          className="hidden"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) void importData(file);
+            e.target.value = "";
+          }}
+        />
+        <Button
+          variant="secondary"
+          className="w-full"
+          onClick={() => importRef.current?.click()}
+          disabled={importing}
+        >
+          <Upload /> {importing ? "Importing…" : "Import backup (zip)"}
+        </Button>
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={restoreFromCloud}
+          disabled={restoring}
+        >
+          <CloudDownload />
+          {restoring ? "Restoring…" : "Restore from cloud"}
         </Button>
         <Button
           variant="outline"
@@ -132,12 +240,21 @@ export function SettingsView() {
         >
           <Trash2 /> Reset all data
         </Button>
+        {dataMessage ? (
+          <p className="text-xs text-emerald-600 dark:text-emerald-400">
+            {dataMessage}
+          </p>
+        ) : null}
+        {dataError ? (
+          <p className="text-xs text-destructive">{dataError}</p>
+        ) : null}
       </section>
 
       <p className="flex items-start gap-2 px-1 text-xs text-muted-foreground">
         <Info className="mt-0.5 size-3.5 shrink-0" />
         Data is stored locally (IndexedDB) and can sync to Supabase when you
-        sign in. Export regularly to keep a backup.
+        sign in. Zip backups include clip videos. Export regularly to keep a
+        backup.
       </p>
 
       <Modal
@@ -164,6 +281,214 @@ export function SettingsView() {
           </Button>
         </div>
       </Modal>
+    </div>
+  );
+}
+
+function WeeklyPlanEditor({
+  weeklyPlan,
+}: {
+  weeklyPlan: Settings["weeklyPlan"];
+}) {
+  const routines = useLiveQuery(() => routinesRepo.all(), []);
+  const plan = weeklyPlan ?? {};
+
+  const setDay = (day: string, ids: string[]) => {
+    void settingsRepo.update({
+      weeklyPlan: { ...plan, [day]: ids },
+    });
+  };
+
+  const addRoutine = (day: string, routineId: string) => {
+    if (!routineId) return;
+    const current = plan[day] ?? [];
+    if (current.includes(routineId)) return;
+    setDay(day, [...current, routineId]);
+  };
+
+  const nameOf = (id: string) =>
+    routines?.find((r) => r.id === id)?.name ?? id;
+
+  return (
+    <Card className="p-4">
+      <div className="mb-3 flex items-center gap-2">
+        <CalendarDays className="size-4 text-muted-foreground" />
+        <span className="font-medium">Weekly plan</span>
+      </div>
+      <p className="mb-3 text-xs text-muted-foreground">
+        Assign routines to weekdays. Monday is day 0. Reminders are not sent.
+      </p>
+      <div className="space-y-2">
+        {WEEKDAYS.map((label, index) => {
+          const key = String(index);
+          const ids = plan[key] ?? [];
+          return (
+            <div
+              key={key}
+              className="rounded-lg border border-border bg-muted/30 p-2"
+            >
+              <div className="mb-1.5 flex items-center justify-between gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  {label}
+                </span>
+                <select
+                  className="h-8 max-w-[60%] rounded-md border border-input bg-background px-2 text-xs"
+                  value=""
+                  onChange={(e) => {
+                    addRoutine(key, e.target.value);
+                    e.target.value = "";
+                  }}
+                >
+                  <option value="">Add routine…</option>
+                  {(routines ?? []).map((r) => (
+                    <option key={r.id} value={r.id}>
+                      {r.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {ids.length === 0 ? (
+                <p className="text-[11px] text-muted-foreground">Rest / none</p>
+              ) : (
+                <div className="flex flex-wrap gap-1">
+                  {ids.map((id) => (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() =>
+                        setDay(
+                          key,
+                          ids.filter((x) => x !== id),
+                        )
+                      }
+                      className="rounded-full bg-card px-2 py-0.5 text-xs shadow-sm"
+                    >
+                      {nameOf(id)} ×
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </Card>
+  );
+}
+
+function BodyWeightLog({ units }: { units: Settings["units"] }) {
+  const metrics = useLiveQuery(() => bodyMetricsRepo.all(), []);
+  const [date, setDate] = React.useState(todayISO());
+  const [weight, setWeight] = React.useState("");
+  const [notes, setNotes] = React.useState("");
+  const unit = weightUnitLabel(units);
+
+  const add = async () => {
+    const parsed = parseWeightInput(Number(weight), units);
+    if (parsed == null || parsed <= 0) return;
+    await bodyMetricsRepo.create({
+      date,
+      weightKg: parsed,
+      notes: notes.trim() || undefined,
+    });
+    setWeight("");
+    setNotes("");
+    setDate(todayISO());
+  };
+
+  return (
+    <Card className="p-4">
+      <div className="mb-3 flex items-center gap-2">
+        <Scale className="size-4 text-muted-foreground" />
+        <span className="font-medium">Body weight</span>
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        <div>
+          <Label htmlFor="bm-date">Date</Label>
+          <Input
+            id="bm-date"
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </div>
+        <div>
+          <Label htmlFor="bm-weight">Weight ({unit})</Label>
+          <Input
+            id="bm-weight"
+            type="number"
+            min={0}
+            step="0.1"
+            inputMode="decimal"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="mt-2">
+        <Label htmlFor="bm-notes">Notes</Label>
+        <Input
+          id="bm-notes"
+          placeholder="Optional"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+        />
+      </div>
+      <Button className="mt-3 w-full" variant="secondary" onClick={add}>
+        Log weight
+      </Button>
+      {metrics && metrics.length > 0 ? (
+        <ul className="mt-3 space-y-1.5">
+          {metrics.slice(0, 8).map((m) => (
+            <li
+              key={m.id}
+              className="flex items-center justify-between text-sm"
+            >
+              <span className="text-muted-foreground">{formatDate(m.date)}</span>
+              <span className="flex items-center gap-2">
+                <span className="tabular-nums font-medium">
+                  {m.weightKg != null
+                    ? `${displayWeightKg(m.weightKg, units)} ${unit}`
+                    : "—"}
+                </span>
+                <button
+                  type="button"
+                  aria-label="Delete metric"
+                  className="text-muted-foreground hover:text-destructive"
+                  onClick={() => bodyMetricsRepo.remove(m.id)}
+                >
+                  <Trash2 className="size-3.5" />
+                </button>
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </Card>
+  );
+}
+
+function HevyPushPanel() {
+  const gymSessions = useLiveQuery(() => sessionsRepo.byCategory("gym"), []);
+  const recent = (gymSessions ?? []).slice(0, 3);
+  if (recent.length === 0) return null;
+  return (
+    <div className="mt-4 space-y-2 border-t border-border pt-3">
+      <p className="text-xs font-medium">Push logged workouts to Hevy</p>
+      <p className="text-[11px] text-muted-foreground">
+        Exercises without a Hevy template id are skipped.
+      </p>
+      {recent.map((session) => (
+        <div
+          key={session.id}
+          className="flex items-center justify-between gap-2 rounded-lg bg-muted/40 px-2 py-1.5"
+        >
+          <span className="min-w-0 truncate text-xs">
+            {session.title} · {formatDate(session.date)}
+          </span>
+          <HevyPushButton sessionId={session.id} session={session} />
+        </div>
+      ))}
     </div>
   );
 }

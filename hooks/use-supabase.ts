@@ -1,39 +1,34 @@
 "use client";
 
 import * as React from "react";
-import { createBrowserClient } from "@supabase/ssr";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { createClient, getSupabaseClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
-import {
-  clearSupabaseConfigCache,
-  resolveSupabaseConfig,
-} from "@/lib/supabase/runtime-config";
+import { clearSupabaseConfigCache } from "@/lib/supabase/runtime-config";
 
 export function useSupabase() {
-  const [client, setClient] = React.useState<SupabaseClient | null>(null);
+  const [client, setClient] = React.useState<SupabaseClient | null>(() =>
+    createClient(),
+  );
   const [configured, setConfigured] = React.useState(isSupabaseConfigured());
   const [loading, setLoading] = React.useState(!isSupabaseConfigured());
 
   React.useEffect(() => {
     let cancelled = false;
 
-    async function init() {
-      const config = await resolveSupabaseConfig();
+    void getSupabaseClient().then((supabase) => {
       if (cancelled) return;
-      if (!config) {
+      if (!supabase) {
         setConfigured(false);
         setClient(null);
         setLoading(false);
         return;
       }
       setConfigured(true);
-      setClient(
-        createBrowserClient(config.supabaseUrl, config.supabaseAnonKey),
-      );
+      setClient(supabase);
       setLoading(false);
-    }
+    });
 
-    void init();
     return () => {
       cancelled = true;
     };

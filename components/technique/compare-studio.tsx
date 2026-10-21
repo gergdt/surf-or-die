@@ -16,6 +16,7 @@ import {
   Save,
   Trash2,
   MapPin,
+  PersonStanding,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -27,10 +28,25 @@ import {
   type Tool,
 } from "./annotated-video";
 import { clipsRepo, annotationsRepo } from "@/lib/db/repository";
-import { clipContext, CLIP_CONTEXT_META } from "@/lib/clips";
+import { CLIP_CONTEXT_META } from "@/lib/clips";
 import { cn } from "@/lib/utils";
 import type { Annotation, AnnotationShape, Clip, ClipContext } from "@/lib/types";
 
+function queryClipMetaList() {
+  const repo = clipsRepo as typeof clipsRepo & {
+    allMeta?: () => Promise<Omit<Clip, "blob">[]>;
+  };
+  if (typeof repo.allMeta === "function") {
+    return repo.allMeta();
+  }
+  return clipsRepo.all().then((clips) =>
+    clips.map((clip) => {
+      const { blob, ...meta } = clip;
+      void blob;
+      return meta;
+    }),
+  );
+}
 const RATES = [1, 0.5, 0.25, 0.1];
 const FRAME = 1 / 30;
 const COLORS = ["#ff3b30", "#ffcc00", "#34c759", "#0a84ff", "#ffffff"];
@@ -53,14 +69,14 @@ export function CompareStudio({
   initialContext?: ClipContext;
   initialManeuverId?: string;
 }) {
-  const allClips = useLiveQuery(() => clipsRepo.all(), []);
+  const allClips = useLiveQuery(() => queryClipMetaList(), []);
   const [context, setContext] = React.useState<ClipContext>(
     initialContext ?? "land",
   );
   const clips = React.useMemo(
     () =>
       (allClips ?? []).filter((c) => {
-        if (clipContext(c) !== context) return false;
+        if ((c.context ?? "land") !== context) return false;
         if (initialManeuverId && c.maneuverId !== initialManeuverId) {
           return false;
         }
@@ -74,6 +90,10 @@ export function CompareStudio({
   const [color, setColor] = React.useState(COLORS[0]);
   const [rate, setRate] = React.useState(1);
   const [paused, setPaused] = React.useState(true);
+  const [poseOn, setPoseOn] = React.useState(false);
+  const [poseStatus, setPoseStatus] = React.useState<
+    "off" | "loading" | "ready" | "unavailable"
+  >("off");
 
   const [shapesA, setShapesA] = React.useState<AnnotationShape[]>([]);
   const [shapesB, setShapesB] = React.useState<AnnotationShape[]>([]);
@@ -87,7 +107,7 @@ export function CompareStudio({
     const seedId = initialA ?? initialB;
     if (!seedId) return;
     const seed = allClips.find((c) => c.id === seedId);
-    if (seed) setContext(clipContext(seed));
+    if (seed) setContext(seed.context ?? "land");
   }, [allClips, initialA, initialB]);
 
   // Default the first clip if nothing is selected.
@@ -101,8 +121,16 @@ export function CompareStudio({
     }
   }, [clips]);
 
-  const clipA = clips?.find((c) => c.id === aId) ?? null;
-  const clipB = clips?.find((c) => c.id === bId) ?? null;
+  const clipA =
+    useLiveQuery(
+      () => (aId ? clipsRepo.get(aId) : Promise.resolve(undefined)),
+      [aId],
+    ) ?? null;
+  const clipB =
+    useLiveQuery(
+      () => (bId ? clipsRepo.get(bId) : Promise.resolve(undefined)),
+      [bId],
+    ) ?? null;
 
   const urlA = useObjectUrl(clipA);
   const urlB = useObjectUrl(clipB);
@@ -190,16 +218,26 @@ export function CompareStudio({
         clips={clips ?? []}
         onChange={setAId}
       />
-      <AnnotatedVideo
-        ref={playerA}
-        src={urlA}
-        label={clipA?.label ?? "Top clip"}
-        tool={tool}
-        color={color}
-        shapes={shapesA}
-        onShapesChange={setShapesA}
-        onPlayStateChange={setPaused}
-      />
+      <div className="relative">
+        <AnnotatedVideo
+          ref={playerA}
+          src={urlA}
+          label={clipA?.label ?? "Top clip"}
+          tool={tool}
+          color={color}
+          shapes={shapesA}
+          onShapesChange={setShapesA}
+          onPlayStateChange={setPaused}
+        />
+        {poseOn && poseStatus !== "unavailable" ? (
+          <PoseOverlay
+            src={urlA}
+            getTime={() => playerA.current?.getCurrentTime() ?? 0}
+            onUnavailable={() => setPoseStatus("unavailable")}
+            onReady={() => setPoseStatus("ready")}
+          />
+        ) : null}
+      </div>
       <SideControls
         clip={clipA}
         shapes={shapesA}
@@ -213,15 +251,25 @@ export function CompareStudio({
         clips={clips ?? []}
         onChange={setBId}
       />
-      <AnnotatedVideo
-        ref={playerB}
-        src={urlB}
-        label={clipB?.label ?? "Bottom clip"}
-        tool={tool}
-        color={color}
-        shapes={shapesB}
-        onShapesChange={setShapesB}
-      />
+      <div className="relative">
+        <AnnotatedVideo
+          ref={playerB}
+          src={urlB}
+          label={clipB?.label ?? "Bottom clip"}
+          tool={tool}
+          color={color}
+          shapes={shapesB}
+          onShapesChange={setShapesB}
+        />
+        {poseOn && poseStatus !== "unavailable" ? (
+          <PoseOverlay
+            src={urlB}
+            getTime={() => playerB.current?.getCurrentTime() ?? 0}
+            onUnavailable={() => setPoseStatus("unavailable")}
+            onReady={() => setPoseStatus("ready")}
+          />
+        ) : null}
+      </div>
       <SideControls
         clip={clipB}
         shapes={shapesB}
@@ -280,6 +328,26 @@ export function CompareStudio({
               </button>
             ))}
           </div>
+          <button
+            type="button"
+            onClick={() => {
+              setPoseOn((on) => {
+                const next = !on;
+                setPoseStatus(next ? "loading" : "off");
+                return next;
+              });
+            }}
+            aria-pressed={poseOn}
+            className={cn(
+              "inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium",
+              poseOn
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-muted-foreground",
+            )}
+          >
+            <PersonStanding className="size-3.5" />
+            Pose
+          </button>
           <div className="flex gap-1.5">
             {COLORS.map((c) => (
               <button
@@ -295,6 +363,16 @@ export function CompareStudio({
             ))}
           </div>
         </Card>
+        {poseOn && poseStatus === "unavailable" ? (
+          <p className="text-center text-[11px] text-muted-foreground">
+            Pose overlay unavailable on this device.
+          </p>
+        ) : null}
+        {poseOn && poseStatus === "loading" ? (
+          <p className="text-center text-[11px] text-muted-foreground">
+            Loading pose model…
+          </p>
+        ) : null}
       </div>
     </div>
   );
@@ -308,7 +386,7 @@ function ClipSelect({
 }: {
   label: string;
   value: string;
-  clips: Clip[];
+  clips: { id: string; label: string }[];
   onChange: (v: string) => void;
 }) {
   return (
@@ -417,14 +495,100 @@ function SideControls({
 
 function useObjectUrl(clip: Clip | null): string | null {
   const [url, setUrl] = React.useState<string | null>(null);
+  const clipId = clip?.id;
   React.useEffect(() => {
-    if (!clip) {
+    if (!clipId || !clip?.blob) {
       setUrl(null);
       return;
     }
     const u = URL.createObjectURL(clip.blob);
     setUrl(u);
     return () => URL.revokeObjectURL(u);
-  }, [clip]);
+    // Recreate only when the clip identity changes — live-query object
+    // identity churn must not restart playback.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clipId]);
   return url;
+}
+
+function PoseOverlay({
+  src,
+  getTime,
+  onUnavailable,
+  onReady,
+}: {
+  src: string | null;
+  getTime: () => number;
+  onUnavailable: () => void;
+  onReady: () => void;
+}) {
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const getTimeRef = React.useRef(getTime);
+  const onUnavailableRef = React.useRef(onUnavailable);
+  const onReadyRef = React.useRef(onReady);
+  React.useEffect(() => {
+    getTimeRef.current = getTime;
+    onUnavailableRef.current = onUnavailable;
+    onReadyRef.current = onReady;
+  });
+
+  React.useEffect(() => {
+    if (!src) return;
+    let cancelled = false;
+    let raf = 0;
+
+    void (async () => {
+      const pose = await import("@/lib/pose");
+      const ok = await pose.ensurePoseLandmarker();
+      if (cancelled) return;
+      if (!ok) {
+        onUnavailableRef.current();
+        return;
+      }
+      onReadyRef.current();
+
+      const tick = () => {
+        const video = videoRef.current;
+        const canvas = canvasRef.current;
+        if (video && canvas && video.readyState >= 2) {
+          const t = getTimeRef.current();
+          if (Number.isFinite(t) && Math.abs(video.currentTime - t) > 0.05) {
+            try {
+              video.currentTime = t;
+            } catch {
+              /* seek can throw while loading */
+            }
+          }
+          pose.detectAndDraw(video, canvas);
+        }
+        raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    })();
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+    };
+  }, [src]);
+
+  if (!src) return null;
+
+  return (
+    <>
+      <video
+        ref={videoRef}
+        src={src}
+        muted
+        playsInline
+        preload="auto"
+        className="pointer-events-none absolute inset-x-0 bottom-0 aspect-video w-full opacity-0"
+      />
+      <canvas
+        ref={canvasRef}
+        className="pointer-events-none absolute inset-x-0 bottom-0 aspect-video w-full"
+      />
+    </>
+  );
 }

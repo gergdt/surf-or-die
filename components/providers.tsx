@@ -5,7 +5,10 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { syncToCloud } from "@/lib/db/cloud-sync";
 import { ensureSeeded } from "@/lib/db/seed";
 import { settingsRepo } from "@/lib/db/repository";
-import { runHevyExerciseSync } from "@/lib/hevy/sync";
+import {
+  getLastHevySyncAttemptAt,
+  runHevyExerciseSync,
+} from "@/lib/hevy/sync";
 import { getSupabaseClient } from "@/lib/supabase/client";
 import { resolveSupabaseConfig } from "@/lib/supabase/runtime-config";
 import type { Settings } from "@/lib/types";
@@ -64,24 +67,45 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   React.useEffect(() => {
     if (!ready || settings?.hevySyncEnabled === false) return;
-    const last = settings?.hevyLastSyncedAt ?? 0;
+    const last = Math.max(
+      settings?.hevyLastSyncedAt ?? 0,
+      getLastHevySyncAttemptAt(),
+    );
     if (Date.now() - last < HEVY_SYNC_INTERVAL_MS) return;
 
     let cancelled = false;
-    runHevyExerciseSync()
-      .then((result) => {
-        if (cancelled) return;
-        return settingsRepo.update({
-          hevyLastSyncedAt: result.syncedAt,
-          hevyUserName: result.userName,
+    let idleId = 0;
+
+    const run = () => {
+      if (cancelled) return;
+      runHevyExerciseSync()
+        .then((result) => {
+          if (cancelled) return;
+          const changed = result.updated + result.imported + result.linked;
+          if (changed === 0) return;
+          return settingsRepo.update({
+            hevyLastSyncedAt: result.syncedAt,
+            hevyUserName: result.userName,
+          });
+        })
+        .catch((err) => {
+          if (!cancelled) console.warn("Hevy auto-sync skipped", err);
         });
-      })
-      .catch((err) => {
-        if (!cancelled) console.warn("Hevy auto-sync skipped", err);
-      });
+    };
+
+    if (typeof window.requestIdleCallback === "function") {
+      idleId = window.requestIdleCallback(run, { timeout: 4000 });
+    } else {
+      idleId = window.setTimeout(run, 0);
+    }
 
     return () => {
       cancelled = true;
+      if (typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleId);
+      } else {
+        window.clearTimeout(idleId);
+      }
     };
   }, [ready, settings?.hevySyncEnabled, settings?.hevyLastSyncedAt]);
 
@@ -153,9 +177,41 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     };
   }, [ready, settings?.cloudSyncEnabled, settings?.cloudLastSyncedAt]);
 
+  const value = React.useMemo(
+    () => ({ settings, ready }),
+    [settings, ready],
+  );
+
   return (
-    <AppContext.Provider value={{ settings, ready }}>
-      {children}
+    <AppContext.Provider value={value}>
+      {ready ? children : <PreparingExerciseLibrary />}
     </AppContext.Provider>
+  );
+}
+
+function PreparingExerciseLibrary() {
+  return (
+    <div
+      className="flex flex-1 flex-col items-center justify-center gap-4 px-4 py-16"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <div
+        className="size-10 animate-pulse rounded-lg bg-primary/20"
+        aria-hidden
+      />
+      <div className="text-center">
+        <p className="text-sm font-medium">Preparing exercise library</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          One-time setup for this device…
+        </p>
+      </div>
+      <div className="w-full max-w-sm space-y-2" aria-hidden>
+        <div className="h-16 animate-pulse rounded-xl bg-muted/50" />
+        <div className="h-16 animate-pulse rounded-xl bg-muted/50" />
+        <div className="h-16 animate-pulse rounded-xl bg-muted/50" />
+      </div>
+    </div>
   );
 }

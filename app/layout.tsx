@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { AppProvider } from "@/components/providers";
 import { TopBar, BottomNav } from "@/components/nav";
@@ -39,8 +40,7 @@ export const viewport: Viewport = {
   themeColor: "#1f6feb",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  userScalable: true,
   viewportFit: "cover",
 };
 
@@ -64,6 +64,7 @@ export default function RootLayout({
           </AppProvider>
         </div>
         <ServiceWorkerRegister />
+        <Analytics />
       </body>
     </html>
   );
