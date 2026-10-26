@@ -7,6 +7,7 @@ import {
   listSessionDrafts,
   loadSessionDraft,
   saveSessionDraft,
+  sanitizeGymTimerDraft,
   type SessionDraft,
 } from "./session-draft";
 
@@ -122,6 +123,41 @@ describe("session draft", () => {
         },
       ]),
     ).toBe(true);
+  });
+
+  it("drops a gym timer that has been running for days", () => {
+    expect(
+      sanitizeGymTimerDraft({
+        exerciseIdx: 0,
+        setIdx: 2,
+        exerciseStartedAt: NOW - 4 * 24 * 60 * 60 * 1000,
+        setStartedAt: NOW - 4 * 24 * 60 * 60 * 1000,
+      }),
+    ).toBeNull();
+  });
+
+  it("keeps a gym timer started during this workout", () => {
+    const timer = {
+      exerciseIdx: 1,
+      setIdx: 0,
+      exerciseStartedAt: NOW - 8 * 60 * 1000,
+      setStartedAt: NOW - 90 * 1000,
+    };
+    expect(sanitizeGymTimerDraft(timer)).toEqual(timer);
+  });
+
+  it("does not restore a days-old gym timer from localStorage", () => {
+    saveSessionDraft(
+      sampleDraft({
+        gymTimer: {
+          exerciseIdx: 0,
+          setIdx: 0,
+          exerciseStartedAt: NOW - 7 * 24 * 60 * 60 * 1000,
+          setStartedAt: NOW - 7 * 24 * 60 * 60 * 1000,
+        },
+      }),
+    );
+    expect(loadSessionDraft("gym", "rt_1")?.gymTimer).toBeNull();
   });
 
   it("keeps a draft that started after the last saved session", () => {

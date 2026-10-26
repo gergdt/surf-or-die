@@ -210,7 +210,6 @@ export function SessionLogger({
   );
   const [saving, setSaving] = React.useState(false);
   const [syncWarning, setSyncWarning] = React.useState<string | null>(null);
-  const [savedSessionId, setSavedSessionId] = React.useState<string | null>(null);
   const [savingRoutine, setSavingRoutine] = React.useState(false);
   const [routineEditorOpen, setRoutineEditorOpen] = React.useState(false);
   const [editDurationSec, setEditDurationSec] = React.useState(0);
@@ -683,37 +682,33 @@ export function SessionLogger({
             ),
         notes: notes.trim() || undefined,
       };
-      const targetId = isEditing ? sessionId : savedSessionId;
-      if (targetId) {
-        const result = await sessionsRepo.update(targetId, payload);
-        if (!result) return;
-        if (!result.cloudSynced && signedIn) {
-          setSavedSessionId(result.session.id);
-          setSyncWarning(
-            "Session saved on this device, but cloud backup failed. Check your connection and tap Finish again to retry.",
-          );
-          return;
-        }
-        if (isEditing) {
-          router.push(`/sessions/${targetId}`);
-        } else {
-          savedRef.current = true;
-          clearSessionDraft(category, routineId);
-          router.push(`${CATEGORIES[category].href}?logged=1`);
-        }
-      } else {
-        const result = await sessionsRepo.create(payload);
-        if (!result.cloudSynced && signedIn) {
-          setSavedSessionId(result.session.id);
-          setSyncWarning(
-            "Session saved on this device, but cloud backup failed. Check your connection and tap Finish again to retry.",
-          );
-          return;
-        }
-        savedRef.current = true;
-        clearSessionDraft(category, routineId);
-        router.push(`${CATEGORIES[category].href}?logged=1`);
+      const result =
+        isEditing && sessionId
+          ? await sessionsRepo.update(sessionId, payload)
+          : await sessionsRepo.create(payload);
+      if (!result) {
+        setSyncWarning(
+          "Could not save this session on the device. Try again.",
+        );
+        return;
       }
+      if (!result.cloudSynced && signedIn) {
+        console.warn(
+          "Session saved on this device; cloud backup will retry in the background.",
+        );
+      }
+      if (isEditing && sessionId) {
+        router.push(`/sessions/${sessionId}`);
+        return;
+      }
+      savedRef.current = true;
+      clearSessionDraft(category, routineId);
+      router.push(`${CATEGORIES[category].href}?logged=1`);
+    } catch (err) {
+      console.error("Session save failed", err);
+      setSyncWarning(
+        "Could not save this session. Check storage on this device and try again.",
+      );
     } finally {
       setSaving(false);
     }
@@ -1245,11 +1240,9 @@ export function SessionLogger({
             ? signedIn
               ? "Saving & backing up..."
               : "Saving..."
-            : savedSessionId
-              ? "Retry cloud backup"
-              : isEditing
-                ? "Save changes"
-                : "Finish & save session"}
+            : isEditing
+              ? "Save changes"
+              : "Finish & save session"}
         </Button>
       </div>
 

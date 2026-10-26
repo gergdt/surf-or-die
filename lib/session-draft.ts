@@ -45,6 +45,29 @@ export interface SessionDraft {
 }
 
 const DRAFT_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
+/** Running set/exercise timers older than this are leftover from a stale draft. */
+export const MAX_ACTIVE_GYM_TIMER_MS = 6 * 60 * 60 * 1000;
+
+/** Drop a restored gym timer that is missing, out of range, or days old. */
+export function sanitizeGymTimerDraft(
+  timer: GymTimerDraft | null | undefined,
+  now = Date.now(),
+): GymTimerDraft | null {
+  if (!timer) return null;
+  if (
+    !Number.isFinite(timer.exerciseIdx) ||
+    !Number.isFinite(timer.setIdx) ||
+    timer.exerciseIdx < 0 ||
+    timer.setIdx < 0
+  ) {
+    return null;
+  }
+  const started = Math.min(timer.exerciseStartedAt, timer.setStartedAt);
+  if (!Number.isFinite(started) || now - started > MAX_ACTIVE_GYM_TIMER_MS) {
+    return null;
+  }
+  return timer;
+}
 
 function draftKey(category: Category, routineId?: string) {
   return `surf-session-draft:${category}:${routineId ?? "free"}`;
@@ -103,6 +126,7 @@ export function loadSessionDraft(
       ...draft,
       startedAt,
       seconds: Math.max(0, Math.floor((Date.now() - startedAt) / 1000)),
+      gymTimer: sanitizeGymTimerDraft(draft.gymTimer),
     };
   } catch {
     return null;
@@ -141,6 +165,7 @@ function parseDraft(raw: string): SessionDraft | null {
       ...draft,
       startedAt,
       seconds: Math.max(0, Math.floor((Date.now() - startedAt) / 1000)),
+      gymTimer: sanitizeGymTimerDraft(draft.gymTimer),
     };
   } catch {
     return null;
