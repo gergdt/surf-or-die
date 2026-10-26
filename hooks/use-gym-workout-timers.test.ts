@@ -43,6 +43,48 @@ describe("useGymWorkoutTimers", () => {
     expect(result.current.getSetSeconds(0, 0)).toBe(5);
   });
 
+  it("does not restore a days-old draft timer as still running", () => {
+    function useWrapper() {
+      const [entries, setEntries] = React.useState(initialEntries);
+      return useGymWorkoutTimers(entries, setEntries, {
+        enabled: true,
+        initialTimer: {
+          exerciseIdx: 0,
+          setIdx: 0,
+          exerciseStartedAt: Date.now() - 4 * 24 * 60 * 60 * 1000,
+          setStartedAt: Date.now() - 4 * 24 * 60 * 60 * 1000,
+        },
+      });
+    }
+
+    const { result } = renderHook(() => useWrapper());
+    expect(result.current.hasActiveTimer).toBe(false);
+    expect(result.current.getSetSeconds(0, 0)).toBe(0);
+  });
+
+  it("does not throw when finishing a timer whose exercise was removed", () => {
+    function useWrapper() {
+      const [entries, setEntries] = React.useState(initialEntries);
+      return useGymWorkoutTimers(entries, setEntries, {
+        enabled: true,
+        initialTimer: {
+          exerciseIdx: 4,
+          setIdx: 0,
+          exerciseStartedAt: Date.now() - 60_000,
+          setStartedAt: Date.now() - 60_000,
+        },
+      });
+    }
+
+    const { result } = renderHook(() => useWrapper());
+    expect(() =>
+      act(() => {
+        result.current.finalizeAndClear();
+      }),
+    ).not.toThrow();
+    expect(result.current.finalizeAndClear()).toEqual(initialEntries);
+  });
+
   it("calls onSetCompleted when an active set timer is paused", () => {
     const onSetCompleted = vi.fn();
     function useWrapper() {
