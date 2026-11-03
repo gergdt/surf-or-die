@@ -1,7 +1,10 @@
 "use client";
 
 import * as React from "react";
-import type { GymTimerDraft } from "@/lib/session-draft";
+import {
+  sanitizeGymTimerDraft,
+  type GymTimerDraft,
+} from "@/lib/session-draft";
 import type { SetLog } from "@/lib/types";
 
 export interface GymTimerEntry {
@@ -68,15 +71,17 @@ export function useGymWorkoutTimers(
   React.useEffect(() => {
     if (initialTimer === undefined || restoredRef.current) return;
     restoredRef.current = true;
-    setActive(initialTimer);
+    setActive(sanitizeGymTimerDraft(initialTimer));
   }, [initialTimer]);
 
   const finalizeActive = React.useCallback(
     (now = Date.now()): GymTimerEntry[] => {
       if (!active) return entries;
+      const entry = entries[active.exerciseIdx];
+      if (!entry?.setLogs[active.setIdx]) return entries;
       const next = [...entries];
       next[active.exerciseIdx] = finalizeSetOnEntry(
-        next[active.exerciseIdx],
+        entry,
         active.setIdx,
         active.setStartedAt,
         now,
@@ -100,9 +105,14 @@ export function useGymWorkoutTimers(
         active.setIdx === setIdx
       ) {
         const now = Date.now();
+        const current = entries[exerciseIdx];
+        if (!current) {
+          setActive(null);
+          return;
+        }
         const next = [...entries];
         next[exerciseIdx] = finalizeSetOnEntry(
-          next[exerciseIdx],
+          current,
           setIdx,
           active.setStartedAt,
           now,
@@ -122,19 +132,25 @@ export function useGymWorkoutTimers(
       const next = [...entries];
 
       if (active) {
-        next[active.exerciseIdx] = finalizeSetOnEntry(
-          next[active.exerciseIdx],
-          active.setIdx,
-          active.setStartedAt,
-          now,
-        );
-
-        if (active.exerciseIdx !== exerciseIdx) {
-          next[active.exerciseIdx] = finalizeExerciseOnEntry(
-            next[active.exerciseIdx],
-            active.exerciseStartedAt,
+        const previous = next[active.exerciseIdx];
+        if (previous) {
+          next[active.exerciseIdx] = finalizeSetOnEntry(
+            previous,
+            active.setIdx,
+            active.setStartedAt,
             now,
           );
+        }
+
+        if (active.exerciseIdx !== exerciseIdx) {
+          const previousExercise = next[active.exerciseIdx];
+          if (previousExercise) {
+            next[active.exerciseIdx] = finalizeExerciseOnEntry(
+              previousExercise,
+              active.exerciseStartedAt,
+              now,
+            );
+          }
           setEntries(next);
           setActive({
             exerciseIdx,
