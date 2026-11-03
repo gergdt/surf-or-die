@@ -41,6 +41,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = React.useState(false);
 
   React.useEffect(() => {
+    // Without persistent storage the browser may evict IndexedDB under storage pressure.
+    void navigator.storage?.persist?.().catch(() => false);
+  }, []);
+
+  React.useEffect(() => {
     let mounted = true;
     ensureSeeded()
       .catch((err) => console.error("Seeding failed", err))

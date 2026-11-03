@@ -3,6 +3,7 @@ import {
   isPushableExercise,
   isPushableOwned,
   selectDeltaRows,
+  selectNewerRemote,
 } from "./cloud-sync";
 import type { Exercise } from "../types";
 
@@ -46,5 +47,26 @@ describe("cloud sync push selection", () => {
     expect(selectDeltaRows(rows, 0)).toHaveLength(3);
     expect(selectDeltaRows(rows, 150).map((r) => r.id)).toEqual(["b"]);
     expect(selectDeltaRows(rows, 200)).toEqual([]);
+  });
+});
+
+describe("cloud sync pull merge", () => {
+  it("never replaces a newer local row with an older remote copy", () => {
+    const local = new Map([
+      ["kept", { id: "kept", updatedAt: 300 }],
+      ["same", { id: "same", updatedAt: 200 }],
+      ["stale", { id: "stale", updatedAt: 100 }],
+    ]);
+    const remote = [
+      { id: "kept", updatedAt: 250 },
+      { id: "same", updatedAt: 200 },
+      { id: "stale", updatedAt: 150 },
+      { id: "new", createdAt: 50 },
+    ];
+    expect(selectNewerRemote(remote, local).map((r) => r.id)).toEqual([
+      "same",
+      "stale",
+      "new",
+    ]);
   });
 });

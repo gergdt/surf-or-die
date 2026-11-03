@@ -66,6 +66,17 @@ export function selectDeltaRows<T extends Timestamped>(
   return rows.filter((row) => rowTimestamp(row) > lastSyncedAt);
 }
 
+/** Remote rows that are new to this device or at least as recent as the local copy. */
+export function selectNewerRemote<T extends { id: string } & Timestamped>(
+  remote: T[],
+  localById: Map<string, T>,
+): T[] {
+  return remote.filter((row) => {
+    const local = localById.get(row.id);
+    return !local || rowTimestamp(row) >= rowTimestamp(local);
+  });
+}
+
 function lastSyncIso(lastSyncedAt: number): string | null {
   return lastSyncedAt ? new Date(lastSyncedAt).toISOString() : null;
 }
@@ -138,10 +149,11 @@ async function upsertDocuments<T extends { id: string } & Timestamped>(
   return rows.length;
 }
 
-async function pullDelta<T extends { id: string }>(
+async function pullDelta<T extends { id: string } & Timestamped>(
   supabase: SupabaseClient,
   table: string,
   sinceIso: string | null,
+  localRows: T[],
   apply: (rows: T[]) => Promise<unknown>,
 ): Promise<number> {
   let query = supabase.from(table).select("id, data");
@@ -149,7 +161,11 @@ async function pullDelta<T extends { id: string }>(
   const { data, error } = await query;
   if (error) throw error;
   const rows = (data ?? []) as { id: string; data: unknown }[];
-  const docs = rows.map((remote) => remote.data as T);
+  const localById = new Map(localRows.map((row) => [row.id, row]));
+  const docs = selectNewerRemote(
+    rows.map((remote) => remote.data as T),
+    localById,
+  );
   if (docs.length > 0) await apply(docs);
   return docs.length;
 }
@@ -218,8 +234,12 @@ export async function syncToCloud(): Promise<CloudSyncResult> {
     userId,
     selectDeltaRows(exercises.filter(isPushableExercise), lastSyncedAt),
   );
-  pulled += await pullDelta<Exercise>(supabase, "exercises", sinceIso, (rows) =>
-    db.exercises.bulkPut(rows),
+  pulled += await pullDelta<Exercise>(
+    supabase,
+    "exercises",
+    sinceIso,
+    exercises,
+    (rows) => db.exercises.bulkPut(rows),
   );
 
   pushed += await upsertDocuments(
@@ -228,8 +248,12 @@ export async function syncToCloud(): Promise<CloudSyncResult> {
     userId,
     selectDeltaRows(routines.filter(isPushableOwned), lastSyncedAt),
   );
-  pulled += await pullDelta<Routine>(supabase, "routines", sinceIso, (rows) =>
-    db.routines.bulkPut(rows),
+  pulled += await pullDelta<Routine>(
+    supabase,
+    "routines",
+    sinceIso,
+    routines,
+    (rows) => db.routines.bulkPut(rows),
   );
 
   pushed += await upsertDocuments(
@@ -238,8 +262,12 @@ export async function syncToCloud(): Promise<CloudSyncResult> {
     userId,
     selectDeltaRows(sessions, lastSyncedAt),
   );
-  pulled += await pullDelta<Session>(supabase, "sessions", sinceIso, (rows) =>
-    db.sessions.bulkPut(rows),
+  pulled += await pullDelta<Session>(
+    supabase,
+    "sessions",
+    sinceIso,
+    sessions,
+    (rows) => db.sessions.bulkPut(rows),
   );
 
   pushed += await upsertDocuments(
@@ -248,8 +276,12 @@ export async function syncToCloud(): Promise<CloudSyncResult> {
     userId,
     selectDeltaRows(maneuvers.filter(isPushableOwned), lastSyncedAt),
   );
-  pulled += await pullDelta<Maneuver>(supabase, "maneuvers", sinceIso, (rows) =>
-    db.maneuvers.bulkPut(rows),
+  pulled += await pullDelta<Maneuver>(
+    supabase,
+    "maneuvers",
+    sinceIso,
+    maneuvers,
+    (rows) => db.maneuvers.bulkPut(rows),
   );
 
   pushed += await upsertDocuments(
@@ -258,8 +290,12 @@ export async function syncToCloud(): Promise<CloudSyncResult> {
     userId,
     selectDeltaRows(sources.filter(isPushableOwned), lastSyncedAt),
   );
-  pulled += await pullDelta<Source>(supabase, "sources", sinceIso, (rows) =>
-    db.sources.bulkPut(rows),
+  pulled += await pullDelta<Source>(
+    supabase,
+    "sources",
+    sinceIso,
+    sources,
+    (rows) => db.sources.bulkPut(rows),
   );
 
   pushed += await upsertDocuments(
@@ -272,6 +308,7 @@ export async function syncToCloud(): Promise<CloudSyncResult> {
     supabase,
     "annotations",
     sinceIso,
+    annotations,
     (rows) => db.annotations.bulkPut(rows),
   );
 
@@ -285,6 +322,7 @@ export async function syncToCloud(): Promise<CloudSyncResult> {
     supabase,
     "body_metrics",
     sinceIso,
+    bodyMetrics,
     (rows) => db.bodyMetrics.bulkPut(rows),
   );
 
@@ -298,11 +336,12 @@ export async function syncToCloud(): Promise<CloudSyncResult> {
     supabase,
     "surf_sessions",
     sinceIso,
+    surfSessions,
     (rows) => db.surfSessions.bulkPut(rows),
   );
 
   const clipsToPush = selectDeltaRows(localClips, lastSyncedAt);
-  const localClipIds = new Set(localClips.map((c) => c.id));
+  const localClipsById = new Map(localClips.map((c) => [c.id, c]));
   const remotePathById = new Map<string, string | null>();
 
   if (clipsToPush.length > 0) {
@@ -358,9 +397,12 @@ export async function syncToCloud(): Promise<CloudSyncResult> {
 
   for (const remote of remoteClips) {
     const meta = remote.data as ClipMeta;
-    if (localClipIds.has(remote.id)) {
-      await db.clips.put(meta);
-      pulled += 1;
+    const localClip = localClipsById.get(remote.id);
+    if (localClip) {
+      if (rowTimestamp(meta) >= rowTimestamp(localClip)) {
+        await db.clips.put(meta);
+        pulled += 1;
+      }
       continue;
     }
     if (!remote.storage_path) continue;
